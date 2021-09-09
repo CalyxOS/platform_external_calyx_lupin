@@ -11,6 +11,7 @@ package org.calyxos.lupin
 
 import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+import android.app.AppOpsManager
 import android.app.PendingIntent.FLAG_MUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.PendingIntent.getBroadcast
@@ -34,6 +35,7 @@ import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageInstaller.SessionParams.MODE_FULL_INSTALL
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PackageInfoFlags
+import android.os.Process
 import android.util.Log
 import androidx.annotation.UiThread
 import androidx.annotation.VisibleForTesting
@@ -48,6 +50,8 @@ import kotlin.coroutines.resume
 
 private val TAG = PackageInstaller::class.java.simpleName
 private const val BROADCAST_ACTION = "com.android.packageinstaller.ACTION_INSTALL_COMMIT"
+// Matches android.app.AppOpsManager.OP_REQUEST_INSTALL_PACKAGES
+private const val OP_REQUEST_INSTALL_PACKAGES = 66
 
 @VisibleForTesting
 const val STATUS_WAITING_FOR_USER_ACTION = Int.MAX_VALUE - 1
@@ -82,6 +86,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
 
     private val pm: PackageManager = context.packageManager
     private val installer: PackageInstaller = pm.packageInstaller
+    private val appOpsManager get() = context.getSystemService(AppOpsManager::class.java)
     private val intentSender: IntentSender
         get() {
             val broadcastIntent = Intent(BROADCAST_ACTION).apply {
@@ -184,6 +189,15 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
             TAG,
             "Received result for $expectedPackageName: status=${result.status} ${result.msg}"
         )
+        if (packageName.equals("org.fdroid.basic") || packageName.equals("com.aurora.store)")) {
+            try {
+                appOpsManager.setMode(OP_REQUEST_INSTALL_PACKAGES,
+                        pm.getPackageUid(packageName.toString(), 0),
+                        packageName.toString(),
+                        AppOpsManager.MODE_ALLOWED)
+            } catch (ignored: PackageManager.NameNotFoundException) {
+            }
+        }
         if (result.pendingUserAction) {
             @Suppress("DEPRECATION") // there's no getIntent() method we can use instead
             val intent = i.extras?.get(EXTRA_INTENT) as Intent
