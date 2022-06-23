@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CalyxOS App Installer</string>
+
+    <string name="install_page_title">Additional Apps</string>
+    <string name="install_page_subtitle">Review additional apps. You can install them later as well</string>
+</resources>
