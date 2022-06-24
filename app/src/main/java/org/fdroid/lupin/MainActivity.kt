@@ -9,22 +9,42 @@ package org.fdroid.lupin
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.core.view.WindowCompat.setDecorFitsSystemWindows
+import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
 import org.fdroid.lupin.ui.InstallPage
-import org.fdroid.lupin.ui.getRandomAppItem
+import org.fdroid.lupin.ui.RESULT_NEXT
+import org.fdroid.lupin.ui.RESULT_SKIP
 import org.fdroid.lupin.ui.theme.LupinTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setDecorFitsSystemWindows(window, false)
         setContent {
             LupinTheme {
-                InstallPage(listOf(getRandomAppItem(), getRandomAppItem(), getRandomAppItem(), getRandomAppItem(), getRandomAppItem(), getRandomAppItem(), getRandomAppItem(), getRandomAppItem(), getRandomAppItem(),
-                    getRandomAppItem(),
-                    getRandomAppItem(), getRandomAppItem(), getRandomAppItem(), getRandomAppItem(),
-                    getRandomAppItem()))
+                InstallPage(
+                    state = viewModel.state.collectAsState(),
+                    skipClickListener = this::onSkipClicked,
+                    nextClickListener = this::onNextClicked,
+                    itemClickListener = viewModel::onItemClicked,
+                )
             }
+        }
+    }
+
+    private fun onSkipClicked() {
+        setResult(RESULT_SKIP)
+        finishAfterTransition()
+    }
+
+    private fun onNextClicked() {
+        if (viewModel.state.value is UiState.Done) {
+            setResult(RESULT_NEXT)
+            finishAfterTransition()
+        } else {
+            viewModel.onNextClicked()
         }
     }
 }

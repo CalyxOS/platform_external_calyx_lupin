@@ -6,6 +6,8 @@
 
 package org.fdroid.lupin.ui
 
+import android.app.Activity.RESULT_FIRST_USER
+import android.app.Activity.RESULT_OK
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -28,15 +30,61 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.fdroid.lupin.ui.theme.LupinTheme
 
+val horizontalMargin = 40.dp
+fun Modifier.suwPageModifier() = padding(
+    top = horizontalMargin,
+    start = horizontalMargin,
+    end = horizontalMargin,
+)
+const val RESULT_SKIP = RESULT_FIRST_USER
+const val RESULT_NEXT = RESULT_OK
+
 @Composable
 fun SuwPage(
-    modifier: Modifier = Modifier,
     @DrawableRes icon: Int,
     title: String,
+    modifier: Modifier = Modifier,
     subtitle: String? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     SuwPage(
+        modifier = modifier,
+        header = {
+            SuwHeader(
+                icon = icon,
+                title = title,
+                subtitle = subtitle,
+            )
+        },
+        content = content,
+    )
+}
+
+@Composable
+fun SuwPage(
+    header: (@Composable ColumnScope.() -> Unit),
+    modifier: Modifier = Modifier,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = MaterialTheme.colors.background,
+    ) {
+        Column(modifier = modifier.suwPageModifier()) {
+            header()
+            content()
+        }
+    }
+}
+
+@Composable
+fun SuwHeader(
+    @DrawableRes icon: Int,
+    title: String,
+    modifier: Modifier = Modifier,
+    subtitle: String? = null,
+) {
+    SuwHeader(
         modifier = modifier,
         icon = {
             Image(
@@ -49,37 +97,29 @@ fun SuwPage(
         },
         title = title,
         subtitle = subtitle,
-        content = content,
     )
 }
 
 @Composable
-fun SuwPage(
-    modifier: Modifier = Modifier,
+fun SuwHeader(
     icon: (@Composable ColumnScope.() -> Unit)?,
     title: String,
+    modifier: Modifier = Modifier,
     subtitle: String? = null,
-    content: @Composable ColumnScope.() -> Unit,
 ) {
-    Surface(
-        modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background,
-    ) {
-        Column(Modifier.padding(top = 72.dp, start = 40.dp, end = 40.dp, bottom = 48.dp)) {
-            if (icon != null) icon()
+    Column(modifier) {
+        if (icon != null) icon()
+        Text(
+            text = title,
+            fontSize = 34.sp,
+            modifier = Modifier.padding(top = 16.dp),
+        )
+        if (subtitle != null) {
             Text(
-                text = title,
-                fontSize = 34.sp,
-                modifier = Modifier.padding(top = 16.dp),
+                text = subtitle,
+                fontSize = 17.sp,
+                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
             )
-            if (subtitle != null) {
-                Text(
-                    text = subtitle,
-                    fontSize = 17.sp,
-                    modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
-                )
-            }
-            content()
         }
     }
 }
