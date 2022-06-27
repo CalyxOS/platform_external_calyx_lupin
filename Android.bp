@@ -9,6 +9,7 @@ prebuilt_etc {
 android_app_import {
   name: "Lupin",
   apk: "app/build/outputs/apk/debug/app-debug.apk",
+  default_dev_cert: true,
   privileged: true,
   product_specific: true,
   required: ["privapp_whitelist_org.calyxos.lupin"],
