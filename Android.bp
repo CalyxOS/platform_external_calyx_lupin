@@ -1,0 +1,15 @@
+prebuilt_etc {
+    name: "privapp_whitelist_org.calyxos.lupin",
+    product_specific: true,
+    sub_dir: "permissions",
+    src: "permissions_org.calyxos.lupin.xml",
+    filename_from_src: true,
+}
+
+android_app_import {
+  name: "Lupin",
+  apk: "app/build/outputs/apk/debug/app-debug.apk",
+  privileged: true,
+  product_specific: true,
+  required: ["privapp_whitelist_org.calyxos.lupin"],
+}
