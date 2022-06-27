@@ -119,7 +119,7 @@ fun ButtonRow(
     nextClickListener: () -> Unit,
 ) {
     Row(Modifier.padding(horizontal = horizontalMargin, vertical = 8.dp)) {
-        val skipEnabled = state.value is UiState.Loading || state.value is SelectingApps
+        val skipEnabled = state.value !is UiState.InstallingApps
         TextButton(enabled = skipEnabled, onClick = skipClickListener) {
             Text(text = stringResource(R.string.skip))
         }

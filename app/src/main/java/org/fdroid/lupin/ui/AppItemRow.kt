@@ -8,7 +8,6 @@ package org.fdroid.lupin.ui
 
 import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,10 +31,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import org.fdroid.lupin.AppItem
 import org.fdroid.lupin.AppItemState
 import org.fdroid.lupin.R
 import org.fdroid.lupin.ui.theme.LupinTheme
+import java.io.File
 import kotlin.random.Random
 
 @Composable
@@ -55,8 +56,10 @@ fun AppItemRow(
             }
             .then(modifier),
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+        AsyncImage(
+            model = item.icon,
+            placeholder = painterResource(R.drawable.ic_launcher_foreground),
+            fallback = painterResource(android.R.drawable.ic_dialog_alert),
             contentDescription = null,
             modifier = Modifier.size(48.dp),
             alignment = Alignment.Center,
@@ -130,6 +133,7 @@ internal fun getRandomAppItem(context: Context) = AppItem(
     icon = context.getDrawable(R.drawable.ic_launcher_foreground)!!,
     name = LoremIpsum(3).values.first(),
     summary = LoremIpsum(8).values.first(),
+    apk = File("/"),
     state = when {
         Random.nextBoolean() -> AppItemState.Selectable(Random.nextBoolean())
         Random.nextBoolean() -> AppItemState.Progress

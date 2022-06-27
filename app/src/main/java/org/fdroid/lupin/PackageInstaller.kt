@@ -1,0 +1,161 @@
+/*
+ * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2019-2022 The Calyx Institute
+ *
+ *  Based on code from com.android.packageinstaller.InstallInstalling
+ *  frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/InstallInstalling.java
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+package org.fdroid.lupin
+
+import android.app.PendingIntent.FLAG_MUTABLE
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
+import android.app.PendingIntent.getBroadcast
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.Intent.FLAG_RECEIVER_FOREGROUND
+import android.content.IntentFilter
+import android.content.IntentSender
+import android.content.pm.PackageInstaller
+import android.content.pm.PackageInstaller.EXTRA_PACKAGE_NAME
+import android.content.pm.PackageInstaller.EXTRA_STATUS
+import android.content.pm.PackageInstaller.EXTRA_STATUS_MESSAGE
+import android.content.pm.PackageInstaller.STATUS_PENDING_USER_ACTION
+import android.content.pm.PackageInstaller.STATUS_SUCCESS
+import android.content.pm.PackageInstaller.SessionParams
+import android.content.pm.PackageInstaller.SessionParams.MODE_FULL_INSTALL
+import android.content.pm.PackageManager
+import android.content.pm.PackageManager.INSTALL_SCENARIO_BULK
+import android.util.Log
+import android.util.Log.DEBUG
+import androidx.core.content.ContextCompat.startActivity
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.io.File
+import java.io.IOException
+import kotlin.coroutines.resume
+
+private val TAG = PackageInstaller::class.java.simpleName
+private const val BROADCAST_ACTION = "com.android.packageinstaller.ACTION_INSTALL_COMMIT"
+
+data class InstallResult(
+    val status: Int,
+    val msg: String?,
+    val exception: Exception? = null,
+) {
+    constructor(exception: Exception) : this(-1, null, exception)
+
+    val success = status == STATUS_SUCCESS
+}
+
+class PackageInstaller(private val context: Context) {
+
+    private val pm: PackageManager = context.packageManager
+    private val installer: PackageInstaller = pm.packageInstaller
+    private val intentSender: IntentSender
+        get() {
+            val broadcastIntent = Intent(BROADCAST_ACTION).apply {
+                setPackage(context.packageName)
+                flags = FLAG_RECEIVER_FOREGROUND
+            }
+            val pendingIntent = // needs to be mutable, otherwise no extras
+                getBroadcast(context, 0, broadcastIntent, FLAG_UPDATE_CURRENT or FLAG_MUTABLE)
+
+            return pendingIntent.intentSender
+        }
+
+    @Throws(IOException::class, SecurityException::class)
+    suspend fun install(
+        packageName: String,
+        packageFile: File,
+    ): InstallResult = suspendCancellableCoroutine { cont ->
+        val broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, i: Intent) {
+                if (i.action != BROADCAST_ACTION) return
+                val result = onBroadcastReceived(i, packageName)
+                if (result != null) {
+                    context.unregisterReceiver(this)
+                    cont.resume(result)
+                }
+            }
+        }
+        context.registerReceiver(broadcastReceiver, IntentFilter(BROADCAST_ACTION))
+        cont.invokeOnCancellation { context.unregisterReceiver(broadcastReceiver) }
+
+        try {
+            performInstall(packageName, packageFile)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error installing $packageName", e)
+            context.unregisterReceiver(broadcastReceiver)
+            cont.resume(InstallResult(e))
+        }
+    }
+
+    @Throws(IOException::class, SecurityException::class)
+    private fun performInstall(packageName: String, packageFile: File) {
+        if (!packageFile.isFile) throw IOException("Cannot read package file $packageFile")
+
+        val params = SessionParams(MODE_FULL_INSTALL).apply {
+            setInstallScenario(INSTALL_SCENARIO_BULK)
+            setAppPackageName(packageName)
+            setSize(packageFile.length())
+            // Don't set more sessionParams intentionally here.
+            // We saw strange permission issues when doing setInstallReason()
+            // or setting installFlags.
+        }
+        val sessionId = installer.createSession(params)
+        installer.openSession(sessionId).use { session ->
+            val sizeBytes = packageFile.length()
+            packageFile.inputStream().use { inputStream ->
+                session.openWrite(packageFile.name, 0, sizeBytes).use { out ->
+                    inputStream.copyTo(out)
+                    session.fsync(out)
+                }
+            }
+            session.commit(intentSender)
+        }
+    }
+
+    /**
+     * Call this when receiving the [STATUS_PENDING_USER_ACTION] intent
+     * for the [PackageInstaller.Session].
+     *
+     * @return null when user action was required or a proper [InstallResult].
+     * In case of null, you should continue to listen to broadcast and only unregister
+     * when we have an [InstallResult].
+     */
+    private fun onBroadcastReceived(i: Intent, expectedPackageName: String): InstallResult? {
+        val packageName = i.getStringExtra(EXTRA_PACKAGE_NAME)
+        check(packageName == null || packageName == expectedPackageName) {
+            "Expected $expectedPackageName, but got $packageName."
+        }
+        val result = InstallResult(
+            status = i.getIntExtra(EXTRA_STATUS, Int.MIN_VALUE),
+            msg = i.getStringExtra(EXTRA_STATUS_MESSAGE),
+        )
+        if (Log.isLoggable(TAG, DEBUG)) {
+            val p = packageName ?: expectedPackageName
+            Log.d(TAG, "Received result for $p: status=${result.status} ${result.msg}")
+        }
+        if (result.status == STATUS_PENDING_USER_ACTION) {
+            val intent = i.extras?.get(Intent.EXTRA_INTENT) as Intent
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+            startActivity(context, intent, null)
+            return null
+        }
+        return result
+    }
+}

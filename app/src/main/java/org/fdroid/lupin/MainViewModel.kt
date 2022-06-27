@@ -7,7 +7,8 @@
 package org.fdroid.lupin
 
 import android.app.Application
-import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
+import android.content.res.Resources.getSystem
+import androidx.core.os.ConfigurationCompat.getLocales
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -15,28 +16,44 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.fdroid.LocaleChooser.getBestLocale
+import org.fdroid.index.v2.IndexV2
 import org.fdroid.lupin.AppItemState.Selectable
+import java.io.File
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val list = listOf(
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-        getItem(),
-    )
-    private val _state = MutableStateFlow<UiState>(UiState.SelectingApps(list, true))
+    private val repoReader = RepoReader()
+    private val packageInstaller = PackageInstaller(getApplication())
+
+    private val _state = MutableStateFlow<UiState>(UiState.Loading)
     val state = _state.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            repoReader.readRepo().collect {
+                onIndexLoaded(it)
+            }
+        }
+    }
+
+    private fun onIndexLoaded(index: IndexV2) {
+        val locales = getLocales(getSystem().configuration)
+        val items = index.packages.map { app ->
+            val metadata = app.value.metadata
+            val version = app.value.versions.values.first()
+            val versionCode = version.versionCode
+            AppItem(
+                packageName = app.key,
+                icon = "$REPO_PATH/icons-640/${app.key}.$versionCode.png",
+                name = metadata.name.getBestLocale(locales) ?: "Unknown",
+                summary = metadata.summary.getBestLocale(locales) ?: "",
+                apk = File(REPO_PATH, version.file.name),
+                state = Selectable(false),
+            )
+        }.sortedBy { it.name }
+        _state.value = UiState.SelectingApps(items, items.isNotEmpty())
+    }
 
     fun onItemClicked(item: AppItem) {
         val newItems = state.value.items.map {
@@ -56,9 +73,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             items.forEachIndexed { i, item ->
                 if (item.state is Selectable && item.state.selected) {
                     replaceItem(items, i, item.copy(state = AppItemState.Progress), done, total)
-                    delay(1000)
+                    val result = packageInstaller.install(item.packageName, item.apk)
+                    val newItem = if (result.success) {
+                        item.copy(state = AppItemState.Success)
+                    } else {
+                        item.copy(state = AppItemState.Error)
+                    }
                     done++
-                    replaceItem(items, i, item.copy(state = AppItemState.Success), done, total)
+                    replaceItem(items, i, newItem, done, total)
                 } else {
                     replaceItem(items, i, item.copy(state = AppItemState.ShowOnly), done, total)
                 }
@@ -78,13 +100,5 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     ) {
         _state.value = UiState.InstallingApps(items.apply { set(index, item) }, done, total)
     }
-
-    private fun getItem() = AppItem(
-        packageName = "org.example",
-        icon = getApplication<Application>().getDrawable(R.drawable.ic_launcher_foreground)!!,
-        name = LoremIpsum(3).values.first(),
-        summary = LoremIpsum(8).values.first(),
-        state = Selectable(true),
-    )
 
 }

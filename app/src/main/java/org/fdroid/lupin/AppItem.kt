@@ -6,7 +6,7 @@
 
 package org.fdroid.lupin
 
-import android.graphics.drawable.Drawable
+import java.io.File
 
 sealed class AppItemState {
     object ShowOnly : AppItemState()
@@ -21,8 +21,9 @@ sealed class AppItemState {
 
 data class AppItem(
     val packageName: String,
-    val icon: Drawable,
+    val icon: Any?,
     val name: String,
     val summary: String,
+    val apk: File,
     val state: AppItemState,
 )
