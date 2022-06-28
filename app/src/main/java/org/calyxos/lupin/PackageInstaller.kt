@@ -81,6 +81,7 @@ class PackageInstaller(private val context: Context) {
     suspend fun install(
         packageName: String,
         packageFile: File,
+        sessionConfig: (SessionParams.() -> Unit)? = null,
     ): InstallResult = suspendCancellableCoroutine { cont ->
         val broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, i: Intent) {
@@ -96,7 +97,7 @@ class PackageInstaller(private val context: Context) {
         cont.invokeOnCancellation { context.unregisterReceiver(broadcastReceiver) }
 
         try {
-            performInstall(packageName, packageFile)
+            performInstall(packageName, packageFile, sessionConfig)
         } catch (e: Exception) {
             Log.e(TAG, "Error installing $packageName", e)
             context.unregisterReceiver(broadcastReceiver)
@@ -105,13 +106,18 @@ class PackageInstaller(private val context: Context) {
     }
 
     @Throws(IOException::class, SecurityException::class)
-    private fun performInstall(packageName: String, packageFile: File) {
+    private fun performInstall(
+        packageName: String,
+        packageFile: File,
+        sessionConfig: (SessionParams.() -> Unit)?,
+    ) {
         if (!packageFile.isFile) throw IOException("Cannot read package file $packageFile")
 
         val params = SessionParams(MODE_FULL_INSTALL).apply {
             setInstallScenario(INSTALL_SCENARIO_BULK)
             setAppPackageName(packageName)
             setSize(packageFile.length())
+            if (sessionConfig != null) sessionConfig()
             // Don't set more sessionParams intentionally here.
             // We saw strange permission issues when doing setInstallReason()
             // or setting installFlags.

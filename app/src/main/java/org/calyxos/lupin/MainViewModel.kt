@@ -71,7 +71,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             items.forEachIndexed { i, item ->
                 if (item.state is Selectable && item.state.selected) {
                     replaceItem(items, i, item.copy(state = AppItemState.Progress), done, total)
-                    val result = packageInstaller.install(item.packageName, item.apk)
+                    val result = packageInstaller.install(item.packageName, item.apk) {
+                        val method = javaClass.methods.find { it.name == "setInstallerPackageName" }
+                        method?.invoke(this, "org.fdroid.fdroid.privileged")
+                    }
                     val newItem = if (result.success) {
                         item.copy(state = AppItemState.Success)
                     } else {

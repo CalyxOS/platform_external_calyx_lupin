@@ -1,8 +1,16 @@
 prebuilt_etc {
-    name: "privapp_whitelist_org.calyxos.lupin",
+    name: "privapp_permissions_org.calyxos.lupin",
     product_specific: true,
     sub_dir: "permissions",
     src: "permissions_org.calyxos.lupin.xml",
+    filename_from_src: true,
+}
+
+prebuilt_etc {
+    name: "privapp_whitelist_org.calyxos.lupin",
+    product_specific: true,
+    sub_dir: "sysconfig",
+    src: "whitelist_org.calyxos.lupin.xml",
     filename_from_src: true,
 }
 
