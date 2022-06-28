@@ -4,17 +4,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.fdroid.lupin
+package org.calyxos.lupin
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
-import org.fdroid.lupin.ui.InstallPage
-import org.fdroid.lupin.ui.RESULT_NEXT
-import org.fdroid.lupin.ui.RESULT_SKIP
-import org.fdroid.lupin.ui.theme.LupinTheme
+import org.calyxos.lupin.ui.InstallPage
+import org.calyxos.lupin.ui.RESULT_NEXT
+import org.calyxos.lupin.ui.RESULT_SKIP
+import org.calyxos.lupin.ui.theme.LupinTheme
 
 class MainActivity : ComponentActivity() {
 

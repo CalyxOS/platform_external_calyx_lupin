@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.fdroid.lupin.ui
+package org.calyxos.lupin.ui
 
 import android.app.Activity.RESULT_FIRST_USER
 import android.app.Activity.RESULT_OK
@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.fdroid.lupin.ui.theme.LupinTheme
+import org.calyxos.lupin.ui.theme.LupinTheme
 
 val horizontalMargin = 40.dp
 fun Modifier.suwPageModifier() = padding(

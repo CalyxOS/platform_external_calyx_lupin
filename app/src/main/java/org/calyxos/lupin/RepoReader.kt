@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.fdroid.lupin
+package org.calyxos.lupin
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow

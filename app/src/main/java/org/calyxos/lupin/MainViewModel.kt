@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.fdroid.lupin
+package org.calyxos.lupin
 
 import android.app.Application
 import android.content.res.Resources.getSystem
@@ -12,13 +12,12 @@ import androidx.core.os.ConfigurationCompat.getLocales
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.calyxos.lupin.AppItemState.Selectable
 import org.fdroid.LocaleChooser.getBestLocale
 import org.fdroid.index.v2.IndexV2
-import org.fdroid.lupin.AppItemState.Selectable
 import java.io.File
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {
@@ -85,8 +84,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                     replaceItem(items, i, item.copy(state = AppItemState.ShowOnly), done, total)
                 }
             }
-            _state.value = UiState.InstallingApps(items, items.size, items.size)
-            delay(500)
             _state.value = UiState.Done(items)
         }
     }

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.fdroid.lupin.ui
+package org.calyxos.lupin.ui
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -41,11 +41,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import org.fdroid.lupin.AppItem
-import org.fdroid.lupin.R
-import org.fdroid.lupin.UiState
-import org.fdroid.lupin.UiState.SelectingApps
-import org.fdroid.lupin.ui.theme.LupinTheme
+import org.calyxos.lupin.AppItem
+import org.calyxos.lupin.R
+import org.calyxos.lupin.UiState
+import org.calyxos.lupin.UiState.SelectingApps
+import org.calyxos.lupin.ui.theme.LupinTheme
 
 @Composable
 fun InstallPage(
