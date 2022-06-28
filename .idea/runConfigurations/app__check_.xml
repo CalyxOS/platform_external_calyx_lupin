@@ -11,6 +11,7 @@
       <option name="taskNames">
         <list>
           <option value="check" />
+          <option value="ktlintCheck" />
         </list>
       </option>
       <option name="vmOptions" value="" />
