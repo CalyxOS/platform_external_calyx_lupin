@@ -20,5 +20,5 @@ android_app_import {
   default_dev_cert: true,
   privileged: true,
   product_specific: true,
-  required: ["privapp_whitelist_org.calyxos.lupin"],
+  required: ["privapp_permissions_org.calyxos.lupin", "privapp_whitelist_org.calyxos.lupin"],
 }
