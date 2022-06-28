@@ -41,14 +41,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val items = index.packages.map { app ->
             val metadata = app.value.metadata
             val version = app.value.versions.values.first()
-            val versionCode = version.versionCode
             AppItem(
                 packageName = app.key,
-                icon = "$REPO_PATH/icons-640/${app.key}.$versionCode.png",
+                icon = "$REPO_PATH/${metadata.icon.getBestLocale(locales)?.name}",
                 name = metadata.name.getBestLocale(locales) ?: "Unknown",
                 summary = metadata.summary.getBestLocale(locales) ?: "",
                 apk = File(REPO_PATH, version.file.name),
-                state = Selectable(false),
+                state = Selectable(true),
             )
         }.sortedBy { it.name }
         _state.value = UiState.SelectingApps(items, items.isNotEmpty())
