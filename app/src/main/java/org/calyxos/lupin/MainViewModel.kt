@@ -8,22 +8,30 @@ package org.calyxos.lupin
 
 import android.app.Application
 import android.content.res.Resources.getSystem
+import android.util.Log
 import androidx.core.os.ConfigurationCompat.getLocales
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import org.calyxos.lupin.AppItemState.Selectable
 import org.fdroid.LocaleChooser.getBestLocale
 import org.fdroid.index.v2.IndexV2
 import java.io.File
+import java.util.concurrent.TimeUnit.MINUTES
+
+private val TAG = MainViewModel::class.simpleName
+private val TIMEOUT = MINUTES.toMillis(2)
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repoReader = RepoReader()
     private val packageInstaller = PackageInstaller(getApplication())
+    private val appInstaller = AppInstaller(packageInstaller)
 
     private val _state = MutableStateFlow<UiState>(UiState.Loading)
     val state = _state.asStateFlow()
@@ -66,38 +74,26 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val items = state.value.items.toMutableList()
         _state.value = UiState.SelectionComplete(items)
         viewModelScope.launch(Dispatchers.IO) {
-            var done = 0
-            val total = items.count { it.state is Selectable && it.state.selected }
-            items.forEachIndexed { i, item ->
-                if (item.state is Selectable && item.state.selected) {
-                    replaceItem(items, i, item.copy(state = AppItemState.Progress), done, total)
-                    val result = packageInstaller.install(item.packageName, item.apk) {
-                        val method = javaClass.methods.find { it.name == "setInstallerPackageName" }
-                        method?.invoke(this, "org.fdroid.fdroid.privileged")
+            try {
+                withTimeout(TIMEOUT) {
+                    appInstaller.installApps(items).collect { uiState ->
+                        _state.value = uiState
                     }
-                    val newItem = if (result.success) {
-                        item.copy(state = AppItemState.Success)
-                    } else {
-                        item.copy(state = AppItemState.Error)
-                    }
-                    done++
-                    replaceItem(items, i, newItem, done, total)
-                } else {
-                    replaceItem(items, i, item.copy(state = AppItemState.ShowOnly), done, total)
                 }
+            } catch (e: TimeoutCancellationException) {
+                Log.e(TAG, "Timed out installing apps", e)
+                onTimeout(items)
             }
-            _state.value = UiState.Done(items)
         }
     }
 
-    private fun replaceItem(
-        items: MutableList<AppItem>,
-        index: Int,
-        item: AppItem,
-        done: Int,
-        total: Int,
-    ) {
-        _state.value = UiState.InstallingApps(items.apply { set(index, item) }, done, total)
+    private fun onTimeout(items: MutableList<AppItem>) {
+        val newItems = items.map { item ->
+            if (item.state is AppItemState.Progress || item.state is Selectable) {
+                item.copy(state = AppItemState.Error)
+            } else item
+        }
+        _state.value = UiState.Done(newItems)
     }
 
 }

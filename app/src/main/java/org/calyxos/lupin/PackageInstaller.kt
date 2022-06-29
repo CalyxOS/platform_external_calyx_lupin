@@ -39,9 +39,7 @@ import android.content.pm.PackageInstaller.STATUS_SUCCESS
 import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageInstaller.SessionParams.MODE_FULL_INSTALL
 import android.content.pm.PackageManager
-import android.content.pm.PackageManager.INSTALL_SCENARIO_BULK
 import android.util.Log
-import android.util.Log.DEBUG
 import androidx.core.content.ContextCompat.startActivity
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.File
@@ -114,7 +112,6 @@ class PackageInstaller(private val context: Context) {
         if (!packageFile.isFile) throw IOException("Cannot read package file $packageFile")
 
         val params = SessionParams(MODE_FULL_INSTALL).apply {
-            setInstallScenario(INSTALL_SCENARIO_BULK)
             setAppPackageName(packageName)
             setSize(packageFile.length())
             if (sessionConfig != null) sessionConfig()
@@ -152,10 +149,8 @@ class PackageInstaller(private val context: Context) {
             status = i.getIntExtra(EXTRA_STATUS, Int.MIN_VALUE),
             msg = i.getStringExtra(EXTRA_STATUS_MESSAGE),
         )
-        if (Log.isLoggable(TAG, DEBUG)) {
-            val p = packageName ?: expectedPackageName
-            Log.d(TAG, "Received result for $p: status=${result.status} ${result.msg}")
-        }
+        Log.d(TAG,
+            "Received result for $expectedPackageName: status=${result.status} ${result.msg}")
         if (result.status == STATUS_PENDING_USER_ACTION) {
             val intent = i.extras?.get(Intent.EXTRA_INTENT) as Intent
             intent.addFlags(FLAG_ACTIVITY_NEW_TASK)

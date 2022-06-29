@@ -100,7 +100,14 @@ fun ItemState(state: AppItemState) {
                     tint = MaterialTheme.colors.primary,
                 )
             }
-            else -> {}
+            is AppItemState.Error -> {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_error),
+                    contentDescription = stringResource(id = R.string.error_not_installed),
+                    tint = MaterialTheme.colors.primary,
+                )
+            }
+            is AppItemState.ShowOnly -> {}
         }
     }
 }
@@ -126,6 +133,12 @@ fun AppItemRowPreview() {
 @Preview(showBackground = true)
 fun AppItemRowPreviewSuccess() {
     AppItemRow(item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Success))
+}
+
+@Composable
+@Preview(showBackground = true)
+fun AppItemRowPreviewError() {
+    AppItemRow(item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Error))
 }
 
 internal fun getRandomAppItem(context: Context) = AppItem(
