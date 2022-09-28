@@ -25,7 +25,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             LupinTheme {
                 InstallPage(
-                    state = viewModel.state.collectAsState(),
+                    // TODO collect state lifecycle aware when upgrading lifecycle to 2.6
+                    state = viewModel.state.collectAsState().value,
+                    onCheckAllClicked = viewModel::onCheckAllClicked,
                     skipClickListener = this::onSkipClicked,
                     nextClickListener = this::onNextClicked,
                     itemClickListener = viewModel::onItemClicked,

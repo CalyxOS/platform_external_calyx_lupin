@@ -12,6 +12,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,6 +24,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -67,7 +70,7 @@ fun AppItemRow(
         )
         Column(Modifier
             .weight(1f)
-            .padding(horizontal = 8.dp)) {
+            .padding(horizontal = 16.dp)) {
             Text(
                 text = item.name,
                 style = MaterialTheme.typography.body1,
@@ -84,11 +87,15 @@ fun AppItemRow(
 }
 
 @Composable
-fun ItemState(state: AppItemState) {
-    Box(Modifier.size(32.dp)) {
+fun RowScope.ItemState(state: AppItemState) {
+    Box(Modifier.size(32.dp).align(CenterVertically)) {
         when (state) {
             is AppItemState.Selectable -> {
-                Checkbox(checked = state.selected, onCheckedChange = null)
+                Checkbox(
+                    modifier = Modifier.align(Center),
+                    checked = state.selected,
+                    onCheckedChange = null,
+                )
             }
             is AppItemState.Progress -> {
                 CircularProgressIndicator(modifier = Modifier.size(24.dp))

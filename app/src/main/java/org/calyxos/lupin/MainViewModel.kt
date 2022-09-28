@@ -69,6 +69,28 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         _state.value = UiState.SelectingApps(newItems, hasSelected)
     }
 
+    fun onCheckAllClicked() {
+        val s = state.value as? UiState.SelectingApps ?: return
+        val allSelected = s.items.all { it.state is Selectable && it.state.selected }
+        if (allSelected) {
+            // unselect all
+            val newItems = s.items.map {
+                if (it.state is Selectable && it.state.selected) {
+                    it.copy(state = it.state.invert())
+                } else it
+            }
+            _state.value = UiState.SelectingApps(newItems, false)
+        } else {
+            // select all
+            val newItems = s.items.map {
+                if (it.state is Selectable && !it.state.selected) {
+                    it.copy(state = it.state.invert())
+                } else it
+            }
+            _state.value = UiState.SelectingApps(newItems, true)
+        }
+    }
+
     // this assumes that items don't change anymore once this is called
     fun onNextClicked() {
         val items = state.value.items.toMutableList()
