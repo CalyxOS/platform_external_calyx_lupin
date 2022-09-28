@@ -6,6 +6,9 @@
 
 package org.calyxos.lupin
 
+import androidx.core.os.LocaleListCompat
+import org.fdroid.LocaleChooser.getBestLocale
+import org.fdroid.index.v2.PackageV2
 import java.io.File
 
 sealed class AppItemState {
@@ -24,6 +27,40 @@ data class AppItem(
     val icon: Any?,
     val name: String,
     val summary: String,
-    val apk: File,
+    val apkGetter: suspend () -> File,
     val state: AppItemState,
-)
+) {
+    /**
+     * Creates a new selectable item that is pre-selected.
+     */
+    constructor(
+        packageName: String,
+        result: RepoResult,
+        packageV2: PackageV2,
+        locales: LocaleListCompat,
+    ) : this(
+        packageName = packageName,
+        icon = result.iconGetter(packageV2.metadata.icon.getBestLocale(locales)?.name),
+        name = packageV2.metadata.name.getBestLocale(locales) ?: "Unknown",
+        summary = packageV2.metadata.summary.getBestLocale(locales) ?: "",
+        apkGetter = { result.apkGetter(packageV2.versions.values.first().file.name) },
+        state = AppItemState.Selectable(true),
+    )
+
+    /**
+     * Copies the given [item], retaining its [packageName], [icon] and [state].
+     */
+    constructor(
+        item: AppItem,
+        result: RepoResult,
+        packageV2: PackageV2,
+        locales: LocaleListCompat,
+    ) : this(
+        packageName = item.packageName,
+        icon = item.icon,
+        name = packageV2.metadata.name.getBestLocale(locales) ?: "Unknown",
+        summary = packageV2.metadata.summary.getBestLocale(locales) ?: "",
+        apkGetter = { result.apkGetter(packageV2.versions.values.first().file.name) },
+        state = item.state,
+    )
+}

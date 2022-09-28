@@ -8,10 +8,12 @@ package org.calyxos.lupin
 
 import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageManager.INSTALL_SCENARIO_BULK
+import android.util.Log
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.flow
 import kotlin.coroutines.coroutineContext
 
+private const val TAG = "AppInstaller"
 private const val INSTALLER_PACKAGE_NAME = "org.fdroid.fdroid.privileged"
 
 class AppInstaller(
@@ -25,10 +27,7 @@ class AppInstaller(
             if (item.state is AppItemState.Selectable && item.state.selected) {
                 val progressItem = item.copy(state = AppItemState.Progress)
                 emit(UiState.InstallingApps(items.apply { set(i, progressItem) }, done, total))
-                val result = packageInstaller.install(item.packageName, item.apk) {
-                    setInstallScenario(INSTALL_SCENARIO_BULK)
-                    setInstallerPackageName(INSTALLER_PACKAGE_NAME)
-                }
+                val result = installApk(item)
                 val doneItem = if (result.success) {
                     item.copy(state = AppItemState.Success)
                 } else {
@@ -44,6 +43,26 @@ class AppInstaller(
             }
         }
         emit(UiState.Done(items))
+    }
+
+    private suspend fun installApk(item: AppItem): InstallResult {
+        val file = try {
+            item.apkGetter()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error getting APK: ", e)
+            return InstallResult(e)
+        }
+        return try {
+            packageInstaller.install(item.packageName, file) {
+                setInstallScenario(INSTALL_SCENARIO_BULK)
+                setInstallerPackageName(INSTALLER_PACKAGE_NAME)
+            }
+        } finally {
+            try {
+                file.delete()
+            } catch (ignored: Exception) {
+            }
+        }
     }
 
     private fun SessionParams.setInstallerPackageName(packageName: String) {

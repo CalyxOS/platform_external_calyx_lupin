@@ -23,7 +23,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -49,7 +48,7 @@ fun AppItemRow(
     clickListener: ((AppItem) -> Unit)? = null,
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .run {
@@ -61,12 +60,12 @@ fun AppItemRow(
     ) {
         AsyncImage(
             model = item.icon,
-            placeholder = painterResource(R.drawable.ic_launcher_foreground),
-            fallback = painterResource(android.R.drawable.ic_dialog_alert),
+            fallback = painterResource(R.drawable.ic_default),
+            error = painterResource(R.drawable.ic_default),
             contentDescription = null,
             modifier = Modifier.size(48.dp),
-            alignment = Alignment.Center,
-            contentScale = ContentScale.Inside,
+            alignment = Center,
+            contentScale = ContentScale.Fit,
         )
         Column(Modifier
             .weight(1f)
@@ -88,7 +87,9 @@ fun AppItemRow(
 
 @Composable
 fun RowScope.ItemState(state: AppItemState) {
-    Box(Modifier.size(32.dp).align(CenterVertically)) {
+    Box(Modifier
+        .size(32.dp)
+        .align(CenterVertically)) {
         when (state) {
             is AppItemState.Selectable -> {
                 Checkbox(
@@ -153,7 +154,7 @@ internal fun getRandomAppItem(context: Context) = AppItem(
     icon = context.getDrawable(R.drawable.ic_launcher_foreground)!!,
     name = LoremIpsum(3).values.first(),
     summary = LoremIpsum(8).values.first(),
-    apk = File("/"),
+    apkGetter = { File("/") },
     state = when {
         Random.nextBoolean() -> AppItemState.Selectable(Random.nextBoolean())
         Random.nextBoolean() -> AppItemState.Progress
