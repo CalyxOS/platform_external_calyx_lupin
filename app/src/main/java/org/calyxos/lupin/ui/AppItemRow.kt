@@ -155,6 +155,7 @@ internal fun getRandomAppItem(context: Context) = AppItem(
     name = LoremIpsum(3).values.first(),
     summary = LoremIpsum(8).values.first(),
     apkGetter = { File("/") },
+    apkSize = 42,
     state = when {
         Random.nextBoolean() -> AppItemState.Selectable(Random.nextBoolean())
         Random.nextBoolean() -> AppItemState.Progress

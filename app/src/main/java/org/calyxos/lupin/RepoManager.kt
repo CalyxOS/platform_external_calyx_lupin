@@ -8,12 +8,15 @@ package org.calyxos.lupin
 
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.calyxos.lupin.BuildConfig.VERSION_NAME
 import org.fdroid.download.DownloadRequest
 import org.fdroid.download.HttpDownloader
 import org.fdroid.download.HttpManager
 import org.fdroid.download.Mirror
+import org.fdroid.fdroid.ProgressListener
 import org.fdroid.index.IndexConverter
 import org.fdroid.index.IndexParser
 import org.fdroid.index.parseV1
@@ -28,7 +31,7 @@ internal const val REPO_URL = "https://calyxos.gitlab.io/calyx-fdroid-repo/fdroi
 data class RepoResult(
     val index: IndexV2,
     val iconGetter: (String?) -> Any?,
-    val apkGetter: suspend (String) -> File,
+    val apkGetter: suspend (String, DownloadListener) -> File,
 )
 
 class RepoManager(private val context: Context) {
@@ -37,7 +40,7 @@ class RepoManager(private val context: Context) {
         RepoResult(
             index = getIndex(File(REPO_PATH, REPO_INDEX)),
             iconGetter = { icon -> if (icon == null) null else "$REPO_PATH/$icon" },
-            apkGetter = { apk -> File(REPO_PATH, apk) },
+            apkGetter = { apk, _ -> File(REPO_PATH, apk) },
         )
     }
 
@@ -54,18 +57,26 @@ class RepoManager(private val context: Context) {
         RepoResult(
             index = index,
             iconGetter = { icon -> if (icon == null) null else "$REPO_URL/$icon" },
-            apkGetter = { apk ->
-                withContext(Dispatchers.IO) {
-                    val apkRequest = DownloadRequest(
-                        path = apk,
-                        mirrors = listOf(Mirror(REPO_URL)),
-                    )
-                    val apkFile = File.createTempFile("dl-", "", context.cacheDir)
-                    HttpDownloader(httpManager, apkRequest, apkFile).download()
-                    apkFile
-                }
-            },
-        )
+        ) { apk, downloadListener ->
+            val apkRequest = DownloadRequest(
+                path = apk,
+                mirrors = listOf(Mirror(REPO_URL)),
+            )
+            val apkFile = File.createTempFile("dl-", "", context.cacheDir)
+            HttpDownloader(httpManager, apkRequest, apkFile).apply {
+                val coContext = currentCoroutineContext()
+                setListener(object : ProgressListener {
+                    override fun onProgress(bytesRead: Long, totalBytes: Long) {
+                        // this is a bit of a hack to work around the messy progress reporting
+                        launch(coContext) {
+                            downloadListener.bytesRead(bytesRead)
+                        }
+                    }
+                })
+                download()
+            }
+            apkFile
+        }
     }
 
     private fun getIndex(file: File, cert: String = CERT): IndexV2 {

@@ -22,12 +22,17 @@ sealed class AppItemState {
     object Error : AppItemState()
 }
 
+fun interface DownloadListener {
+    suspend fun bytesRead(numBytes: Long)
+}
+
 data class AppItem(
     val packageName: String,
     val icon: Any?,
     val name: String,
     val summary: String,
-    val apkGetter: suspend () -> File,
+    val apkGetter: suspend (DownloadListener) -> File,
+    val apkSize: Long,
     val state: AppItemState,
 ) {
     /**
@@ -43,7 +48,10 @@ data class AppItem(
         icon = result.iconGetter(packageV2.metadata.icon.getBestLocale(locales)?.name),
         name = packageV2.metadata.name.getBestLocale(locales) ?: "Unknown",
         summary = packageV2.metadata.summary.getBestLocale(locales) ?: "",
-        apkGetter = { result.apkGetter(packageV2.versions.values.first().file.name) },
+        apkGetter = { downloadListener ->
+            result.apkGetter(packageV2.versions.values.first().file.name, downloadListener)
+        },
+        apkSize = packageV2.versions.values.first().file.size ?: 0,
         state = AppItemState.Selectable(true),
     )
 
@@ -60,7 +68,10 @@ data class AppItem(
         icon = item.icon,
         name = packageV2.metadata.name.getBestLocale(locales) ?: "Unknown",
         summary = packageV2.metadata.summary.getBestLocale(locales) ?: "",
-        apkGetter = { result.apkGetter(packageV2.versions.values.first().file.name) },
+        apkGetter = { downloadListener ->
+            result.apkGetter(packageV2.versions.values.first().file.name, downloadListener)
+        },
+        apkSize = packageV2.versions.values.first().file.size ?: 0,
         state = item.state,
     )
 }

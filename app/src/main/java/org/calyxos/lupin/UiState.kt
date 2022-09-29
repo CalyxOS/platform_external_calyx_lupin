@@ -16,7 +16,7 @@ sealed class UiState(
 
     class SelectionComplete(items: List<AppItem>) : UiState(items)
 
-    class InstallingApps(items: List<AppItem>, val done: Int, val total: Int) : UiState(items)
+    class InstallingApps(items: List<AppItem>, val done: Long, val total: Long) : UiState(items)
 
     class Done(items: List<AppItem>) : UiState(items)
 

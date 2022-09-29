@@ -111,7 +111,7 @@ fun LazyListScope.listHeader(state: UiState) {
         item {
             val progressAnimation by animateFloatAsState(
                 targetValue = progress,
-                animationSpec = tween(durationMillis = 2500, easing = FastOutSlowInEasing)
+                animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
             )
             LinearProgressIndicator(
                 progress = progressAnimation,
