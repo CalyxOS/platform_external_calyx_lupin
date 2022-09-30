@@ -4,6 +4,7 @@
     <string name="install_page_title">Additional Apps</string>
     <string name="install_page_subtitle">Review additional apps. You can install them later as well.</string>
     <string name="install_page_all">All of the following apps</string>
+    <string name="install_page_offline">Can only be installed when online</string>
 
     <string name="skip">Skip</string>
     <string name="install">Install</string>

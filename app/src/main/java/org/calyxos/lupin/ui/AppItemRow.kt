@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Checkbox
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -26,6 +27,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -44,15 +47,17 @@ import kotlin.random.Random
 @Composable
 fun AppItemRow(
     item: AppItem,
+    isOnline: Boolean,
     modifier: Modifier = Modifier,
     clickListener: ((AppItem) -> Unit)? = null,
 ) {
+    val canBeInstalled = isOnline || !item.isOnlineOnly
     Row(
         verticalAlignment = CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .run {
-                if (clickListener != null) {
+                if (clickListener != null && canBeInstalled) {
                     clickable { clickListener(item) }
                 } else this
             }
@@ -65,6 +70,7 @@ fun AppItemRow(
             contentDescription = null,
             modifier = Modifier.size(48.dp),
             alignment = Center,
+            alpha = if (canBeInstalled) DefaultAlpha else ContentAlpha.disabled,
             contentScale = ContentScale.Fit,
         )
         Column(Modifier
@@ -73,20 +79,28 @@ fun AppItemRow(
             Text(
                 text = item.name,
                 style = MaterialTheme.typography.body1,
+                color = if (canBeInstalled) Color.Unspecified else {
+                    MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
+                },
                 modifier = Modifier.padding(top = 8.dp),
             )
             Text(
-                text = item.summary,
+                text = if (canBeInstalled) item.summary else {
+                    stringResource(R.string.install_page_offline)
+                },
                 style = MaterialTheme.typography.caption,
+                color = if (canBeInstalled) Color.Unspecified else {
+                    MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
+                },
                 modifier = Modifier.padding(bottom = 8.dp),
             )
         }
-        ItemState(item.state)
+        ItemState(item.state, canBeInstalled)
     }
 }
 
 @Composable
-fun RowScope.ItemState(state: AppItemState) {
+fun RowScope.ItemState(state: AppItemState, canBeSelected: Boolean = true) {
     Box(Modifier
         .size(32.dp)
         .align(CenterVertically)) {
@@ -94,7 +108,8 @@ fun RowScope.ItemState(state: AppItemState) {
             is AppItemState.Selectable -> {
                 Checkbox(
                     modifier = Modifier.align(Center),
-                    checked = state.selected,
+                    checked = canBeSelected && state.selected,
+                    enabled = canBeSelected,
                     onCheckedChange = null,
                 )
             }
@@ -125,8 +140,10 @@ fun RowScope.ItemState(state: AppItemState) {
 fun AppItemRowPreviewNight() {
     LupinTheme {
         Surface {
-            AppItemRow(item = getRandomAppItem(LocalContext.current)
-                .copy(state = AppItemState.Progress))
+            AppItemRow(
+                item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Progress),
+                isOnline = true,
+            )
         }
     }
 }
@@ -134,19 +151,44 @@ fun AppItemRowPreviewNight() {
 @Composable
 @Preview(showBackground = true)
 fun AppItemRowPreview() {
-    AppItemRow(item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.ShowOnly))
+    AppItemRow(
+        item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.ShowOnly),
+        isOnline = true,
+    )
+}
+
+@Composable
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+fun AppItemRowPreviewOffline() {
+    LupinTheme {
+        Surface {
+            AppItemRow(
+                item = getRandomAppItem(LocalContext.current).copy(
+                    isOnlineOnly = true,
+                    state = AppItemState.Selectable(false)
+                ),
+                isOnline = false,
+            )
+        }
+    }
 }
 
 @Composable
 @Preview(showBackground = true)
 fun AppItemRowPreviewSuccess() {
-    AppItemRow(item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Success))
+    AppItemRow(
+        item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Success),
+        isOnline = true,
+    )
 }
 
 @Composable
 @Preview(showBackground = true)
 fun AppItemRowPreviewError() {
-    AppItemRow(item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Error))
+    AppItemRow(
+        item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Error),
+        isOnline = true,
+    )
 }
 
 internal fun getRandomAppItem(context: Context) = AppItem(
@@ -156,6 +198,7 @@ internal fun getRandomAppItem(context: Context) = AppItem(
     summary = LoremIpsum(8).values.first(),
     apkGetter = { File("/") },
     apkSize = 42,
+    isOnlineOnly = Random.nextBoolean(),
     state = when {
         Random.nextBoolean() -> AppItemState.Selectable(Random.nextBoolean())
         Random.nextBoolean() -> AppItemState.Progress

@@ -33,6 +33,7 @@ data class AppItem(
     val summary: String,
     val apkGetter: suspend (DownloadListener) -> File,
     val apkSize: Long,
+    val isOnlineOnly: Boolean,
     val state: AppItemState,
 ) {
     /**
@@ -46,12 +47,13 @@ data class AppItem(
     ) : this(
         packageName = packageName,
         icon = result.iconGetter(packageV2.metadata.icon.getBestLocale(locales)?.name),
-        name = packageV2.metadata.name.getBestLocale(locales) ?: "Unknown",
-        summary = packageV2.metadata.summary.getBestLocale(locales) ?: "",
+        name = packageV2.getName(locales),
+        summary = packageV2.getSummary(locales),
         apkGetter = { downloadListener ->
             result.apkGetter(packageV2.versions.values.first().file.name, downloadListener)
         },
-        apkSize = packageV2.versions.values.first().file.size ?: 0,
+        apkSize = packageV2.getApkSize(),
+        isOnlineOnly = packageV2.isOnlineOnly(),
         state = AppItemState.Selectable(true),
     )
 
@@ -66,12 +68,29 @@ data class AppItem(
     ) : this(
         packageName = item.packageName,
         icon = item.icon,
-        name = packageV2.metadata.name.getBestLocale(locales) ?: "Unknown",
-        summary = packageV2.metadata.summary.getBestLocale(locales) ?: "",
+        name = packageV2.getName(locales),
+        summary = packageV2.getSummary(locales),
         apkGetter = { downloadListener ->
             result.apkGetter(packageV2.versions.values.first().file.name, downloadListener)
         },
-        apkSize = packageV2.versions.values.first().file.size ?: 0,
+        apkSize = packageV2.getApkSize(),
+        isOnlineOnly = packageV2.isOnlineOnly(),
         state = item.state,
     )
+}
+
+private fun PackageV2.getName(locales: LocaleListCompat): String {
+    return metadata.name.getBestLocale(locales) ?: "Unknown"
+}
+
+private fun PackageV2.getSummary(locales: LocaleListCompat): String {
+    return metadata.summary.getBestLocale(locales) ?: ""
+}
+
+private fun PackageV2.getApkSize(): Long {
+    return versions.values.first().file.size ?: 0
+}
+
+private fun PackageV2.isOnlineOnly(): Boolean {
+    return metadata.categories.contains(CATEGORY_ONLINE_ONLY)
 }

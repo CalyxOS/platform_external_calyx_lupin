@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
                 InstallPage(
                     // TODO collect state lifecycle aware when upgrading lifecycle to 2.6
                     state = viewModel.state.collectAsState().value,
+                    isOnline = viewModel.onlineState.collectAsState().value,
                     onCheckAllClicked = viewModel::onCheckAllClicked,
                     skipClickListener = this::onSkipClicked,
                     nextClickListener = this::onNextClicked,

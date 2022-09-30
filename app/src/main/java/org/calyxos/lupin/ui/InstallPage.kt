@@ -57,6 +57,7 @@ import org.calyxos.lupin.ui.theme.LupinTheme
 @Composable
 fun InstallPage(
     state: UiState,
+    isOnline: Boolean,
     onCheckAllClicked: () -> Unit,
     skipClickListener: (() -> Unit),
     nextClickListener: (() -> Unit),
@@ -80,8 +81,9 @@ fun InstallPage(
                 }
                 items(state.items) { item ->
                     AppItemRow(
-                        item = item,
                         modifier = Modifier.padding(horizontal = horizontalMargin),
+                        item = item,
+                        isOnline = isOnline,
                         clickListener = if (state is SelectingApps) {
                             itemClickListener
                         } else null,
@@ -216,6 +218,6 @@ fun InstallPagePreview() {
                 getRandomAppItem(context)
             ), 1, 3))
         }
-        InstallPage(state.value, {}, {}, {})
+        InstallPage(state.value, true, {}, {}, {})
     }
 }

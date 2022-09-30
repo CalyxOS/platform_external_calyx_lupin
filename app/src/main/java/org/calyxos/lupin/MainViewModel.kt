@@ -8,8 +8,6 @@ package org.calyxos.lupin
 
 import android.app.Application
 import android.content.res.Resources.getSystem
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED
 import android.util.Log
 import androidx.core.os.ConfigurationCompat.getLocales
 import androidx.lifecycle.AndroidViewModel
@@ -28,16 +26,20 @@ import java.util.concurrent.TimeUnit.MINUTES
 private val TAG = MainViewModel::class.simpleName
 private val TIMEOUT = MINUTES.toMillis(2)
 
-class MainViewModel(private val app: Application) : AndroidViewModel(app) {
+class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repoManager = RepoManager(app.applicationContext)
+    private val networkManager = NetworkManager(app.applicationContext)
     private val packageInstaller = PackageInstaller(getApplication())
     private val appInstaller = AppInstaller(packageInstaller)
 
     private val _state = MutableStateFlow<UiState>(UiState.Loading)
     val state = _state.asStateFlow()
 
+    val onlineState = networkManager.onlineState
+
     init {
+        // update indexes
         viewModelScope.launch {
             // get the on-disk index and remember it
             val oldIndex = try {
@@ -49,7 +51,7 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
                 return@launch
             }
             // update index from the internet
-            if (isOnlineNotMetered()) {
+            if (onlineState.value) {
                 try {
                     onOnlineIndexLoaded(oldIndex, repoManager.getOnlineIndex())
                 } catch (e: Exception) {
@@ -118,13 +120,6 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
         // sort new items and update state
         val items = (updatedItems + newItems).sortedBy { it.name }
         _state.value = UiState.SelectingApps(items, items.isNotEmpty())
-    }
-
-    private fun isOnlineNotMetered(): Boolean {
-        val connectivityManager = app.getSystemService(ConnectivityManager::class.java)
-        val currentNetwork = connectivityManager.activeNetwork
-        val caps = connectivityManager.getNetworkCapabilities(currentNetwork)
-        return caps?.hasCapability(NET_CAPABILITY_NOT_METERED) ?: false
     }
 
     fun onItemClicked(item: AppItem) {
