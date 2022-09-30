@@ -26,12 +26,14 @@ import java.util.concurrent.TimeUnit.MINUTES
 private val TAG = MainViewModel::class.simpleName
 private val TIMEOUT = MINUTES.toMillis(2)
 
-class MainViewModel(app: Application) : AndroidViewModel(app) {
+class MainViewModel(app: Application) : AndroidViewModel(app), OnlineStateChangedListener {
 
     private val repoManager = RepoManager(app.applicationContext)
-    private val networkManager = NetworkManager(app.applicationContext)
+    private val networkManager = NetworkManager(app.applicationContext, this)
     private val packageInstaller = PackageInstaller(getApplication())
     private val appInstaller = AppInstaller(packageInstaller)
+
+    private var localIndex: IndexV2? = null
 
     private val _state = MutableStateFlow<UiState>(UiState.Loading)
     val state = _state.asStateFlow()
@@ -50,14 +52,30 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 Log.e(TAG, "Error getting local index: ", e)
                 return@launch
             }
-            // update index from the internet
-            if (onlineState.value) {
-                try {
-                    onOnlineIndexLoaded(oldIndex, repoManager.getOnlineIndex())
-                } catch (e: Exception) {
-                    Log.e(TAG, "Error downloading index: ", e)
-                }
+            if (networkManager.onlineState.value) {
+                loadOnlineIndex(oldIndex)
+            } else {
+                // save local index in case we come online later
+                localIndex = oldIndex
             }
+        }
+    }
+
+    private suspend fun loadOnlineIndex(oldIndex: IndexV2) {
+        // update index from the internet
+        try {
+            onOnlineIndexLoaded(oldIndex, repoManager.getOnlineIndex())
+            localIndex = null
+        } catch (e: Exception) {
+            Log.e(TAG, "Error downloading index: ", e)
+        }
+    }
+
+    override fun onOnlineStateChanged(online: Boolean) {
+        // load online index, if we have not done so already
+        val oldIndex = localIndex
+        if (online && oldIndex != null) viewModelScope.launch {
+            loadOnlineIndex(oldIndex)
         }
     }
 
@@ -99,7 +117,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             val versionCode = packageV2?.versions?.values?.first()?.versionCode ?: 0
             val oldVersionCode = oldPackageV2?.versions?.values?.first()?.versionCode ?: 0
             // update current item, of new version code is higher than old one
-            if (versionCode > oldVersionCode) AppItem(
+            if (item.isOnlineOnly || versionCode > oldVersionCode) AppItem(
                 item = item,
                 result = result,
                 packageV2 = packageV2 ?: oldPackageV2 ?: error("Not supposed to happen"),

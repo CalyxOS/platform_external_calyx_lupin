@@ -13,7 +13,14 @@ import kotlinx.coroutines.flow.asStateFlow
 
 private const val TAG = "NetworkManager"
 
-class NetworkManager(context: Context) : ConnectivityManager.NetworkCallback() {
+fun interface OnlineStateChangedListener {
+    fun onOnlineStateChanged(online: Boolean)
+}
+
+class NetworkManager(
+    context: Context,
+    private val listener: OnlineStateChangedListener,
+) : ConnectivityManager.NetworkCallback() {
     private val connectivityManager = context.getSystemService(ConnectivityManager::class.java)
 
     private val _onlineState = MutableStateFlow(isOnlineNotMetered())
@@ -25,19 +32,29 @@ class NetworkManager(context: Context) : ConnectivityManager.NetworkCallback() {
             .addCapability(NET_CAPABILITY_INTERNET)
             .addCapability(NET_CAPABILITY_NOT_METERED)
             .build()
+        // this will call us right back with the current state
         connectivityManager.requestNetwork(networkRequest, this)
     }
 
     override fun onAvailable(network: Network) {
-        _onlineState.value = network.isOnline().also { Log.i(TAG, "onAvailable: $it") }
+        val online = network.isOnline()
+        Log.i(TAG, "onAvailable: $online")
+        val wasSet = _onlineState.compareAndSet(!online, online)
+        if (wasSet) listener.onOnlineStateChanged(online)
     }
 
     override fun onLost(network: Network) {
-        _onlineState.value = isOnlineNotMetered().also { Log.i(TAG, "onLost: $it") }
+        val online = isOnlineNotMetered()
+        Log.i(TAG, "onLost: $online")
+        val wasSet = _onlineState.compareAndSet(!online, online)
+        if (wasSet) listener.onOnlineStateChanged(online)
     }
 
     override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) {
-        _onlineState.value = caps.isOnline().also { Log.i(TAG, "onCapabilitiesChanged: $it") }
+        val online = caps.isOnline()
+        Log.i(TAG, "onCapabilitiesChanged: $online")
+        val wasSet = _onlineState.compareAndSet(!online, online)
+        if (wasSet) listener.onOnlineStateChanged(online)
     }
 
     private fun isOnlineNotMetered(): Boolean {
