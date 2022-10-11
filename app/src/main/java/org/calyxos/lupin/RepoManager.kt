@@ -7,6 +7,7 @@
 package org.calyxos.lupin
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.launch
@@ -23,6 +24,8 @@ import org.fdroid.index.parseV1
 import org.fdroid.index.v1.IndexV1Verifier
 import org.fdroid.index.v2.IndexV2
 import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 
 internal const val REPO_INDEX = "index-v1.jar"
 internal const val REPO_PATH = "/product/fdroid/repo"
@@ -35,7 +38,8 @@ data class RepoResult(
     val apkGetter: suspend (String, DownloadListener) -> File,
 )
 
-class RepoManager(private val context: Context) {
+@Singleton
+class RepoManager @Inject constructor(@ApplicationContext private val context: Context) {
 
     suspend fun getLocalIndex(): RepoResult = withContext(Dispatchers.IO) {
         RepoResult(

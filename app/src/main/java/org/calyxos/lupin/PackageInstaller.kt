@@ -41,9 +41,12 @@ import android.content.pm.PackageInstaller.SessionParams.MODE_FULL_INSTALL
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.File
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.resume
 
 private val TAG = PackageInstaller::class.java.simpleName
@@ -59,7 +62,8 @@ data class InstallResult(
     val success = status == STATUS_SUCCESS
 }
 
-class PackageInstaller(private val context: Context) {
+@Singleton
+class PackageInstaller @Inject constructor(@ApplicationContext private val context: Context) {
 
     private val pm: PackageManager = context.packageManager
     private val installer: PackageInstaller = pm.packageInstaller

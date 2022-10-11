@@ -11,11 +11,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
+import dagger.hilt.android.AndroidEntryPoint
 import org.calyxos.lupin.ui.InstallPage
 import org.calyxos.lupin.ui.RESULT_NEXT
 import org.calyxos.lupin.ui.RESULT_SKIP
 import org.calyxos.lupin.ui.theme.LupinTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()

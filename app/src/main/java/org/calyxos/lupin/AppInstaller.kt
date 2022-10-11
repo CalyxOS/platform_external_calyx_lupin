@@ -13,11 +13,14 @@ import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.channelFlow
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val TAG = "AppInstaller"
 private const val INSTALLER_PACKAGE_NAME = "org.fdroid.fdroid.privileged"
 
-class AppInstaller(
+@Singleton
+class AppInstaller @Inject constructor(
     private val packageInstaller: PackageInstaller,
 ) {
 

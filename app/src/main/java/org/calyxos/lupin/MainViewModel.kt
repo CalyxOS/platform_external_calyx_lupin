@@ -12,6 +12,7 @@ import android.util.Log
 import androidx.core.os.ConfigurationCompat.getLocales
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,16 +23,19 @@ import kotlinx.coroutines.withTimeout
 import org.calyxos.lupin.AppItemState.Selectable
 import org.fdroid.index.v2.IndexV2
 import java.util.concurrent.TimeUnit.MINUTES
+import javax.inject.Inject
 
 private val TAG = MainViewModel::class.simpleName
 private val TIMEOUT = MINUTES.toMillis(2)
 
-class MainViewModel(app: Application) : AndroidViewModel(app), OnlineStateChangedListener {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    app: Application,
+    private val repoManager: RepoManager,
+    private val appInstaller: AppInstaller,
+) : AndroidViewModel(app), OnlineStateChangedListener {
 
-    private val repoManager = RepoManager(app.applicationContext)
     private val networkManager = NetworkManager(app.applicationContext, this)
-    private val packageInstaller = PackageInstaller(getApplication())
-    private val appInstaller = AppInstaller(packageInstaller)
 
     private var localIndex: IndexV2? = null
 
