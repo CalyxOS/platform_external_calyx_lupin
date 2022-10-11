@@ -45,11 +45,12 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun onNextClicked() {
-        if (viewModel.state.value is UiState.Done) {
+        if (viewModel.state.value.showSkipButton) {
+            viewModel.onNextClicked()
+        } else {
+            // when skipping isn't possible anymore, next was already clicked, so we finish here
             setResult(RESULT_NEXT)
             finishAfterTransition()
-        } else {
-            viewModel.onNextClicked()
         }
     }
 }

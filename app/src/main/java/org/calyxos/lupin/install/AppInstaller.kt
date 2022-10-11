@@ -4,15 +4,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.calyxos.lupin
+package org.calyxos.lupin.install
 
 import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageManager.INSTALL_SCENARIO_BULK
 import android.util.Log
-import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import org.calyxos.lupin.InstallResult
+import org.calyxos.lupin.PackageInstaller
+import org.calyxos.lupin.state.AppItem
+import org.calyxos.lupin.state.AppItemState
+import org.calyxos.lupin.state.UiState
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,20 +29,27 @@ class AppInstaller @Inject constructor(
     private val packageInstaller: PackageInstaller,
 ) {
 
-    // we are using a channelFlow so we update download progress async
-    internal suspend fun installApps(items: MutableList<AppItem>) = channelFlow {
+    private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
+
+    /**
+     * This provides updated [UiState] only after calling [installApps].
+     */
+    val uiState = _uiState.asStateFlow()
+
+    internal suspend fun installApps(items: MutableList<AppItem>) {
+        _uiState.value = UiState.SelectionComplete(items)
         var done = 0L
         val total = items.sumOf {
             if (it.state is AppItemState.Selectable && it.state.selected) it.apkSize else 0L
         }
+        _uiState.value = UiState.InstallingApps(items, done, total)
         items.forEachIndexed { i, item ->
             if (item.state is AppItemState.Selectable && item.state.selected) {
                 val progressItem = item.copy(state = AppItemState.Progress)
-                val state =
-                    UiState.InstallingApps(items.apply { set(i, progressItem) }, done, total)
-                send(state)
+                val s = UiState.InstallingApps(items.withReplaced(i, progressItem), done, total)
+                _uiState.value = s
                 // download and install APK, will emit updated state
-                val result = installApk(item, state)
+                val result = installApk(item, s)
                 val doneItem = if (result.success) {
                     item.copy(state = AppItemState.Success)
                 } else {
@@ -45,17 +57,19 @@ class AppInstaller @Inject constructor(
                 }
                 done += item.apkSize
                 currentCoroutineContext().ensureActive()
-                send(UiState.InstallingApps(items.apply { set(i, doneItem) }, done, total))
+                _uiState.value =
+                    UiState.InstallingApps(items.withReplaced(i, doneItem), done, total)
             } else {
                 currentCoroutineContext().ensureActive()
                 val showOnlyItem = item.copy(state = AppItemState.ShowOnly)
-                send(UiState.InstallingApps(items.apply { set(i, showOnlyItem) }, done, total))
+                _uiState.value =
+                    UiState.InstallingApps(items.withReplaced(i, showOnlyItem), done, total)
             }
         }
-        send(UiState.Done(items))
+        _uiState.value = UiState.Done(items)
     }
 
-    private suspend fun ProducerScope<UiState>.installApk(
+    private suspend fun installApk(
         item: AppItem,
         state: UiState.InstallingApps,
     ): InstallResult {
@@ -64,7 +78,7 @@ class AppInstaller @Inject constructor(
                 // emit updated state with download progress
                 val newState =
                     UiState.InstallingApps(state.items, state.done + bytesRead, state.total)
-                send(newState)
+                _uiState.value = newState
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error getting APK: ", e)
@@ -80,6 +94,12 @@ class AppInstaller @Inject constructor(
                 file.delete()
             } catch (ignored: Exception) {
             }
+        }
+    }
+
+    private fun MutableList<AppItem>.withReplaced(index: Int, item: AppItem): MutableList<AppItem> {
+        return apply {
+            set(index, item)
         }
     }
 

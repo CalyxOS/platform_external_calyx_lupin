@@ -47,11 +47,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import org.calyxos.lupin.AppItem
-import org.calyxos.lupin.AppItemState.Selectable
 import org.calyxos.lupin.R
-import org.calyxos.lupin.UiState
-import org.calyxos.lupin.UiState.SelectingApps
+import org.calyxos.lupin.state.AppItem
+import org.calyxos.lupin.state.AppItemState.Selectable
+import org.calyxos.lupin.state.UiState
+import org.calyxos.lupin.state.UiState.SelectingApps
 import org.calyxos.lupin.ui.theme.LupinTheme
 
 @Composable
@@ -173,8 +173,7 @@ fun ButtonRow(
     nextClickListener: () -> Unit,
 ) {
     Row(Modifier.padding(horizontal = horizontalMargin, vertical = 8.dp)) {
-        val skipEnabled = state !is UiState.InstallingApps
-        TextButton(enabled = skipEnabled, onClick = skipClickListener) {
+        if (state.showSkipButton) TextButton(onClick = skipClickListener) {
             Text(text = stringResource(R.string.skip))
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -184,9 +183,8 @@ fun ButtonRow(
             lastIndex == lastVisibleIndex
         }.collectAsState(initial = false)
         val coroutineScope = rememberCoroutineScope()
-        val buttonEnabled = state is SelectingApps || state is UiState.Done
         val showMoreButton = state is SelectingApps && !isEnd.value
-        Button(shape = MaterialTheme.shapes.large, enabled = buttonEnabled, onClick = {
+        Button(shape = MaterialTheme.shapes.large, enabled = state.canTapNextButton, onClick = {
             if (showMoreButton) coroutineScope.launch {
                 val lastVisible = listState.layoutInfo.visibleItemsInfo.last()
                 listState.animateScrollToItem(lastVisible.index)

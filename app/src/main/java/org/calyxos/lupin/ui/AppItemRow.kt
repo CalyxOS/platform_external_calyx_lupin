@@ -37,9 +37,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import org.calyxos.lupin.AppItem
-import org.calyxos.lupin.AppItemState
 import org.calyxos.lupin.R
+import org.calyxos.lupin.state.AppItem
+import org.calyxos.lupin.state.AppItemState
 import org.calyxos.lupin.ui.theme.LupinTheme
 import java.io.File
 import kotlin.random.Random

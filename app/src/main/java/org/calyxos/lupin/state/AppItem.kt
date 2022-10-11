@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.calyxos.lupin
+package org.calyxos.lupin.state
 
 import androidx.core.os.LocaleListCompat
 import org.fdroid.LocaleChooser.getBestLocale
