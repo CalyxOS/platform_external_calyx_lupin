@@ -11,6 +11,8 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import org.calyxos.lupin.R
+import org.calyxos.lupin.state.AppItemState
 import org.calyxos.lupin.state.UiState
 import javax.inject.Inject
 
@@ -35,6 +37,7 @@ class AppInstallerService : LifecycleService() {
     @Inject
     lateinit var appInstaller: AppInstaller
 
+    private val notificationManager get() = getSystemService(NotificationManager::class.java)
     private val notification: Notification
         get() = Notification.Builder(applicationContext, CHANNEL_ID).build()
 
@@ -53,11 +56,22 @@ class AppInstallerService : LifecycleService() {
     private fun createNotificationChannel() {
         val name = "App Installer Channel"
         val channel = NotificationChannel(CHANNEL_ID, name, IMPORTANCE_LOW)
-        val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
     }
 
     private fun onUiStateChanged(uiState: UiState) {
+        if (uiState is UiState.InstallingApps) {
+            val max = (uiState.total / 1024).toInt()
+            val progress = (uiState.done / 1024).toInt()
+            val notification = Notification.Builder(applicationContext, CHANNEL_ID)
+                .setOngoing(true)
+                .setContentTitle(getString(R.string.install_notification_title))
+                .setContentText(uiState.items.find { it.state == AppItemState.Progress }?.name)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setProgress(max, progress, false)
+                .build()
+            notificationManager.notify(ONGOING_NOTIFICATION_ID, notification)
+        }
     }
 
 }
