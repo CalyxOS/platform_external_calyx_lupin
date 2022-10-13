@@ -6,9 +6,14 @@
 
 package org.calyxos.lupin.install
 
+import android.content.Context
 import android.content.pm.PackageInstaller.SessionParams
+import android.content.pm.PackageManager.GET_SIGNATURES
+import android.content.pm.PackageManager.GET_SIGNING_CERTIFICATES
 import android.content.pm.PackageManager.INSTALL_SCENARIO_BULK
+import android.content.pm.SigningInfo
 import android.util.Log
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +23,9 @@ import org.calyxos.lupin.PackageInstaller
 import org.calyxos.lupin.state.AppItem
 import org.calyxos.lupin.state.AppItemState
 import org.calyxos.lupin.state.UiState
+import org.fdroid.index.IndexUtils.getPackageSignature
+import org.fdroid.index.v2.SignerV2
+import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,6 +34,7 @@ private const val INSTALLER_PACKAGE_NAME = "org.fdroid.fdroid.privileged"
 
 @Singleton
 class AppInstaller @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val packageInstaller: PackageInstaller,
 ) {
 
@@ -85,6 +94,10 @@ class AppInstaller @Inject constructor(
             return InstallResult(e)
         }
         return try {
+            if (!isValidSignature(file, item)) {
+                val e = SecurityException("Invalid signature for ${item.packageName}")
+                return InstallResult(e)
+            }
             packageInstaller.install(item.packageName, file) {
                 setInstallScenario(INSTALL_SCENARIO_BULK)
                 setInstallerPackageName(INSTALLER_PACKAGE_NAME)
@@ -96,6 +109,30 @@ class AppInstaller @Inject constructor(
             }
         }
     }
+
+    private fun isValidSignature(file: File, item: AppItem): Boolean {
+        val flags = GET_SIGNING_CERTIFICATES or GET_SIGNATURES
+        val packageInfo =
+            context.packageManager.getPackageArchiveInfo(file.absolutePath, flags) ?: return false
+        if (item.packageName != packageInfo.packageName) {
+            Log.e(TAG,
+                "Package ${item.packageName} expected, but ${packageInfo.packageName} found.")
+            return false
+        }
+        return packageInfo.signingInfo.getSigner() == item.signers
+    }
+
+    /**
+     * Returns a list of hex-encoded SHA-256 signature hashes in [SignerV2].
+     */
+    private fun SigningInfo.getSigner(): SignerV2 = SignerV2(
+        hasMultipleSigners = hasMultipleSigners(),
+        sha256 = if (hasMultipleSigners()) apkContentsSigners.map { signature ->
+            getPackageSignature(signature.toByteArray())
+        } else signingCertificateHistory.map { signature ->
+            getPackageSignature(signature.toByteArray())
+        },
+    )
 
     private fun MutableList<AppItem>.withReplaced(index: Int, item: AppItem): MutableList<AppItem> {
         return apply {
