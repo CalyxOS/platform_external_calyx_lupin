@@ -41,6 +41,7 @@ import org.calyxos.lupin.R
 import org.calyxos.lupin.state.AppItem
 import org.calyxos.lupin.state.AppItemState
 import org.calyxos.lupin.ui.theme.LupinTheme
+import org.fdroid.index.v2.SignerV2
 import java.io.File
 import kotlin.random.Random
 
@@ -193,11 +194,13 @@ fun AppItemRowPreviewError() {
 
 internal fun getRandomAppItem(context: Context) = AppItem(
     packageName = "org.example",
+    versionCode = 42L,
     icon = context.getDrawable(R.drawable.ic_launcher_foreground)!!,
     name = LoremIpsum(3).values.first(),
     summary = LoremIpsum(8).values.first(),
     apkGetter = { File("/") },
     apkSize = 42,
+    signers = SignerV2(emptyList()),
     isOnlineOnly = Random.nextBoolean(),
     state = when {
         Random.nextBoolean() -> AppItemState.Selectable(Random.nextBoolean())

@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.calyxos.lupin.install.AppInstaller
 import org.calyxos.lupin.install.AppInstallerService
-import org.fdroid.index.v2.IndexV2
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -29,7 +28,7 @@ class StateManager @Inject constructor(
 
     val networkManager = NetworkManager(context, this)
 
-    private var localIndex: IndexV2? = null
+    private var onlineIndexLoaded: Boolean = false
 
     private val _state = MutableStateFlow<UiState>(UiState.Loading)
     val state = _state.asStateFlow()
@@ -38,38 +37,35 @@ class StateManager @Inject constructor(
         // update indexes
         scope.launch {
             // get the on-disk index and remember it
-            val oldIndex = try {
-                val result = repoManager.getLocalIndex()
-                onLocalIndexLoaded(result)
-                result.index
+            try {
+                onLocalIndexLoaded(repoManager.getLocalIndex())
             } catch (e: Exception) {
                 Log.e(TAG, "Error getting local index: ", e)
                 return@launch
             }
-            if (networkManager.onlineState.value) {
-                loadOnlineIndex(oldIndex)
-            } else {
-                // save local index in case we come online later
-                localIndex = oldIndex
-            }
+            if (!onlineIndexLoaded && networkManager.onlineState.value) loadOnlineIndex()
         }
     }
 
-    private suspend fun loadOnlineIndex(oldIndex: IndexV2) {
+    private suspend fun loadOnlineIndex() {
+        // set this early to prevent double loading via [onOnlineStateChanged]
+        onlineIndexLoaded = true
         // update index from the internet
-        try {
-            onOnlineIndexLoaded(oldIndex, repoManager.getOnlineIndex())
-            localIndex = null
+        val onlineIndex = try {
+            repoManager.getOnlineIndex()
         } catch (e: Exception) {
             Log.e(TAG, "Error downloading index: ", e)
+            // allow the index to be downloaded again
+            onlineIndexLoaded = false
+            return
         }
+        onOnlineIndexLoaded(onlineIndex)
     }
 
     override fun onOnlineStateChanged(online: Boolean) {
         // load online index, if we have not done so already
-        val oldIndex = localIndex
-        if (online && oldIndex != null) scope.launch {
-            loadOnlineIndex(oldIndex)
+        if (online && !onlineIndexLoaded) scope.launch {
+            loadOnlineIndex()
         }
     }
 
@@ -78,8 +74,12 @@ class StateManager @Inject constructor(
      */
     private fun onLocalIndexLoaded(result: RepoResult) {
         val locales = ConfigurationCompat.getLocales(Resources.getSystem().configuration)
-        val items = result.index.packages.map { (packageName, packageV2) ->
-            AppItem(
+        val items = result.index.packages.mapNotNull { (packageName, packageV2) ->
+            val signer = packageV2.getSigner()
+            if (signer == null || signer.sha256.isEmpty()) {
+                Log.w(TAG, "App had no signer: $packageName")
+                return@mapNotNull null
+            } else AppItem(
                 packageName = packageName,
                 result = result,
                 packageV2 = packageV2,
@@ -94,44 +94,23 @@ class StateManager @Inject constructor(
      * by merging both indexes together, preferring newer versions.
      * This runs on the UiThread to not have the list updated on our feet.
      */
-    private suspend fun onOnlineIndexLoaded(
-        oldIndex: IndexV2,
-        result: RepoResult,
-    ) = withContext(Dispatchers.Main) {
+    private suspend fun onOnlineIndexLoaded(result: RepoResult) = withContext(Dispatchers.Main) {
         // If we are past selecting apps, don't update anymore, it is too late now
         val s = state.value as? UiState.SelectingApps ?: return@withContext
         val locales = ConfigurationCompat.getLocales(Resources.getSystem().configuration)
         // Go through old items and update them if necessary, remembering package names we've seen
-        val oldPackageNames = HashSet<String>(s.items.size)
         val updatedItems = s.items.map { item ->
-            oldPackageNames.add(item.packageName)
             // get packages and versions codes
-            val packageV2 = result.index.packages[item.packageName]
-            val oldPackageV2 = oldIndex.packages[item.packageName]
-            val versionCode = packageV2?.versions?.values?.first()?.versionCode ?: 0
-            val oldVersionCode = oldPackageV2?.versions?.values?.first()?.versionCode ?: 0
-            // update current item, of new version code is higher than old one
-            if (item.isOnlineOnly || versionCode > oldVersionCode) AppItem(
+            val packageV2 = result.index.packages[item.packageName] ?: return@map item
+            // update current item, if new version code is higher than old one
+            if (item.isValidUpdate(packageV2)) AppItem(
                 item = item,
-                result = result,
-                packageV2 = packageV2 ?: oldPackageV2 ?: error("Not supposed to happen"),
-                locales = locales,
-            ) else item
-        }
-        // Add new apps that were not in the old index
-        val newItems = result.index.packages.filter { (packageName, _) ->
-            !oldPackageNames.contains(packageName)
-        }.map { (packageName, packageV2) ->
-            AppItem(
-                packageName = packageName,
                 result = result,
                 packageV2 = packageV2,
                 locales = locales,
-            )
-        }
-        // sort new items and update state
-        val items = (updatedItems + newItems).sortedBy { it.name }
-        _state.value = UiState.SelectingApps(items, items.isNotEmpty())
+            ) else item
+        }.sortedBy { it.name }
+        _state.value = UiState.SelectingApps(updatedItems, updatedItems.isNotEmpty())
     }
 
     fun onItemClicked(item: AppItem) {
