@@ -13,7 +13,6 @@ import org.calyxos.lupin.state.AppItem
 import org.calyxos.lupin.state.StateManager
 import javax.inject.Inject
 
-
 @HiltViewModel
 class MainViewModel @Inject constructor(
     app: Application,

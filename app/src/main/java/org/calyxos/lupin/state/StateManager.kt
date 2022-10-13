@@ -114,8 +114,12 @@ class StateManager @Inject constructor(
     }
 
     fun onItemClicked(item: AppItem) {
-        val newItems = state.value.items.map {
-            if (it == item && it.state is AppItemState.Selectable) it.copy(state = it.state.invert()) else it
+        val newItems = state.value.items.map { oldItem ->
+            if (oldItem == item && oldItem.state is AppItemState.Selectable) {
+                oldItem.copy(state = oldItem.state.invert())
+            } else {
+                oldItem
+            }
         }
         val hasSelected =
             newItems.find { it.state is AppItemState.Selectable && it.state.selected } != null
