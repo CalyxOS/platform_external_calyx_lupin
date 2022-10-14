@@ -16,26 +16,29 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.calyxos.lupin.R
 import org.calyxos.lupin.ui.theme.LupinTheme
 
 val horizontalMargin = 40.dp
 fun Modifier.suwPageModifier() = padding(
-    top = horizontalMargin,
+    top = 26.dp,
     start = horizontalMargin,
     end = horizontalMargin,
 )
+
 const val RESULT_SKIP = RESULT_FIRST_USER
 const val RESULT_NEXT = RESULT_OK
 
@@ -68,7 +71,7 @@ fun SuwPage(
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background,
+        color = MaterialTheme.colorScheme.background,
     ) {
         Column(modifier = modifier.suwPageModifier()) {
             header()
@@ -92,7 +95,8 @@ fun SuwHeader(
                 contentDescription = null,
                 modifier = Modifier.size(64.dp),
                 alignment = Alignment.BottomStart,
-                contentScale = ContentScale.Inside,
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+                contentScale = ContentScale.Fit,
             )
         },
         title = title,
@@ -117,7 +121,7 @@ fun SuwHeader(
         if (subtitle != null) {
             Text(
                 text = subtitle,
-                fontSize = 17.sp,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
             )
         }
@@ -129,7 +133,7 @@ fun SuwHeader(
 fun SuwPagePreview() {
     LupinTheme {
         SuwPage(
-            icon = android.R.drawable.ic_dialog_info,
+            icon = R.drawable.fdroid_logo,
             title = LoremIpsum(3).values.first(),
             subtitle = LoremIpsum(12).values.first(),
         ) {
@@ -143,7 +147,7 @@ fun SuwPagePreview() {
 fun SuwPagePreviewNight() {
     LupinTheme {
         SuwPage(
-            icon = android.R.drawable.ic_dialog_info,
+            icon = R.drawable.fdroid_logo,
             title = LoremIpsum(3).values.first(),
             subtitle = LoremIpsum(12).values.first(),
         ) {

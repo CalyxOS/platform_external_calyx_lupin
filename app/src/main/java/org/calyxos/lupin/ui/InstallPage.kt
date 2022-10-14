@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,14 +25,14 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Button
-import androidx.compose.material.Checkbox
-import androidx.compose.material.Divider
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Divider
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -65,7 +66,7 @@ fun InstallPage(
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background,
+        color = MaterialTheme.colorScheme.background,
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -98,7 +99,7 @@ fun InstallPage(
 fun LazyListScope.listHeader(state: UiState) {
     item {
         SuwHeader(
-            icon = R.drawable.ic_launcher_foreground,
+            icon = R.drawable.fdroid_logo,
             title = stringResource(R.string.install_page_title),
             subtitle = stringResource(R.string.install_page_subtitle),
             modifier = Modifier
@@ -145,7 +146,7 @@ fun LazyListScope.allCheckbox(
             ) {
                 Text(
                     text = stringResource(id = R.string.install_page_all),
-                    style = MaterialTheme.typography.body1,
+                    style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.weight(1f),
                 )
                 Box(Modifier
@@ -172,7 +173,7 @@ fun ButtonRow(
     skipClickListener: () -> Unit,
     nextClickListener: () -> Unit,
 ) {
-    Row(Modifier.padding(horizontal = horizontalMargin, vertical = 8.dp)) {
+    Row(Modifier.padding(horizontal = horizontalMargin + 3.dp, vertical = 19.dp)) {
         if (state.showSkipButton) TextButton(onClick = skipClickListener) {
             Text(text = stringResource(R.string.skip))
         }
@@ -184,17 +185,21 @@ fun ButtonRow(
         }.collectAsState(initial = false)
         val coroutineScope = rememberCoroutineScope()
         val showMoreButton = state is SelectingApps && !isEnd.value
-        Button(shape = MaterialTheme.shapes.large, enabled = state.canTapNextButton, onClick = {
-            if (showMoreButton) coroutineScope.launch {
-                val lastVisible = listState.layoutInfo.visibleItemsInfo.last()
-                listState.animateScrollToItem(lastVisible.index)
-            } else {
-                coroutineScope.launch {
-                    listState.animateScrollToItem(0)
+        Button(
+            modifier = Modifier.heightIn(min = 44.dp),
+            shape = MaterialTheme.shapes.large,
+            enabled = state.canTapNextButton,
+            onClick = {
+                if (showMoreButton) coroutineScope.launch {
+                    val lastVisible = listState.layoutInfo.visibleItemsInfo.last()
+                    listState.animateScrollToItem(lastVisible.index)
+                } else {
+                    coroutineScope.launch {
+                        listState.animateScrollToItem(0)
+                    }
+                    nextClickListener()
                 }
-                nextClickListener()
-            }
-        }) {
+            }) {
             val textRes = if (showMoreButton) R.string.more else {
                 val showInstall = (state as? SelectingApps)?.hasSelected ?: false
                 if (showInstall) R.string.install else R.string.next

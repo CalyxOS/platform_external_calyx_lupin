@@ -67,7 +67,7 @@ class AppInstallerService : LifecycleService() {
                 .setOngoing(true)
                 .setContentTitle(getString(R.string.install_notification_title))
                 .setContentText(uiState.items.find { it.state == AppItemState.Progress }?.name)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.fdroid_logo)
                 .setProgress(max, progress, false)
                 .build()
             notificationManager.notify(ONGOING_NOTIFICATION_ID, notification)

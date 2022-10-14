@@ -16,13 +16,12 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Checkbox
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -71,7 +70,7 @@ fun AppItemRow(
             contentDescription = null,
             modifier = Modifier.size(48.dp),
             alignment = Center,
-            alpha = if (canBeInstalled) DefaultAlpha else ContentAlpha.disabled,
+            alpha = if (canBeInstalled) DefaultAlpha else 0.38f,
             contentScale = ContentScale.Fit,
         )
         Column(Modifier
@@ -79,9 +78,9 @@ fun AppItemRow(
             .padding(horizontal = 16.dp)) {
             Text(
                 text = item.name,
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.bodyLarge,
                 color = if (canBeInstalled) Color.Unspecified else {
-                    MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                 },
                 modifier = Modifier.padding(top = 8.dp),
             )
@@ -89,9 +88,9 @@ fun AppItemRow(
                 text = if (canBeInstalled) item.summary else {
                     stringResource(R.string.install_page_offline)
                 },
-                style = MaterialTheme.typography.caption,
+                style = MaterialTheme.typography.bodySmall,
                 color = if (canBeInstalled) Color.Unspecified else {
-                    MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled)
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                 },
                 modifier = Modifier.padding(bottom = 8.dp),
             )
@@ -121,14 +120,14 @@ fun RowScope.ItemState(state: AppItemState, canBeSelected: Boolean = true) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_check),
                     contentDescription = stringResource(id = R.string.installed),
-                    tint = MaterialTheme.colors.primary,
+                    tint = MaterialTheme.colorScheme.primary,
                 )
             }
             is AppItemState.Error -> {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_error),
                     contentDescription = stringResource(id = R.string.error_not_installed),
-                    tint = MaterialTheme.colors.primary,
+                    tint = MaterialTheme.colorScheme.primary,
                 )
             }
             is AppItemState.ShowOnly -> {}

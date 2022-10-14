@@ -21,8 +21,18 @@
         android:theme="@style/Theme.Lupin">
         <activity
             android:name=".MainActivity"
+            android:configChanges="mcc|mnc"
+            android:excludeFromRecents="true"
             android:exported="true"
-            android:theme="@style/Theme.Lupin" />
+            android:immersive="true"
+            android:permission="lineageos.permission.FINISH_SETUP"
+            android:theme="@style/Theme.Lupin"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="org.calyxos.lupin.INSTALL" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <service
             android:name=".install.AppInstallerService"
             android:exported="false"
