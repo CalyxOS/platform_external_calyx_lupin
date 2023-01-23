@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91a9ddc6_4239d1b4",
+        "filename": "app/src/main/res/drawable/fdroid_logo.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-01-23T19:20:15Z",
+      "side": 1,
+      "message": "Source of this?",
+      "revId": "4d6335d8714970f7e72357e2fac662dca6017e01",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
