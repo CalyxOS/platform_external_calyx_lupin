@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.calyxos.lupin.install
+package org.calyxos.lupin.installer.install
 
 import android.content.Context
 import android.content.pm.PackageInstaller.SessionParams
@@ -18,11 +18,11 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.calyxos.lupin.InstallResult
-import org.calyxos.lupin.PackageInstaller
-import org.calyxos.lupin.state.AppItem
-import org.calyxos.lupin.state.AppItemState
-import org.calyxos.lupin.state.UiState
+import org.calyxos.lupin.installer.InstallResult
+import org.calyxos.lupin.installer.PackageInstaller
+import org.calyxos.lupin.installer.state.AppItem
+import org.calyxos.lupin.installer.state.AppItemState
+import org.calyxos.lupin.installer.state.UiState
 import org.fdroid.index.IndexUtils.getPackageSigner
 import org.fdroid.index.v2.SignerV2
 import java.io.File
