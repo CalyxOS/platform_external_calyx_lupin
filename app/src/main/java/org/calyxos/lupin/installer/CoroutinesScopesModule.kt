@@ -1,4 +1,4 @@
-package org.calyxos.lupin
+package org.calyxos.lupin.installer
 
 import dagger.Module
 import dagger.Provides

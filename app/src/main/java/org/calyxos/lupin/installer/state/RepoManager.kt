@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.calyxos.lupin.state
+package org.calyxos.lupin.installer.state
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -12,8 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.calyxos.lupin.BuildConfig.VERSION_NAME
-import org.calyxos.lupin.R
+import org.calyxos.lupin.installer.BuildConfig.VERSION_NAME
+import org.calyxos.lupin.installer.R
 import org.fdroid.download.DownloadRequest
 import org.fdroid.download.HttpDownloader
 import org.fdroid.download.HttpManager
