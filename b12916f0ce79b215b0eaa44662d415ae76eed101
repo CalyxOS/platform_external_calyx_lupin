@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13843130_e3b579ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-13T19:43:11Z",
+      "side": 1,
+      "message": "We usually do renames in two commits like I mentioned (one for mv, another for sed), but it\u0027s ok.",
+      "revId": "b12916f0ce79b215b0eaa44662d415ae76eed101",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}

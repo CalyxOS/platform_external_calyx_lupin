@@ -34,6 +34,24 @@
       "parentUuid": "af2db3ef_810ea51f",
       "revId": "3a42a7e991867c6a6766247f414d022494f27ab6",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc2f89d4_2024f4e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-13T19:43:11Z",
+      "side": 1,
+      "message": "Yeah we had agreed to the name, and I forgot to rename.\n\nI just meant about the gradle structure and how to rename, but that\u0027s solved now.",
+      "parentUuid": "b03a2280_2f5a4b3e",
+      "revId": "3a42a7e991867c6a6766247f414d022494f27ab6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
