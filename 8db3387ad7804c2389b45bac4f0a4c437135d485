@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0e57930_03f5dd1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-13T19:43:52Z",
+      "side": 1,
+      "message": "Yeah let\u0027s split out the installer rename / mv from this one to make it easier to see.\n\nI don\u0027t mind doing it (or asking Mike), just as long as we\u0027re sure that this is the state we want to end up at.",
+      "revId": "8db3387ad7804c2389b45bac4f0a4c437135d485",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
