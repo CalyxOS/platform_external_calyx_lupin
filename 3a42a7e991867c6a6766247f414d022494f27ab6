@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af2db3ef_810ea51f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-13T15:43:42Z",
+      "side": 1,
+      "message": "Is this how we want to do it?\n\nWhere would updater live then? app/updater or something like that?",
+      "revId": "3a42a7e991867c6a6766247f414d022494f27ab6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
