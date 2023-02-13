@@ -1,0 +1,75 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'org.jlleitschuh.gradle.ktlint' version "$ktlint_plugin_version"
+}
+
+android {
+    namespace 'org.calyxos.lupin.installer'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "org.calyxos.lupin.installer"
+        minSdk 31
+        targetSdk 33
+        versionCode 1
+        versionName "0.1"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+        }
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "$compose_compiler_version"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.fdroid:download:0.1.1'
+    implementation 'org.fdroid:index:0.1.1'
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation platform("androidx.compose:compose-bom:$compose_version")
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-service:2.5.1'
+
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    implementation 'io.coil-kt:coil-compose:2.2.2'
+
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes true
+}
+
+apply from: "${rootProject.rootDir}/gradle/ktlint.gradle"
