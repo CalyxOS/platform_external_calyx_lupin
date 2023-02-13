@@ -7,24 +7,24 @@ plugins {
 }
 
 android {
-    namespace 'org.calyxos.lupin.installer'
+    namespace 'org.calyxos.lupin.updater'
     compileSdk 33
 
     defaultConfig {
-        applicationId "org.calyxos.lupin.installer"
-        minSdk 31
+        applicationId "org.calyxos.lupin.updater"
+        minSdk 33
         targetSdk 33
         versionCode 1
-        versionName "0.1"
+        versionName "1.0"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled false
+            minifyEnabled true
         }
     }
     buildFeatures {
@@ -61,8 +61,6 @@ dependencies {
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
-
-    implementation 'io.coil-kt:coil-compose:2.2.2'
 
     debugImplementation 'androidx.compose.ui:ui-tooling'
 }
