@@ -7,10 +7,11 @@ plugins {
 }
 
 android {
+    namespace 'org.calyxos.lupin.installer'
     compileSdk 33
 
     defaultConfig {
-        applicationId "org.calyxos.lupin"
+        applicationId "org.calyxos.lupin.installer"
         minSdk 31
         targetSdk 33
         versionCode 1
