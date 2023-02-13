@@ -52,6 +52,24 @@
       "parentUuid": "1de2c43c_cfe6a488",
       "revId": "baef12e0730f79700b89af77a171107b4646aef1",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd565c0c_048f7556",
+        "filename": "app/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-13T19:40:54Z",
+      "side": 1,
+      "message": "Oh well, can do it when size is an issue then I guess?",
+      "parentUuid": "aa14fa05_e8a36a08",
+      "revId": "baef12e0730f79700b89af77a171107b4646aef1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
