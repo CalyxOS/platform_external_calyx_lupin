@@ -34,6 +34,24 @@
       "parentUuid": "91a9ddc6_4239d1b4",
       "revId": "4d6335d8714970f7e72357e2fac662dca6017e01",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c96cb229_3c66e448",
+        "filename": "app/src/main/res/drawable/fdroid_logo.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-13T19:46:23Z",
+      "side": 1,
+      "message": "https://gitlab.com/fdroid/fdroidclient/-/blob/master/README.md#License\n\n\u003e Some icons are made by Picol, Icomoon or Dave Gandy from Flaticon or by Google and are licensed by Creative Commons BY 3.0.\n\u003e Other icons are from the Material Design Icon set released under an Attribution 4.0 International license.",
+      "parentUuid": "fc43f3a5_7ccfe636",
+      "revId": "4d6335d8714970f7e72357e2fac662dca6017e01",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
