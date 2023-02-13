@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.calyxos.lupin
+package org.calyxos.lupin.installer
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.calyxos.lupin.state.AppItem
-import org.calyxos.lupin.state.StateManager
+import org.calyxos.lupin.installer.state.AppItem
+import org.calyxos.lupin.installer.state.StateManager
 import javax.inject.Inject
 
 @HiltViewModel

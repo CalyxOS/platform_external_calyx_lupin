@@ -1,4 +1,4 @@
-package org.calyxos.lupin.state
+package org.calyxos.lupin.installer.state
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -10,7 +10,7 @@ import android.net.NetworkRequest
 import android.util.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.calyxos.lupin.BuildConfig
+import org.calyxos.lupin.installer.BuildConfig
 
 private const val TAG = "NetworkManager"
 

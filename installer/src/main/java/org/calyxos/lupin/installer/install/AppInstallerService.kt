@@ -1,4 +1,4 @@
-package org.calyxos.lupin.install
+package org.calyxos.lupin.installer.install
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -11,9 +11,9 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import org.calyxos.lupin.R
-import org.calyxos.lupin.state.AppItemState
-import org.calyxos.lupin.state.UiState
+import org.calyxos.lupin.installer.R
+import org.calyxos.lupin.installer.state.AppItemState
+import org.calyxos.lupin.installer.state.UiState
 import javax.inject.Inject
 
 private const val CHANNEL_ID = "SetupWizard"
