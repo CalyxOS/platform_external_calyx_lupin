@@ -28,7 +28,7 @@ class StateManager @Inject constructor(
 
     val networkManager = NetworkManager(context, this)
 
-    private var onlineIndexLoaded: Boolean = false
+    private var onlineIndexLoaded: Boolean = true // set to false to enable loading of online index
 
     private val _state = MutableStateFlow<UiState>(UiState.Loading)
     val state = _state.asStateFlow()
@@ -73,6 +73,7 @@ class StateManager @Inject constructor(
      * Populates the initial [state] with the list of apps from the local on-device repo.
      */
     private fun onLocalIndexLoaded(result: RepoResult) {
+        Log.i(TAG, "onLocalIndexLoaded")
         val locales = ConfigurationCompat.getLocales(Resources.getSystem().configuration)
         val items = result.index.packages.mapNotNull { (packageName, packageV2) ->
             val signer = packageV2.getSigner()
@@ -95,6 +96,7 @@ class StateManager @Inject constructor(
      * This runs on the UiThread to not have the list updated on our feet.
      */
     private suspend fun onOnlineIndexLoaded(result: RepoResult) = withContext(Dispatchers.Main) {
+        Log.i(TAG, "onOnlineIndexLoaded")
         // If we are past selecting apps, don't update anymore, it is too late now
         val s = state.value as? UiState.SelectingApps ?: return@withContext
         val locales = ConfigurationCompat.getLocales(Resources.getSystem().configuration)
