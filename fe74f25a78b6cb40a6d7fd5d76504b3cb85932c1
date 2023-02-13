@@ -34,6 +34,24 @@
       "parentUuid": "958b1e2a_96c95555",
       "revId": "fe74f25a78b6cb40a6d7fd5d76504b3cb85932c1",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccb8aa66_d81c66a3",
+        "filename": "app/src/main/java/org/calyxos/lupin/state/StateManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-02-13T22:44:25Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t understand the installed by default part. You mean a way to control the toggles when the app opens? That sounds like a new feature.\n\nFor now, we just need to check that no app has the Internet category or if one has it, change the ONLINE_ONLY category.",
+      "parentUuid": "7abd4ba4_72ffe198",
+      "revId": "fe74f25a78b6cb40a6d7fd5d76504b3cb85932c1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
