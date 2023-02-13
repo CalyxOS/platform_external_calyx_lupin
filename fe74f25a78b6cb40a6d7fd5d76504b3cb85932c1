@@ -16,6 +16,24 @@
       "message": "This should be all we need to disable fetching of the online index.\n\nWe might still want to confirm that we want to use `CATEGORY_ONLINE_ONLY \u003d \"Internet\"`. Apps that have this, won\u0027t be available for install without online repo.",
       "revId": "fe74f25a78b6cb40a6d7fd5d76504b3cb85932c1",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7abd4ba4_72ffe198",
+        "filename": "app/src/main/java/org/calyxos/lupin/state/StateManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-13T19:41:55Z",
+      "side": 1,
+      "message": "We don\u0027t, that\u0027s one of the changes I was planning to make before launch.\n\nCurrent setup:\n* Apps marked as \"Default\" get installed by default.\n\nFuture setup:\n* TBD, but for now we should change it to the above to not block shipping.",
+      "parentUuid": "958b1e2a_96c95555",
+      "revId": "fe74f25a78b6cb40a6d7fd5d76504b3cb85932c1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
