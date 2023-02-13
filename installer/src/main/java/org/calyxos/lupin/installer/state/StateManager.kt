@@ -1,4 +1,4 @@
-package org.calyxos.lupin.state
+package org.calyxos.lupin.installer.state
 
 import android.content.Context
 import android.content.res.Resources
@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.calyxos.lupin.install.AppInstaller
-import org.calyxos.lupin.install.AppInstallerService
+import org.calyxos.lupin.installer.install.AppInstaller
+import org.calyxos.lupin.installer.install.AppInstallerService
 import javax.inject.Inject
 import javax.inject.Singleton
 

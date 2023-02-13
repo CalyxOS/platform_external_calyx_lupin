@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.calyxos.lupin.ui
+package org.calyxos.lupin.installer.ui
 
 import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -36,10 +36,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import org.calyxos.lupin.R
-import org.calyxos.lupin.state.AppItem
-import org.calyxos.lupin.state.AppItemState
-import org.calyxos.lupin.ui.theme.LupinTheme
+import org.calyxos.lupin.installer.R
+import org.calyxos.lupin.installer.state.AppItem
+import org.calyxos.lupin.installer.state.AppItemState
+import org.calyxos.lupin.installer.ui.theme.LupinTheme
 import org.fdroid.index.v2.SignerV2
 import java.io.File
 import kotlin.random.Random
