@@ -23,7 +23,7 @@ import org.calyxos.lupin.PackageInstaller
 import org.calyxos.lupin.state.AppItem
 import org.calyxos.lupin.state.AppItemState
 import org.calyxos.lupin.state.UiState
-import org.fdroid.index.IndexUtils.getPackageSignature
+import org.fdroid.index.IndexUtils.getPackageSigner
 import org.fdroid.index.v2.SignerV2
 import java.io.File
 import javax.inject.Inject
@@ -128,9 +128,9 @@ class AppInstaller @Inject constructor(
     private fun SigningInfo.getSigner(): SignerV2 = SignerV2(
         hasMultipleSigners = hasMultipleSigners(),
         sha256 = if (hasMultipleSigners()) apkContentsSigners.map { signature ->
-            getPackageSignature(signature.toByteArray())
+            getPackageSigner(signature.toByteArray())
         } else signingCertificateHistory.map { signature ->
-            getPackageSignature(signature.toByteArray())
+            getPackageSigner(signature.toByteArray())
         },
     )
 
