@@ -34,6 +34,24 @@
       "parentUuid": "ea7f319c_2854e23d",
       "revId": "baef12e0730f79700b89af77a171107b4646aef1",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa14fa05_e8a36a08",
+        "filename": "app/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-02-13T18:34:53Z",
+      "side": 1,
+      "message": "Haha: java.lang.NoSuchMethodError: No virtual method get(Ljava/lang/Class;)Landroidx/lifecycle/ViewModel; in class Landroidx/lifecycle/ViewModelProvider; or its super classes",
+      "parentUuid": "1de2c43c_cfe6a488",
+      "revId": "baef12e0730f79700b89af77a171107b4646aef1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
