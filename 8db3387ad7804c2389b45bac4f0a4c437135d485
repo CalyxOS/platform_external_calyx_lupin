@@ -16,6 +16,23 @@
       "message": "Yeah let\u0027s split out the installer rename / mv from this one to make it easier to see.\n\nI don\u0027t mind doing it (or asking Mike), just as long as we\u0027re sure that this is the state we want to end up at.",
       "revId": "8db3387ad7804c2389b45bac4f0a4c437135d485",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a40702_3e63632d",
+        "filename": "updater/src/main/java/org/calyxos/lupin/updater/ui/theme/Theme.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-13T19:44:50Z",
+      "side": 1,
+      "message": "Do we want to share stuff like this with installer somehow? Only if it\u0027s easy to do so. That\u0027s one of the benefits of having it in the same repo.",
+      "revId": "8db3387ad7804c2389b45bac4f0a4c437135d485",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
