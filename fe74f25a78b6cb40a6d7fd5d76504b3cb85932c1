@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "958b1e2a_96c95555",
+        "filename": "app/src/main/java/org/calyxos/lupin/state/StateManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-02-13T18:05:09Z",
+      "side": 1,
+      "message": "This should be all we need to disable fetching of the online index.\n\nWe might still want to confirm that we want to use `CATEGORY_ONLINE_ONLY \u003d \"Internet\"`. Apps that have this, won\u0027t be available for install without online repo.",
+      "revId": "fe74f25a78b6cb40a6d7fd5d76504b3cb85932c1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
