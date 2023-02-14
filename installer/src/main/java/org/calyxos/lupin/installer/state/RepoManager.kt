@@ -12,17 +12,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.calyxos.lupin.RepoHelper.downloadIndex
+import org.calyxos.lupin.RepoHelper.getIndex
+import org.calyxos.lupin.getRequest
 import org.calyxos.lupin.installer.BuildConfig.VERSION_NAME
 import org.calyxos.lupin.installer.R
-import org.fdroid.download.DownloadRequest
 import org.fdroid.download.HttpDownloader
 import org.fdroid.download.HttpManager
-import org.fdroid.download.Mirror
-import org.fdroid.fdroid.ProgressListener
-import org.fdroid.index.IndexConverter
-import org.fdroid.index.IndexParser
-import org.fdroid.index.parseV1
-import org.fdroid.index.v1.IndexV1Verifier
+import org.fdroid.index.v2.FileV2
 import org.fdroid.index.v2.IndexV2
 import java.io.File
 import javax.inject.Inject
@@ -42,55 +39,36 @@ data class RepoResult(
 @Singleton
 class RepoManager @Inject constructor(@ApplicationContext private val context: Context) {
 
+    private val httpManager = HttpManager("${context.getString(R.string.app_name)} $VERSION_NAME")
+
     suspend fun getLocalIndex(): RepoResult = withContext(Dispatchers.IO) {
         RepoResult(
-            index = getIndex(File(REPO_PATH, REPO_INDEX)),
+            index = getIndex(File(REPO_PATH, REPO_INDEX), CERT),
             iconGetter = { icon -> if (icon == null) null else "$REPO_PATH/$icon" },
             apkGetter = { apk, _ -> File(REPO_PATH, apk) },
         )
     }
 
     suspend fun getOnlineIndex(): RepoResult = withContext(Dispatchers.IO) {
-        val file = File.createTempFile("index-v1-", ".jar", context.cacheDir)
-        val request = DownloadRequest(
-            path = REPO_INDEX,
-            mirrors = listOf(Mirror(REPO_URL)),
-        )
-        val httpManager = HttpManager("${context.getString(R.string.app_name)} $VERSION_NAME")
-        HttpDownloader(httpManager, request, file).download()
-        val index = getIndex(file, CERT_ONLINE)
-        file.delete()
+        val index = downloadIndex(context, REPO_URL, CERT_ONLINE, httpManager)
         RepoResult(
             index = index,
             iconGetter = { icon -> if (icon == null) null else "$REPO_URL/$icon" },
         ) { apk, downloadListener ->
-            val apkRequest = DownloadRequest(
-                path = apk,
-                mirrors = listOf(Mirror(REPO_URL)),
-            )
+            val apkRequest = FileV2(apk).getRequest(REPO_URL)
             val apkFile = File.createTempFile("dl-", "", context.cacheDir)
             HttpDownloader(httpManager, apkRequest, apkFile).apply {
                 val coContext = currentCoroutineContext()
-                setListener(object : ProgressListener {
-                    override fun onProgress(bytesRead: Long, totalBytes: Long) {
-                        // this is a bit of a hack to work around the messy progress reporting
-                        launch(coContext) {
-                            downloadListener.bytesRead(bytesRead)
-                        }
+                setListener { bytesRead, _ ->
+                    // this is a bit of a hack to work around the messy progress reporting
+                    launch(coContext) {
+                        downloadListener.bytesRead(bytesRead)
                     }
-                })
+                }
                 download()
             }
             apkFile
         }
-    }
-
-    private fun getIndex(file: File, cert: String = CERT): IndexV2 {
-        val verifier = IndexV1Verifier(file, cert, null)
-        val (_, index) = verifier.getStreamAndVerify { inputStream ->
-            IndexParser.parseV1(inputStream)
-        }
-        return IndexConverter().toIndexV2(index)
     }
 }
 
