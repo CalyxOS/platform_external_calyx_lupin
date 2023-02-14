@@ -18,7 +18,7 @@
  *  limitations under the License.
  */
 
-package org.calyxos.lupin.installer
+package org.calyxos.lupin
 
 import android.app.PendingIntent.FLAG_MUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
