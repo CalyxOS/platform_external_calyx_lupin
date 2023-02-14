@@ -17,8 +17,8 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.calyxos.lupin.installer.InstallResult
-import org.calyxos.lupin.installer.PackageInstaller
+import org.calyxos.lupin.InstallResult
+import org.calyxos.lupin.PackageInstaller
 import org.calyxos.lupin.installer.state.AppItem
 import org.calyxos.lupin.installer.state.AppItemState
 import org.calyxos.lupin.installer.state.UiState

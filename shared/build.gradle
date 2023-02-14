@@ -51,5 +51,7 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-service:2.6.1'
     api 'androidx.lifecycle:lifecycle-runtime-compose:2.6.1'
 
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+
     debugApi 'androidx.compose.ui:ui-tooling'
 }
