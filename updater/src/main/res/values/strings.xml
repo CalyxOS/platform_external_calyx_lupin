@@ -5,4 +5,12 @@
   -->
 <resources>
     <string name="app_name">CalyxOS App Updater</string>
+
+    <string name="back">Back</string>
+    <string name="now">now</string>
+    <string name="never">never</string>
+
+    <string name="status_screen_last_check">Last update check: %s</string>
+    <string name="status_screen_check_button">Check now</string>
+    <string name="status_screen_title">App updates</string>
 </resources>
