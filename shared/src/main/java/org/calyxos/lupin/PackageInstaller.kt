@@ -7,7 +7,7 @@
  *  frameworks/base/packages/PackageInstaller/src/com/android/packageinstaller/InstallInstalling.java
  */
 
-package org.calyxos.lupin.installer
+package org.calyxos.lupin
 
 import android.app.PendingIntent.FLAG_MUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
