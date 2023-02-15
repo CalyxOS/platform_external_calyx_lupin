@@ -8,12 +8,15 @@ package org.calyxos.lupin.updater
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED
+import android.content.pm.PackageManager
 import android.content.pm.PackageManager.GET_SIGNATURES
-import android.util.Log
+import android.content.pm.PackageManager.NameNotFoundException
+import android.content.pm.PackageManager.PackageInfoFlags
 import androidx.annotation.WorkerThread
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import mu.KotlinLogging
 import org.calyxos.lupin.PackageInstaller
 import org.calyxos.lupin.RepoHelper.downloadIndex
 import org.calyxos.lupin.getRequest
@@ -23,14 +26,17 @@ import org.fdroid.UpdateChecker
 import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.IndexV2
+import org.fdroid.index.v2.PackageV2
 import org.fdroid.index.v2.PackageVersionV2
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
-
-private val TAG = RepoManager::class.simpleName
+import kotlin.coroutines.CoroutineContext
 
 internal const val REPO_URL = "https://calyxos.gitlab.io/calyx-fdroid-repo/fdroid/repo"
+internal const val PACKAGE_NAME_WEBVIEW = "com.android.webview"
+internal const val PACKAGE_NAME_CHROME = "org.chromium.chrome"
+internal const val PACKAGE_NAME_TRICHROME_LIB = "org.chromium.trichromelibrary"
 
 @Singleton
 class RepoManager(
@@ -38,7 +44,12 @@ class RepoManager(
     private val httpManager: HttpManager,
     private val updateChecker: UpdateChecker,
     private val packageInstaller: PackageInstaller,
+    private val coroutineContext: CoroutineContext = Dispatchers.IO,
 ) {
+
+    private val log = KotlinLogging.logger {}
+
+    private val packageManager = context.packageManager
 
     @Inject
     constructor(@ApplicationContext context: Context, packageInstaller: PackageInstaller) : this(
@@ -48,12 +59,13 @@ class RepoManager(
         packageInstaller = packageInstaller,
     )
 
-    suspend fun downloadIndex(): IndexV2? = withContext(Dispatchers.IO) {
+    suspend fun downloadIndex(): IndexV2? = withContext(coroutineContext) {
         try {
-            Log.d(TAG, "Downloading index from $REPO_URL")
+            log.debug { "Downloading index from $REPO_URL" }
             downloadIndex(context, REPO_URL, CERT, httpManager)
         } catch (e: Exception) {
-            Log.e(TAG, "Error downloading index:", e)
+            if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
+            log.error(e) { "Error downloading index:" }
             null
         }
     }
@@ -65,38 +77,59 @@ class RepoManager(
      * at the next update check. Note that certain failures won't get re-tried like this, but only
      * after a new index got published.
      */
-    suspend fun updateApps(index: IndexV2): Boolean = withContext(Dispatchers.IO) {
+    suspend fun updateApps(index: IndexV2): Boolean = withContext(coroutineContext) {
         var allUpdated = true
         index.packages.forEach { (packageName, packageV2) ->
-            Log.d(TAG, "Checking if $packageName has an update")
+            log.debug { "Checking if $packageName has an update" }
             val packageVersions = packageV2.versions.values.toList()
             try {
-                installUpdate(packageName, packageVersions)
+                val update = getUpdate(packageName, packageVersions) ?: return@forEach
+                // TODO queue apps we can't auto-update and ask for user confirmation via notification
+                checkTriChrome(
+                    packageName = packageName,
+                    versionCode = update.manifest.versionCode,
+                    triChromePackage = index.packages[PACKAGE_NAME_TRICHROME_LIB],
+                )
+                installUpdate(packageName, update)
+            } catch (e: TriChromeException) {
+                log.error(e) { "Error installing update: " }
+                // we need a repo update to fix trichrome issues, so don't retry before that
             } catch (e: Exception) {
-                Log.e(TAG, "Error installing update: ", e)
+                if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
+                log.error(e) { "Error installing update: " }
                 allUpdated = false
             }
         }
         allUpdated
     }
 
+    private fun getUpdate(
+        packageName: String,
+        packageVersions: List<PackageVersionV2>,
+    ): PackageVersionV2? {
+        if (packageVersions.isEmpty()) return null
+        @Suppress("DEPRECATION")
+        @SuppressLint("PackageManagerGetSignatures")
+        val packageInfo = try {
+            packageManager.getPackageInfo(packageName, GET_SIGNATURES)
+        } catch (e: NameNotFoundException) {
+            // not installed, so nothing to update
+            return null
+        }
+        return updateChecker.getUpdate(packageVersions, packageInfo)
+    }
+
     @WorkerThread
     private suspend fun installUpdate(
         packageName: String,
-        packageVersions: List<PackageVersionV2>,
+        update: PackageVersionV2,
     ) {
-        if (packageVersions.isEmpty()) return
-        @Suppress("DEPRECATION")
-        @SuppressLint("PackageManagerGetSignatures")
-        val packageInfo = context.packageManager.getPackageInfo(packageName, GET_SIGNATURES)
-        val update = updateChecker.getUpdate(packageVersions, packageInfo) ?: return
-
-        Log.d(TAG, "Downloading ${update.file.name}")
+        log.debug { "Downloading ${update.file.name}" }
         val request = update.file.getRequest(REPO_URL)
         val apkFile = File.createTempFile("apk-", "", context.cacheDir)
         try {
             HttpDownloaderV2(httpManager, request, apkFile).download()
-            Log.d(TAG, "Installing $packageName")
+            log.debug { "Installing $packageName" }
             packageInstaller.install(packageName, apkFile) {
                 setRequireUserAction(USER_ACTION_NOT_REQUIRED)
             }
@@ -106,7 +139,59 @@ class RepoManager(
         }
     }
 
+    /**
+     * Checks if the current [packageName] needs first to install [PACKAGE_NAME_TRICHROME_LIB]
+     * before installing the update for the given [versionCode].
+     *
+     * Once ether [PACKAGE_NAME_CHROME] or [PACKAGE_NAME_WEBVIEW] have already been updated to the
+     * given [versionCode], it means that [PACKAGE_NAME_TRICHROME_LIB] was already installed
+     * since it is a requirement for upgrading both packages.
+     *
+     * This code assumes that all three packages are always present in the [REPO_URL] index
+     * and their suggested versions always have the same version code.
+     */
+    @Throws(TriChromeException::class)
+    private suspend fun checkTriChrome(
+        packageName: String,
+        versionCode: Long,
+        triChromePackage: PackageV2?,
+    ) {
+        if (packageName == PACKAGE_NAME_WEBVIEW) {
+            val chromeVersionCode = packageManager.getInstalledVersionCode(PACKAGE_NAME_CHROME)
+            if (versionCode > chromeVersionCode) {
+                // chrome has not been updated, yet, so trichrome must be updated first
+                installTriChromeLibrary(versionCode, triChromePackage)
+            }
+        } else if (packageName == PACKAGE_NAME_CHROME) {
+            val webViewVersionCode = packageManager.getInstalledVersionCode(PACKAGE_NAME_WEBVIEW)
+            if (versionCode > webViewVersionCode) {
+                // webview has not been updated, yet, so trichrome must be updated first
+                installTriChromeLibrary(versionCode, triChromePackage)
+            }
+        }
+    }
+
+    @Throws(TriChromeException::class)
+    private suspend fun installTriChromeLibrary(versionCode: Long, packageV2: PackageV2?) {
+        if (packageV2 == null) {
+            throw TriChromeException("$PACKAGE_NAME_TRICHROME_LIB was not found in index")
+        }
+        val versions = packageV2.versions.values.toList()
+        val version = updateChecker.getSuggestedVersion(versions, null)!!
+        if (versionCode != version.versionCode) throw TriChromeException(
+            "$PACKAGE_NAME_TRICHROME_LIB has versionCode ${version.versionCode}," +
+                "but expected $versionCode"
+        )
+        installUpdate(PACKAGE_NAME_TRICHROME_LIB, version)
+    }
+
+    private fun PackageManager.getInstalledVersionCode(packageName: String): Long {
+        return getPackageInfo(packageName, PackageInfoFlags.of(0)).longVersionCode
+    }
+
 }
+
+internal class TriChromeException(msg: String) : Exception(msg)
 
 private const val CERT =
     "30820503308202eba003020102020451af9e01300d06092a864886f70d01010b050030323110300e06" +
