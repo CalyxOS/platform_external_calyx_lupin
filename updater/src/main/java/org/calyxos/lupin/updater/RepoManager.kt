@@ -8,7 +8,10 @@ package org.calyxos.lupin.updater
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED
+import android.content.pm.PackageManager
 import android.content.pm.PackageManager.GET_SIGNATURES
+import android.content.pm.PackageManager.NameNotFoundException
+import android.content.pm.PackageManager.PackageInfoFlags
 import android.util.Log
 import androidx.annotation.WorkerThread
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -23,6 +26,7 @@ import org.fdroid.UpdateChecker
 import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.IndexV2
+import org.fdroid.index.v2.PackageV2
 import org.fdroid.index.v2.PackageVersionV2
 import java.io.File
 import javax.inject.Inject
@@ -31,6 +35,9 @@ import javax.inject.Singleton
 private val TAG = RepoManager::class.simpleName
 
 internal const val REPO_URL = "https://calyxos.gitlab.io/calyx-fdroid-repo/fdroid/repo"
+private const val PACKAGE_NAME_WEBVIEW = "com.android.webview"
+private const val PACKAGE_NAME_CHROME = "org.chromium.chrome"
+private const val PACKAGE_NAME_TRICHROME_LIB = "org.chromium.trichromelibrary"
 
 @Singleton
 class RepoManager(
@@ -39,6 +46,8 @@ class RepoManager(
     private val updateChecker: UpdateChecker,
     private val packageInstaller: PackageInstaller,
 ) {
+
+    private val packageManager = context.packageManager
 
     @Inject
     constructor(@ApplicationContext context: Context, packageInstaller: PackageInstaller) : this(
@@ -71,7 +80,14 @@ class RepoManager(
             Log.d(TAG, "Checking if $packageName has an update")
             val packageVersions = packageV2.versions.values.toList()
             try {
-                installUpdate(packageName, packageVersions)
+                val update = getUpdate(packageName, packageVersions) ?: return@forEach
+                // TODO queue apps we can't auto-update and ask for user confirmation via notification
+                checkTriChrome(
+                    packageName = packageName,
+                    versionCode = update.manifest.versionCode,
+                    triChromePackage = index.packages[PACKAGE_NAME_TRICHROME_LIB],
+                )
+                installUpdate(packageName, update)
             } catch (e: Exception) {
                 Log.e(TAG, "Error installing update: ", e)
                 allUpdated = false
@@ -80,17 +96,27 @@ class RepoManager(
         allUpdated
     }
 
+    private fun getUpdate(
+        packageName: String,
+        packageVersions: List<PackageVersionV2>,
+    ): PackageVersionV2? {
+        if (packageVersions.isEmpty()) return null
+        @Suppress("DEPRECATION")
+        @SuppressLint("PackageManagerGetSignatures")
+        val packageInfo = try {
+            packageManager.getPackageInfo(packageName, GET_SIGNATURES)
+        } catch (e: NameNotFoundException) {
+            // not installed, so nothing to update
+            return null
+        }
+        return updateChecker.getUpdate(packageVersions, packageInfo)
+    }
+
     @WorkerThread
     private suspend fun installUpdate(
         packageName: String,
-        packageVersions: List<PackageVersionV2>,
+        update: PackageVersionV2,
     ) {
-        if (packageVersions.isEmpty()) return
-        @Suppress("DEPRECATION")
-        @SuppressLint("PackageManagerGetSignatures")
-        val packageInfo = context.packageManager.getPackageInfo(packageName, GET_SIGNATURES)
-        val update = updateChecker.getUpdate(packageVersions, packageInfo) ?: return
-
         Log.d(TAG, "Downloading ${update.file.name}")
         val request = update.file.getRequest(REPO_URL)
         val apkFile = File.createTempFile("apk-", "", context.cacheDir)
@@ -104,6 +130,52 @@ class RepoManager(
         } finally {
             apkFile.delete()
         }
+    }
+
+    /**
+     * Checks if the current [packageName] needs first to install [PACKAGE_NAME_TRICHROME_LIB]
+     * before installing the update for the given [versionCode].
+     *
+     * Once ether [PACKAGE_NAME_CHROME] or [PACKAGE_NAME_WEBVIEW] have already been updated to the
+     * given [versionCode], it means that [PACKAGE_NAME_TRICHROME_LIB] was already installed
+     * since it is a requirement for upgrading both packages.
+     *
+     * This code assumes that all three packages are always present in the [REPO_URL] index
+     * and their suggested versions always have the same version code.
+     */
+    private suspend fun checkTriChrome(
+        packageName: String,
+        versionCode: Long,
+        triChromePackage: PackageV2?,
+    ) {
+        if (packageName == PACKAGE_NAME_WEBVIEW) {
+            val chromeVersionCode = packageManager.getInstalledVersionCode(PACKAGE_NAME_CHROME)
+            if (versionCode > chromeVersionCode) {
+                // chrome has not been updated, yet, so trichrome must be updated first
+                installTriChromeLibrary(versionCode, triChromePackage)
+            }
+        } else if (packageName == PACKAGE_NAME_CHROME) {
+            val webViewVersionCode = packageManager.getInstalledVersionCode(PACKAGE_NAME_WEBVIEW)
+            if (versionCode > webViewVersionCode) {
+                // webview has not been updated, yet, so trichrome must be updated first
+                installTriChromeLibrary(versionCode, triChromePackage)
+            }
+        }
+    }
+
+    private suspend fun installTriChromeLibrary(versionCode: Long, packageV2: PackageV2?) {
+        if (packageV2 == null) error { "$PACKAGE_NAME_TRICHROME_LIB was not found in index" }
+        val versions = packageV2.versions.values.toList()
+        val version = updateChecker.getSuggestedVersion(versions, null)!!
+        if (versionCode != version.versionCode) error {
+            "$PACKAGE_NAME_TRICHROME_LIB has versionCode ${version.versionCode}," +
+                "but expected $versionCode"
+        }
+        installUpdate(PACKAGE_NAME_TRICHROME_LIB, version)
+    }
+
+    private fun PackageManager.getInstalledVersionCode(packageName: String): Long {
+        return getPackageInfo(packageName, PackageInfoFlags.of(0)).longVersionCode
     }
 
 }
