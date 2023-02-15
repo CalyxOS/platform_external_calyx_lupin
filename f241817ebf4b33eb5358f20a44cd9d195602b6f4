@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1af80733_cefc51fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-15T17:35:20Z",
+      "side": 1,
+      "message": "Add a line just above Change-Id,\n`Issue: calyxos#1230`",
+      "revId": "f241817ebf4b33eb5358f20a44cd9d195602b6f4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
