@@ -28,6 +28,7 @@ import android.content.pm.PackageInstaller.STATUS_SUCCESS
 import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageInstaller.SessionParams.MODE_FULL_INSTALL
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PackageInfoFlags
 import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -152,4 +153,11 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
         }
         return result
     }
+}
+
+fun PackageManager.getSharedLibraryVersionCode(packageName: String): Long? {
+    return getSharedLibraries(PackageInfoFlags.of(0)).mapNotNull {
+        if (it.declaringPackage.packageName == packageName) it.longVersion
+        else null
+    }.maxOrNull() // getting highest installed version code
 }
