@@ -16,6 +16,40 @@
       "message": "Add a line just above Change-Id,\n`Issue: calyxos#1230`",
       "revId": "f241817ebf4b33eb5358f20a44cd9d195602b6f4",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a76d9e53_d94002f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-15T17:38:59Z",
+      "side": 1,
+      "message": "Logic seems to match the issue from a quick check.",
+      "revId": "f241817ebf4b33eb5358f20a44cd9d195602b6f4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8b75934_44253298",
+        "filename": "updater/src/main/java/org/calyxos/lupin/updater/RepoManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-15T17:38:59Z",
+      "side": 1,
+      "message": "This is not currently enforced by any mechanism, but is always true in practice.",
+      "revId": "f241817ebf4b33eb5358f20a44cd9d195602b6f4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
