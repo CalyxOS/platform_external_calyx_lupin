@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30b2617a_0e40e673",
+        "filename": "shared/src/main/java/org/calyxos/lupin/RepoHelper.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-16T15:53:31Z",
+      "side": 1,
+      "message": "What does this change in practice?",
+      "revId": "e2eb293a8a7ab0fd5116289629e78eac995eb9d2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
