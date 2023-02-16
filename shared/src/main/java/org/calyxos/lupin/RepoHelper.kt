@@ -9,7 +9,7 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import org.fdroid.IndexFile
 import org.fdroid.download.DownloadRequest
-import org.fdroid.download.HttpDownloader
+import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.download.Mirror
 import org.fdroid.index.IndexConverter
@@ -35,7 +35,7 @@ object RepoHelper {
         return try {
             val indexFile = FileV2(REPO_INDEX)
             val request = indexFile.getRequest(repoUrl)
-            HttpDownloader(httpManager, request, file).download()
+            HttpDownloaderV2(httpManager, request, file).download()
             getIndex(file, cert)
         } finally {
             file.delete()
