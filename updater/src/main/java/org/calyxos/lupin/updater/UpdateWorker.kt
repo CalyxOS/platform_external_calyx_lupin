@@ -21,6 +21,7 @@ import dagger.assisted.AssistedInject
 import mu.KotlinLogging
 
 const val WORK_NAME_MANUAL = "manual"
+const val WORK_NAME_PERIODIC = "periodic"
 private const val CHANNEL_ID = "updateNotification"
 private const val NOTIFICATION_ID = 1
 
