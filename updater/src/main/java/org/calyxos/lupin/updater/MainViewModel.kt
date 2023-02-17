@@ -7,44 +7,38 @@
 package org.calyxos.lupin.updater
 
 import android.app.Application
-import android.util.Log
 import androidx.annotation.UiThread
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import androidx.work.ExistingWorkPolicy.KEEP
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST
+import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import mu.KotlinLogging
 import javax.inject.Inject
-
-private val TAG = MainViewModel::class.simpleName
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val settingsManager: SettingsManager,
-    private val repoManager: RepoManager,
+    settingsManager: SettingsManager,
     app: Application,
 ) : AndroidViewModel(app) {
 
-    private val _lastCheckedMillis = MutableStateFlow(settingsManager.lastCheckedMillis)
-    val lastCheckedMillis = _lastCheckedMillis.asStateFlow()
+    private val workManager = WorkManager.getInstance(getApplication())
+
+    val lastCheckedMillis = settingsManager.lastCheckedMillisState
+    val checkLiveData = workManager.getWorkInfosForUniqueWorkLiveData(WORK_NAME_MANUAL).map {
+        KotlinLogging.logger {  }.error { it } // TODO remove
+        it.getOrNull(0)?.state?.isFinished ?: true
+    }
 
     @UiThread
     fun onCheckButtonClicked() = viewModelScope.launch {
-        // TODO move this into a WorkManager job
-        val index = repoManager.downloadIndex() ?: return@launch
-
-        // update last checked
-        val now = System.currentTimeMillis()
-        settingsManager.lastCheckedMillis = now
-        _lastCheckedMillis.value = now
-
-        // update apps from repo, if index is new
-        if (index.repo.timestamp > settingsManager.lastRepoTimestamp) {
-            val allUpdated = repoManager.updateApps(index)
-            if (allUpdated) settingsManager.lastRepoTimestamp = index.repo.timestamp
-        } else {
-            Log.d(TAG, "Repo was not updated")
-        }
+        val workRequest = OneTimeWorkRequestBuilder<UpdateWorker>()
+            .setExpedited(RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+            .build()
+        workManager.enqueueUniqueWork(WORK_NAME_MANUAL, KEEP, workRequest)
     }
 }

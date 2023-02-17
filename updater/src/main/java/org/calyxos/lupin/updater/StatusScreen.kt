@@ -30,6 +30,7 @@ import kotlin.random.Random
 fun StatusScreen(
     paddingValues: PaddingValues,
     lastCheckedMillis: Long,
+    checkButtonEnabled: Boolean,
     onCheckButtonClicked: () -> Unit,
 ) {
     val settingsPadding = 24.dp // taken from system settings
@@ -54,6 +55,7 @@ fun StatusScreen(
         Spacer(modifier = Modifier.weight(1f))
         Button(
             onClick = onCheckButtonClicked,
+            enabled = checkButtonEnabled,
             modifier = Modifier.align(End),
         ) {
             Text(
@@ -69,7 +71,11 @@ fun StatusScreen(
 fun StatusScreenPreview() {
     LupinTheme {
         Surface {
-            StatusScreen(PaddingValues(0.dp), System.currentTimeMillis() - Random.nextLong()) {}
+            StatusScreen(
+                PaddingValues(0.dp),
+                System.currentTimeMillis() - Random.nextLong(),
+                Random.nextBoolean(),
+            ) {}
         }
     }
 }
