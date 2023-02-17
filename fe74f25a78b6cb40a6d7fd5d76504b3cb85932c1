@@ -52,6 +52,24 @@
       "parentUuid": "7abd4ba4_72ffe198",
       "revId": "fe74f25a78b6cb40a6d7fd5d76504b3cb85932c1",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88fd2c98_4080bdd7",
+        "filename": "app/src/main/java/org/calyxos/lupin/state/StateManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-17T17:16:08Z",
+      "side": 1,
+      "message": "\u003e Sorry, I don\u0027t understand the installed by default part. You mean a way to control the toggles when the app opens? That sounds like a new feature.\n\nThe existing repo has all apps + Nextcloud. All apps are checked by default. That is controlled by category \"Default\", which all apps have, but Nextcloud doesn\u0027t.\n\n\u003e \n\u003e For now, we just need to check that no app has the Internet category or if one has it, change the ONLINE_ONLY category.\n\nCurrent setup doesn\u0027t care about Internet category at all.\n\n\nI\u0027ll just try this, make the change and handle it accordingly, I think it\u0027ll be easier to explain with code changes.",
+      "parentUuid": "ccb8aa66_d81c66a3",
+      "revId": "fe74f25a78b6cb40a6d7fd5d76504b3cb85932c1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
