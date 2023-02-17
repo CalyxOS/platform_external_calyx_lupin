@@ -16,6 +16,24 @@
       "message": "What does this change in practice?",
       "revId": "e2eb293a8a7ab0fd5116289629e78eac995eb9d2",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "772b5e2a_e428f385",
+        "filename": "shared/src/main/java/org/calyxos/lupin/RepoHelper.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-02-17T14:47:01Z",
+      "side": 1,
+      "message": "We don\u0027t do a prior HEAD request before downloading (and don\u0027t use that deprecated code anymore).",
+      "parentUuid": "30b2617a_0e40e673",
+      "revId": "e2eb293a8a7ab0fd5116289629e78eac995eb9d2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
