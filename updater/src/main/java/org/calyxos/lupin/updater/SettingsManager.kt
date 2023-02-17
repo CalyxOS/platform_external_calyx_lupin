@@ -7,6 +7,8 @@ package org.calyxos.lupin.updater
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,6 +21,9 @@ class SettingsManager @Inject constructor(@ApplicationContext private val contex
 
     private val sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
+    private val _lastCheckedMillisState = MutableStateFlow(lastCheckedMillis)
+    val lastCheckedMillisState = _lastCheckedMillisState.asStateFlow()
+
     /**
      * The timestamp when we last checked for updates.
      * Warning: Setting this value happens asynchronously
@@ -29,6 +34,7 @@ class SettingsManager @Inject constructor(@ApplicationContext private val contex
             return sharedPref.getLong(PREF_LAST_CHECKED, -1)
         }
         set(value) {
+            _lastCheckedMillisState.value = value
             sharedPref.edit().putLong(PREF_LAST_CHECKED, value).apply()
         }
 
