@@ -9,8 +9,13 @@
     <string name="back">Back</string>
     <string name="now">now</string>
     <string name="never">never</string>
+    <string name="cancel">Cancel</string>
 
     <string name="status_screen_last_check">Last update check: %s</string>
     <string name="status_screen_check_button">Check now</string>
     <string name="status_screen_title">App updates</string>
+
+    <string name="notification_title">Updating apps</string>
+    <string name="channel_name">Update notification</string>
+    <string name="channel_description">Shown while updating apps</string>
 </resources>
