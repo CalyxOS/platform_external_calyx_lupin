@@ -26,6 +26,15 @@
             </intent-filter>
         </activity>
 
+        <!-- needed to schedule the periodic worker, even before the user opens the app -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <!-- needed for hilt worker injection to work -->
         <provider
             android:name="androidx.startup.InitializationProvider"
