@@ -48,7 +48,7 @@ dependencies {
     api 'androidx.compose.ui:ui-tooling-preview'
     api 'androidx.activity:activity-compose:1.6.1'
     api 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    api 'androidx.lifecycle:lifecycle-service:2.5.1'
+    api 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
 
     api 'io.github.microutils:kotlin-logging:2.1.21'
 
