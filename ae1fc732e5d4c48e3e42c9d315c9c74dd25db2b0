@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a350e36_906c4abb",
+        "filename": "app/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-17T17:14:33Z",
+      "side": 1,
+      "message": "Quick question: Intentionally true here and the only change is proguard, or did you this false for debug?",
+      "revId": "ae1fc732e5d4c48e3e42c9d315c9c74dd25db2b0",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
