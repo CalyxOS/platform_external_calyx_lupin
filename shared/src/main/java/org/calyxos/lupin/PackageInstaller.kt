@@ -26,12 +26,14 @@ import android.app.PendingIntent.getBroadcast
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.EXTRA_INTENT
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.Intent.FLAG_RECEIVER_FOREGROUND
 import android.content.IntentFilter
 import android.content.IntentSender
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageInstaller.EXTRA_PACKAGE_NAME
+import android.content.pm.PackageInstaller.EXTRA_SESSION_ID
 import android.content.pm.PackageInstaller.EXTRA_STATUS
 import android.content.pm.PackageInstaller.EXTRA_STATUS_MESSAGE
 import android.content.pm.PackageInstaller.STATUS_PENDING_USER_ACTION
@@ -41,6 +43,7 @@ import android.content.pm.PackageInstaller.SessionParams.MODE_FULL_INSTALL
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PackageInfoFlags
 import android.util.Log
+import androidx.annotation.UiThread
 import androidx.core.content.ContextCompat.startActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -63,6 +66,11 @@ data class InstallResult(
     val success = status == STATUS_SUCCESS
 }
 
+/**
+ * A convenience class for installing packages from files.
+ * Not intended for installing multiple packages concurrently.
+ * Assumes that you get the [InstallResult] before starting a new installation.
+ */
 @Singleton
 class PackageInstaller @Inject constructor(@ApplicationContext private val context: Context) {
 
@@ -84,12 +92,13 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
     suspend fun install(
         packageName: String,
         packageFile: File,
+        userActionListener: UserActionRequiredListener = userActionRequiredListener,
         sessionConfig: (SessionParams.() -> Unit)? = null,
     ): InstallResult = suspendCancellableCoroutine { cont ->
         val broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, i: Intent) {
                 if (i.action != BROADCAST_ACTION) return
-                val result = onBroadcastReceived(i, packageName)
+                val result = onBroadcastReceived(i, packageName, userActionListener)
                 if (result != null) {
                     context.unregisterReceiver(this)
                     cont.resume(result)
@@ -145,7 +154,12 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
      * In case of null, you should continue to listen to broadcast and only unregister
      * when we have an [InstallResult].
      */
-    private fun onBroadcastReceived(i: Intent, expectedPackageName: String): InstallResult? {
+    @UiThread
+    private fun onBroadcastReceived(
+        i: Intent,
+        expectedPackageName: String,
+        userActionListener: UserActionRequiredListener,
+    ): InstallResult? {
         val packageName = i.getStringExtra(EXTRA_PACKAGE_NAME)
         check(packageName == null || packageName == expectedPackageName) {
             "Expected $expectedPackageName, but got $packageName."
@@ -154,15 +168,27 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
             status = i.getIntExtra(EXTRA_STATUS, Int.MIN_VALUE),
             msg = i.getStringExtra(EXTRA_STATUS_MESSAGE),
         )
-        Log.d(TAG,
-            "Received result for $expectedPackageName: status=${result.status} ${result.msg}")
+        Log.d(
+            TAG,
+            "Received result for $expectedPackageName: status=${result.status} ${result.msg}"
+        )
         if (result.status == STATUS_PENDING_USER_ACTION) {
-            val intent = i.extras?.get(Intent.EXTRA_INTENT) as Intent
-            intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-            startActivity(context, intent, null)
-            return null
+            @Suppress("DEPRECATION") // there's no getIntent() method we can use instead
+            val intent = i.extras?.get(EXTRA_INTENT) as Intent
+            val waitForResult = userActionListener.onUserConfirmationRequired(
+                packageName = expectedPackageName,
+                sessionId = intent.getIntExtra(EXTRA_SESSION_ID, -1),
+                intent = intent,
+            )
+            return if (waitForResult) null else result
         }
         return result
+    }
+
+    private val userActionRequiredListener = UserActionRequiredListener { _, _, intent ->
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+        startActivity(context, intent, null)
+        true
     }
 }
 
