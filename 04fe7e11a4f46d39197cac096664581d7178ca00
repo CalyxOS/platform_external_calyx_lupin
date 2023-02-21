@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0f326da_0746a666",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-21T13:47:43Z",
+      "side": 1,
+      "message": "Just FYI: It will be shipped as a system app, and we\u0027ll configure `allow-in-power-save` too.\n\nHowever the beauty is that it won\u0027t need any extra privileges system side (just being a system app gives you some leeway but in modern Android it\u0027s not that much) - and thus that\u0027ll reduce the attack surface.",
+      "revId": "04fe7e11a4f46d39197cac096664581d7178ca00",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
