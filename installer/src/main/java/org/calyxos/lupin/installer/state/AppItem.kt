@@ -116,6 +116,10 @@ fun PackageV2.getSigner(): SignerV2? {
     return versions.values.first().signer
 }
 
+private fun PackageV2.isDefault(): Boolean {
+    return metadata.categories.contains(CATEGORY_DEFAULT)
+}
+
 private fun PackageV2.isOnlineOnly(): Boolean {
     return metadata.categories.contains(CATEGORY_ONLINE_ONLY)
 }
