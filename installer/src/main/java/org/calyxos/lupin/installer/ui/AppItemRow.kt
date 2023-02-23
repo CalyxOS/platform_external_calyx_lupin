@@ -163,6 +163,7 @@ fun AppItemRowPreviewOffline() {
         Surface {
             AppItemRow(
                 item = getRandomAppItem(LocalContext.current).copy(
+                    isDefault = true,
                     isOnlineOnly = true,
                     state = AppItemState.Selectable(false)
                 ),
@@ -199,6 +200,7 @@ internal fun getRandomAppItem(context: Context) = AppItem(
     apkGetter = { File("/") },
     apkSize = 42,
     signers = SignerV2(emptyList()),
+    isDefault = Random.nextBoolean(),
     isOnlineOnly = Random.nextBoolean(),
     state = when {
         Random.nextBoolean() -> AppItemState.Selectable(Random.nextBoolean())
