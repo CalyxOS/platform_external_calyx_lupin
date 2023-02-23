@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d942b2f2_f9a4bed7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-23T23:22:00Z",
+      "side": 1,
+      "message": "Unfortunately this now conflicts.\n\nI suggest we just re-do it once updater / some more of the new code is in, so we can do it once and be done with it.",
+      "revId": "4d6335d8714970f7e72357e2fac662dca6017e01",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91a9ddc6_4239d1b4",
