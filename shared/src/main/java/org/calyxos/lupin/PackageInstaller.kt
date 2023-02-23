@@ -64,6 +64,8 @@ data class InstallResult(
     constructor(exception: Exception) : this(-1, null, exception)
 
     val success = status == STATUS_SUCCESS
+
+    val pendingUserAction = status == STATUS_PENDING_USER_ACTION
 }
 
 /**
@@ -161,8 +163,10 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
         userActionListener: UserActionRequiredListener,
     ): InstallResult? {
         val packageName = i.getStringExtra(EXTRA_PACKAGE_NAME)
-        check(packageName == null || packageName == expectedPackageName) {
-            "Expected $expectedPackageName, but got $packageName."
+        // packageName is not always set, e.g. for STATUS_PENDING_USER_ACTION
+        if (packageName != null && packageName != expectedPackageName) {
+            Log.w(TAG, "Expected $expectedPackageName, but got $packageName.")
+            return null
         }
         val result = InstallResult(
             status = i.getIntExtra(EXTRA_STATUS, Int.MIN_VALUE),
@@ -172,7 +176,7 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
             TAG,
             "Received result for $expectedPackageName: status=${result.status} ${result.msg}"
         )
-        if (result.status == STATUS_PENDING_USER_ACTION) {
+        if (result.pendingUserAction) {
             @Suppress("DEPRECATION") // there's no getIntent() method we can use instead
             val intent = i.extras?.get(EXTRA_INTENT) as Intent
             val waitForResult = userActionListener.onUserConfirmationRequired(
