@@ -50,7 +50,6 @@ object RepoHelper {
         }
         return IndexConverter().toIndexV2(index)
     }
-
 }
 
 fun IndexFile.getRequest(url: String): DownloadRequest {
