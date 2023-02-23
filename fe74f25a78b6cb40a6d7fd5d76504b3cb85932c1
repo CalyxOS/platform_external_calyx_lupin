@@ -70,6 +70,24 @@
       "parentUuid": "ccb8aa66_d81c66a3",
       "revId": "fe74f25a78b6cb40a6d7fd5d76504b3cb85932c1",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29599c7a_3eb7cfd4",
+        "filename": "app/src/main/java/org/calyxos/lupin/state/StateManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-23T23:51:49Z",
+      "side": 1,
+      "message": "See the other patches around this.",
+      "parentUuid": "88fd2c98_4080bdd7",
+      "revId": "fe74f25a78b6cb40a6d7fd5d76504b3cb85932c1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
