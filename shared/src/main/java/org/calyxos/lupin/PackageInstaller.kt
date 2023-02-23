@@ -195,7 +195,6 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
     }
 }
 
-
 fun PackageManager.getSharedLibraryVersionCode(packageName: String): Long? {
     return getSharedLibraries(PackageInfoFlags.of(0)).mapNotNull {
         if (it.declaringPackage.packageName == packageName) it.longVersion
