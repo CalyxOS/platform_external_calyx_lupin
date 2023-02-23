@@ -25,9 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.calyxos.lupin.InstallResult
-import org.calyxos.lupin.PackageInstaller
 import org.calyxos.lupin.getRequest
-import org.fdroid.IndexFile
 import org.fdroid.UpdateChecker
 import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.FileV2
@@ -40,14 +38,15 @@ import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
+@Suppress("DEPRECATION")
 @OptIn(ExperimentalCoroutinesApi::class)
-class RepoManagerTest {
+class UpdateManagerTest {
 
     private val context: Context = mockk()
     private val httpManager: HttpManager = mockk()
     private val updateChecker: UpdateChecker = mockk()
-    private val packageInstaller: PackageInstaller = mockk()
-    private val repoManager: RepoManager
+    private val installManager: InstallManager = mockk()
+    private val updateManager: UpdateManager
 
     private val packageManager: PackageManager = mockk()
     private val packageInfo: PackageInfo = mockk()
@@ -58,11 +57,11 @@ class RepoManagerTest {
 
     init {
         every { context.packageManager } returns packageManager
-        repoManager = RepoManager(
+        updateManager = UpdateManager(
             context = context,
             httpManager = httpManager,
             updateChecker = updateChecker,
-            packageInstaller = packageInstaller,
+            installManager = installManager,
             coroutineContext = testDispatcher,
         )
     }
@@ -76,21 +75,21 @@ class RepoManagerTest {
         every { context.cacheDir } returns tempDir
         coEvery { httpManager.get(request, receiver = any()) } just Runs
 
-        repoManager.downloadIndex()
+        updateManager.downloadIndex()
     }
 
     @Test
     fun updateAppsDoesNothingForEmptyRepo() = runTest {
         val index = IndexV2(repo)
 
-        assertTrue(repoManager.updateApps(index))
+        assertFalse(updateManager.updateApps(index).retry)
     }
 
     @Test
     fun singleAppHasNoUpdate() = runTest {
         expectGetUpdate(packageName, listOf(packageVersion), null)
 
-        assertTrue(repoManager.updateApps(index))
+        assertFalse(updateManager.updateApps(index).retry)
     }
 
     @Test
@@ -99,60 +98,55 @@ class RepoManagerTest {
             packageManager.getPackageInfo(packageName, GET_SIGNATURES)
         } throws NameNotFoundException()
 
-        assertTrue(repoManager.updateApps(index))
+        assertFalse(updateManager.updateApps(index).retry)
     }
 
     @Test
     fun appFailsToDownloadUpdate() = runTest {
-        val request = packageVersion.file.getRequest(REPO_URL)
-
         expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
-        every { context.cacheDir } returns tempDir
-        coEvery { httpManager.get(request, receiver = any()) } throws Exception()
+        coEvery { installManager.installUpdate(packageName, packageVersion) } throws Exception()
 
         // try this again when checking updates next
-        assertFalse(repoManager.updateApps(index))
+        assertTrue(updateManager.updateApps(index).retry)
     }
 
     @Test
     fun appFailsToInstallUpdate() = runTest {
         expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
-        expectDownload(packageVersion.file)
         coEvery {
-            packageInstaller.install(packageName, any(), any())
+            installManager.installUpdate(packageName, packageVersion)
         } returns InstallResult(Exception())
 
         // no need to try again
-        assertTrue(repoManager.updateApps(index))
+        assertFalse(updateManager.updateApps(index).retry)
 
         coVerify {
-            packageInstaller.install(packageName, any(), any())
+            installManager.installUpdate(packageName, packageVersion)
         }
     }
 
     @Test
     fun twoAppsInstallUpdates() = runTest {
         val packageName2 = "net.example.app"
-        val pv = getPackageVersionV2("file1")
+        val pv = getPackageVersionV2("file2")
+        val pv2 = getPackageV2(pv)
         val index = IndexV2(
             repo = repo,
-            packages = mapOf(packageName to packageV2, packageName2 to getPackageV2(pv))
+            packages = mapOf(packageName to packageV2, packageName2 to pv2)
         )
 
         expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
-        expectDownload(packageVersion.file)
-        expectSuccessfulInstall(packageName)
+        expectSuccessfulInstall(packageName, packageVersion)
 
         expectGetUpdate(packageName2, listOf(pv), pv)
-        expectDownload(pv.file)
-        expectSuccessfulInstall(packageName2)
+        expectSuccessfulInstall(packageName2, pv)
 
-        assertTrue(repoManager.updateApps(index))
+        assertFalse(updateManager.updateApps(index).retry)
 
         // verify both apps got installed
         coVerify {
-            packageInstaller.install(packageName, any(), any())
-            packageInstaller.install(packageName2, any(), any())
+            installManager.installUpdate(packageName, packageVersion)
+            installManager.installUpdate(packageName2, pv)
         }
     }
 
@@ -166,12 +160,10 @@ class RepoManagerTest {
         every {
             updateChecker.getSuggestedVersion(listOf(pvTriChromeLib), null)
         } returns pvTriChromeLib
-        expectDownload(pvTriChromeLib.file)
-        expectSuccessfulInstall(PACKAGE_NAME_TRICHROME_LIB)
+        expectSuccessfulInstall(PACKAGE_NAME_TRICHROME_LIB, pvTriChromeLib)
 
         // only now you can install webview
-        expectDownload(pvWebview.file)
-        expectSuccessfulInstall(PACKAGE_NAME_WEBVIEW)
+        expectSuccessfulInstall(PACKAGE_NAME_WEBVIEW, pvWebview)
 
         // trichrome is never reported as installed
         every {
@@ -181,10 +173,9 @@ class RepoManagerTest {
         // now install update for chrome, no need to install trichrome lib anymore
         expectGetUpdate(PACKAGE_NAME_CHROME, listOf(pvChrome), pvChrome)
         // trichrome was updated now
-        expectDownload(pvChrome.file)
-        expectSuccessfulInstall(PACKAGE_NAME_CHROME)
+        expectSuccessfulInstall(PACKAGE_NAME_CHROME, pvChrome)
 
-        assertTrue(repoManager.updateApps(triChromeIndex))
+        assertFalse(updateManager.updateApps(triChromeIndex).retry)
 
         // ensure that packages got processed in expected order
         coVerifyOrder {
@@ -194,9 +185,9 @@ class RepoManagerTest {
         }
         // ensure that trichrome lib got installed before both updates
         coVerifyOrder {
-            packageInstaller.install(PACKAGE_NAME_TRICHROME_LIB, any(), any())
-            packageInstaller.install(PACKAGE_NAME_WEBVIEW, any(), any())
-            packageInstaller.install(PACKAGE_NAME_CHROME, any(), any())
+            installManager.installUpdate(PACKAGE_NAME_TRICHROME_LIB, pvTriChromeLib)
+            installManager.installUpdate(PACKAGE_NAME_WEBVIEW, pvWebview)
+            installManager.installUpdate(PACKAGE_NAME_CHROME, pvChrome)
         }
     }
 
@@ -213,7 +204,7 @@ class RepoManagerTest {
         expectTriChromeVersionCode(packageVersion.versionCode - 1)
 
         // we need a repo update to fix missing trichrome, so need to try again now
-        assertTrue(repoManager.updateApps(index))
+        assertFalse(updateManager.updateApps(index).retry)
     }
 
     @Test
@@ -228,10 +219,9 @@ class RepoManagerTest {
         every {
             updateChecker.getSuggestedVersion(listOf(pvTriChromeLib), null)
         } returns pvTriChromeLib
-        expectDownload(pvTriChromeLib.file)
         // trichrome install fails
         coEvery {
-            packageInstaller.install(PACKAGE_NAME_TRICHROME_LIB, any(), any())
+            installManager.installUpdate(PACKAGE_NAME_TRICHROME_LIB, pvTriChromeLib)
         } returns InstallResult(7, "failed to install")
 
         // trichrome is never reported as installed
@@ -244,12 +234,12 @@ class RepoManagerTest {
         // chrome runs into same issue, so can't install anything
 
         // we need a repo update to fix missing trichrome, so need to try again now
-        assertTrue(repoManager.updateApps(triChromeIndex))
+        assertFalse(updateManager.updateApps(triChromeIndex).retry)
 
         // verify that we did not try to install webview and chrome
         coVerify(exactly = 0) {
-            packageInstaller.install(PACKAGE_NAME_WEBVIEW, any(), any())
-            packageInstaller.install(PACKAGE_NAME_CHROME, any(), any())
+            installManager.installUpdate(PACKAGE_NAME_WEBVIEW, pvWebview)
+            installManager.installUpdate(PACKAGE_NAME_CHROME, pvChrome)
         }
     }
 
@@ -262,15 +252,9 @@ class RepoManagerTest {
         every { updateChecker.getUpdate(versions, packageInfo) } returns update
     }
 
-    private fun expectDownload(indexFile: IndexFile) {
-        val request = indexFile.getRequest(REPO_URL)
-        every { context.cacheDir } returns tempDir
-        coEvery { httpManager.get(request, receiver = any()) } just Runs
-    }
-
-    private fun expectSuccessfulInstall(packageName: String) {
+    private fun expectSuccessfulInstall(packageName: String, update: PackageVersionV2) {
         coEvery {
-            packageInstaller.install(packageName, any(), any())
+            installManager.installUpdate(packageName, update)
         } returns InstallResult(STATUS_SUCCESS, null)
     }
 

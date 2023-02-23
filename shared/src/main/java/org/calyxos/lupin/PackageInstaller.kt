@@ -64,6 +64,8 @@ data class InstallResult(
     constructor(exception: Exception) : this(-1, null, exception)
 
     val success = status == STATUS_SUCCESS
+
+    val pendingUserAction = status == STATUS_PENDING_USER_ACTION
 }
 
 /**
@@ -161,8 +163,9 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
         userActionListener: UserActionRequiredListener,
     ): InstallResult? {
         val packageName = i.getStringExtra(EXTRA_PACKAGE_NAME)
-        check(packageName == null || packageName == expectedPackageName) {
-            "Expected $expectedPackageName, but got $packageName."
+        if (packageName == null || packageName == expectedPackageName) {
+            Log.w(TAG, "Expected $expectedPackageName, but got $packageName.")
+            return null
         }
         val result = InstallResult(
             status = i.getIntExtra(EXTRA_STATUS, Int.MIN_VALUE),
@@ -172,7 +175,7 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
             TAG,
             "Received result for $expectedPackageName: status=${result.status} ${result.msg}"
         )
-        if (result.status == STATUS_PENDING_USER_ACTION) {
+        if (result.pendingUserAction) {
             @Suppress("DEPRECATION") // there's no getIntent() method we can use instead
             val intent = i.extras?.get(EXTRA_INTENT) as Intent
             val waitForResult = userActionListener.onUserConfirmationRequired(
@@ -192,26 +195,6 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
     }
 }
 
-fun interface UserActionRequiredListener {
-    /**
-     * Called when user confirmation is required for the installation of the [packageName].
-     * Usually, you want to start an activity with the given [intent].
-     * However, you need to ensure that your app is allowed to launch an activity at this time.
-     *
-     * @param packageName the package name of the package that requires user confirmation.
-     * @param sessionId The ID of the [PackageInstaller.SessionInfo] or -1, if not known.
-     * @param intent The [Intent] we can start to prompt user confirmation in the UI.
-     *
-     * @return true if the [PackageInstaller.Session] should be kept open and the call to
-     * [org.calyxos.lupin.PackageInstaller.install] should wait for a result.
-     * This is typically the case, when the app is in the foreground
-     * and user confirmation can be performed right now.
-     * If false is returned, the call will return an [InstallResult]
-     * with [STATUS_PENDING_USER_ACTION].
-     */
-    @UiThread
-    fun onUserConfirmationRequired(packageName: String, sessionId: Int, intent: Intent): Boolean
-}
 
 fun PackageManager.getSharedLibraryVersionCode(packageName: String): Long? {
     return getSharedLibraries(PackageInfoFlags.of(0)).mapNotNull {
