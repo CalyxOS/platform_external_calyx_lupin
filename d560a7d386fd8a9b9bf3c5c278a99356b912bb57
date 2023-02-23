@@ -16,6 +16,24 @@
       "message": "```\n           StateManager  E  Error getting local index:\n                         E  kotlinx.serialization.SerializationException: Serializer for class \u0027IndexV1\u0027 is not found.\n                         E  Mark the class as @Serializable or provide the serializer explicitly.\n                         E      at kotlinx.serialization.SerializersKt.serializer(Unknown Source:51)\n                         E      at org.calyxos.lupin.installer.state.RepoManager$getIndex$1.invoke(RepoManager.kt:24)\n                         E      at org.calyxos.lupin.installer.state.RepoManager.getIndex(RepoManager.kt:62)\n                         E      at org.calyxos.lupin.installer.state.RepoManager$getLocalIndex$2.invokeSuspend(RepoManager.kt:22)\n                         E      at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:8)\n                         E      at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:107)\n                         E      at kotlinx.coroutines.internal.LimitedDispatcher.run(LimitedDispatcher.kt:13)\n                         E      at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:3)\n                         E      at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:79)\n```\n\nAPK: https://review.calyxos.org/c/CalyxOS/platform_prebuilts_calyx_lupin/+/15673",
       "revId": "d560a7d386fd8a9b9bf3c5c278a99356b912bb57",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf11d036_cb46806e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-23T23:17:11Z",
+      "side": 1,
+      "message": "Fixed by disabling minify\n\nAPK goes from 5MB -\u003e 20MB 😭",
+      "parentUuid": "ee2a63f0_f5599b27",
+      "revId": "d560a7d386fd8a9b9bf3c5c278a99356b912bb57",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
