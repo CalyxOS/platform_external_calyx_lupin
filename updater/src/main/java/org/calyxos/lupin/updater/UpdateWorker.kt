@@ -30,7 +30,7 @@ class UpdateWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters,
     private val settingsManager: SettingsManager,
-    private val repoManager: RepoManager,
+    private val updateManager: UpdateManager,
 ) : CoroutineWorker(context, workerParams) {
 
     private val log = KotlinLogging.logger {}
@@ -45,7 +45,7 @@ class UpdateWorker @AssistedInject constructor(
         }
 
         // TODO pass isStopped() in lambda to cancel work when system stops us
-        val index = repoManager.downloadIndex() ?: return Result.retry()
+        val index = updateManager.downloadIndex() ?: return Result.retry()
 
         // update last checked
         settingsManager.lastCheckedMillis = System.currentTimeMillis()
@@ -53,8 +53,8 @@ class UpdateWorker @AssistedInject constructor(
         // update apps from repo, if index is new
         if (index.repo.timestamp > settingsManager.lastRepoTimestamp) {
             // TODO pass isStopped() in lambda to cancel work when system stops us
-            val allUpdated = repoManager.updateApps(index)
-            if (allUpdated) settingsManager.lastRepoTimestamp = index.repo.timestamp
+            val updateResult = updateManager.updateApps(index)
+            if (!updateResult.retry) settingsManager.lastRepoTimestamp = index.repo.timestamp
         } else {
             log.info { "Repo was not updated" }
         }
