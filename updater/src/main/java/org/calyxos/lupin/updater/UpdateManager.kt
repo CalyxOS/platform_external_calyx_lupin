@@ -7,28 +7,23 @@ package org.calyxos.lupin.updater
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED
 import android.content.pm.PackageManager.GET_SIGNATURES
 import android.content.pm.PackageManager.NameNotFoundException
-import androidx.annotation.WorkerThread
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
 import org.calyxos.lupin.InstallResult
-import org.calyxos.lupin.PackageInstaller
 import org.calyxos.lupin.RepoHelper.downloadIndex
-import org.calyxos.lupin.getRequest
 import org.calyxos.lupin.getSharedLibraryVersionCode
-import org.calyxos.lupin.updater.BuildConfig.VERSION_NAME
+import org.calyxos.lupin.updater.UpdateAppsResult.Done
+import org.calyxos.lupin.updater.UpdateAppsResult.UserConfirmationRequired
 import org.fdroid.CompatibilityCheckerImpl
 import org.fdroid.UpdateChecker
-import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.IndexV2
 import org.fdroid.index.v2.PackageV2
 import org.fdroid.index.v2.PackageVersionV2
-import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
@@ -38,12 +33,17 @@ internal const val PACKAGE_NAME_WEBVIEW = "com.android.webview"
 internal const val PACKAGE_NAME_CHROME = "org.chromium.chrome"
 internal const val PACKAGE_NAME_TRICHROME_LIB = "org.chromium.trichromelibrary"
 
+sealed class UpdateAppsResult(val retry: Boolean) {
+    class Done(retry: Boolean) : UpdateAppsResult(retry)
+    class UserConfirmationRequired(retry: Boolean) : UpdateAppsResult(retry)
+}
+
 @Singleton
-class RepoManager(
+class UpdateManager(
     private val context: Context,
     private val httpManager: HttpManager,
     private val updateChecker: UpdateChecker,
-    private val packageInstaller: PackageInstaller,
+    private val installManager: InstallManager,
     private val coroutineContext: CoroutineContext = Dispatchers.IO,
 ) {
 
@@ -52,11 +52,15 @@ class RepoManager(
     private val packageManager = context.packageManager
 
     @Inject
-    constructor(@ApplicationContext context: Context, packageInstaller: PackageInstaller) : this(
+    constructor(
+        @ApplicationContext context: Context,
+        httpManager: HttpManager,
+        installManager: InstallManager,
+    ) : this(
         context = context,
-        httpManager = HttpManager("${context.getString(R.string.app_name)} $VERSION_NAME"),
+        httpManager = httpManager,
         updateChecker = UpdateChecker(CompatibilityCheckerImpl(context.packageManager)),
-        packageInstaller = packageInstaller,
+        installManager = installManager,
     )
 
     suspend fun downloadIndex(): IndexV2? = withContext(coroutineContext) {
@@ -72,13 +76,10 @@ class RepoManager(
 
     /**
      * Install all available updates in the given [index].
-     *
-     * @return true if all updates were applied or false if there was an error and we should re-try
-     * at the next update check. Note that certain failures won't get re-tried like this, but only
-     * after a new index got published.
      */
-    suspend fun updateApps(index: IndexV2): Boolean = withContext(coroutineContext) {
-        var allUpdated = true
+    suspend fun updateApps(index: IndexV2): UpdateAppsResult = withContext(coroutineContext) {
+        var userConfirmation = false
+        var retry = false
         index.packages.forEach { (packageName, packageV2) ->
             log.info { "Checking if $packageName has an update " }
             val packageVersions = packageV2.versions.values.toList()
@@ -90,18 +91,22 @@ class RepoManager(
                     versionCode = update.manifest.versionCode,
                     triChromePackage = index.packages[PACKAGE_NAME_TRICHROME_LIB],
                 )
-                if (triChromeOk) installUpdate(packageName, update)
-                else log.warn { "Trichrome dependency for $packageName was not satisfied." }
+                if (triChromeOk) {
+                    val result = installManager.installUpdate(packageName, update)
+                    if (result.pendingUserAction) userConfirmation = true
+                } else {
+                    log.warn { "Trichrome dependency for $packageName was not satisfied." }
+                }
             } catch (e: TriChromeException) {
                 log.error(e) { "Error installing update: " }
                 // we need a repo update to fix trichrome issues, so don't retry before that
             } catch (e: Exception) {
                 if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
                 log.error(e) { "Error installing update: " }
-                allUpdated = false
+                retry = true
             }
         }
-        allUpdated
+        if (userConfirmation) UserConfirmationRequired(retry) else Done(retry)
     }
 
     private fun getUpdate(
@@ -118,26 +123,6 @@ class RepoManager(
             return null
         }
         return updateChecker.getUpdate(packageVersions, packageInfo)
-    }
-
-    @WorkerThread
-    private suspend fun installUpdate(
-        packageName: String,
-        update: PackageVersionV2,
-    ): InstallResult {
-        log.info { "Downloading ${update.file.name}" }
-        val request = update.file.getRequest(REPO_URL)
-        val apkFile = File.createTempFile("apk-", "", context.cacheDir)
-        return try {
-            HttpDownloaderV2(httpManager, request, apkFile).download()
-            log.info { "Installing $packageName" }
-            packageInstaller.install(packageName, apkFile) {
-                setRequireUserAction(USER_ACTION_NOT_REQUIRED)
-            }
-            // not throwing exception on negative install result, so we don't re-try to install
-        } finally {
-            apkFile.delete()
-        }
     }
 
     /**
@@ -186,7 +171,7 @@ class RepoManager(
             "$PACKAGE_NAME_TRICHROME_LIB has versionCode ${version.versionCode}," +
                 "but expected $versionCode"
         )
-        return installUpdate(PACKAGE_NAME_TRICHROME_LIB, version)
+        return installManager.installUpdate(PACKAGE_NAME_TRICHROME_LIB, version)
     }
 
 }
