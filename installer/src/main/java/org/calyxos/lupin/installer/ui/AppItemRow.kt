@@ -50,7 +50,7 @@ fun AppItemRow(
     modifier: Modifier = Modifier,
     clickListener: ((AppItem) -> Unit)? = null,
 ) {
-    val canBeInstalled = isOnline || !item.isOnlineOnly
+    val canBeInstalled = item.isDefault
     Row(
         verticalAlignment = CenterVertically,
         modifier = Modifier
