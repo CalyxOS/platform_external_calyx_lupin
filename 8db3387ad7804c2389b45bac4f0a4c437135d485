@@ -87,6 +87,24 @@
       "message": "Do we want to share stuff like this with installer somehow? Only if it\u0027s easy to do so. That\u0027s one of the benefits of having it in the same repo.",
       "revId": "8db3387ad7804c2389b45bac4f0a4c437135d485",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1b30305_2a8569a5",
+        "filename": "updater/src/main/java/org/calyxos/lupin/updater/ui/theme/Theme.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-24T20:50:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6a40702_3e63632d",
+      "revId": "8db3387ad7804c2389b45bac4f0a4c437135d485",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
