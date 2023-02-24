@@ -44,6 +44,7 @@ class UpdateManager(
     private val httpManager: HttpManager,
     private val updateChecker: UpdateChecker,
     private val installManager: InstallManager,
+    private val notificationManager: NotificationManager,
     private val coroutineContext: CoroutineContext = Dispatchers.IO,
 ) {
 
@@ -56,10 +57,12 @@ class UpdateManager(
         @ApplicationContext context: Context,
         httpManager: HttpManager,
         installManager: InstallManager,
+        notificationManager: NotificationManager,
     ) : this(
         context = context,
         httpManager = httpManager,
         updateChecker = UpdateChecker(CompatibilityCheckerImpl(context.packageManager)),
+        notificationManager = notificationManager,
         installManager = installManager,
     )
 
@@ -80,6 +83,7 @@ class UpdateManager(
     suspend fun updateApps(index: IndexV2): UpdateAppsResult = withContext(coroutineContext) {
         var userConfirmation = false
         var retry = false
+        // TODO we should check if there are existing install sessions before re-downloading
         index.packages.forEach { (packageName, packageV2) ->
             log.info { "Checking if $packageName has an update " }
             val packageVersions = packageV2.versions.values.toList()
@@ -106,7 +110,11 @@ class UpdateManager(
                 retry = true
             }
         }
-        if (userConfirmation) UserConfirmationRequired(retry) else Done(retry)
+        // TODO roll back return class, boolean does the trick after all
+        if (userConfirmation) {
+            notificationManager.showUserConfirmationRequiredNotification()
+            UserConfirmationRequired(retry)
+        } else Done(retry)
     }
 
     private fun getUpdate(
