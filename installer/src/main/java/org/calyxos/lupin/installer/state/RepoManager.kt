@@ -31,7 +31,7 @@ internal const val REPO_INDEX = "index-v1.jar"
 internal const val REPO_PATH = "/product/fdroid/repo"
 internal const val REPO_URL = "https://fdroid-repo.calyxinstitute.org/non/existent/repo"
 internal const val CATEGORY_DEFAULT = "Default"
-internal const val CATEGORY_ONLINE_ONLY = "Internet"
+internal const val CATEGORY_ONLINE_ONLY = "OnlineOnly"
 
 data class RepoResult(
     val index: IndexV2,
