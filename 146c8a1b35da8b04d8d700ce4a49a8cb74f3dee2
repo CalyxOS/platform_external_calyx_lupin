@@ -16,6 +16,23 @@
       "message": "See -apps for screenshots.",
       "revId": "146c8a1b35da8b04d8d700ce4a49a8cb74f3dee2",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9fd310d_75e6ea7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-24T00:02:06Z",
+      "side": 1,
+      "message": "This still installs Nextcloud by default. It also doesn\u0027t look good because it says \"Can only be installed when online\"",
+      "revId": "146c8a1b35da8b04d8d700ce4a49a8cb74f3dee2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
