@@ -9,6 +9,8 @@
 
 package org.calyxos.lupin
 
+import android.app.ActivityManager
+import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
 import android.app.PendingIntent.FLAG_MUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.PendingIntent.getBroadcast
@@ -50,7 +52,7 @@ data class InstallResult(
     val msg: String?,
     val exception: Exception? = null,
 ) {
-    constructor(exception: Exception) : this(-1, null, exception)
+    constructor(exception: Exception) : this(Int.MAX_VALUE, null, exception)
 
     val success = status == STATUS_SUCCESS
 
@@ -178,10 +180,18 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
         return result
     }
 
+    fun canStartActivity(): Boolean {
+        val info = ActivityManager.RunningAppProcessInfo()
+        ActivityManager.getMyMemoryState(info)
+        return info.importance == IMPORTANCE_FOREGROUND
+    }
+
     private val userActionRequiredListener = UserActionRequiredListener { _, _, intent ->
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-        startActivity(context, intent, null)
-        true
+        if (canStartActivity()) {
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
+            startActivity(context, intent, null)
+            true
+        } else false
     }
 }
 
