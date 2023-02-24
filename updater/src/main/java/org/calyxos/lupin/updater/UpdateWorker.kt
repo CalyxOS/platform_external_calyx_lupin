@@ -45,7 +45,7 @@ class UpdateWorker @AssistedInject constructor(
         if (index.repo.timestamp > settingsManager.lastRepoTimestamp) {
             // TODO pass isStopped() in lambda to cancel work when system stops us
             val updateResult = updateManager.updateApps(index)
-            if (!updateResult.retry) settingsManager.lastRepoTimestamp = index.repo.timestamp
+            if (!updateResult) settingsManager.lastRepoTimestamp = index.repo.timestamp
         } else {
             log.info { "Repo was not updated" }
         }
