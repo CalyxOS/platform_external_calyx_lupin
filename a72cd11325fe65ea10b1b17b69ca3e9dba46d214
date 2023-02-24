@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2a40ff6_1b5f14e9",
+        "filename": "updater/src/main/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-24T23:17:16Z",
+      "side": 1,
+      "message": "Nice and simple. Can think of more, but sounds ok for now.",
+      "revId": "a72cd11325fe65ea10b1b17b69ca3e9dba46d214",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
