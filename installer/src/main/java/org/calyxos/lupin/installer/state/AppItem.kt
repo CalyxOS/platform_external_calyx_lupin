@@ -59,7 +59,7 @@ data class AppItem(
         apkSize = packageV2.getApkSize(),
         signers = packageV2.getSigner() ?: error("No signer"),
         isOnlineOnly = packageV2.isOnlineOnly(),
-        state = AppItemState.Selectable(true),
+        state = AppItemState.Selectable(packageV2.isDefault()),
     )
 
     /**
