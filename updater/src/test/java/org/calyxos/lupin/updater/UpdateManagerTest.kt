@@ -7,6 +7,7 @@ package org.calyxos.lupin.updater
 
 import android.content.Context
 import android.content.pm.PackageInfo
+import android.content.pm.PackageInstaller.STATUS_PENDING_USER_ACTION
 import android.content.pm.PackageInstaller.STATUS_SUCCESS
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.GET_SIGNATURES
@@ -21,6 +22,7 @@ import io.mockk.coVerifyOrder
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -46,6 +48,7 @@ class UpdateManagerTest {
     private val httpManager: HttpManager = mockk()
     private val updateChecker: UpdateChecker = mockk()
     private val installManager: InstallManager = mockk()
+    private val notificationManager: NotificationManager = mockk()
     private val updateManager: UpdateManager
 
     private val packageManager: PackageManager = mockk()
@@ -62,6 +65,7 @@ class UpdateManagerTest {
             httpManager = httpManager,
             updateChecker = updateChecker,
             installManager = installManager,
+            notificationManager = notificationManager,
             coroutineContext = testDispatcher,
         )
     }
@@ -82,46 +86,102 @@ class UpdateManagerTest {
     fun updateAppsDoesNothingForEmptyRepo() = runTest {
         val index = IndexV2(repo)
 
-        assertFalse(updateManager.updateApps(index).retry)
+        every { installManager.clearUpOldSession() } just Runs
+
+        assertFalse(updateManager.updateApps(index))
     }
 
     @Test
     fun singleAppHasNoUpdate() = runTest {
+        coEvery { installManager.hasActiveSession(packageName) } returns false
         expectGetUpdate(packageName, listOf(packageVersion), null)
 
-        assertFalse(updateManager.updateApps(index).retry)
+        every { installManager.clearUpOldSession() } just Runs
+
+        assertFalse(updateManager.updateApps(index))
+    }
+
+    @Test
+    fun singleAppHasActiveSession() = runTest {
+        coEvery { installManager.hasActiveSession(packageName) } returns true
+
+        // user needs to become active, because an active session is still waiting for confirmation
+        every { notificationManager.showUserConfirmationRequiredNotification() } just Runs
+
+        assertFalse(updateManager.updateApps(index))
+
+        verify {
+            notificationManager.showUserConfirmationRequiredNotification()
+        }
+        // don't clean up sessions when we still wait for user
+        verify(exactly = 0) {
+            installManager.clearUpOldSession()
+        }
     }
 
     @Test
     fun appIsNotInstalled() = runTest {
+        coEvery { installManager.hasActiveSession(packageName) } returns false
         every {
             packageManager.getPackageInfo(packageName, GET_SIGNATURES)
         } throws NameNotFoundException()
+        every { installManager.clearUpOldSession() } just Runs
 
-        assertFalse(updateManager.updateApps(index).retry)
+        assertFalse(updateManager.updateApps(index))
     }
 
     @Test
     fun appFailsToDownloadUpdate() = runTest {
+        coEvery { installManager.hasActiveSession(packageName) } returns false
         expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
         coEvery { installManager.installUpdate(packageName, packageVersion) } throws Exception()
+        coEvery { installManager.hasActiveSession(packageName) } returns false
+        every { installManager.clearUpOldSession() } just Runs
 
         // try this again when checking updates next
-        assertTrue(updateManager.updateApps(index).retry)
+        assertTrue(updateManager.updateApps(index))
     }
 
     @Test
     fun appFailsToInstallUpdate() = runTest {
+        coEvery { installManager.hasActiveSession(packageName) } returns false
         expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
         coEvery {
             installManager.installUpdate(packageName, packageVersion)
         } returns InstallResult(Exception())
+        every { installManager.clearUpOldSession() } just Runs
 
         // no need to try again
-        assertFalse(updateManager.updateApps(index).retry)
+        assertFalse(updateManager.updateApps(index))
 
         coVerify {
             installManager.installUpdate(packageName, packageVersion)
+        }
+    }
+
+    @Test
+    fun appNeedsUserConfirmation() = runTest {
+        coEvery { installManager.hasActiveSession(packageName) } returns false
+        expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
+        coEvery {
+            installManager.installUpdate(packageName, packageVersion)
+        } returns InstallResult(STATUS_PENDING_USER_ACTION, "click OK please!")
+        // user needs to become active, because an active session is still waiting for confirmation
+        every { notificationManager.showUserConfirmationRequiredNotification() } just Runs
+        every { installManager.clearUpOldSession() } just Runs
+
+        // no need to try again
+        assertFalse(updateManager.updateApps(index))
+
+        coVerify {
+            installManager.installUpdate(packageName, packageVersion)
+        }
+        verify {
+            notificationManager.showUserConfirmationRequiredNotification()
+        }
+        // don't clean up sessions when we still wait for user
+        verify(exactly = 0) {
+            installManager.clearUpOldSession()
         }
     }
 
@@ -135,13 +195,17 @@ class UpdateManagerTest {
             packages = mapOf(packageName to packageV2, packageName2 to pv2)
         )
 
+        coEvery { installManager.hasActiveSession(packageName) } returns false
         expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
         expectSuccessfulInstall(packageName, packageVersion)
 
+        coEvery { installManager.hasActiveSession(packageName2) } returns false
         expectGetUpdate(packageName2, listOf(pv), pv)
         expectSuccessfulInstall(packageName2, pv)
 
-        assertFalse(updateManager.updateApps(index).retry)
+        every { installManager.clearUpOldSession() } just Runs
+
+        assertFalse(updateManager.updateApps(index))
 
         // verify both apps got installed
         coVerify {
@@ -152,6 +216,7 @@ class UpdateManagerTest {
 
     @Test
     fun triChromeLibraryGetsInstalledBeforeWebViewUpdate() = runTest {
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_WEBVIEW) } returns false
         // webview has one update
         expectGetUpdate(PACKAGE_NAME_WEBVIEW, listOf(pvWebview), pvWebview)
         // check if trichrome was updated to that already, it wasn't, but later it is
@@ -165,17 +230,21 @@ class UpdateManagerTest {
         // only now you can install webview
         expectSuccessfulInstall(PACKAGE_NAME_WEBVIEW, pvWebview)
 
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_TRICHROME_LIB) } returns false
         // trichrome is never reported as installed
         every {
             packageManager.getPackageInfo(PACKAGE_NAME_TRICHROME_LIB, GET_SIGNATURES)
         } throws NameNotFoundException()
 
         // now install update for chrome, no need to install trichrome lib anymore
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_CHROME) } returns false
         expectGetUpdate(PACKAGE_NAME_CHROME, listOf(pvChrome), pvChrome)
         // trichrome was updated now
         expectSuccessfulInstall(PACKAGE_NAME_CHROME, pvChrome)
 
-        assertFalse(updateManager.updateApps(triChromeIndex).retry)
+        every { installManager.clearUpOldSession() } just Runs
+
+        assertFalse(updateManager.updateApps(triChromeIndex))
 
         // ensure that packages got processed in expected order
         coVerifyOrder {
@@ -198,17 +267,20 @@ class UpdateManagerTest {
             packages = mapOf(PACKAGE_NAME_WEBVIEW to packageV2)
         )
 
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_WEBVIEW) } returns false
         // webview has one update
         expectGetUpdate(PACKAGE_NAME_WEBVIEW, listOf(packageVersion), packageVersion)
         // check if trichrome was updated to that already, it wasn't
         expectTriChromeVersionCode(packageVersion.versionCode - 1)
+        every { installManager.clearUpOldSession() } just Runs
 
         // we need a repo update to fix missing trichrome, so need to try again now
-        assertFalse(updateManager.updateApps(index).retry)
+        assertFalse(updateManager.updateApps(index))
     }
 
     @Test
     fun triChromeLibraryFailsToInstall() = runTest {
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_WEBVIEW) } returns false
         // webview has one update
         expectGetUpdate(PACKAGE_NAME_WEBVIEW, listOf(pvWebview), pvWebview)
         // trichrome can be not installed at all, or needs an update
@@ -224,17 +296,20 @@ class UpdateManagerTest {
             installManager.installUpdate(PACKAGE_NAME_TRICHROME_LIB, pvTriChromeLib)
         } returns InstallResult(7, "failed to install")
 
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_TRICHROME_LIB) } returns false
         // trichrome is never reported as installed
         every {
             packageManager.getPackageInfo(PACKAGE_NAME_TRICHROME_LIB, GET_SIGNATURES)
         } throws NameNotFoundException()
 
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_CHROME) } returns false
         // now try to install update for chrome
         expectGetUpdate(PACKAGE_NAME_CHROME, listOf(pvChrome), pvChrome)
         // chrome runs into same issue, so can't install anything
+        every { installManager.clearUpOldSession() } just Runs
 
         // we need a repo update to fix missing trichrome, so need to try again now
-        assertFalse(updateManager.updateApps(triChromeIndex).retry)
+        assertFalse(updateManager.updateApps(triChromeIndex))
 
         // verify that we did not try to install webview and chrome
         coVerify(exactly = 0) {
