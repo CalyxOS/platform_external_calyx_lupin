@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e5d5526_beb149fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-02-24T00:03:14Z",
+      "side": 1,
+      "message": "This was also mentioned in https://gitlab.com/CalyxOS/calyxos/-/issues/1014",
+      "revId": "caa1fa7bec18d88fbf2bb23d6abd1bd5a7571247",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
