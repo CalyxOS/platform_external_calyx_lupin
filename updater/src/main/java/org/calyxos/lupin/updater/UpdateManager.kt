@@ -16,8 +16,6 @@ import mu.KotlinLogging
 import org.calyxos.lupin.InstallResult
 import org.calyxos.lupin.RepoHelper.downloadIndex
 import org.calyxos.lupin.getSharedLibraryVersionCode
-import org.calyxos.lupin.updater.UpdateAppsResult.Done
-import org.calyxos.lupin.updater.UpdateAppsResult.UserConfirmationRequired
 import org.fdroid.CompatibilityCheckerImpl
 import org.fdroid.UpdateChecker
 import org.fdroid.download.HttpManager
@@ -33,17 +31,13 @@ internal const val PACKAGE_NAME_WEBVIEW = "com.android.webview"
 internal const val PACKAGE_NAME_CHROME = "org.chromium.chrome"
 internal const val PACKAGE_NAME_TRICHROME_LIB = "org.chromium.trichromelibrary"
 
-sealed class UpdateAppsResult(val retry: Boolean) {
-    class Done(retry: Boolean) : UpdateAppsResult(retry)
-    class UserConfirmationRequired(retry: Boolean) : UpdateAppsResult(retry)
-}
-
 @Singleton
 class UpdateManager(
     private val context: Context,
     private val httpManager: HttpManager,
     private val updateChecker: UpdateChecker,
     private val installManager: InstallManager,
+    private val notificationManager: NotificationManager,
     private val coroutineContext: CoroutineContext = Dispatchers.IO,
 ) {
 
@@ -56,10 +50,12 @@ class UpdateManager(
         @ApplicationContext context: Context,
         httpManager: HttpManager,
         installManager: InstallManager,
+        notificationManager: NotificationManager,
     ) : this(
         context = context,
         httpManager = httpManager,
         updateChecker = UpdateChecker(CompatibilityCheckerImpl(context.packageManager)),
+        notificationManager = notificationManager,
         installManager = installManager,
     )
 
@@ -76,8 +72,11 @@ class UpdateManager(
 
     /**
      * Install all available updates in the given [index].
+     *
+     * @return true if we should retry updating soon, usually because there was an intermittent
+     * error while updating.
      */
-    suspend fun updateApps(index: IndexV2): UpdateAppsResult = withContext(coroutineContext) {
+    suspend fun updateApps(index: IndexV2): Boolean = withContext(coroutineContext) {
         var userConfirmation = false
         var retry = false
         index.packages.forEach { (packageName, packageV2) ->
@@ -85,7 +84,12 @@ class UpdateManager(
             val packageVersions = packageV2.versions.values.toList()
             try {
                 val update = getUpdate(packageName, packageVersions) ?: return@forEach
-                // TODO queue apps we can't auto-update and ask for user confirmation via notification
+                if (installManager.hasActiveSession(packageName)) {
+                    log.info { "Active session for $packageName found, skipping." }
+                    userConfirmation = true
+                    return@forEach
+                }
+                // TODO re-try chrome/webview when trichrome needs user confirmation
                 val triChromeOk = checkTriChrome(
                     packageName = packageName,
                     versionCode = update.manifest.versionCode,
@@ -106,7 +110,9 @@ class UpdateManager(
                 retry = true
             }
         }
-        if (userConfirmation) UserConfirmationRequired(retry) else Done(retry)
+        if (userConfirmation) notificationManager.showUserConfirmationRequiredNotification()
+        else installManager.clearUpOldSession()
+        retry
     }
 
     private fun getUpdate(
