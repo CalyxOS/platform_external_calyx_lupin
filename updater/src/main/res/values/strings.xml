@@ -10,7 +10,10 @@
     <string name="status_screen_check_button">Check now</string>
     <string name="status_screen_title">App updates</string>
 
-    <string name="notification_title">Updating apps</string>
-    <string name="channel_name">Update notification</string>
-    <string name="channel_description">Shown while updating apps</string>
+    <string name="notification_update_title">Updating apps</string>
+    <string name="notification_confirmation_title">Confirm app updates</string>
+    <string name="channel_update_name">Update notification</string>
+    <string name="channel_update_description">Shown while updating apps</string>
+    <string name="channel_confirmation_name">Confirm updates notification</string>
+    <string name="channel_confirmation_description">Shown only if installing updates requires user confirmation</string>
 </resources>
