@@ -7,6 +7,8 @@ package org.calyxos.lupin.updater
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageInstaller.STATUS_PENDING_USER_ACTION
+import android.content.pm.PackageInstaller.STATUS_SUCCESS
 import android.content.pm.PackageManager.GET_SIGNATURES
 import android.content.pm.PackageManager.NameNotFoundException
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -89,15 +91,18 @@ class UpdateManager(
                     userConfirmation = true
                     return@forEach
                 }
-                // TODO re-try chrome/webview when trichrome needs user confirmation
-                val triChromeOk = checkTriChrome(
+                val triChromeResult = checkTriChrome(
                     packageName = packageName,
                     versionCode = update.manifest.versionCode,
                     triChromePackage = index.packages[PACKAGE_NAME_TRICHROME_LIB],
                 )
-                if (triChromeOk) {
+                if (triChromeResult.success) {
+                    // install the actual update here (no issue with trichrome)
                     val result = installManager.installUpdate(packageName, update)
                     if (result.pendingUserAction) userConfirmation = true
+                } else if (triChromeResult.pendingUserAction) {
+                    userConfirmation = true
+                    retry = true // retry to install packages that depend on trichrome lib
                 } else {
                     log.warn { "Trichrome dependency for $packageName was not satisfied." }
                 }
@@ -150,17 +155,17 @@ class UpdateManager(
         packageName: String,
         versionCode: Long,
         triChromePackage: PackageV2?,
-    ): Boolean {
+    ): InstallResult {
         if (packageName == PACKAGE_NAME_WEBVIEW || packageName == PACKAGE_NAME_CHROME) {
             val triChromeVersionCode =
                 packageManager.getSharedLibraryVersionCode(PACKAGE_NAME_TRICHROME_LIB) ?: 0
             if (versionCode > triChromeVersionCode) {
                 // tri chrome library has not been updated, yet, so must be updated first
                 log.info { "Installing trichrome update first" }
-                return installTriChromeLibrary(versionCode, triChromePackage).success
+                return installTriChromeLibrary(versionCode, triChromePackage)
             }
         }
-        return true
+        return InstallResult(STATUS_SUCCESS, null)
     }
 
     @Throws(TriChromeException::class)
@@ -170,6 +175,10 @@ class UpdateManager(
     ): InstallResult {
         if (packageV2 == null) {
             throw TriChromeException("$PACKAGE_NAME_TRICHROME_LIB was not found in index")
+        }
+        if (installManager.hasActiveSession(PACKAGE_NAME_TRICHROME_LIB)) {
+            log.info { "Active session for $PACKAGE_NAME_TRICHROME_LIB found, skipping." }
+            return InstallResult(STATUS_PENDING_USER_ACTION, "trichrome lib needs user confirm")
         }
         val versions = packageV2.versions.values.toList()
         val version = updateChecker.getSuggestedVersion(versions, null)!!
