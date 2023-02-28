@@ -1,6 +1,5 @@
 /*
- * SPDX-FileCopyrightText: Copyright 2022 The Calyx Institute
- *
+ * SPDX-FileCopyrightText: 2023 The Calyx Institute
  * SPDX-License-Identifier: Apache-2.0
  */
 
