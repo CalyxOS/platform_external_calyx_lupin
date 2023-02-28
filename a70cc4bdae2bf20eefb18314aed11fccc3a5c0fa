@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b30989ec_985c55d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-02-28T18:40:05Z",
+      "side": 1,
+      "message": "With Ic8ee9308d47e2b6572153e26d87f8a4eb2b98993 we should not need any further manual changes after this. I can rebase/fix the rest of the open changes if this looks ok.",
+      "revId": "a70cc4bdae2bf20eefb18314aed11fccc3a5c0fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
