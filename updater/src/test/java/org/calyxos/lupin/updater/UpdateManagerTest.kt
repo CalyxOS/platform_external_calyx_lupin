@@ -284,7 +284,7 @@ class UpdateManagerTest {
         coEvery { installManager.hasActiveSession(PACKAGE_NAME_WEBVIEW) } returns false
         // trichrome can be not installed at all, or needs an update
         val triChromeVersionCode = if (Random.nextBoolean()) pvWebview.versionCode - 1 else null
-        // check if trichrome was updated to that already, it wasn't, but later it is
+        // check if trichrome was updated to that already, it wasn't
         expectTriChromeVersionCode(triChromeVersionCode)
         // get suggested version for trichrome, download and install it
         every {
@@ -314,6 +314,96 @@ class UpdateManagerTest {
         coVerify(exactly = 0) {
             installManager.installUpdate(PACKAGE_NAME_WEBVIEW, pvWebview)
             installManager.installUpdate(PACKAGE_NAME_CHROME, pvChrome)
+        }
+    }
+
+    @Test
+    fun triChromeLibraryNeedsUserConfirmation() = runTest {
+        // webview has one update
+        expectGetUpdate(PACKAGE_NAME_WEBVIEW, listOf(pvWebview), pvWebview)
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_WEBVIEW) } returns false
+        // check if trichrome was updated to that already
+        // trichrome needs an update
+        expectTriChromeVersionCode(pvWebview.versionCode - 1)
+        // get suggested version for trichrome, download and install it
+        every {
+            updateChecker.getSuggestedVersion(listOf(pvTriChromeLib), null)
+        } returns pvTriChromeLib
+        // trichrome install needs user confirmation
+        coEvery {
+            installManager.installUpdate(PACKAGE_NAME_TRICHROME_LIB, pvTriChromeLib)
+        } returns InstallResult(STATUS_PENDING_USER_ACTION, null)
+
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_TRICHROME_LIB) } returns false
+        // trichrome is never reported as installed
+        every {
+            packageManager.getPackageInfo(PACKAGE_NAME_TRICHROME_LIB, GET_SIGNATURES)
+        } throws NameNotFoundException()
+
+        // now try to install update for chrome
+        expectGetUpdate(PACKAGE_NAME_CHROME, listOf(pvChrome), pvChrome)
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_CHROME) } returns false
+        // chrome runs into same issue, so can't install anything
+        every { installManager.clearUpOldSession() } just Runs
+
+        // user needs to become active for trichrome
+        every { notificationManager.showUserConfirmationRequiredNotification() } just Runs
+
+        // try again soon, so we can install webview and chrome when trichrome lib is hopefully in
+        assertTrue(updateManager.updateApps(triChromeIndex))
+
+        // verify that we did not try to install webview and chrome
+        coVerify(exactly = 0) {
+            installManager.installUpdate(PACKAGE_NAME_WEBVIEW, pvWebview)
+            installManager.installUpdate(PACKAGE_NAME_CHROME, pvChrome)
+        }
+        // trichrome was installed
+        coVerify {
+            installManager.installUpdate(PACKAGE_NAME_TRICHROME_LIB, pvTriChromeLib)
+        }
+        // user got notified
+        verify {
+            notificationManager.showUserConfirmationRequiredNotification()
+        }
+    }
+
+    @Test
+    fun triChromeLibraryHasActiveSession() = runTest {
+        // webview has one update
+        expectGetUpdate(PACKAGE_NAME_WEBVIEW, listOf(pvWebview), pvWebview)
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_WEBVIEW) } returns false
+        // check if trichrome was updated to that already
+        // trichrome needs an update
+        expectTriChromeVersionCode(pvWebview.versionCode - 1)
+        // it has an active session still
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_TRICHROME_LIB) } returns true
+
+        // trichrome is never reported as installed
+        every {
+            packageManager.getPackageInfo(PACKAGE_NAME_TRICHROME_LIB, GET_SIGNATURES)
+        } throws NameNotFoundException()
+
+        // now try to install update for chrome
+        expectGetUpdate(PACKAGE_NAME_CHROME, listOf(pvChrome), pvChrome)
+        coEvery { installManager.hasActiveSession(PACKAGE_NAME_CHROME) } returns false
+        // chrome runs into same issue, so can't install anything
+        every { installManager.clearUpOldSession() } just Runs
+
+        // user needs to become active for trichrome
+        every { notificationManager.showUserConfirmationRequiredNotification() } just Runs
+
+        // try again soon, so we can install webview and chrome when trichrome lib is hopefully in
+        assertTrue(updateManager.updateApps(triChromeIndex))
+
+        // verify that we did not try to install trichrome lib, webview or chrome
+        coVerify(exactly = 0) {
+            installManager.installUpdate(PACKAGE_NAME_WEBVIEW, pvWebview)
+            installManager.installUpdate(PACKAGE_NAME_TRICHROME_LIB, pvTriChromeLib)
+            installManager.installUpdate(PACKAGE_NAME_CHROME, pvChrome)
+        }
+        // user got notified
+        verify {
+            notificationManager.showUserConfirmationRequiredNotification()
         }
     }
 
