@@ -52,6 +52,24 @@
       "parentUuid": "caee31e7_879dfb81",
       "revId": "a70cc4bdae2bf20eefb18314aed11fccc3a5c0fa",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12bfaafd_47aca4e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-03-01T16:01:21Z",
+      "side": 1,
+      "message": "Ah ok then just go for it, given you rebased already.",
+      "parentUuid": "044bec57_f7132c16",
+      "revId": "a70cc4bdae2bf20eefb18314aed11fccc3a5c0fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
