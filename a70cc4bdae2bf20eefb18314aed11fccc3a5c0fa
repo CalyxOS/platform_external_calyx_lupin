@@ -34,6 +34,24 @@
       "parentUuid": "b30989ec_985c55d0",
       "revId": "a70cc4bdae2bf20eefb18314aed11fccc3a5c0fa",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "044bec57_f7132c16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-03-01T16:00:15Z",
+      "side": 1,
+      "message": "I have the other chain rebased on top of this locally with copyrights fixed, I can quickly do the opposite and put this commit at the end, the end result will be the same",
+      "parentUuid": "caee31e7_879dfb81",
+      "revId": "a70cc4bdae2bf20eefb18314aed11fccc3a5c0fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
