@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99a475fa_8ca5e90d",
+        "filename": "LICENSES/Apache-2.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-03-02T19:59:20Z",
+      "side": 1,
+      "message": "2022 The Calyx Institute?",
+      "range": {
+        "startLine": 61,
+        "startChar": 10,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "0932dfe1b0c0eee33cec3598003591af6ea65297",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
