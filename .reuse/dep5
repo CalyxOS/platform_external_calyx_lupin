@@ -1,0 +1,23 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Lupin
+Upstream-Contact: The Calyx Institute
+Source: https://gitlab.com/CalyxOS/platform_external_calyx_lupin
+
+Files: *.gitignore .gitreview .idea/*
+       installer/src/main/res/values-*/strings.xml
+       updater/src/main/res/values-*/strings.xml
+       artwork/*.svg
+Copyright: 2022 The Calyx Institute
+License: Apache-2.0
+
+Files: installer/src/main/res/drawable/ic_default.png
+Copyright: Material Design Authors / Google LLC
+License: Apache-2.0
+
+Files: gradle/wrapper/*
+Copyright: 2007-2023 Gradle, Inc.
+License: Apache-2.0
+
+Files: gradlew*
+Copyright: 2007-2023 Gradle, Inc.
+License: Apache-2.0
