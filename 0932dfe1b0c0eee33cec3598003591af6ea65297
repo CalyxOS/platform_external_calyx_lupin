@@ -22,6 +22,30 @@
       },
       "revId": "0932dfe1b0c0eee33cec3598003591af6ea65297",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48c097df_9e6022b7",
+        "filename": "LICENSES/Apache-2.0.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-03-02T20:32:17Z",
+      "side": 1,
+      "message": "Uhh, is that in other places? This looks like it\u0027s just an example.",
+      "parentUuid": "99a475fa_8ca5e90d",
+      "range": {
+        "startLine": 61,
+        "startChar": 10,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "0932dfe1b0c0eee33cec3598003591af6ea65297",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
