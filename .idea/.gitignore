@@ -1,8 +1,12 @@
-# Default ignored files
+/caches/
+/libraries/
 /shelf/
-/workspace.xml
+/assetWizardSettings.xml
 /compiler.xml
+/detekt.xml
 /gradle.xml
 /misc.xml
+/modules.xml
+/navEditor.xml
 /vcs.xml
-/detekt.xml
+/workspace.xml
