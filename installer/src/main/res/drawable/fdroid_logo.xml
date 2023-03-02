@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  SPDX-FileCopyrightText: 2012 William Theaker
+  SPDX-FileCopyrightText: 2013 Robert Martinez
+  SPDX-FileCopyrightText: 2015 Andrew Nayenko <relan@airpost.net>
+  SPDX-License-Identifier: CC-BY-SA-3.0 or GPL-3.0-or-later
+  -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="64dp"
     android:height="64dp"
