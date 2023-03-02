@@ -70,6 +70,24 @@
       "parentUuid": "044bec57_f7132c16",
       "revId": "a70cc4bdae2bf20eefb18314aed11fccc3a5c0fa",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c22fc6e_c2fb0400",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-03-02T00:56:49Z",
+      "side": 1,
+      "message": "Thanks, just went through the rebased chain, looks good.",
+      "parentUuid": "12bfaafd_47aca4e8",
+      "revId": "a70cc4bdae2bf20eefb18314aed11fccc3a5c0fa",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ],
   "submitRequirementResults": [
