@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="install_page_offline">Μπορεί να εγκατασταθεί μόνο όταν έχετε πρόσβαση στο internet</string>
+    <string name="install_page_title">Πρόσθετες εφαρμογές</string>
+    <string name="install_page_all">Όλες οι ακόλουθες εφαρμογές</string>
+    <string name="install_notification_title">Εγκατάσταση εφαρμογών…</string>
+    <string name="skip">Παράλειψη</string>
+    <string name="install">Εγκατάσταση</string>
+    <string name="next">Επόμενο</string>
+    <string name="more">Περισσότερα</string>
+    <string name="installed">Εγκατεστημένο</string>
+    <string name="error_not_installed">Σφάλμα. Μη εγκατεστημένο.</string>
+    <string name="app_name">Εγκατάσταση εφαρμογών CalyxOS</string>
+    <string name="install_page_subtitle">Έλεγχος πρόσθετων εφαρμογών. Μπορείτε να τις εγκαταστήσετε και αργότερα.</string>
+</resources>
