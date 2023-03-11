@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="install_page_subtitle">Überprüfe zusätzliche Apps. Du kannst sie auch später installieren.</string>
+    <string name="install_page_all">Alle folgenden Apps</string>
+    <string name="install">Installieren</string>
+    <string name="next">Weiter</string>
+    <string name="more">Mehr</string>
+    <string name="installed">Installiert</string>
+    <string name="error_not_installed">Fehler. Nicht installiert.</string>
+    <string name="install_page_title">Zusätzliche Apps</string>
+    <string name="app_name">CalyxOS App Installer</string>
+    <string name="install_page_offline">Kann nur installiert werden, wenn du online bist</string>
+    <string name="skip">Überspringen</string>
+    <string name="install_notification_title">Apps werden installiert…</string>
+</resources>
