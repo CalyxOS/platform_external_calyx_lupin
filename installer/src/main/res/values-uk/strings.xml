@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Встановлювач застосунків CalyxOS</string>
+    <string name="install_page_title">Додаткові застосунки</string>
+    <string name="install_page_subtitle">Ознайомтеся з додатковими застосунками. Ви можете встановити їх пізніше.</string>
+    <string name="install_page_all">Усі наступні застосунки</string>
+    <string name="install_notification_title">Встановлення застосунків…</string>
+    <string name="skip">Пропустити</string>
+    <string name="install">Встановити</string>
+    <string name="next">Далі</string>
+    <string name="more">Більше</string>
+    <string name="installed">Встановлено</string>
+    <string name="error_not_installed">Помилка. Не встановлено.</string>
+    <string name="install_page_offline">Можна встановити лише в режимі онлайн</string>
+</resources>
