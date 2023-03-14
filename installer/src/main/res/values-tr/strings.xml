@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="install_notification_title">Uygulamalar kuruluyor…</string>
+    <string name="skip">Atla</string>
+    <string name="install">Kur</string>
+    <string name="next">Sonraki</string>
+    <string name="more">Daha fazla</string>
+    <string name="installed">Kuruldu</string>
+    <string name="error_not_installed">Hata. Kurulmadı.</string>
+    <string name="install_page_offline">Yalnızca çevrim içiyken kurulabilir</string>
+    <string name="app_name">CalyxOS Uygulama Kurucu</string>
+    <string name="install_page_subtitle">Ek uygulamaları gözden geçirin. Bunları daha sonra da kurabilirsiniz.</string>
+    <string name="install_page_title">Ek uygulamalar</string>
+    <string name="install_page_all">Aşağıdaki uygulamaların tümü</string>
+</resources>
