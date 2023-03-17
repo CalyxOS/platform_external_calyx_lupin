@@ -27,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.calyxos.lupin.InstallResult
+import org.calyxos.lupin.STATUS_WAITING_FOR_USER_ACTION
 import org.calyxos.lupin.getRequest
 import org.fdroid.UpdateChecker
 import org.fdroid.download.HttpManager
@@ -116,6 +117,26 @@ class UpdateManagerTest {
         // don't clean up sessions when we still wait for user
         verify(exactly = 0) {
             installManager.clearUpOldSession()
+        }
+    }
+
+    @Test
+    fun singleAppIsShowingUserConfirmationDialog() = runTest {
+        expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
+        coEvery { installManager.hasActiveSession(packageName) } returns false
+
+        // our app is in foreground, so we have shown the install dialog to the user
+        coEvery {
+            installManager.installUpdate(packageName, packageVersion)
+        } returns InstallResult(STATUS_WAITING_FOR_USER_ACTION, null)
+
+        // no retry needed
+        assertFalse(updateManager.updateApps(index))
+
+        // don't clean up sessions when we still wait for user and don't show notification
+        verify(exactly = 0) {
+            installManager.clearUpOldSession()
+            notificationManager.showUserConfirmationRequiredNotification()
         }
     }
 

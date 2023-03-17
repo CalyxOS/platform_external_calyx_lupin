@@ -19,8 +19,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
+import org.calyxos.lupin.ApkInstaller
 import org.calyxos.lupin.InstallResult
-import org.calyxos.lupin.PackageInstaller
 import org.calyxos.lupin.UserActionRequiredListener
 import org.calyxos.lupin.getRequest
 import org.fdroid.download.HttpDownloaderV2
@@ -36,7 +36,7 @@ private const val ACTION_CONFIRM_INSTALL = "android.content.pm.action.CONFIRM_IN
 @Singleton
 class InstallManager @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val packageInstaller: PackageInstaller,
+    private val apkInstaller: ApkInstaller,
     private val httpManager: HttpManager,
     private val notificationManager: NotificationManager,
 ) {
@@ -53,6 +53,7 @@ class InstallManager @Inject constructor(
     ): InstallResult {
         log.info { "Downloading ${update.file.name}" }
         val request = update.file.getRequest(REPO_URL)
+        // FIXME it might make sense to download APKs to predictable location and resume downloads
         val apkFile = File.createTempFile("apk-", "", context.cacheDir)
         val userActionListener = UserActionRequiredListener { _, sessionId, intent ->
             onUserConfirmationRequired(packageName, update, sessionId, intent)
@@ -60,7 +61,7 @@ class InstallManager @Inject constructor(
         return try {
             HttpDownloaderV2(httpManager, request, apkFile).download()
             log.info { "Installing $packageName" }
-            packageInstaller.install(packageName, apkFile, userActionListener) {
+            apkInstaller.install(packageName, apkFile, userActionListener) {
                 setRequireUserAction(USER_ACTION_NOT_REQUIRED)
             }
             // not throwing exception on negative install result, so we don't re-try to install
@@ -77,7 +78,7 @@ class InstallManager @Inject constructor(
         intent: Intent,
     ): Boolean {
         log.info { "User confirmation required for $packageName" }
-        return if (packageInstaller.canStartActivity()) {
+        return if (apkInstaller.canStartActivity()) {
             intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
             startActivity(context, intent, null)
             true
