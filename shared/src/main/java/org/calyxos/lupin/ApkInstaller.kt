@@ -35,6 +35,7 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PackageInfoFlags
 import android.util.Log
 import androidx.annotation.UiThread
+import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat.startActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -47,6 +48,9 @@ import kotlin.coroutines.resume
 private val TAG = PackageInstaller::class.java.simpleName
 private const val BROADCAST_ACTION = "com.android.packageinstaller.ACTION_INSTALL_COMMIT"
 
+@VisibleForTesting
+const val STATUS_WAITING_FOR_USER_ACTION = Int.MAX_VALUE - 1
+
 data class InstallResult(
     val status: Int,
     val msg: String?,
@@ -54,9 +58,17 @@ data class InstallResult(
 ) {
     constructor(exception: Exception) : this(Int.MAX_VALUE, null, exception)
 
-    val success = status == STATUS_SUCCESS
+    val success get() = status == STATUS_SUCCESS
 
-    val pendingUserAction = status == STATUS_PENDING_USER_ACTION
+    val pendingUserAction get() = status == STATUS_PENDING_USER_ACTION
+
+    /**
+     * We have just shown a confirmation dialog to the user,
+     * but due to bugs in AOSP's PackageInstallerActivity can't get a result, reliably.
+     * So we can't mess with existing sessions
+     * as they might still be in the process of being confirmed.
+     */
+    val isWaitingForUserAction get() = status == STATUS_WAITING_FOR_USER_ACTION
 }
 
 /**
@@ -65,7 +77,7 @@ data class InstallResult(
  * Assumes that you get the [InstallResult] before starting a new installation.
  */
 @Singleton
-class PackageInstaller @Inject constructor(@ApplicationContext private val context: Context) {
+class ApkInstaller @Inject constructor(@ApplicationContext private val context: Context) {
 
     private val pm: PackageManager = context.packageManager
     private val installer: PackageInstaller = pm.packageInstaller
@@ -170,12 +182,12 @@ class PackageInstaller @Inject constructor(@ApplicationContext private val conte
         if (result.pendingUserAction) {
             @Suppress("DEPRECATION") // there's no getIntent() method we can use instead
             val intent = i.extras?.get(EXTRA_INTENT) as Intent
-            val waitForResult = userActionListener.onUserConfirmationRequired(
+            val userWasAsked = userActionListener.onUserConfirmationRequired(
                 packageName = expectedPackageName,
                 sessionId = intent.getIntExtra(EXTRA_SESSION_ID, -1),
                 intent = intent,
             )
-            return if (waitForResult) null else result
+            return if (userWasAsked) InstallResult(STATUS_WAITING_FOR_USER_ACTION, null) else result
         }
         return result
     }

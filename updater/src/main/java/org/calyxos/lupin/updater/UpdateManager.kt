@@ -79,7 +79,8 @@ class UpdateManager(
      * error while updating.
      */
     suspend fun updateApps(index: IndexV2): Boolean = withContext(coroutineContext) {
-        var userConfirmation = false
+        var hasOngoingSessions = false
+        var needConfirmationNotification = false
         var retry = false
         index.packages.forEach { (packageName, packageV2) ->
             log.info { "Checking if $packageName has an update " }
@@ -88,7 +89,9 @@ class UpdateManager(
                 val update = getUpdate(packageName, packageVersions) ?: return@forEach
                 if (installManager.hasActiveSession(packageName)) {
                     log.info { "Active session for $packageName found, skipping." }
-                    userConfirmation = true
+                    // FIXME Even if user checks manually, this will cause a notification.
+                    //  Might be best to wait for Android 14 pre-auth to fix this.
+                    needConfirmationNotification = true
                     return@forEach
                 }
                 val triChromeResult = checkTriChrome(
@@ -99,9 +102,13 @@ class UpdateManager(
                 if (triChromeResult.success) {
                     // install the actual update here (no issue with trichrome)
                     val result = installManager.installUpdate(packageName, update)
-                    if (result.pendingUserAction) userConfirmation = true
+                    if (result.pendingUserAction) needConfirmationNotification = true
+                    else if (result.isWaitingForUserAction) hasOngoingSessions = true
                 } else if (triChromeResult.pendingUserAction) {
-                    userConfirmation = true
+                    needConfirmationNotification = true
+                    retry = true // retry to install packages that depend on trichrome lib
+                } else if (triChromeResult.isWaitingForUserAction) {
+                    hasOngoingSessions = true
                     retry = true // retry to install packages that depend on trichrome lib
                 } else {
                     log.warn { "Trichrome dependency for $packageName was not satisfied." }
@@ -115,8 +122,12 @@ class UpdateManager(
                 retry = true
             }
         }
-        if (userConfirmation) notificationManager.showUserConfirmationRequiredNotification()
-        else installManager.clearUpOldSession()
+        // we keep active sessions in case user is confirming right now or will be later
+        if (needConfirmationNotification) {
+            notificationManager.showUserConfirmationRequiredNotification()
+        } else if (!hasOngoingSessions) {
+            installManager.clearUpOldSession()
+        }
         retry
     }
 
