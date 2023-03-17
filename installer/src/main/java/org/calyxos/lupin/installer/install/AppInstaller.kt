@@ -17,8 +17,8 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import org.calyxos.lupin.ApkInstaller
 import org.calyxos.lupin.InstallResult
-import org.calyxos.lupin.PackageInstaller
 import org.calyxos.lupin.installer.state.AppItem
 import org.calyxos.lupin.installer.state.AppItemState
 import org.calyxos.lupin.installer.state.UiState
@@ -34,7 +34,7 @@ private const val INSTALLER_PACKAGE_NAME = "org.fdroid.fdroid.privileged"
 @Singleton
 class AppInstaller @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val packageInstaller: PackageInstaller,
+    private val apkInstaller: ApkInstaller,
 ) {
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
@@ -97,7 +97,7 @@ class AppInstaller @Inject constructor(
                 val e = SecurityException("Invalid signature for ${item.packageName}")
                 return InstallResult(e)
             }
-            packageInstaller.install(item.packageName, file) {
+            apkInstaller.install(item.packageName, file) {
                 setInstallScenario(INSTALL_SCENARIO_BULK)
                 setInstallerPackageName(INSTALLER_PACKAGE_NAME)
             }
