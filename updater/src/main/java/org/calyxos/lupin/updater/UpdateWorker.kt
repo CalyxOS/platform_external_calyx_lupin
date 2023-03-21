@@ -41,14 +41,10 @@ class UpdateWorker @AssistedInject constructor(
         // update last checked
         settingsManager.lastCheckedMillis = System.currentTimeMillis()
 
-        // update apps from repo, if index is new
-        if (index.repo.timestamp > settingsManager.lastRepoTimestamp) {
-            // TODO pass isStopped() in lambda to cancel work when system stops us
-            val updateResult = updateManager.updateApps(index)
-            if (!updateResult) settingsManager.lastRepoTimestamp = index.repo.timestamp
-        } else {
-            log.info { "Repo was not updated" }
-        }
+        // always try to update apps from repo
+        // TODO pass isStopped() in lambda to cancel work when system stops us
+        val updateResult = updateManager.updateApps(index)
+        if (!updateResult) settingsManager.lastRepoTimestamp = index.repo.timestamp
         return Result.success()
     }
 
