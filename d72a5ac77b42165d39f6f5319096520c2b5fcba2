@@ -16,6 +16,23 @@
       "message": "Just making a note, not blocking this change, but renames should be in separate commits.\n\nIf you ever want to revert this having the rename in the same commit makes it that much harder.",
       "revId": "d72a5ac77b42165d39f6f5319096520c2b5fcba2",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a45a1bbd_eaf14cf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-03-21T20:50:49Z",
+      "side": 1,
+      "message": "Breaks installer build, `error: Could not find class file for \u0027org.calyxos.lupin.PackageInstaller\u0027.`",
+      "revId": "d72a5ac77b42165d39f6f5319096520c2b5fcba2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
