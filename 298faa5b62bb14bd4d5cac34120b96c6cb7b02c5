@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "482deb52_e6532f7e",
+        "filename": "build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-03-24T21:02:45Z",
+      "side": 1,
+      "message": "Dependency changes should be their own commit, really.",
+      "revId": "298faa5b62bb14bd4d5cac34120b96c6cb7b02c5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
