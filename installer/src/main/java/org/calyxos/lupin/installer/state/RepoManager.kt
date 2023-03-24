@@ -42,6 +42,7 @@ class RepoManager @Inject constructor(@ApplicationContext private val context: C
     private val httpManager = HttpManager("${context.getString(R.string.app_name)} $VERSION_NAME")
 
     suspend fun getLocalIndex(): RepoResult = withContext(Dispatchers.IO) {
+        // TODO move local index to v2 as well
         RepoResult(
             index = getIndex(File(REPO_PATH, REPO_INDEX), CERT),
             iconGetter = { icon -> if (icon == null) null else "$REPO_PATH/$icon" },
