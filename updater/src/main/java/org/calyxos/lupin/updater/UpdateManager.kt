@@ -204,6 +204,7 @@ class UpdateManager(
 
 internal class TriChromeException(msg: String) : Exception(msg)
 
+// You can get this from an existing repo with the GetCertificateFromRepo unit test
 private const val CERT =
     "30820503308202eba003020102020451af9e01300d06092a864886f70d01010b050030323110300e06" +
         "0355040b1307462d44726f6964311e301c060355040313156c6f63616c686f73742e6c6f63616c646f6d6169" +
