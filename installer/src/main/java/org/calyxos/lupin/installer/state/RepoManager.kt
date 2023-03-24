@@ -12,6 +12,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.calyxos.lupin.RepoHelper.downloadIndex
+import org.calyxos.lupin.RepoHelper.getEntry
 import org.calyxos.lupin.RepoHelper.getIndex
 import org.calyxos.lupin.getRequest
 import org.calyxos.lupin.installer.BuildConfig.VERSION_NAME
@@ -24,7 +25,7 @@ import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
-internal const val REPO_INDEX = "index-v1.jar"
+internal const val REPO_INDEX = "entry.jar"
 internal const val REPO_PATH = "/product/fdroid/repo"
 internal const val REPO_URL = "https://fdroid-repo.calyxinstitute.org/non/existent/repo"
 internal const val CATEGORY_DEFAULT = "Default"
@@ -42,8 +43,10 @@ class RepoManager @Inject constructor(@ApplicationContext private val context: C
     private val httpManager = HttpManager("${context.getString(R.string.app_name)} $VERSION_NAME")
 
     suspend fun getLocalIndex(): RepoResult = withContext(Dispatchers.IO) {
+        val entry = getEntry(File(REPO_PATH, REPO_INDEX), CERT)
         RepoResult(
-            index = getIndex(File(REPO_PATH, REPO_INDEX), CERT),
+            // FIXME ideally we also verify the entry.index.sha256 here while reading
+            index = getIndex(File(REPO_PATH, entry.index.name)),
             iconGetter = { icon -> if (icon == null) null else "$REPO_PATH/$icon" },
             apkGetter = { apk, _ -> File(REPO_PATH, apk) },
         )
