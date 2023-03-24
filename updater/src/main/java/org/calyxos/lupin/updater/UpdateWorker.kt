@@ -6,7 +6,6 @@
 package org.calyxos.lupin.updater
 
 import android.content.Context
-import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
@@ -35,18 +34,19 @@ class UpdateWorker @AssistedInject constructor(
         } catch (e: Exception) {
             log.error(e) { "Error while running setForeground" }
         }
-
+        // download entry
         // TODO pass isStopped() in lambda to cancel work when system stops us
-        val index = updateManager.downloadIndex() ?: return Result.retry()
+        val entry = updateManager.downloadEntry() ?: return Result.retry()
 
         // update last checked
         settingsManager.lastCheckedMillis = System.currentTimeMillis()
 
         // update apps from repo, if index is new
-        if (index.repo.timestamp > settingsManager.lastRepoTimestamp) {
+        if (entry.timestamp > settingsManager.lastRepoTimestamp) {
             // TODO pass isStopped() in lambda to cancel work when system stops us
+            val index = updateManager.downloadIndex(entry) ?: return Result.retry()
             val updateResult = updateManager.updateApps(index)
-            if (!updateResult) settingsManager.lastRepoTimestamp = index.repo.timestamp
+            if (!updateResult) settingsManager.lastRepoTimestamp = entry.timestamp
         } else {
             log.info { "Repo was not updated" }
         }

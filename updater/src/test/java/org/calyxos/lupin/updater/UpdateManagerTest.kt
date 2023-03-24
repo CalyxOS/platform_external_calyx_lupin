@@ -31,6 +31,8 @@ import org.calyxos.lupin.STATUS_WAITING_FOR_USER_ACTION
 import org.calyxos.lupin.getRequest
 import org.fdroid.UpdateChecker
 import org.fdroid.download.HttpManager
+import org.fdroid.index.v2.Entry
+import org.fdroid.index.v2.EntryFileV2
 import org.fdroid.index.v2.FileV2
 import org.fdroid.index.v2.IndexV2
 import org.fdroid.index.v2.PackageVersionV2
@@ -72,15 +74,36 @@ class UpdateManagerTest {
     }
 
     @Test
-    fun testDownloadIndex() = runTest {
-        val indexFile = FileV2("index-v1.jar")
+    fun testDownloadEntry() = runTest {
+        val indexFile = FileV2("entry.jar")
         val request = indexFile.getRequest(REPO_URL)
         // TODO this would need a tempfile injecter to be able to mock downloaded data
 
         every { context.cacheDir } returns tempDir
         coEvery { httpManager.get(request, receiver = any()) } just Runs
 
-        updateManager.downloadIndex()
+        updateManager.downloadEntry()
+    }
+
+    @Test
+    fun testDownloadIndex() = runTest {
+        val entry = Entry(
+            timestamp = 42L,
+            version = 23L,
+            index = EntryFileV2(
+                name = "index-v2.json",
+                sha256 = "foo bar",
+                size = 1337L,
+                numPackages = 13,
+            ),
+        )
+        val request = entry.index.getRequest(REPO_URL)
+        // TODO this would need a tempfile injecter to be able to mock downloaded data
+
+        every { context.cacheDir } returns tempDir
+        coEvery { httpManager.get(request, receiver = any()) } just Runs
+
+        updateManager.downloadIndex(entry)
     }
 
     @Test
