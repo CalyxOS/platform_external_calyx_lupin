@@ -16,14 +16,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
 import org.calyxos.lupin.InstallResult
-import org.calyxos.lupin.RepoHelper.downloadIndex
+import org.calyxos.lupin.RepoHelper
+import org.calyxos.lupin.getRequest
 import org.calyxos.lupin.getSharedLibraryVersionCode
 import org.fdroid.CompatibilityCheckerImpl
 import org.fdroid.UpdateChecker
+import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
+import org.fdroid.index.v2.Entry
 import org.fdroid.index.v2.IndexV2
 import org.fdroid.index.v2.PackageV2
 import org.fdroid.index.v2.PackageVersionV2
+import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
@@ -61,14 +65,30 @@ class UpdateManager(
         installManager = installManager,
     )
 
-    suspend fun downloadIndex(): IndexV2? = withContext(coroutineContext) {
+    suspend fun downloadEntry(): Entry? = withContext(coroutineContext) {
         try {
-            log.info { "Downloading index from $REPO_URL" }
-            downloadIndex(context, REPO_URL, CERT, httpManager)
+            log.info { "Downloading entry from $REPO_URL" }
+            RepoHelper.downloadEntry(context, REPO_URL, CERT, httpManager)
         } catch (e: Exception) {
             if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
             log.error(e) { "Error downloading index:" }
             null
+        }
+    }
+
+    suspend fun downloadIndex(entry: Entry): IndexV2? = withContext(coroutineContext) {
+        val indexFile = File.createTempFile("index-v2-", ".json", context.cacheDir)
+        try {
+            log.info { "Downloading index from $REPO_URL" }
+            val indexRequest = entry.index.getRequest(REPO_URL)
+            HttpDownloaderV2(httpManager, indexRequest, indexFile).download()
+            RepoHelper.getIndex(indexFile)
+        } catch (e: Exception) {
+            if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
+            log.error(e) { "Error downloading index:" }
+            null
+        } finally {
+            indexFile.delete()
         }
     }
 
