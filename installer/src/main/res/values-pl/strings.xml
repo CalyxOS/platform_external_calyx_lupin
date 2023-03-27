@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="install_page_title">Dodatkowe aplikacje</string>
+    <string name="install_page_subtitle">Przejrzyj dodatkowe aplikacje. Możesz je zainstalować później.</string>
+    <string name="install">Zainstaluj</string>
+    <string name="more">Więcej</string>
+    <string name="installed">Zainstalowane</string>
+    <string name="install_notification_title">Instalowanie aplikacji…</string>
+    <string name="skip">Pomiń</string>
+</resources>

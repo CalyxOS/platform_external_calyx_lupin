@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Instalador de aplicações de CalyxOS</string>
+    <string name="install_page_title">Aplicações adicionais</string>
+    <string name="install_notification_title">Instalando aplicações…</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CalyxOS App Installation</string>
+    <string name="install_page_title">Ytterligare appar</string>
+    <string name="install_page_subtitle">Granska ytterligare appar. De kan även installeras senare.</string>
+    <string name="install_page_all">Alla dessa appar</string>
+    <string name="install_page_offline">Kan endast installeras uppkopplat</string>
+    <string name="install_notification_title">Installerar appar…</string>
+    <string name="skip">Hoppa över</string>
+    <string name="install">Installera</string>
+    <string name="next">Nästa</string>
+    <string name="more">Detaljer</string>
+    <string name="installed">Installerad</string>
+    <string name="error_not_installed">Fel. Installerades inte.</string>
+</resources>
