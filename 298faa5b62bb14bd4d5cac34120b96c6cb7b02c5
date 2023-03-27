@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c282edc4_a18060fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-03-27T12:58:48Z",
+      "side": 1,
+      "message": "We do that already, https://review.calyxos.org/c/CalyxOS/platform_prebuilts_calyx_lupin/+/15681/5/updater/allowlist_org.calyxos.lupin.updater.xml\n\nBut in this case I believe Torsten was running this as a user app for testing. Good to catch either way, I guess.",
+      "parentUuid": "a6272bda_2d8ae3a1",
+      "revId": "298faa5b62bb14bd4d5cac34120b96c6cb7b02c5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "482deb52_e6532f7e",
         "filename": "build.gradle",
         "patchSetId": 2
