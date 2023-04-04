@@ -155,10 +155,23 @@ class StateManager @Inject constructor(
         }
     }
 
-    // this assumes that items don't change anymore once this is called
-    fun onNextClicked() {
+    /**
+     * The user has clicked the next button.
+     * This assumes that items don't change anymore once this is called
+     * @return true, if we will install some apps and false, if there's nothing to install.
+     */
+    fun onNextClicked(): Boolean {
         val items = state.value.items.toMutableList()
         _state.value = UiState.SelectionComplete(items)
+
+        // don't start service if there's nothing to install with it
+        val hasNoSelectedApps = items.find {
+            it.state is AppItemState.Selectable && it.state.selected
+        } == null
+        if (hasNoSelectedApps) {
+            _state.value = UiState.Done(items)
+            return false
+        }
 
         AppInstallerService.start(context)
         scope.launch(Dispatchers.IO) {
@@ -171,6 +184,7 @@ class StateManager @Inject constructor(
                 _state.value = uiState
             }
         }
+        return true
     }
 
 }

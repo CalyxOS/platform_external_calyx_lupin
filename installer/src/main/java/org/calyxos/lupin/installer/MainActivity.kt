@@ -44,11 +44,16 @@ class MainActivity : ComponentActivity() {
 
     private fun onNextClicked() {
         if (viewModel.state.value.showSkipButton) {
-            viewModel.onNextClicked()
+            // if there's nothing to install, it is the same as skip
+            if (!viewModel.onNextClicked()) skip()
         } else {
             // when skipping isn't possible anymore, next was already clicked, so we finish here
-            setResult(RESULT_NEXT)
-            finishAfterTransition()
+            skip()
         }
+    }
+
+    private fun skip() {
+        setResult(RESULT_NEXT)
+        finishAfterTransition()
     }
 }
