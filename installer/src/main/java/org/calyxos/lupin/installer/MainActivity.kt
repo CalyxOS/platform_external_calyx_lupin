@@ -9,7 +9,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import org.calyxos.lupin.installer.ui.InstallPage
 import org.calyxos.lupin.installer.ui.RESULT_NEXT
@@ -26,9 +26,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             LupinTheme {
                 InstallPage(
-                    // TODO collect state lifecycle aware when upgrading lifecycle to 2.6
-                    state = viewModel.state.collectAsState().value,
-                    isOnline = viewModel.onlineState.collectAsState().value,
+                    state = viewModel.state.collectAsStateWithLifecycle().value,
+                    isOnline = viewModel.onlineState.collectAsStateWithLifecycle().value,
                     onCheckAllClicked = viewModel::onCheckAllClicked,
                     skipClickListener = this::onSkipClicked,
                     nextClickListener = this::onNextClicked,
