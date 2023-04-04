@@ -23,5 +23,9 @@ class MainViewModel @Inject constructor(
 
     fun onItemClicked(item: AppItem) = stateManager.onItemClicked(item)
     fun onCheckAllClicked() = stateManager.onCheckAllClicked()
-    fun onNextClicked() = stateManager.onNextClicked()
+
+    /**
+     * @return true, if we should stay on this page and false, if we can close it.
+     */
+    fun onNextClicked(): Boolean = stateManager.onNextClicked()
 }
