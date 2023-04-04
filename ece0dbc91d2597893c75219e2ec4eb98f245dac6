@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a23a9460_1fe2e777",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-04-04T14:36:08Z",
+      "side": 1,
+      "message": "You\u0027d be missing the privileged permissions though.\n\nWhat we can do is setup AOSP signing config like some other apps - here it\u0027s signed with \"releasekey\"",
+      "revId": "ece0dbc91d2597893c75219e2ec4eb98f245dac6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
