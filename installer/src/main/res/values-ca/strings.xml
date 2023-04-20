@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Instal·lador d\'aplicacions del CalyxOS</string>
+    <string name="install_page_title">Aplicacions addicionals</string>
+    <string name="install_page_subtitle">Revisa aplicacions addicionals. També les podeu instal·lar més tard.</string>
+    <string name="install_page_all">Totes les aplicacions següents</string>
+    <string name="install_page_offline">Només es pot instal·lar quan estigui en línia</string>
+    <string name="install_notification_title">Instal·lant aplicacions…</string>
+    <string name="skip">Omet</string>
+    <string name="install">Instal·la</string>
+    <string name="next">Següent</string>
+    <string name="more">Més</string>
+    <string name="installed">Instal·lat</string>
+    <string name="error_not_installed">Error. No instal·lat.</string>
+</resources>
