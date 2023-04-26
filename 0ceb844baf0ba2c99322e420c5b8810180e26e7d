@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a248de_e8d77cb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-04-26T20:39:09Z",
+      "side": 1,
+      "message": "From the channel, when the announcement of gradle 8 was posted:\n\n* Let\u0027s not rush into upgrading then, and also test properly before shipping.\n* Wait for 8.0.1 or 8.1.0 or something like that, till they figure out and fix bugs\n\nIt might end up being fine, and while I don\u0027t want to delay updates, we also don\u0027t have to jump on major updates day 1, especially for critical system apps.",
+      "revId": "0ceb844baf0ba2c99322e420c5b8810180e26e7d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
