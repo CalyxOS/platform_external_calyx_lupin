@@ -30,11 +30,11 @@ android {
         kotlinCompilerExtensionVersion "$compose_compiler_version"
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 
@@ -42,11 +42,11 @@ dependencies {
     api 'org.fdroid:download:0.1.1'
     api 'org.fdroid:index:0.1.1'
 
-    api 'androidx.core:core-ktx:1.9.0'
+    api 'androidx.core:core-ktx:1.10.0'
     api platform("androidx.compose:compose-bom:$compose_version")
     api 'androidx.compose.material3:material3'
     api 'androidx.compose.ui:ui-tooling-preview'
-    api 'androidx.activity:activity-compose:1.7.0'
+    api 'androidx.activity:activity-compose:1.7.1'
     api 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     api 'androidx.lifecycle:lifecycle-service:2.6.1'
     api 'androidx.lifecycle:lifecycle-runtime-compose:2.6.1'
