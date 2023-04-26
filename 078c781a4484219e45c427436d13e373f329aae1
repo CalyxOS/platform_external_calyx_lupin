@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ea84c20_c1808d70",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-04-26T20:45:53Z",
+      "side": 0,
+      "message": "Heh I was kinda confused as to why you were changing this in the gradle update :)",
+      "revId": "078c781a4484219e45c427436d13e373f329aae1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
