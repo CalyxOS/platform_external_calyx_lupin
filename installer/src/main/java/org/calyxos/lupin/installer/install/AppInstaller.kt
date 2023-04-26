@@ -44,7 +44,6 @@ class AppInstaller @Inject constructor(
      */
     val uiState = _uiState.asStateFlow()
 
-
     companion object {
         fun SessionParams.setInstallerPackageName(packageName: String) {
             val method = javaClass.methods.find { it.name == "setInstallerPackageName" }
