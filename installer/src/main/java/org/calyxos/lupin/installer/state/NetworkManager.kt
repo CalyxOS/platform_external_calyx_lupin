@@ -6,6 +6,7 @@
 package org.calyxos.lupin.installer.state
 
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
@@ -15,7 +16,6 @@ import android.net.NetworkRequest
 import android.util.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.calyxos.lupin.installer.BuildConfig
 
 private const val TAG = "NetworkManager"
 
@@ -24,7 +24,7 @@ fun interface OnlineStateChangedListener {
 }
 
 class NetworkManager(
-    context: Context,
+    private val context: Context,
     private val listener: OnlineStateChangedListener,
 ) : ConnectivityManager.NetworkCallback() {
     private val connectivityManager = context.getSystemService(ConnectivityManager::class.java)
@@ -64,7 +64,9 @@ class NetworkManager(
     }
 
     private fun isOnlineNotMetered(): Boolean {
-        if (BuildConfig.DEBUG) return false
+        if (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE == ApplicationInfo.FLAG_DEBUGGABLE) {
+            return false
+        }
         val currentNetwork = connectivityManager.activeNetwork
         return currentNetwork?.isOnline() ?: false
     }
