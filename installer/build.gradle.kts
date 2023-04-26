@@ -74,6 +74,7 @@ dependencies {
     implementation(project(":shared"))
 
     implementation(libs.androidx.lifecycle.service)
+    implementation(libs.androidx.work.runtime)
 
     ksp(libs.google.hilt.compiler)
 
