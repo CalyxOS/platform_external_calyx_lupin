@@ -6,12 +6,12 @@
 package org.calyxos.lupin.installer.state
 
 import android.content.Context
+import android.content.pm.PackageManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.calyxos.lupin.installer.BuildConfig.VERSION_NAME
 import org.calyxos.lupin.installer.R
 import org.fdroid.download.DownloadRequest
 import org.fdroid.download.HttpDownloader
@@ -56,7 +56,14 @@ class RepoManager @Inject constructor(@ApplicationContext private val context: C
             path = REPO_INDEX,
             mirrors = listOf(Mirror(REPO_URL)),
         )
-        val httpManager = HttpManager("${context.getString(R.string.app_name)} $VERSION_NAME")
+        val httpManager = HttpManager(
+            "${context.getString(R.string.app_name)} ${
+                context.packageManager.getPackageInfo(
+                    context.packageName,
+                    PackageManager.PackageInfoFlags.of(0)
+                ).versionName
+            }"
+        )
         HttpDownloader(httpManager, request, file).download()
         val index = getIndex(file, CERT_ONLINE)
         file.delete()
