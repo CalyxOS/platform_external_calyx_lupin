@@ -85,6 +85,24 @@
       "parentUuid": "b1ae5ba6_bf46480d",
       "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e5251e8_7a30497d",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-05-03T18:48:10Z",
+      "side": 1,
+      "message": "Could we have a second class? BootReceiver2\n\nOr for that use a separate app, since it\u0027d be far less code / no worries about copy/paste.",
+      "parentUuid": "850368dd_0c5b6be0",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
