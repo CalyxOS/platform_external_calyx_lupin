@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8ffab4e_21fc899e",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-05-03T17:28:22Z",
+      "side": 1,
+      "message": "Not sure I would trust this to always run until the end.",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1ae5ba6_bf46480d",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-05-03T17:28:22Z",
+      "side": 1,
+      "message": "Ah this is how we prevent this from running each boot? What if we ever need to run another migration with this app?",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
