@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="install_page_title">Additionele apps</string>
+    <string name="app_name">CalyxOS App Installer</string>
+    <string name="install_page_subtitle">Review additionele apps. Je kan ze ook later installeren.</string>
+    <string name="install_page_all">Alle van de volgende apps</string>
+    <string name="install_page_offline">Kan alleen worden geïnstalleerd wanneer je online bent</string>
+    <string name="install_notification_title">Apps aan het installeren…</string>
+    <string name="skip">Sla over</string>
+    <string name="install">Installeer</string>
+    <string name="next">Volgende</string>
+    <string name="more">Meer</string>
+    <string name="installed">Geïnstalleerd</string>
+    <string name="error_not_installed">Fout. Is niet geïnstalleerd.</string>
+</resources>
