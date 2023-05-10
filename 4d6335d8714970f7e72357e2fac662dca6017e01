@@ -87,6 +87,24 @@
       "parentUuid": "fc43f3a5_7ccfe636",
       "revId": "4d6335d8714970f7e72357e2fac662dca6017e01",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c8ef3ab_815c8486",
+        "filename": "app/src/main/res/drawable/fdroid_logo.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-10T14:02:41Z",
+      "side": 1,
+      "message": "Updated in https://review.calyxos.org/c/CalyxOS/platform_external_calyx_lupin/+/15753",
+      "parentUuid": "c96cb229_3c66e448",
+      "revId": "4d6335d8714970f7e72357e2fac662dca6017e01",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
