@@ -16,6 +16,24 @@
       "message": "if we\u0027d really want this and I don\u0027t think we do, then we don\u0027t need to save the timestamp in settings at all and the related code would need to be removed as well.",
       "revId": "b9567b850d5d2bc77b8fa327311a61fead356e38",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb07cf08_ba053544",
+        "filename": "updater/src/main/java/org/calyxos/lupin/updater/UpdateWorker.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-05-10T13:09:40Z",
+      "side": 1,
+      "message": "The thing here was - what if we already have the new index, but for whatever reason the update didn\u0027t get installed.\n\nKeeping this aside for now anyways, we can revisit later if needed.",
+      "parentUuid": "ad64bd86_4aa0ffb4",
+      "revId": "b9567b850d5d2bc77b8fa327311a61fead356e38",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
