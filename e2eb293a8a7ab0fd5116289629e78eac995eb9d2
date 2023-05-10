@@ -34,6 +34,24 @@
       "parentUuid": "30b2617a_0e40e673",
       "revId": "e2eb293a8a7ab0fd5116289629e78eac995eb9d2",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77924e93_4e9712e0",
+        "filename": "shared/src/main/java/org/calyxos/lupin/RepoHelper.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-05-10T13:21:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "772b5e2a_e428f385",
+      "revId": "e2eb293a8a7ab0fd5116289629e78eac995eb9d2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
