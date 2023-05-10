@@ -68,6 +68,24 @@
       "message": "This is not currently enforced by any mechanism, but is always true in practice.",
       "revId": "f241817ebf4b33eb5358f20a44cd9d195602b6f4",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "332c7b79_df28bba9",
+        "filename": "updater/src/main/java/org/calyxos/lupin/updater/RepoManager.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-05-10T13:21:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c8b75934_44253298",
+      "revId": "f241817ebf4b33eb5358f20a44cd9d195602b6f4",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
