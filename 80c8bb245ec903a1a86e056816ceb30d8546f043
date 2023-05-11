@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48339798_f84fcfc1",
+        "filename": "installer/src/main/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-11T15:30:55Z",
+      "side": 1,
+      "message": "I was under the impression that it will not receive the broadcast if the receiver is not exported",
+      "parentUuid": "66404717_b89f2bd6",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8ffab4e_21fc899e",
         "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
         "patchSetId": 3
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb625ad6_a580acc8",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-11T15:30:55Z",
+      "side": 1,
+      "message": "I thought about this too. Not sure what alternatives there would be",
+      "parentUuid": "d8ffab4e_21fc899e",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef042527_0062c80a",
         "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
         "patchSetId": 3
@@ -48,6 +84,24 @@
       "writtenOn": "2023-05-03T17:32:31Z",
       "side": 1,
       "message": "Why do we need this? I remember that in Seedvault we had wierd issues setting a scenario.",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eca281e_547176ca",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-11T15:30:55Z",
+      "side": 1,
+      "message": "This is copy/paste from the other class",
+      "parentUuid": "ef042527_0062c80a",
       "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
