@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1c5b992_4376b3ab",
+        "filename": "installer/src/main/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-05-12T18:55:35Z",
+      "side": 1,
+      "message": "Do you know how you got that impression? Is there docs about this? Elsewhere we are working with non-exported boot receivers and they seem to work fine.",
+      "parentUuid": "48339798_f84fcfc1",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d8ffab4e_21fc899e",
         "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
         "patchSetId": 3
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "I thought about this too. Not sure what alternatives there would be",
       "parentUuid": "d8ffab4e_21fc899e",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbec931d_f47e7447",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-05-12T18:55:35Z",
+      "side": 1,
+      "message": "One option could be using/scheduling a Worker with WorkManager. More modern than using a foreground service directly. Or we just cross-fingers and hope there\u0027s no scenario Android kills us early.",
+      "parentUuid": "eb625ad6_a580acc8",
       "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
