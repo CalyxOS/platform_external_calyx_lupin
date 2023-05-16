@@ -87,6 +87,24 @@
       "parentUuid": "60f3ce13_a5a03f59",
       "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0407957d_6c52703c",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-05-16T20:28:28Z",
+      "side": 1,
+      "message": "I think there\u0027s only a single application context. You might as well do `applicationContext.applicationContext.applicationContext.applicationContext` and so on.",
+      "parentUuid": "45e8db9a_35c52945",
+      "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
