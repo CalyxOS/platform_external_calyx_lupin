@@ -141,6 +141,24 @@
       "parentUuid": "45e8db9a_35c52945",
       "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3ee0231_cfebed3c",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-16T20:34:15Z",
+      "side": 1,
+      "message": "What context is SystemAppDemotionWorker receiving?\n\nThis is the first one https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:work/work-runtime/src/main/java/androidx/work/ListenableWorker.java;l\u003d93;drc\u003d187e9a2088c3f281cfb617b9bedd94b9a3546d8b. I\u0027m sending an application context to PackageInstaller since that is what is done in the other class",
+      "parentUuid": "0407957d_6c52703c",
+      "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
