@@ -16,6 +16,24 @@
       "message": "NetworkManager and RepoManager changes feels different than updating gradle and dependencies. Split in separate change maybe?",
       "revId": "d78817d6528c5f42200319383aea30bce2a01b5e",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7567db43_944acfa5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-05-16T18:25:40Z",
+      "side": 1,
+      "message": "I was going to say the same thing, but I thought that gradle 8 / AGP 8 removed BuildConfig, don\u0027t find a link to that though.\n\nChanges look ok either way, I guess it\u0027s more to make potential inline building easier? (even though that\u0027s not gonna happen here anytime soon)\n\nWould prefer separate commit with explanation too in that case.",
+      "parentUuid": "58513ce0_ee15856c",
+      "revId": "d78817d6528c5f42200319383aea30bce2a01b5e",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
