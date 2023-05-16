@@ -34,6 +34,24 @@
       "parentUuid": "78ec0844_5adcdd48",
       "revId": "43b617a011c2a981350b1848c83314f56468eb24",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6c6c3d1_7e630ac2",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-05-16T20:08:29Z",
+      "side": 1,
+      "message": "Internal to the same gradle module, so it should still be accessible, right?\n\nBut even if not injecting, we probably shouldn\u0027t create new instances for each app we process.",
+      "parentUuid": "e5a9bf42_09df2d32",
+      "revId": "43b617a011c2a981350b1848c83314f56468eb24",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
