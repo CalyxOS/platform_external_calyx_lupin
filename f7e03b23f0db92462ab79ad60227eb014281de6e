@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "102fa6b5_9da11921",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2023-05-16T18:30:36Z",
+      "side": 1,
+      "message": "Newline",
+      "revId": "f7e03b23f0db92462ab79ad60227eb014281de6e",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
