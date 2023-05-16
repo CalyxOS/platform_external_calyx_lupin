@@ -34,6 +34,24 @@
       "parentUuid": "58513ce0_ee15856c",
       "revId": "d78817d6528c5f42200319383aea30bce2a01b5e",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13fc3cf1_062258fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2023-05-16T18:33:48Z",
+      "side": 1,
+      "message": "Forgot that BuildConfig was disabled by default, can be enabled by setting `android.defaults.buildfeatures.buildconfig\u003dtrue` in `gradle.properties`.\n\nRef: https://developer.android.com/build/releases/gradle-plugin#default-changes",
+      "parentUuid": "7567db43_944acfa5",
+      "revId": "d78817d6528c5f42200319383aea30bce2a01b5e",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
