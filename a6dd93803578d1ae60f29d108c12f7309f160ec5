@@ -36,6 +36,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6725e1a5_9a0f4636",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-05-16T20:25:32Z",
+      "side": 1,
+      "message": "Wait, so you are saying that packageManager.getPackageInfo() will throw an exception if F-Droid is a system app and it won\u0027t when it is a user app?",
+      "parentUuid": "fbe4175f_febda4c8",
+      "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60f3ce13_a5a03f59",
