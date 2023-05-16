@@ -18,6 +18,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbe4175f_febda4c8",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-16T20:11:51Z",
+      "side": 1,
+      "message": "The point of this migration is that we\u0027re demoting F-Droid from system app to normal user app. So we only run this migration if F-Droid is not present which means it just got demoted and not if it is already installed (as a user app)",
+      "parentUuid": "7b610306_02c3c89e",
+      "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60f3ce13_a5a03f59",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-16T20:08:29Z",
       "side": 1,
       "message": "Why do we need `applicationContext` two times here?",
+      "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45e8db9a_35c52945",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-16T20:11:51Z",
+      "side": 1,
+      "message": "The first is context from CoroutineWorker and the second is the application context of that one.",
+      "parentUuid": "60f3ce13_a5a03f59",
       "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
