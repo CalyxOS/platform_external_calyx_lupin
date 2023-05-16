@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58513ce0_ee15856c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2023-05-16T18:15:20Z",
+      "side": 1,
+      "message": "NetworkManager and RepoManager changes feels different than updating gradle and dependencies. Split in separate change maybe?",
+      "revId": "d78817d6528c5f42200319383aea30bce2a01b5e",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
