@@ -54,6 +54,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "670d1dfa_3b298855",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-16T20:29:57Z",
+      "side": 1,
+      "message": "The exception is thrown if the package name is not found (in this case not installed). If the package is present we don\u0027t want to do anything. If it is not present (in our case, system app was removed from the system images and its data was preserved) we want to install F-Droid which installs it as a user app.",
+      "parentUuid": "6725e1a5_9a0f4636",
+      "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60f3ce13_a5a03f59",
