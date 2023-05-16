@@ -54,6 +54,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d0de675_8d807aae",
+        "filename": "installer/src/main/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-16T17:47:49Z",
+      "side": 1,
+      "message": "I think it was just based on existing system boot receivers all being marked as exported",
+      "parentUuid": "d1c5b992_4376b3ab",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8ffab4e_21fc899e",
@@ -107,6 +125,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4df4015f_22f0c941",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-16T17:47:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbec931d_f47e7447",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef042527_0062c80a",
@@ -138,6 +174,24 @@
       "side": 1,
       "message": "This is copy/paste from the other class",
       "parentUuid": "ef042527_0062c80a",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56bce615_fa2fbc89",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-16T17:47:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0eca281e_547176ca",
       "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
@@ -191,6 +245,24 @@
       "side": 1,
       "message": "Could we have a second class? BootReceiver2\n\nOr for that use a separate app, since it\u0027d be far less code / no worries about copy/paste.",
       "parentUuid": "850368dd_0c5b6be0",
+      "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c83b687_53355b9f",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-16T17:47:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9e5251e8_7a30497d",
       "revId": "80c8bb245ec903a1a86e056816ceb30d8546f043",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
