@@ -52,6 +52,24 @@
       "parentUuid": "7567db43_944acfa5",
       "revId": "d78817d6528c5f42200319383aea30bce2a01b5e",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbdf0226_15869c71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-16T18:34:02Z",
+      "side": 1,
+      "message": "It is indeed because BuildConfig is removed in AGP 8",
+      "parentUuid": "7567db43_944acfa5",
+      "revId": "d78817d6528c5f42200319383aea30bce2a01b5e",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
