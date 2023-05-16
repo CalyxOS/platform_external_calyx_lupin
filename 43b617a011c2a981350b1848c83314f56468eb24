@@ -16,6 +16,24 @@
       "message": "PackageInstaller can be injected via annotating the class with AndroidEntryPoint and using Inject annotation with a lateinit var.",
       "revId": "43b617a011c2a981350b1848c83314f56468eb24",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5a9bf42_09df2d32",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-16T18:17:59Z",
+      "side": 1,
+      "message": "This is an internal class",
+      "parentUuid": "78ec0844_5adcdd48",
+      "revId": "43b617a011c2a981350b1848c83314f56468eb24",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
