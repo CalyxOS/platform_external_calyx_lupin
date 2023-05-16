@@ -72,6 +72,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7816d94_5ea6ace4",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-05-16T20:33:37Z",
+      "side": 1,
+      "message": "Ah thanks for explaining. I was missing the part where the system app would become uninstalled by missing in the system image. Interesting that than the data would still be available for the user app. I imagine this needs some good testing.",
+      "parentUuid": "670d1dfa_3b298855",
+      "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60f3ce13_a5a03f59",
