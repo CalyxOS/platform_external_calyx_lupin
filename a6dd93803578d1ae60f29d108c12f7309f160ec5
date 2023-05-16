@@ -159,6 +159,24 @@
       "parentUuid": "0407957d_6c52703c",
       "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24e0f986_d4ba468b",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-05-16T20:36:16Z",
+      "side": 1,
+      "message": "The docs are all talking about *application* context here, so I\u0027d trust that. Heck, the variable is even called `applicationContext`.",
+      "parentUuid": "a3ee0231_cfebed3c",
+      "revId": "a6dd93803578d1ae60f29d108c12f7309f160ec5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
