@@ -7,4 +7,6 @@
     <string name="installed">Zainstalowane</string>
     <string name="install_notification_title">Instalowanie aplikacji…</string>
     <string name="skip">Pomiń</string>
+    <string name="next">Następny</string>
+    <string name="error_not_installed">Błąd. Nie zainstalowano.</string>
 </resources>

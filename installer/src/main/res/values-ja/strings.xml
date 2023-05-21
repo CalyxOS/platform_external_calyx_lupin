@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="install_page_title">追加するアプリ</string>
+    <string name="install_page_subtitle">これらのアプリを追加しますか。あとでもインストール可能です。</string>
+    <string name="install_page_all">以下のアプリ</string>
+    <string name="skip">スキップする</string>
+    <string name="install">インストール</string>
+    <string name="install_page_offline">オンラインに接続時のみにインストール可能です</string>
+    <string name="install_notification_title">インストール中です…</string>
+    <string name="app_name">CalyxOS アプリ インストーラー</string>
+    <string name="installed">インストール完了</string>
+    <string name="error_not_installed">エラーのため、インストールされませんでした。</string>
+    <string name="next">次へ</string>
+</resources>

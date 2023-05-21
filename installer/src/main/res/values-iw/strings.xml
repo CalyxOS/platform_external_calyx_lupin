@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="install_page_all">כל היישומונים הבאים</string>
+    <string name="install_page_offline">ניתן להתקין רק כשיש חיבור</string>
+    <string name="skip">דילוג</string>
+    <string name="next">הבא</string>
+    <string name="more">עוד</string>
+    <string name="installed">מותקן</string>
+    <string name="error_not_installed">שגיאה. לא הותקן.</string>
+    <string name="app_name">מתקין היישומונים של CalyxOS</string>
+    <string name="install_page_title">יישומונים נוספים</string>
+    <string name="install_notification_title">היישומונים מותקנים…</string>
+    <string name="install_page_subtitle">סקירת יישומונים נוספים. אפשר גם להתקין אותם מאוחר יותר.</string>
+    <string name="install">התקנה</string>
+</resources>
