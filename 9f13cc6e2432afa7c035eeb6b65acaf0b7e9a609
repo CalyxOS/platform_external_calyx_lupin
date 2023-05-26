@@ -34,6 +34,24 @@
       "parentUuid": "6a264f1a_1d00fca0",
       "revId": "9f13cc6e2432afa7c035eeb6b65acaf0b7e9a609",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30f5fe3f_c9a37365",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-05-26T18:20:38Z",
+      "side": 1,
+      "message": "Lupin.installer is a Privileged system app.",
+      "parentUuid": "3dd916fa_af1473a1",
+      "revId": "9f13cc6e2432afa7c035eeb6b65acaf0b7e9a609",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
