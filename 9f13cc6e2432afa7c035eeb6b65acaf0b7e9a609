@@ -16,6 +16,24 @@
       "message": "What\u0027s the 0 for here? Should be a variable.\n\nWe want to ask for system apps only.",
       "revId": "9f13cc6e2432afa7c035eeb6b65acaf0b7e9a609",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd916fa_af1473a1",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-05-26T17:53:19Z",
+      "side": 1,
+      "message": "There\u0027s no internal flag for none. 0 is used noramally when not using PackageInfoFlags (but that\u0027s deprecated now) https://developer.android.com/reference/android/content/pm/PackageManager.PackageInfoFlags\nI haven\u0027t tried with https://developer.android.com/reference/android/content/pm/PackageManager#MATCH_SYSTEM_ONLY it may or may not work depending on permissions, privileges etc of this app",
+      "parentUuid": "6a264f1a_1d00fca0",
+      "revId": "9f13cc6e2432afa7c035eeb6b65acaf0b7e9a609",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
