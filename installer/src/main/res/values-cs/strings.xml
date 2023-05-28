@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Instalátor aplikací CalyxOS</string>
+    <string name="install_page_title">Další aplikace</string>
+    <string name="install_page_subtitle">Prohlédněte si další aplikace. Můžete je nainstalovat i později.</string>
+    <string name="install_page_all">Všechny následující aplikace</string>
+    <string name="install_page_offline">Lze instalovat pouze online</string>
+    <string name="skip">Přeskočit</string>
+    <string name="install">Instalovat</string>
+    <string name="next">Další</string>
+    <string name="more">Více</string>
+    <string name="installed">Nainstalováno</string>
+    <string name="error_not_installed">Chyba. Není nainstalováno.</string>
+    <string name="install_notification_title">Instalace aplikací…</string>
+</resources>
