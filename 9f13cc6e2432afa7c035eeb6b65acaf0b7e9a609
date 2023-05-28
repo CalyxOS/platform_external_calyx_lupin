@@ -70,6 +70,24 @@
       "parentUuid": "30f5fe3f_c9a37365",
       "revId": "9f13cc6e2432afa7c035eeb6b65acaf0b7e9a609",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e01b6865_0b375acd",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-05-28T13:52:31Z",
+      "side": 1,
+      "message": "But that\u0027s a good point. Does the app even have the perms QUERY_ALL_PACKAGES to get a real result here?",
+      "parentUuid": "a7ff917d_6a97eb8f",
+      "revId": "9f13cc6e2432afa7c035eeb6b65acaf0b7e9a609",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
