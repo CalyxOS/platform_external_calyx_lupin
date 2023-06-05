@@ -138,6 +138,24 @@
       "message": "So now this would always run, even after f-droid was already demoted?",
       "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b2653c0_cd4991c7",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-06-05T20:18:05Z",
+      "side": 1,
+      "message": "I\u0027m seeing F-Droid get reinstalled on every boot, likely for this reason, in main user and work profile (and secondary user shortly after switching to it). The problem I just commented about, with F-Droid getting installed in a work profile, is probably for this same reason.",
+      "parentUuid": "30136c96_34618d76",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
