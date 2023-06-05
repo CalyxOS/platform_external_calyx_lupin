@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "98df87bd_a5724035",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-06-05T20:07:26Z",
+      "side": 1,
+      "message": "Yes, F-Droid gets installed into the work profile. (I\u0027m testing a build that includes everything currently listed here except gcam-ext: https://gitlab.com/CalyxOS/calyxos/-/issues/1702 )",
+      "parentUuid": "8dc26dac_6f667ece",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2955f361_109bbfdb",
         "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
         "patchSetId": 11
