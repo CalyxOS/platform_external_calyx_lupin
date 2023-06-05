@@ -56,6 +56,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb5495e7_741c5aa3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-05T20:10:23Z",
+      "side": 1,
+      "message": "That shouldn\u0027t happen.",
+      "parentUuid": "98df87bd_a5724035",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f96e002b_c5e4063c",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-05T20:10:23Z",
+      "side": 1,
+      "message": "This can also happen if F-Droid is uninstalled, or simply not present in a work profile as found by Tommy.",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2955f361_109bbfdb",
         "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
         "patchSetId": 11
