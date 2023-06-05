@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f75b4f68_48c55e68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-06-05T19:57:41Z",
+      "side": 1,
+      "message": "F-Droid still gets automatically installed in new work profiles, probably related to this migration. Users may find it a little weird if they intentionally uninstalled it from the parent user and see it get installed in a new work profile.\n\nProbably not a blocker, not sure; feel free to ack.",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2955f361_109bbfdb",
         "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
         "patchSetId": 11
