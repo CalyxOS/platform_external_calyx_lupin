@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8dc26dac_6f667ece",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-05T20:04:58Z",
+      "side": 1,
+      "message": "Just to be sure I\u0027m hearing you right.\n\nTest:\n1. Install a build with this topic, wipe data\n2. If F-Droid is installed, uninstall it.\n3. Create a brand new work profile\n4. See F-Droid get installed?\n\nI\u0027d wait a bit then before the prebuilts change is final and some other lupin changes I had in mind are done if this is indeed the issue.",
+      "parentUuid": "f75b4f68_48c55e68",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2955f361_109bbfdb",
         "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
         "patchSetId": 11
