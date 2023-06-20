@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "530b59ab_d1ffda77",
+        "filename": ".idea/kotlinc.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-20T10:04:05Z",
+      "side": 1,
+      "message": "Remove file? Add to `.gitignore`",
+      "revId": "c79201a3b94e609d554c842bb151a08ed25949d5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
