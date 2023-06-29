@@ -16,6 +16,24 @@
       "message": "Remove file? Add to `.gitignore`",
       "revId": "c79201a3b94e609d554c842bb151a08ed25949d5",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ea7eceb_19657da1",
+        "filename": ".idea/kotlinc.xml",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-29T12:22:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "530b59ab_d1ffda77",
+      "revId": "c79201a3b94e609d554c842bb151a08ed25949d5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
