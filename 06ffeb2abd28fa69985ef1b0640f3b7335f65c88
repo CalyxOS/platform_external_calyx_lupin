@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e25dd336_c66ca21c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-29T16:59:59Z",
+      "side": 1,
+      "message": "```\n Task :installer:kaptDebugKotlin FAILED\n/mnt/golu2/android/calyx/android13/external/calyx/lupin/installer/build/tmp/kapt3/stubs/debug/org/calyxos/lupin/installer/install/AppInstallerService.java:17: error: cannot find symbol\npublic final class AppInstallerService extends LifecycleService {\n                                               ^\n  symbol: class LifecycleService\n/mnt/golu2/android/calyx/android13/external/calyx/lupin/installer/build/tmp/kapt3/stubs/debug/org/calyxos/lupin/installer/install/AppInstallerService.java:17: error: [Hilt]\npublic final class AppInstallerService extends LifecycleService {\n             ^\n  @AndroidEntryPoint base class must extend ComponentActivity, (support) Fragment, View, Service, or BroadcastReceiver.\n  [Hilt] Processing did not complete. See error above for details.\nerror: InjectProcessingStep was unable to process \u0027appInstaller\u0027 because \u0027LifecycleService\u0027 could not be resolved.\n\n  Dependency trace:\n      \u003d\u003e element (CLASS): org.calyxos.lupin.installer.install.AppInstallerService\n      \u003d\u003e type (ERROR superclass): LifecycleService\n\n  If type \u0027LifecycleService\u0027 is a generated type, check above for compilation errors that may have prevented the type from being generated. Otherwise, ensure that type \u0027LifecycleService\u0027 is on your classpath.\n\n\u003e Task :installer:kaptReleaseKotlin FAILED\n/mnt/golu2/android/calyx/android13/external/calyx/lupin/installer/build/tmp/kapt3/stubs/release/org/calyxos/lupin/installer/install/AppInstallerService.java:17: error: cannot find symbol\npublic final class AppInstallerService extends LifecycleService {\n                                               ^\n  symbol: class LifecycleService\n/mnt/golu2/android/calyx/android13/external/calyx/lupin/installer/build/tmp/kapt3/stubs/release/org/calyxos/lupin/installer/install/AppInstallerService.java:17: error: [Hilt]\npublic final class AppInstallerService extends LifecycleService {\n             ^\n  @AndroidEntryPoint base class must extend ComponentActivity, (support) Fragment, View, Service, or BroadcastReceiver.\n  [Hilt] Processing did not complete. See error above for details.\nerror: InjectProcessingStep was unable to process \u0027appInstaller\u0027 because \u0027LifecycleService\u0027 could not be resolved.\n\n  Dependency trace:\n      \u003d\u003e element (CLASS): org.calyxos.lupin.installer.install.AppInstallerService\n      \u003d\u003e type (ERROR superclass): LifecycleService\n\n  If type \u0027LifecycleService\u0027 is a generated type, check above for compilation errors that may have prevented the type from being generated. Otherwise, ensure that type \u0027LifecycleService\u0027 is on your classpath.\n\nFAILURE: Build completed with 2 failures.\n```",
+      "revId": "06ffeb2abd28fa69985ef1b0640f3b7335f65c88",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
