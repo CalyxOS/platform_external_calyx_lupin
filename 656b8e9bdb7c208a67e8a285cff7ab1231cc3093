@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85906449_0fcb2a03",
+        "filename": "installer/src/main/res/drawable/fdroid_logo.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-29T12:16:17Z",
+      "side": 1,
+      "message": "Ahh this is why we have the GPL license in the licenses folder, scared me for a moment.",
+      "revId": "656b8e9bdb7c208a67e8a285cff7ab1231cc3093",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
