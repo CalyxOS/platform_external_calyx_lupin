@@ -16,6 +16,24 @@
       "message": "was done hastily, need to go over this again with more time",
       "revId": "e78b4e5ae56bc213ddd2f059c6a8c6f1df2877e7",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3c775d7_4b0cc147",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-29T12:18:35Z",
+      "side": 1,
+      "message": "Whenever you\u0027re ready.\n\nWe can move the local repo too, it\u0027s been shipping v2 index for a while now.",
+      "parentUuid": "acd6dca5_df583543",
+      "revId": "e78b4e5ae56bc213ddd2f059c6a8c6f1df2877e7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
