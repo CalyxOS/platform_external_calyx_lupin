@@ -156,6 +156,24 @@
       "parentUuid": "30136c96_34618d76",
       "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3179da73_ba7ef98e",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-06-29T17:05:22Z",
+      "side": 1,
+      "message": "A pref that is set to done on successful installation would work.",
+      "parentUuid": "4b2653c0_cd4991c7",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
