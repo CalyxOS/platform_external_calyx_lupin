@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bed4949a_45626fe3",
+        "filename": "shared/src/main/java/org/calyxos/lupin/RepoHelper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-06-29T17:41:48Z",
+      "side": 1,
+      "message": "If we find a way to verify the hash while parsing (maybe an input stream wrapper), we wouldn\u0027t even need to store a file and could parse while downloading.",
+      "revId": "1440d37bc81e1305bd69cc74210cb962edd52ab5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
