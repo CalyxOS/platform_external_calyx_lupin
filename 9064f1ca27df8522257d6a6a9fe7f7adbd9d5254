@@ -16,6 +16,24 @@
       "message": "curl -LO https://services.gradle.org/distributions/gradle-8.0-all.zip\nsha256sum gradle-8.0-all.zip\n\nf30b29580fe11719087d698da23f3b0f0d04031d8995f7dd8275a31f7674dc01  gradle-8.0-all.zip",
       "revId": "9064f1ca27df8522257d6a6a9fe7f7adbd9d5254",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a4340c6_d2857875",
+        "filename": "gradle/wrapper/gradle-wrapper.properties",
+        "patchSetId": 12
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-06-29T14:24:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a83222a2_1769253b",
+      "revId": "9064f1ca27df8522257d6a6a9fe7f7adbd9d5254",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
