@@ -45,8 +45,7 @@ class RepoManager @Inject constructor(@ApplicationContext private val context: C
     suspend fun getLocalIndex(): RepoResult = withContext(Dispatchers.IO) {
         val entry = getEntry(File(REPO_PATH, REPO_INDEX), CERT)
         RepoResult(
-            // FIXME ideally we also verify the entry.index.sha256 here while reading
-            index = getIndex(File(REPO_PATH, entry.index.name)),
+            index = getIndex(File(REPO_PATH, entry.index.name), entry.index),
             iconGetter = { icon -> if (icon == null) null else "$REPO_PATH/$icon" },
             apkGetter = { apk, _ -> File(REPO_PATH, apk) },
         )

@@ -13,13 +13,16 @@ import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.download.Mirror
 import org.fdroid.index.IndexParser
+import org.fdroid.index.SigningException
 import org.fdroid.index.parseEntry
 import org.fdroid.index.parseV2
 import org.fdroid.index.v2.Entry
+import org.fdroid.index.v2.EntryFileV2
 import org.fdroid.index.v2.EntryVerifier
 import org.fdroid.index.v2.FileV2
 import org.fdroid.index.v2.IndexV2
 import java.io.File
+import java.security.MessageDigest
 
 object RepoHelper {
 
@@ -80,11 +83,34 @@ object RepoHelper {
         return index
     }
 
+    /**
+     * Returns the index contained in the given file.
+     * Use only if hash has been otherwise verified.
+     */
     @WorkerThread
     fun getIndex(file: File): IndexV2 {
         return file.inputStream().use { inputStream ->
             IndexParser.parseV2(inputStream)
         }
+    }
+
+    @WorkerThread
+    @Throws(SigningException::class)
+    fun getIndex(file: File, entryFileV2: EntryFileV2): IndexV2 {
+        val digest = MessageDigest.getInstance("SHA-256")
+        val index = DigestInputStream(file.inputStream(), digest).use { inputStream ->
+            IndexParser.parseV2(inputStream)
+        }
+        val hexDigest = digest.digest().toHex()
+        if (hexDigest.equals(entryFileV2.sha256, ignoreCase = true)) {
+            return index
+        } else {
+            throw SigningException("Invalid hash: $hexDigest")
+        }
+    }
+
+    private fun ByteArray.toHex(): String = joinToString(separator = "") { eachByte ->
+        "%02x".format(eachByte)
     }
 }
 
