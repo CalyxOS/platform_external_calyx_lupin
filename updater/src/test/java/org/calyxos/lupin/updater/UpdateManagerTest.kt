@@ -28,6 +28,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.calyxos.lupin.InstallResult
 import org.calyxos.lupin.STATUS_WAITING_FOR_USER_ACTION
+import org.calyxos.lupin.TempFileProvider
 import org.calyxos.lupin.getRequest
 import org.fdroid.UpdateChecker
 import org.fdroid.download.HttpManager
@@ -40,8 +41,12 @@ import org.junit.jupiter.api.io.TempDir
 import java.io.File
 import kotlin.random.Random
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlin.test.fail
+
+private const val CERT_TEST = "308202cf308201b7a0030201020204410b599a300d06092a864886f70d01010b05003018311630140603550403130d546f727374656e2047726f7465301e170d3134303631363139303332305a170d3431313130313139303332305a3018311630140603550403130d546f727374656e2047726f746530820122300d06092a864886f70d01010105000382010f003082010a02820101009fee536211eb53d0b054b0b2cf72fe4ba66f341b5b93730f8fe4a4a68b105a35a3a5daf5b54443d744bb19eb954456e6fb1f1fcfe9023684cddb0643be2d70a1a7a37e75badad62ba607e238a8d88fb1601d46030824ef5e719b65f855801ee323ac68f8da7afea30d9366c1a132e1cab21dcf218d163a5aa8dcc5b31d876085414fcf0eed74bc5a02c7d297beeaa756843a0acaf31eec9969322c8695ee9f2be84e58347b47dc81e429a6f11e5cb1415aea54b88a1911a7fc62fbd53ea7a72b1e26e7da8111510dc98631e939760095441ca2d0a6b316527dbe146245cf279607f3c9ff7006a1adf367b8fe55a7c3a9bdb66aebbe9b71711981e0b342dca8730203010001a321301f301d0603551d0e04160414649492d14e97d5937667ee2e555926899f9a2610300d06092a864886f70d01010b050003820101002bb228f5b31e68a9175f2a6cbb0d727991fea7b71fbb295aaa28963963b5c697d20929b57e299c9607d20ac332d86544300de7d1cf4602162d9929fbb7465be279a44a31cb06f778d66625077d615affc751a300843bad116fcee9c958b88aef0f25988dc63d7f8853517d738efd9888e61f395597090ae7b41a5983e8d2b4bd74ee98c9a3dab91114f43b7336cc00889385567e0f717aa76526dbdae2fa34e007375b2db3d34c423b77b37774b93eff762c4b3b4fb05f8b26256570607a1400cddad2ebd4762bcf4efe703248fa5b9ab455e3a5c98cb46f10adb6979aed8f96a688fd1d2a3beab380308e2ebe0a4a880615567aafc0bfe344c5d7ef677e060f"
 
 @Suppress("DEPRECATION")
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -52,6 +57,7 @@ class UpdateManagerTest {
     private val updateChecker: UpdateChecker = mockk()
     private val installManager: InstallManager = mockk()
     private val notificationManager: NotificationManager = mockk()
+    private val tempFileProvider: TempFileProvider = mockk()
     private val updateManager: UpdateManager
 
     private val packageManager: PackageManager = mockk()
@@ -69,6 +75,8 @@ class UpdateManagerTest {
             updateChecker = updateChecker,
             installManager = installManager,
             notificationManager = notificationManager,
+            certificate = CERT_TEST,
+            tempFileProvider = tempFileProvider,
             coroutineContext = testDispatcher,
         )
     }
@@ -77,12 +85,18 @@ class UpdateManagerTest {
     fun testDownloadEntry() = runTest {
         val indexFile = FileV2("entry.jar")
         val request = indexFile.getRequest(REPO_URL)
-        // TODO this would need a tempfile injecter to be able to mock downloaded data
+        val jarFile = File.createTempFile("test", null, tempDir)
 
-        every { context.cacheDir } returns tempDir
-        coEvery { httpManager.get(request, receiver = any()) } just Runs
+        every { tempFileProvider.createTempFile("entry", ".jar") } returns jarFile
+        coEvery { httpManager.get(request, receiver = any()) }  answers {
+            File("src/test/resources/entry.jar").copyTo(jarFile, overwrite = true)
+        }
 
-        updateManager.downloadEntry()
+        val entryV2 = updateManager.downloadEntry() ?: fail("no entry")
+        assertEquals(1686317269000, entryV2.timestamp)
+        assertEquals(20002, entryV2.version)
+        assertEquals("c1707b6aa0764340c93ca0c54dddbb0a6638f5cb53247cbdab8dfbc409d02371", entryV2.index.sha256)
+        assertEquals(1, entryV2.diffs.size)
     }
 
     @Test
@@ -92,18 +106,36 @@ class UpdateManagerTest {
             version = 23L,
             index = EntryFileV2(
                 name = "index-v2.json",
-                sha256 = "foo bar",
+                sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
                 size = 1337L,
                 numPackages = 13,
             ),
         )
         val request = entry.index.getRequest(REPO_URL)
-        // TODO this would need a tempfile injecter to be able to mock downloaded data
+        val jsonFile = File.createTempFile("test", null, tempDir)
+        // changing index data needs changing sha256 hash above
+        val indexJson = """
+{
+    "repo": {
+        "name": {"en-US": "Testing Repo"},
+        "description": {"en-US": "many apps"},
+        "icon": {"en-US": {"name": "/icons/fdroid-icon.png", "sha256": "686ba750aac96c47398c7247eb949d80882650de63f4a6b60f3ca1efa5528934", "size": 3367}},
+        "address": "https://example.org/fdroid/repo",
+        "timestamp": 1686317269000
+    }
+}       """
 
-        every { context.cacheDir } returns tempDir
-        coEvery { httpManager.get(request, receiver = any()) } just Runs
+        every { tempFileProvider.createTempFile("index-v2-", ".json") } returns jsonFile
+        coEvery { httpManager.get(request, receiver = any()) } answers {
+            jsonFile.outputStream().use { outputStream ->
+                outputStream.write(indexJson.toByteArray())
+            }
+        }
 
-        updateManager.downloadIndex(entry)
+        val index = updateManager.downloadIndex(entry) ?: fail("No index")
+        assertEquals("Testing Repo", index.repo.name["en-US"])
+        assertEquals("https://example.org/fdroid/repo", index.repo.address)
+        assertEquals(1686317269000, index.repo.timestamp)
     }
 
     @Test
