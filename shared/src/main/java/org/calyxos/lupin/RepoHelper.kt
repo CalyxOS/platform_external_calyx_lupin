@@ -5,7 +5,6 @@
 
 package org.calyxos.lupin
 
-import android.content.Context
 import androidx.annotation.WorkerThread
 import org.fdroid.IndexFile
 import org.fdroid.download.DownloadRequest
@@ -22,6 +21,7 @@ import org.fdroid.index.v2.EntryVerifier
 import org.fdroid.index.v2.FileV2
 import org.fdroid.index.v2.IndexV2
 import java.io.File
+import java.io.IOException
 import java.security.MessageDigest
 
 object RepoHelper {
@@ -30,12 +30,12 @@ object RepoHelper {
 
     @WorkerThread
     fun downloadEntry(
-        context: Context,
+        tempFileProvider: TempFileProvider,
         repoUrl: String,
         cert: String,
         httpManager: HttpManager,
     ): Entry {
-        val file = File.createTempFile("entry", ".jar", context.cacheDir)
+        val file = tempFileProvider.createTempFile("entry", ".jar")
         return try {
             val entryFile = FileV2(REPO_ENTRY)
             val request = entryFile.getRequest(repoUrl)
@@ -51,13 +51,13 @@ object RepoHelper {
      */
     @WorkerThread
     fun downloadIndex(
-        context: Context,
+        tempFileProvider: TempFileProvider,
         repoUrl: String,
         cert: String,
         httpManager: HttpManager,
     ): IndexV2 {
-        val entryFile = File.createTempFile("entry", ".jar", context.cacheDir)
-        val indexFile = File.createTempFile("index-v2-", ".json", context.cacheDir)
+        val entryFile = tempFileProvider.createTempFile("entry", ".jar")
+        val indexFile = tempFileProvider.createTempFile("index-v2-", ".json")
         return try {
             // download and verify entry
             val entryRequest = FileV2(REPO_ENTRY).getRequest(repoUrl)
@@ -112,6 +112,11 @@ object RepoHelper {
     private fun ByteArray.toHex(): String = joinToString(separator = "") { eachByte ->
         "%02x".format(eachByte)
     }
+}
+
+fun interface TempFileProvider {
+    @Throws(IOException::class)
+    fun createTempFile(prefix: String, suffix: String): File
 }
 
 fun IndexFile.getRequest(url: String): DownloadRequest {

@@ -14,6 +14,7 @@ import kotlinx.coroutines.withContext
 import org.calyxos.lupin.RepoHelper.downloadIndex
 import org.calyxos.lupin.RepoHelper.getEntry
 import org.calyxos.lupin.RepoHelper.getIndex
+import org.calyxos.lupin.TempFileProvider
 import org.calyxos.lupin.getRequest
 import org.calyxos.lupin.installer.BuildConfig.VERSION_NAME
 import org.calyxos.lupin.installer.R
@@ -38,7 +39,12 @@ data class RepoResult(
 )
 
 @Singleton
-class RepoManager @Inject constructor(@ApplicationContext private val context: Context) {
+class RepoManager @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val tempFileProvider: TempFileProvider = TempFileProvider { prefix, suffix ->
+        File.createTempFile(prefix, suffix, context.cacheDir)
+    },
+) {
 
     private val httpManager = HttpManager("${context.getString(R.string.app_name)} $VERSION_NAME")
 
@@ -52,13 +58,13 @@ class RepoManager @Inject constructor(@ApplicationContext private val context: C
     }
 
     suspend fun getOnlineIndex(): RepoResult = withContext(Dispatchers.IO) {
-        val index = downloadIndex(context, REPO_URL, CERT_ONLINE, httpManager)
+        val index = downloadIndex(tempFileProvider, REPO_URL, CERT_ONLINE, httpManager)
         RepoResult(
             index = index,
             iconGetter = { icon -> if (icon == null) null else "$REPO_URL/$icon" },
         ) { apk, downloadListener ->
             val apkRequest = FileV2(apk).getRequest(REPO_URL)
-            val apkFile = File.createTempFile("dl-", "", context.cacheDir)
+            val apkFile = tempFileProvider.createTempFile("dl-", "")
             HttpDownloader(httpManager, apkRequest, apkFile).apply {
                 val coContext = currentCoroutineContext()
                 setListener { bytesRead, _ ->
