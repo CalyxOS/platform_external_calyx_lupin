@@ -17,6 +17,7 @@ import kotlinx.coroutines.withContext
 import mu.KotlinLogging
 import org.calyxos.lupin.InstallResult
 import org.calyxos.lupin.RepoHelper
+import org.calyxos.lupin.TempFileProvider
 import org.calyxos.lupin.getRequest
 import org.calyxos.lupin.getSharedLibraryVersionCode
 import org.fdroid.CompatibilityCheckerImpl
@@ -44,6 +45,10 @@ class UpdateManager(
     private val updateChecker: UpdateChecker,
     private val installManager: InstallManager,
     private val notificationManager: NotificationManager,
+    private val certificate: String = CERT,
+    private val tempFileProvider: TempFileProvider = TempFileProvider { prefix, suffix ->
+        File.createTempFile(prefix, suffix, context.cacheDir)
+    },
     private val coroutineContext: CoroutineContext = Dispatchers.IO,
 ) {
 
@@ -68,7 +73,7 @@ class UpdateManager(
     suspend fun downloadEntry(): Entry? = withContext(coroutineContext) {
         try {
             log.info { "Downloading entry from $REPO_URL" }
-            RepoHelper.downloadEntry(context, REPO_URL, CERT, httpManager)
+            RepoHelper.downloadEntry(tempFileProvider, REPO_URL, certificate, httpManager)
         } catch (e: Exception) {
             if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
             log.error(e) { "Error downloading index:" }
@@ -77,7 +82,7 @@ class UpdateManager(
     }
 
     suspend fun downloadIndex(entry: Entry): IndexV2? = withContext(coroutineContext) {
-        val indexFile = File.createTempFile("index-v2-", ".json", context.cacheDir)
+        val indexFile = tempFileProvider.createTempFile("index-v2-", ".json")
         try {
             log.info { "Downloading index from $REPO_URL" }
             val indexRequest = entry.index.getRequest(REPO_URL)
