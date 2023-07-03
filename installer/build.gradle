@@ -23,13 +23,26 @@ android {
         versionName "0.1"
     }
 
+    signingConfigs {
+        aosp {
+            // Generated from the AOSP testkey:
+            // https://android.googlesource.com/platform/build/+/refs/tags/android-11.0.0_r29/target/product/security/testkey.pk8
+            keyAlias "testkey"
+            keyPassword "testkey"
+            storeFile file("../shared/testkey.jks")
+            storePassword "testkey"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.aosp
         }
         debug {
             minifyEnabled false
+            signingConfig signingConfigs.aosp
         }
     }
     buildFeatures {
