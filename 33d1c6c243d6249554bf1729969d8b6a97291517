@@ -72,6 +72,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9823374_fc63f97e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-07-04T01:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb5495e7_741c5aa3",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f96e002b_c5e4063c",
@@ -85,6 +103,24 @@
       "writtenOn": "2023-06-05T20:10:23Z",
       "side": 1,
       "message": "This can also happen if F-Droid is uninstalled, or simply not present in a work profile as found by Tommy.",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09b3fc11_b82bef6a",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-07-04T01:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f96e002b_c5e4063c",
       "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
@@ -106,6 +142,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "68739fd5_84319013",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-07-04T01:38:27Z",
+      "side": 1,
+      "message": "I use the Studio\u0027s auto formatting on the class. This is the result. `.success` comes from ApkInstaller. I\u0027m using it to check if the intallation succeded",
+      "parentUuid": "2955f361_109bbfdb",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0c5aae2_7d4bc6a9",
@@ -119,6 +173,24 @@
       "writtenOn": "2023-05-31T16:34:35Z",
       "side": 1,
       "message": "We just have one app to demote, so we don\u0027t technically need the loop. But this here would skip other apps to demote, if there were any.",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d764b1d2_60382b41",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-07-04T01:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0c5aae2_7d4bc6a9",
       "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
@@ -172,6 +244,24 @@
       "side": 1,
       "message": "A pref that is set to done on successful installation would work.",
       "parentUuid": "4b2653c0_cd4991c7",
+      "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41ebb01a_d08a4a13",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 11
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-07-04T01:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3179da73_ba7ef98e",
       "revId": "33d1c6c243d6249554bf1729969d8b6a97291517",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
