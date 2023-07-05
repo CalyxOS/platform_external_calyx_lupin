@@ -121,6 +121,24 @@
       "message": "If one app in the list of apps to demote fails, will this cause us to skip all following apps?",
       "revId": "9f8e3ed34cbd03b893c0a8dc405fb8df262d8b73",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9032517f_a289edb9",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-07-05T15:59:27Z",
+      "side": 1,
+      "message": "Yes. On the following attempt it would continue from that point since the previous apps would now be considered installed / migration succeeded. Hopefully the failure was temporary. If it is something else that we\u0027d need to address with more code changes then we\u0027d have to evaluate the failure and how to address it",
+      "parentUuid": "7c46bad7_8cbfcf42",
+      "revId": "9f8e3ed34cbd03b893c0a8dc405fb8df262d8b73",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
