@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fa55e7e_52cdbb71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-07-05T13:36:33Z",
+      "side": 1,
+      "message": "So to make sure I understand what\u0027s happening now...\n\nOn boot, the new BootReceiver is reached, where it does this:\n\nSchedule a WorkManager job that does the following for each demoted system app:\n1. If it\u0027s installed already, do nothing.\n2. If it\u0027s present but \"uninstalled\" (as is the case for our situation, where we keep its data), install it (as a user app).\n\nWait (on the same thread that received BOOT_COMPLETED?) for the result of the WorkManager job. If it has succeeded, disable the BootReceiver component so it won\u0027t be called again.\n\nIs this accurate?",
+      "revId": "9f8e3ed34cbd03b893c0a8dc405fb8df262d8b73",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb478784_3b0150e4",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-07-05T13:36:33Z",
+      "side": 1,
+      "message": "Nit/comment: `getPackageInfo` avoids returning `null`, at least in ApplicationPackageManager, so giving up in the exception above would be another way to handle this case, but it doesn\u0027t matter either way.",
+      "revId": "9f8e3ed34cbd03b893c0a8dc405fb8df262d8b73",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eb7d18a_5df4e8b5",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-07-05T13:36:33Z",
+      "side": 1,
+      "message": "Nit/comment: Same as above.",
+      "revId": "9f8e3ed34cbd03b893c0a8dc405fb8df262d8b73",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
