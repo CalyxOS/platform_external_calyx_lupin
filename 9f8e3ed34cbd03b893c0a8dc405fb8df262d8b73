@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "83b62d7d_3f55d6b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2023-07-05T15:53:35Z",
+      "side": 1,
+      "message": "@tommy yes\n\n@torsten yes to all",
+      "parentUuid": "55b84aa5_250540db",
+      "revId": "9f8e3ed34cbd03b893c0a8dc405fb8df262d8b73",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bb478784_3b0150e4",
         "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
         "patchSetId": 16
