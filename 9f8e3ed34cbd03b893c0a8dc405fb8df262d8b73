@@ -18,6 +18,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "55b84aa5_250540db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-07-05T15:09:50Z",
+      "side": 1,
+      "message": "Why is this resolved without reply?\n\nI\u0027d be also curious about how this works. Has this been tested? \n\nWhat is `operation.result.get()` doing? Is this doing a blocking wait on the result of the work in the onReceive() method of the broadcast receiver?",
+      "parentUuid": "0fa55e7e_52cdbb71",
+      "revId": "9f8e3ed34cbd03b893c0a8dc405fb8df262d8b73",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bb478784_3b0150e4",
@@ -35,6 +53,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "482d2f73_b5035d21",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-07-05T15:09:50Z",
+      "side": 1,
+      "message": "The style does look strange though. We should log the exception at least and it could assign `null` to `packageInfo` if needed:\n\n```\nval packageInfo \u003d try {\n   foo\n} cat(e: Bar) {\n   null\n}\n```",
+      "parentUuid": "bb478784_3b0150e4",
+      "revId": "9f8e3ed34cbd03b893c0a8dc405fb8df262d8b73",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2eb7d18a_5df4e8b5",
@@ -48,6 +84,23 @@
       "writtenOn": "2023-07-05T13:36:33Z",
       "side": 1,
       "message": "Nit/comment: Same as above.",
+      "revId": "9f8e3ed34cbd03b893c0a8dc405fb8df262d8b73",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c46bad7_8cbfcf42",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/BootReceiver.kt",
+        "patchSetId": 16
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-07-05T15:09:50Z",
+      "side": 1,
+      "message": "If one app in the list of apps to demote fails, will this cause us to skip all following apps?",
       "revId": "9f8e3ed34cbd03b893c0a8dc405fb8df262d8b73",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
