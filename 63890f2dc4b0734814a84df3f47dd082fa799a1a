@@ -16,6 +16,23 @@
       "message": "Works for me.\n\nAnd, if F-Droid is disabled or hidden, it stays that way after being installed, for each user / profile. It\u0027s good that it works this way! Then, the user can just uninstall it if they want to, in any of these places.",
       "revId": "63890f2dc4b0734814a84df3f47dd082fa799a1a",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f022dab_2777373b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-07-06T22:41:50Z",
+      "side": 1,
+      "message": "This contains a list of system apps to demote, but this is all part of BootReceiver, which will be disabled after it\u0027s run, so if we add system apps for demotion later, there will be no effect except for users who never upgraded to this.\n\nThis works for the single migration of the single package we\u0027ve listed, but changes will be needed for it to be usable again in the future.",
+      "revId": "63890f2dc4b0734814a84df3f47dd082fa799a1a",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
