@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c6bffc7_52149187",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-07-06T22:28:50Z",
+      "side": 1,
+      "message": "Works for me.\n\nAnd, if F-Droid is disabled or hidden, it stays that way after being installed, for each user / profile. It\u0027s good that it works this way! Then, the user can just uninstall it if they want to, in any of these places.",
+      "revId": "63890f2dc4b0734814a84df3f47dd082fa799a1a",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
