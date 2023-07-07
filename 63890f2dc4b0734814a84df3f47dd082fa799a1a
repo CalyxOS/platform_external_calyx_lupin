@@ -33,6 +33,23 @@
       "message": "This contains a list of system apps to demote, but this is all part of BootReceiver, which will be disabled after it\u0027s run, so if we add system apps for demotion later, there will be no effect except for users who never upgraded to this.\n\nThis works for the single migration of the single package we\u0027ve listed, but changes will be needed for it to be usable again in the future.",
       "revId": "63890f2dc4b0734814a84df3f47dd082fa799a1a",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aae0c587_5c607238",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-07-07T11:24:35Z",
+      "side": 1,
+      "message": "What if we posted a notification \"Migrating F-Droid to user app\", and then tapping could show some info.\n\nIt does take a little bit to get done (if you boot with this and check right away you won\u0027t see F-Droid but it\u0027ll appear in a few seconds - which should be fine for most users)\n\nI\u0027m thinking that a notification might help prevent this from getting killed as well. ",
+      "revId": "63890f2dc4b0734814a84df3f47dd082fa799a1a",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
