@@ -50,6 +50,24 @@
       "message": "What if we posted a notification \"Migrating F-Droid to user app\", and then tapping could show some info.\n\nIt does take a little bit to get done (if you boot with this and check right away you won\u0027t see F-Droid but it\u0027ll appear in a few seconds - which should be fine for most users)\n\nI\u0027m thinking that a notification might help prevent this from getting killed as well. ",
       "revId": "63890f2dc4b0734814a84df3f47dd082fa799a1a",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a88fe421_ef8783b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-07-07T11:26:05Z",
+      "side": 1,
+      "message": "Good point, no need for the for loop then.\n\nIf we can have multiple BootReceivers we can just do it that way, otherwise figure something else out the next time we need to do something like this (which I feel won\u0027t be too often, I hope so at least)",
+      "parentUuid": "9f022dab_2777373b",
+      "revId": "63890f2dc4b0734814a84df3f47dd082fa799a1a",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
