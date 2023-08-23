@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc451109_d86634fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2023-08-23T19:08:04Z",
+      "side": 1,
+      "message": "I tried updating dependencies as well but now they have minimum compile SDK set to 34 (A14) so skipped them. Only Gradle has version bump.",
+      "revId": "1468c15f1f1485fef24d078514a22a7c820fd39c",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
