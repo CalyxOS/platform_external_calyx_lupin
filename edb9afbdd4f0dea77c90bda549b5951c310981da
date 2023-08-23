@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "204ca9df_5435a0c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-08-23T18:35:39Z",
+      "side": 1,
+      "message": "(Set topic because of the relation chain, system2user depends on this.)\n",
+      "revId": "edb9afbdd4f0dea77c90bda549b5951c310981da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
