@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Ενημέρωση εφαρμογών CalyxOS</string>
+    <string name="status_screen_check_button">Ελέγξτε τώρα</string>
+    <string name="status_screen_title">Ενημερώσεις εφαρμογών</string>
+    <string name="notification_update_title">Ενημέρωση εφαρμογών</string>
+    <string name="back">Πίσω</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="never">ποτέ</string>
+    <string name="now">τώρα</string>
+    <string name="status_screen_last_check">Τελευταίος έλεγχος ενημέρωσης: %s</string>
+    <string name="notification_confirmation_title">Επιβεβαίωση ενημερώσεων εφαρμογών</string>
+    <string name="channel_update_name">Ειδοποίηση ενημερώσεων</string>
+    <string name="channel_update_description">Εμφανίζεται κατά την ενημέρωση εφαρμογών</string>
+    <string name="channel_confirmation_description">Εμφανίζεται μόνο αν η εγκατάσταση ενημερώσεων απαιτεί επιβεβαίωση χρήστη</string>
+    <string name="channel_confirmation_name">Ειδοποίηση επιβεβαίωσης ενημερώσεων</string>
+</resources>
