@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a726877_26d61886",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2023-09-01T17:29:05Z",
+      "side": 1,
+      "message": "Fixes lint error on release build for installer; included in updater as well for future-proofing",
+      "revId": "782c07e539ae58f9c5fe53576b0b443eaa0bd8b6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
