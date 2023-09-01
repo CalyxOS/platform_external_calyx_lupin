@@ -54,7 +54,7 @@ const val STATUS_WAITING_FOR_USER_ACTION = Int.MAX_VALUE - 1
 data class InstallResult(
     val status: Int,
     val msg: String?,
-    val exception: Exception? = null,
+    val exception: Exception? = null
 ) {
     constructor(exception: Exception) : this(Int.MAX_VALUE, null, exception)
 
@@ -98,7 +98,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
         packageName: String,
         packageFile: File,
         userActionListener: UserActionRequiredListener = userActionRequiredListener,
-        sessionConfig: (SessionParams.() -> Unit)? = null,
+        sessionConfig: (SessionParams.() -> Unit)? = null
     ): InstallResult = suspendCancellableCoroutine { cont ->
         val broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, i: Intent) {
@@ -126,7 +126,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
     private fun performInstall(
         packageName: String,
         packageFile: File,
-        sessionConfig: (SessionParams.() -> Unit)?,
+        sessionConfig: (SessionParams.() -> Unit)?
     ) {
         if (!packageFile.isFile) throw IOException("Cannot read package file $packageFile")
 
@@ -163,7 +163,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
     private fun onBroadcastReceived(
         i: Intent,
         expectedPackageName: String,
-        userActionListener: UserActionRequiredListener,
+        userActionListener: UserActionRequiredListener
     ): InstallResult? {
         val packageName = i.getStringExtra(EXTRA_PACKAGE_NAME)
         // packageName is not always set, e.g. for STATUS_PENDING_USER_ACTION
@@ -173,7 +173,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
         }
         val result = InstallResult(
             status = i.getIntExtra(EXTRA_STATUS, Int.MIN_VALUE),
-            msg = i.getStringExtra(EXTRA_STATUS_MESSAGE),
+            msg = i.getStringExtra(EXTRA_STATUS_MESSAGE)
         )
         Log.d(
             TAG,
@@ -185,7 +185,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
             val userWasAsked = userActionListener.onUserConfirmationRequired(
                 packageName = expectedPackageName,
                 sessionId = intent.getIntExtra(EXTRA_SESSION_ID, -1),
-                intent = intent,
+                intent = intent
             )
             return if (userWasAsked) InstallResult(STATUS_WAITING_FOR_USER_ACTION, null) else result
         }
@@ -203,13 +203,18 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
             intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
             startActivity(context, intent, null)
             true
-        } else false
+        } else {
+            false
+        }
     }
 }
 
 fun PackageManager.getSharedLibraryVersionCode(packageName: String): Long? {
     return getSharedLibraries(PackageInfoFlags.of(0)).mapNotNull {
-        if (it.declaringPackage.packageName == packageName) it.longVersion
-        else null
+        if (it.declaringPackage.packageName == packageName) {
+            it.longVersion
+        } else {
+            null
+        }
     }.maxOrNull() // getting highest installed version code
 }
