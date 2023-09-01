@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae0a407f_143948fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-09-01T17:08:17Z",
+      "side": 1,
+      "message": "Lint still complains, and thus `./gradlew build` still fails. nbd",
+      "revId": "1f047afc2f2a5a6b408f811cf475f8c520cbdca7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
