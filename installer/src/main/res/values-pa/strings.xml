@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS ਐਪ ਇੰਸਟਾਲਰ</string>
+    <string name="install_page_title">ਅਤਿਰਿਕਤ ਐਪਾਂ</string>
+    <string name="install_page_subtitle">ਅਤਿਰਿਕਤ ਐਪਾਂ ਦੀ ਸਮੀਖਿਆ ਕਰੋ। ਤੁਸੀਂ ਉਹਨਾਂ ਨੂੰ ਬਾਅਦ ਵਿੱਚ ਵੀ ਇੰਸਟਾਲ ਕਰ ਸਕਦੇ ਹੋ।</string>
+    <string name="install_page_offline">ਆਨਲਾਈਨ ਹੋਣ \'ਤੇ ਹੀ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ</string>
+    <string name="install_notification_title">ਐਪਾਂ ਨੂੰ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…</string>
+    <string name="skip">ਛੱਡੋ</string>
+    <string name="install">ਇੰਸਟਾਲ ਕਰੋ</string>
+    <string name="next">ਅਗਲੀ</string>
+    <string name="more">ਹੋਰ</string>
+    <string name="install_page_all">ਹੇਠਾਂ ਦਿੱਤੀਆਂ ਸਾਰੀਆਂ ਐਪਾਂ</string>
+    <string name="installed">ਇੰਸਟਾਲ ਕੀਤੀ ਗਈ</string>
+    <string name="error_not_installed">ਤਰੁੱਟੀ। ਇੰਸਟਾਲ ਨਹੀਂ ਹੋਈ।</string>
+</resources>
