@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="status_screen_check_button">לבדוק כעת</string>
+    <string name="status_screen_last_check">בדיקת העדכונים האחרונה: %s</string>
+    <string name="notification_update_title">עדכון יישומונים</string>
+    <string name="channel_update_name">התראת עדכון</string>
+    <string name="back">חזרה</string>
+    <string name="status_screen_title">עדכוני יישומונים</string>
+    <string name="channel_confirmation_name">אישור התראות עדכונים</string>
+    <string name="notification_confirmation_title">אישור עדכוני היישומונים</string>
+    <string name="cancel">ביטול</string>
+    <string name="channel_confirmation_description">מופיעה רק אם התקנת העדכונים דורשת את אישור המשתמש</string>
+    <string name="never">אף פעם</string>
+    <string name="app_name">מעדכן היישומונים של CalyxOS</string>
+    <string name="now">עכשיו</string>
+    <string name="channel_update_description">מופיעה במהלך עדכון היישומונים</string>
+</resources>
