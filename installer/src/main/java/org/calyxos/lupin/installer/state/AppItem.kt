@@ -59,7 +59,7 @@ data class AppItem(
         },
         apkSize = packageV2.getApkSize(),
         signers = packageV2.getSigner() ?: error("No signer"),
-        isAlwaysInstall = packageV2.isAlwaysInstall(),
+        isAlwaysInstall = packageV2.isAlwaysInstall() || packageName == "org.fdroid.fdroid",
         isOnlineOnly = packageV2.isOnlineOnly(),
         state = AppItemState.Selectable(packageV2.isDefault()),
     )
