@@ -88,6 +88,9 @@ class StateManager @Inject constructor(
             if (signer == null || signer.sha256.isEmpty()) {
                 Log.w(TAG, "App had no signer: $packageName")
                 return@mapNotNull null
+            } else if (!packageV2.isDefault()) {
+                Log.w(TAG, "App is not included by default: $packageName")
+                return@mapNotNull null
             } else {
                 val item = AppItem(
                     packageName = packageName,
