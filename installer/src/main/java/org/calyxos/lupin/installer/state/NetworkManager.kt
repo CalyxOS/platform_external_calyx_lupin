@@ -63,6 +63,10 @@ class NetworkManager(
         if (wasSet) listener.onOnlineStateChanged(online)
     }
 
+    fun stopObservingNetworkState() {
+        connectivityManager.unregisterNetworkCallback(this)
+    }
+
     private fun isOnlineNotMetered(): Boolean {
         if (BuildConfig.DEBUG) return false
         val currentNetwork = connectivityManager.activeNetwork
