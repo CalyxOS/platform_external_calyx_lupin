@@ -16,6 +16,23 @@
       "message": "`W StateManager: App is not included by default: com.nextcloud.client`",
       "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5f59f19_ef4f40d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-09-12T13:49:43Z",
+      "side": 1,
+      "message": "I\u0027d prefer introducing a new category for this instead of mixing it with the concept of pre-checking apps by default.",
+      "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
