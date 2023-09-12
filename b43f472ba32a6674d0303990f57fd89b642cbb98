@@ -51,6 +51,24 @@
       "parentUuid": "c5f59f19_ef4f40d6",
       "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3f02de5_28ea5731",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-09-12T13:54:27Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t understand. With this change, the meaning of NotDefault changes. It used to mean don\u0027t pre-check the app item in the list. Now it means don\u0027t even show the app in the list. But the code for pre-checking apps is still there.",
+      "parentUuid": "0faf3b8c_c3fbe431",
+      "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
