@@ -16,6 +16,24 @@
       "message": "That\u0027s mainly to get latest apps, typically generated and tested right before build.",
       "revId": "06c372676e81837532f929d54b7a6bf052c58da5",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7fce2e8_39fd7c29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-09-12T19:59:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "38841ee5_12d5318a",
+      "revId": "06c372676e81837532f929d54b7a6bf052c58da5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ],
   "submitRequirementResults": [
