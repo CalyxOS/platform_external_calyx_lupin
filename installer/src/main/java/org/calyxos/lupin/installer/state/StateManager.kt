@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.util.Log
 import androidx.core.os.ConfigurationCompat
+import androidx.core.os.LocaleListCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,6 +38,8 @@ class StateManager @Inject constructor(
 
     private val _state = MutableStateFlow<UiState>(UiState.Loading)
     val state = _state.asStateFlow()
+
+    private val alwaysInstallItems = ArrayList<AppItem>()
 
     init {
         // update indexes
@@ -85,14 +88,25 @@ class StateManager @Inject constructor(
             if (signer == null || signer.sha256.isEmpty()) {
                 Log.w(TAG, "App had no signer: $packageName")
                 return@mapNotNull null
-            } else AppItem(
-                packageName = packageName,
-                result = result,
-                packageV2 = packageV2,
-                locales = locales,
-            )
+            } else {
+                val item = AppItem(
+                    packageName = packageName,
+                    result = result,
+                    packageV2 = packageV2,
+                    locales = locales,
+                )
+                // only include items we are not installing always anyway
+                // otherwise we need to handle/prevent clicks and inverting selection state
+                if (item.isAlwaysInstall) {
+                    alwaysInstallItems.add(item) // remember items we want to always install
+                    return@mapNotNull null
+                } else {
+                    return@mapNotNull item
+                }
+            }
         }.sortedBy { it.name }
-        _state.value = UiState.SelectingApps(items, items.isNotEmpty())
+        // FIXME: compute real boolean for hasSelected (maybe none are selected by default)
+        _state.value = UiState.SelectingApps(items, hasSelected = items.isNotEmpty())
     }
 
     /**
@@ -107,17 +121,30 @@ class StateManager @Inject constructor(
         val locales = ConfigurationCompat.getLocales(Resources.getSystem().configuration)
         // Go through old items and update them if necessary, remembering package names we've seen
         val updatedItems = s.items.map { item ->
-            // get packages and versions codes
-            val packageV2 = result.index.packages[item.packageName] ?: return@map item
-            // update current item, if new version code is higher than old one
-            if (item.isValidUpdate(packageV2)) AppItem(
-                item = item,
-                result = result,
-                packageV2 = packageV2,
-                locales = locales,
-            ) else item
+            getUpdatedItem(result, item, locales)
         }.sortedBy { it.name }
-        _state.value = UiState.SelectingApps(updatedItems, updatedItems.isNotEmpty())
+        // Go through always-to-install items and update them if necessary
+        alwaysInstallItems.replaceAll { item ->
+            getUpdatedItem(result, item, locales)
+        }
+        // FIXME: compute real boolean for hasSelected (maybe none are selected by default)
+        _state.value = UiState.SelectingApps(updatedItems, hasSelected = updatedItems.isNotEmpty())
+    }
+
+    private fun getUpdatedItem(
+        result: RepoResult,
+        item: AppItem,
+        locales: LocaleListCompat,
+    ): AppItem {
+        // get packages and versions codes
+        val packageV2 = result.index.packages[item.packageName] ?: return item
+        // update current item, if new version code is higher than old one
+        return if (item.isValidUpdate(packageV2)) AppItem(
+            item = item,
+            result = result,
+            packageV2 = packageV2,
+            locales = locales,
+        ) else item
     }
 
     fun onItemClicked(item: AppItem) {
@@ -161,7 +188,7 @@ class StateManager @Inject constructor(
      * @return true, if we will install some apps and false, if there's nothing to install.
      */
     fun onNextClicked(): Boolean {
-        val items = state.value.items.toMutableList()
+        val items = (state.value.items + alwaysInstallItems).toMutableList()
         _state.value = UiState.SelectionComplete(items)
 
         // don't start service if there's nothing to install with it
