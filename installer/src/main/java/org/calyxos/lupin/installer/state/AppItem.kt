@@ -61,7 +61,7 @@ data class AppItem(
         signers = packageV2.getSigner() ?: error("No signer"),
         isAlwaysInstall = packageV2.isAlwaysInstall(),
         isOnlineOnly = packageV2.isOnlineOnly(),
-        state = AppItemState.Selectable(packageV2.isDefault()),
+        state = AppItemState.Selectable(packageV2.isAlwaysInstall() || packageV2.isDefault()),
     )
 
     /**
