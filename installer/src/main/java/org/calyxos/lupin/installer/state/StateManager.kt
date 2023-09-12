@@ -116,6 +116,7 @@ class StateManager @Inject constructor(
      */
     private suspend fun onOnlineIndexLoaded(result: RepoResult) = withContext(Dispatchers.Main) {
         Log.i(TAG, "onOnlineIndexLoaded")
+        networkManager.stopObservingNetworkState()
         // If we are past selecting apps, don't update anymore, it is too late now
         val s = state.value as? UiState.SelectingApps ?: return@withContext
         val locales = ConfigurationCompat.getLocales(Resources.getSystem().configuration)
