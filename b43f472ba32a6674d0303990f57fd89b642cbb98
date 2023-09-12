@@ -33,6 +33,24 @@
       "message": "I\u0027d prefer introducing a new category for this instead of mixing it with the concept of pre-checking apps by default.",
       "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0faf3b8c_c3fbe431",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-09-12T13:51:03Z",
+      "side": 1,
+      "message": "What difference does it make?\n\nDefault -\u003e Install apps by default\n\nNotDefault -\u003e Don\u0027t\n\nWe don\u0027t need both. One implies that the other is true\n\nDefault being set implies NotDefault wouldn\u0027t be set.",
+      "parentUuid": "c5f59f19_ef4f40d6",
+      "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
