@@ -214,4 +214,21 @@ class StateManager @Inject constructor(
         return true
     }
 
+    /**
+     * The user has clicked the skip button.
+     * This assumes that items don't change anymore once this is called.
+     */
+    fun onSkipClicked() {
+        // unselect all, so we don't install anything the user didn't want to install
+        val newItems = state.value.items.map {
+            if (it.state is AppItemState.Selectable && it.state.selected) {
+                it.copy(state = it.state.invert())
+            } else it
+        }
+        _state.value = UiState.SelectingApps(newItems, false)
+
+        // now do the same as clicking next, so that always-to-install apps get installed
+        onNextClicked()
+    }
+
 }

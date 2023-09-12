@@ -28,4 +28,6 @@ class MainViewModel @Inject constructor(
      * @return true, if we should stay on this page and false, if we can close it.
      */
     fun onNextClicked(): Boolean = stateManager.onNextClicked()
+
+    fun onSkipClicked() = stateManager.onSkipClicked()
 }
