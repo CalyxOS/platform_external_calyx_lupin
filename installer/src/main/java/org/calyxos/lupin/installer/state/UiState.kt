@@ -11,7 +11,7 @@ sealed class UiState(
     val canTapNextButton: Boolean = false,
 ) {
 
-    object Loading : UiState(emptyList(), showSkipButton = true)
+    object Loading : UiState(emptyList())
 
     class SelectingApps(items: List<AppItem>, val hasSelected: Boolean) :
         UiState(items, showSkipButton = true, canTapNextButton = true)
