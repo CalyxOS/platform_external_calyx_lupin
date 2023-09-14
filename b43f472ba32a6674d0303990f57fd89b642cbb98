@@ -69,6 +69,24 @@
       "parentUuid": "0faf3b8c_c3fbe431",
       "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e37660c_f3bbe69f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-09-14T20:27:48Z",
+      "side": 1,
+      "message": "Right.\n\nBut that matches the previous SetupWizard implementation.\n\nWe don\u0027t intend to not \u0027pre-check\u0027 any apps today, but we may want to in the future.\n\nI don\u0027t mind adding a new category, but what do you call it?",
+      "parentUuid": "a3f02de5_28ea5731",
+      "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
