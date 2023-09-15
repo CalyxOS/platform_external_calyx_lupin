@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="status_screen_check_button">すぐにチェックする</string>
+    <string name="status_screen_last_check">前回のアップデートの確認:%s</string>
+    <string name="back">戻る</string>
+    <string name="status_screen_title">アプリの更新</string>
+    <string name="cancel">キャンセル</string>
+    <string name="app_name">CalyxOS アプリ アップデーター</string>
+    <string name="now">現在</string>
+</resources>
