@@ -123,6 +123,24 @@
       "parentUuid": "42a9add6_8b60d312",
       "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58a17585_dbaf555b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-09-16T08:46:09Z",
+      "side": 1,
+      "message": "We should check if recent F-Droid even shows the categories if we don\u0027t define them. Ideally, we place our apps into other categories and our custom ones aren\u0027t shown in the client.\n\nAs for the name, how I understand things is that it is not \"installed by default\" but not installable/visible in SUW which is a different concept. I\u0027d understand installed by default as which apps get installed if the user presses next without modifying toggles. `NotInstalledInSUW` maybe?",
+      "parentUuid": "1b4c18b2_ccf4e415",
+      "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
