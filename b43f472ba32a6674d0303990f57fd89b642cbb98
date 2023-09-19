@@ -141,6 +141,24 @@
       "parentUuid": "1b4c18b2_ccf4e415",
       "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88e5bbd7_d5bf5a15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-09-19T07:47:00Z",
+      "side": 1,
+      "message": "Good point. Recent F-Droid does not show the categories. In that case, `Hidden` should be fine.",
+      "parentUuid": "58a17585_dbaf555b",
+      "revId": "b43f472ba32a6674d0303990f57fd89b642cbb98",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
