@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS Uygulama Güncelleyici</string>
+    <string name="notification_update_title">Uygulamalar güncelleniyor</string>
+    <string name="notification_confirmation_title">Uygulama güncellemelerini onayla</string>
+    <string name="channel_update_name">Güncelleme bildirimi</string>
+    <string name="channel_update_description">Uygulamalar güncellenirken gösterilir</string>
+    <string name="channel_confirmation_name">Güncellemeleri onayla bildirimi</string>
+    <string name="channel_confirmation_description">Yalnızca güncellemelerin kurulması kullanıcı onayı gerektirirse gösterilir</string>
+    <string name="back">Geri</string>
+    <string name="now">şimdi</string>
+    <string name="never">asla</string>
+    <string name="cancel">İptal</string>
+    <string name="status_screen_last_check">Son güncelleme denetimi: %s</string>
+    <string name="status_screen_check_button">Şimdi denetle</string>
+    <string name="status_screen_title">Uygulama güncellemeleri</string>
+</resources>

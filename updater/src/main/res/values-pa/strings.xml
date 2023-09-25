@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS ਐਪ ਅੱਪਡੇਟਰ</string>
+    <string name="channel_confirmation_description">ਸਿਰਫ਼ ਉਦੋਂ ਹੀ ਵਿਖਾਇਆ ਜਾਂਦਾ ਹੈ ਜਦੋਂ ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਵਰਤੋਂਕਾਰ ਦੀ ਪੁਸ਼ਟੀ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ</string>
+    <string name="status_screen_last_check">ਆਖਰੀ ਅੱਪਡੇਟ ਜਾਂਚ: %s</string>
+    <string name="cancel">ਰੱਦ ਕਰੋ</string>
+    <string name="back">ਪਿੱਛੇ</string>
+    <string name="now">ਹੁਣੇ</string>
+    <string name="never">ਕਦੇ ਨਹੀਂ</string>
+    <string name="status_screen_check_button">ਹੁਣੇ ਚੈੱਕ ਕਰੋ</string>
+    <string name="status_screen_title">ਐਪ ਅੱਪਡੇਟਾਂ</string>
+    <string name="notification_update_title">ਐਪਾਂ ਨੂੰ ਅੱਪਡੇਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
+    <string name="notification_confirmation_title">ਐਪ ਅੱਪਡੇਟਸ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ</string>
+    <string name="channel_update_name">ਅੱਪਡੇਟ ਸੂਚਨਾ</string>
+    <string name="channel_update_description">ਐਪਾਂ ਨੂੰ ਅੱਪਡੇਟ ਕਰਦੇ ਸਮੇਂ ਵਿਖਾਇਆ ਗਿਆ</string>
+    <string name="channel_confirmation_name">ਅੱਪਡੇਟ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਵਾਸਤੇ ਨੋਟੀਫਿਕੇਸ਼ਨ</string>
+</resources>

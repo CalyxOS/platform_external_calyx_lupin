@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="status_screen_check_button">立即检查</string>
+    <string name="status_screen_last_check">上次更新检查：%s</string>
+    <string name="notification_update_title">更新应用中</string>
+    <string name="channel_update_name">更新通知</string>
+    <string name="back">返回</string>
+    <string name="status_screen_title">应用更新</string>
+    <string name="channel_confirmation_name">确认更新通知</string>
+    <string name="notification_confirmation_title">确认应用更新</string>
+    <string name="cancel">取消</string>
+    <string name="channel_confirmation_description">只有当安装更新需要用户确认时才显示</string>
+    <string name="never">从不</string>
+    <string name="app_name">CalyxOS 应用更新器</string>
+    <string name="now">立即</string>
+    <string name="channel_update_description">更新应用时显示</string>
+</resources>
