@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3f117cc_e63fa470",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-09-28T22:50:24Z",
+      "side": 1,
+      "message": "I\u0027m thinking, higher chance of it working if installed first (even though, I haven\u0027t heard of it not working)\n\nAlso, makes it easily visible (which should be a good thing, less of a surprise later)",
+      "revId": "5e5519766a56b40a6e0eb564530630fea2f45fe1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
