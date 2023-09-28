@@ -191,7 +191,7 @@ class StateManager @Inject constructor(
      * @return true, if we will install some apps and false, if there's nothing to install.
      */
     fun onNextClicked(): Boolean {
-        val items = (state.value.items + alwaysInstallItems).toMutableList()
+        val items = (alwaysInstallItems + state.value.items).toMutableList()
         _state.value = UiState.SelectionComplete(items)
 
         // don't start service if there's nothing to install with it
