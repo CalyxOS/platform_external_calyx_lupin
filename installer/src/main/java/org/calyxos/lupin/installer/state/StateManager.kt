@@ -100,6 +100,8 @@ class StateManager @Inject constructor(
                 if (item.isAlwaysInstall) {
                     alwaysInstallItems.add(item) // remember items we want to always install
                     return@mapNotNull null
+                } else if (item.isHidden) {
+                    return@mapNotNull null
                 } else {
                     return@mapNotNull item
                 }
