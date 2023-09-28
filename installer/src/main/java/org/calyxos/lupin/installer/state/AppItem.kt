@@ -37,6 +37,7 @@ data class AppItem(
     val apkSize: Long,
     val signers: SignerV2,
     val isAlwaysInstall: Boolean,
+    val isHidden: Boolean,
     val isOnlineOnly: Boolean,
     val state: AppItemState,
 ) {
@@ -60,6 +61,7 @@ data class AppItem(
         apkSize = packageV2.getApkSize(),
         signers = packageV2.getSigner() ?: error("No signer"),
         isAlwaysInstall = packageV2.isAlwaysInstall(),
+        isHidden = packageV2.isHidden(),
         isOnlineOnly = packageV2.isOnlineOnly(),
         state = AppItemState.Selectable(packageV2.isAlwaysInstall() || packageV2.isDefault()),
     )
@@ -84,6 +86,7 @@ data class AppItem(
         apkSize = packageV2.getApkSize(),
         signers = item.signers,
         isAlwaysInstall = packageV2.isAlwaysInstall(),
+        isHidden = packageV2.isHidden(),
         isOnlineOnly = packageV2.isOnlineOnly(),
         state = item.state,
     )
@@ -125,6 +128,10 @@ private fun PackageV2.isDefault(): Boolean {
 
 private fun PackageV2.isAlwaysInstall(): Boolean {
     return metadata.categories.contains(CATEGORY_ALWAYS_INSTALL)
+}
+
+private fun PackageV2.isHidden(): Boolean {
+    return metadata.categories.contains(CATEGORY_HIDDEN)
 }
 
 private fun PackageV2.isOnlineOnly(): Boolean {

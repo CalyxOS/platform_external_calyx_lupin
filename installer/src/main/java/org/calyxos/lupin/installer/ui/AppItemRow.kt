@@ -200,6 +200,7 @@ internal fun getRandomAppItem(context: Context) = AppItem(
     apkSize = 42,
     signers = SignerV2(emptyList()),
     isAlwaysInstall = Random.nextBoolean(),
+    isHidden = Random.nextBoolean(),
     isOnlineOnly = Random.nextBoolean(),
     state = when {
         Random.nextBoolean() -> AppItemState.Selectable(Random.nextBoolean())
