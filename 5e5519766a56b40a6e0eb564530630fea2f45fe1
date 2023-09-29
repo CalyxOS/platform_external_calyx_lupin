@@ -34,6 +34,24 @@
       "parentUuid": "b3f117cc_e63fa470",
       "revId": "5e5519766a56b40a6e0eb564530630fea2f45fe1",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89bdd8f7_ce4db622",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-09-29T14:34:22Z",
+      "side": 1,
+      "message": "Yeah, that is there. We could let it be, or also hide it from that list as well. Or unhide from previous list. Plenty of options, don\u0027t want to make it too complex either.\n\nI feel like for now given that it\u0027s shown in the list anyways, let\u0027s show it first. Especially given that may potentially help with reliability.\n\nI\u0027m not worried about transparency given that F-Droid used to be a system app so this is better all around - can be uninstalled. Not optional because without it how else will you install any app? 😊",
+      "parentUuid": "136665ec_b3399565",
+      "revId": "5e5519766a56b40a6e0eb564530630fea2f45fe1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
