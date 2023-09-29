@@ -16,6 +16,24 @@
       "message": "I\u0027m thinking, higher chance of it working if installed first (even though, I haven\u0027t heard of it not working)\n\nAlso, makes it easily visible (which should be a good thing, less of a surprise later)",
       "revId": "5e5519766a56b40a6e0eb564530630fea2f45fe1",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "136665ec_b3399565",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2023-09-29T08:06:21Z",
+      "side": 1,
+      "message": "Ah so the hidden apps get promoted to the front. Sure, we could do that, but it might raise more questions: Wait I don\u0027t remember checking this app, this is a bug! Having them at the end is more subtle, but fine with me either way.",
+      "parentUuid": "b3f117cc_e63fa470",
+      "revId": "5e5519766a56b40a6e0eb564530630fea2f45fe1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
