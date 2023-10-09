@@ -30,7 +30,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 private const val TAG = "AppInstaller"
-const val INSTALLER_PACKAGE_NAME = "org.fdroid.fdroid.privileged"
+private const val INSTALLER_PACKAGE_NAME = "org.fdroid.fdroid.privileged"
 
 @Singleton
 class AppInstaller @Inject constructor(
@@ -44,17 +44,6 @@ class AppInstaller @Inject constructor(
      * This provides updated [UiState] only after calling [installApps].
      */
     val uiState = _uiState.asStateFlow()
-
-    companion object {
-        fun SessionParams.setInstallerPackageNameCompat(packageName: String) {
-            if (SDK_INT >= 34) {
-                setInstallerPackageName(packageName)
-            } else {
-                val method = javaClass.methods.find { it.name == "setInstallerPackageName" }
-                method?.invoke(this, packageName)
-            }
-        }
-    }
 
     internal suspend fun installApps(items: MutableList<AppItem>) {
         _uiState.value = UiState.SelectionComplete(items)
@@ -150,6 +139,15 @@ class AppInstaller @Inject constructor(
     private fun MutableList<AppItem>.withReplaced(index: Int, item: AppItem): MutableList<AppItem> {
         return apply {
             set(index, item)
+        }
+    }
+
+    private fun SessionParams.setInstallerPackageNameCompat(packageName: String) {
+        if (SDK_INT >= 34) {
+            setInstallerPackageName(packageName)
+        } else {
+            val method = javaClass.methods.find { it.name == "setInstallerPackageName" }
+            method?.invoke(this, packageName)
         }
     }
 }
