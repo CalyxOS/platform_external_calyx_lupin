@@ -17,7 +17,7 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import org.calyxos.lupin.ApkInstaller
-import org.calyxos.lupin.installer.install.AppInstaller.Companion.setInstallerPackageName
+import org.calyxos.lupin.installer.install.AppInstaller.Companion.setInstallerPackageNameCompat
 import org.calyxos.lupin.installer.state.REPO_PATH
 import java.io.File
 
@@ -54,7 +54,7 @@ class BootReceiver : BroadcastReceiver() {
                         if (!apkInstaller.install(
                                 it.key,
                                 File(REPO_PATH, it.value)
-                            ) { setInstallerPackageName(INSTALLER_PACKAGE_NAME) }.success
+                            ) { setInstallerPackageNameCompat(INSTALLER_PACKAGE_NAME) }.success
                         ) {
                             return Result.failure()
                         }

@@ -11,6 +11,7 @@ import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_LOW
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
 import androidx.lifecycle.Lifecycle.State.STARTED
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
@@ -48,7 +49,11 @@ class AppInstallerService : LifecycleService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
-        startForeground(ONGOING_NOTIFICATION_ID, notification)
+        startForeground(
+            ONGOING_NOTIFICATION_ID,
+            notification,
+            FOREGROUND_SERVICE_TYPE_DATA_SYNC,
+        )
 
         lifecycleScope.launchWhenStarted {
             repeatOnLifecycle(STARTED) {

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager.GET_SIGNATURES
 import android.content.pm.PackageManager.GET_SIGNING_CERTIFICATES
 import android.content.pm.PackageManager.INSTALL_SCENARIO_BULK
 import android.content.pm.SigningInfo
+import android.os.Build.VERSION.SDK_INT
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.currentCoroutineContext
@@ -45,9 +46,13 @@ class AppInstaller @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     companion object {
-        fun SessionParams.setInstallerPackageName(packageName: String) {
-            val method = javaClass.methods.find { it.name == "setInstallerPackageName" }
-            method?.invoke(this, packageName)
+        fun SessionParams.setInstallerPackageNameCompat(packageName: String) {
+            if (SDK_INT >= 34) {
+                setInstallerPackageName(packageName)
+            } else {
+                val method = javaClass.methods.find { it.name == "setInstallerPackageName" }
+                method?.invoke(this, packageName)
+            }
         }
     }
 
@@ -106,7 +111,7 @@ class AppInstaller @Inject constructor(
             }
             apkInstaller.install(item.packageName, file) {
                 setInstallScenario(INSTALL_SCENARIO_BULK)
-                setInstallerPackageName(INSTALLER_PACKAGE_NAME)
+                setInstallerPackageNameCompat(INSTALLER_PACKAGE_NAME)
             }
         } finally {
             try {
