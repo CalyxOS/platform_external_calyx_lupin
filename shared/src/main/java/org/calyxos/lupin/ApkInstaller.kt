@@ -16,6 +16,7 @@ import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.PendingIntent.getBroadcast
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Context.RECEIVER_NOT_EXPORTED
 import android.content.Intent
 import android.content.Intent.EXTRA_INTENT
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
@@ -110,7 +111,11 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
                 }
             }
         }
-        context.registerReceiver(broadcastReceiver, IntentFilter(BROADCAST_ACTION))
+        context.registerReceiver(
+            broadcastReceiver,
+            IntentFilter(BROADCAST_ACTION),
+            RECEIVER_NOT_EXPORTED,
+        )
         cont.invokeOnCancellation { context.unregisterReceiver(broadcastReceiver) }
 
         try {
