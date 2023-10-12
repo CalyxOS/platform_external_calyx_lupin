@@ -28,12 +28,14 @@ import android.content.pm.PackageInstaller.EXTRA_PACKAGE_NAME
 import android.content.pm.PackageInstaller.EXTRA_SESSION_ID
 import android.content.pm.PackageInstaller.EXTRA_STATUS
 import android.content.pm.PackageInstaller.EXTRA_STATUS_MESSAGE
+import android.content.pm.PackageInstaller.InstallConstraints.GENTLE_UPDATE
 import android.content.pm.PackageInstaller.STATUS_PENDING_USER_ACTION
 import android.content.pm.PackageInstaller.STATUS_SUCCESS
 import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageInstaller.SessionParams.MODE_FULL_INSTALL
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PackageInfoFlags
+import android.os.Build.VERSION.SDK_INT
 import android.util.Log
 import androidx.annotation.UiThread
 import androidx.annotation.VisibleForTesting
@@ -42,6 +44,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.File
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.resume
@@ -98,6 +101,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
     suspend fun install(
         packageName: String,
         packageFile: File,
+        isUpdate: Boolean = false,
         userActionListener: UserActionRequiredListener = userActionRequiredListener,
         sessionConfig: (SessionParams.() -> Unit)? = null,
     ): InstallResult = suspendCancellableCoroutine { cont ->
@@ -119,7 +123,9 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
         cont.invokeOnCancellation { context.unregisterReceiver(broadcastReceiver) }
 
         try {
-            performInstall(packageName, packageFile, sessionConfig)
+            val canBeGentle = isUpdate &&
+                pm.getInstallSourceInfo(packageName).installingPackageName == context.packageName
+            performInstall(packageName, packageFile, sessionConfig, canBeGentle)
         } catch (e: Exception) {
             Log.e(TAG, "Error installing $packageName", e)
             context.unregisterReceiver(broadcastReceiver)
@@ -132,6 +138,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
         packageName: String,
         packageFile: File,
         sessionConfig: (SessionParams.() -> Unit)?,
+        canBeGentle: Boolean,
     ) {
         if (!packageFile.isFile) throw IOException("Cannot read package file $packageFile")
 
@@ -152,7 +159,12 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
                     session.fsync(out)
                 }
             }
-            session.commit(intentSender)
+            if (SDK_INT >= 34 && canBeGentle) installer.commitSessionAfterInstallConstraintsAreMet(
+                /* sessionId = */ sessionId,
+                /* statusReceiver = */ intentSender,
+                /* constraints = */ GENTLE_UPDATE,
+                /* timeoutMillis = */ TimeUnit.MINUTES.toMillis(2),
+            ) else session.commit(intentSender)
         }
     }
 

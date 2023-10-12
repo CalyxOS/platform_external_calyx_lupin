@@ -61,7 +61,7 @@ class InstallManager @Inject constructor(
         return try {
             HttpDownloaderV2(httpManager, request, apkFile).download()
             log.info { "Installing $packageName" }
-            apkInstaller.install(packageName, apkFile, userActionListener) {
+            apkInstaller.install(packageName, apkFile, true, userActionListener) {
                 setRequireUserAction(USER_ACTION_NOT_REQUIRED)
             }
             // not throwing exception on negative install result, so we don't re-try to install
