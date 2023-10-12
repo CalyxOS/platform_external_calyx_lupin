@@ -29,7 +29,7 @@ object RepoHelper {
         context: Context,
         repoUrl: String,
         cert: String,
-        httpManager: HttpManager
+        httpManager: HttpManager,
     ): IndexV2 {
         val file = File.createTempFile("index-v1-", ".jar", context.cacheDir)
         return try {

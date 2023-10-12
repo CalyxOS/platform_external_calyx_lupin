@@ -132,9 +132,11 @@ fun LazyListScope.allCheckbox(
 ) {
     item {
         Column {
-            Divider(modifier = Modifier
-                .padding(horizontal = horizontalMargin)
-                .padding(top = 8.dp))
+            Divider(
+                modifier = Modifier
+                    .padding(horizontal = horizontalMargin)
+                    .padding(top = 8.dp)
+            )
             Row(
                 verticalAlignment = CenterVertically,
                 modifier = Modifier
@@ -148,9 +150,11 @@ fun LazyListScope.allCheckbox(
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.weight(1f),
                 )
-                Box(Modifier
-                    .size(32.dp)
-                    .align(CenterVertically)) {
+                Box(
+                    Modifier
+                        .size(32.dp)
+                        .align(CenterVertically)
+                ) {
                     Checkbox(
                         modifier = Modifier.align(Alignment.Center),
                         checked = isChecked,
@@ -158,9 +162,11 @@ fun LazyListScope.allCheckbox(
                     )
                 }
             }
-            Divider(modifier = Modifier
-                .padding(horizontal = horizontalMargin)
-                .padding(bottom = 8.dp))
+            Divider(
+                modifier = Modifier
+                    .padding(horizontal = horizontalMargin)
+                    .padding(bottom = 8.dp)
+            )
         }
     }
 }
@@ -214,11 +220,15 @@ fun InstallPagePreview() {
     LupinTheme {
         val context = LocalContext.current
         val state = remember {
-            mutableStateOf(UiState.InstallingApps(listOf(
-                getRandomAppItem(context),
-                getRandomAppItem(context),
-                getRandomAppItem(context)
-            ), 1, 3))
+            mutableStateOf(
+                UiState.InstallingApps(
+                    listOf(
+                        getRandomAppItem(context),
+                        getRandomAppItem(context),
+                        getRandomAppItem(context)
+                    ), 1, 3
+                )
+            )
         }
         InstallPage(state.value, true, {}, {}, {})
     }

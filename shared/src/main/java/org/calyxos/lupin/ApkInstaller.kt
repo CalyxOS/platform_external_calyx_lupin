@@ -55,7 +55,7 @@ const val STATUS_WAITING_FOR_USER_ACTION = Int.MAX_VALUE - 1
 data class InstallResult(
     val status: Int,
     val msg: String?,
-    val exception: Exception? = null
+    val exception: Exception? = null,
 ) {
     constructor(exception: Exception) : this(Int.MAX_VALUE, null, exception)
 
@@ -99,7 +99,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
         packageName: String,
         packageFile: File,
         userActionListener: UserActionRequiredListener = userActionRequiredListener,
-        sessionConfig: (SessionParams.() -> Unit)? = null
+        sessionConfig: (SessionParams.() -> Unit)? = null,
     ): InstallResult = suspendCancellableCoroutine { cont ->
         val broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, i: Intent) {
@@ -131,7 +131,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
     private fun performInstall(
         packageName: String,
         packageFile: File,
-        sessionConfig: (SessionParams.() -> Unit)?
+        sessionConfig: (SessionParams.() -> Unit)?,
     ) {
         if (!packageFile.isFile) throw IOException("Cannot read package file $packageFile")
 
@@ -168,7 +168,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
     private fun onBroadcastReceived(
         i: Intent,
         expectedPackageName: String,
-        userActionListener: UserActionRequiredListener
+        userActionListener: UserActionRequiredListener,
     ): InstallResult? {
         val packageName = i.getStringExtra(EXTRA_PACKAGE_NAME)
         // packageName is not always set, e.g. for STATUS_PENDING_USER_ACTION

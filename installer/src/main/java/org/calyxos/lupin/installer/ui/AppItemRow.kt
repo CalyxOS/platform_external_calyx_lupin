@@ -72,9 +72,11 @@ fun AppItemRow(
             alpha = if (canBeInstalled) DefaultAlpha else 0.38f,
             contentScale = ContentScale.Fit,
         )
-        Column(Modifier
-            .weight(1f)
-            .padding(horizontal = 16.dp)) {
+        Column(
+            Modifier
+                .weight(1f)
+                .padding(horizontal = 16.dp)
+        ) {
             Text(
                 text = item.name,
                 style = MaterialTheme.typography.bodyLarge,
@@ -100,9 +102,11 @@ fun AppItemRow(
 
 @Composable
 fun RowScope.ItemState(state: AppItemState, canBeSelected: Boolean = true) {
-    Box(Modifier
-        .size(32.dp)
-        .align(CenterVertically)) {
+    Box(
+        Modifier
+            .size(32.dp)
+            .align(CenterVertically)
+    ) {
         when (state) {
             is AppItemState.Selectable -> {
                 Checkbox(
@@ -112,9 +116,11 @@ fun RowScope.ItemState(state: AppItemState, canBeSelected: Boolean = true) {
                     onCheckedChange = null,
                 )
             }
+
             is AppItemState.Progress -> {
                 CircularProgressIndicator(modifier = Modifier.size(24.dp))
             }
+
             is AppItemState.Success -> {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_check),
@@ -122,6 +128,7 @@ fun RowScope.ItemState(state: AppItemState, canBeSelected: Boolean = true) {
                     tint = MaterialTheme.colorScheme.primary,
                 )
             }
+
             is AppItemState.Error -> {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_error),
@@ -129,6 +136,7 @@ fun RowScope.ItemState(state: AppItemState, canBeSelected: Boolean = true) {
                     tint = MaterialTheme.colorScheme.primary,
                 )
             }
+
             is AppItemState.ShowOnly -> {}
         }
     }

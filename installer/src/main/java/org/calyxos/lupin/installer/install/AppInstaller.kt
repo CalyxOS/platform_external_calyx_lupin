@@ -126,8 +126,10 @@ class AppInstaller @Inject constructor(
         val packageInfo =
             context.packageManager.getPackageArchiveInfo(file.absolutePath, flags) ?: return false
         if (item.packageName != packageInfo.packageName) {
-            Log.e(TAG,
-                "Package ${item.packageName} expected, but ${packageInfo.packageName} found.")
+            Log.e(
+                TAG,
+                "Package ${item.packageName} expected, but ${packageInfo.packageName} found."
+            )
             return false
         }
         return packageInfo.signingInfo.getSigner() == item.signers
