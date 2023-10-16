@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="install_page_title">Ulteriori app</string>
+    <string name="install_notification_title">Installando le app…</string>
+    <string name="next">Successivo</string>
+    <string name="install_page_all">Tutte le seguenti applicazioni</string>
+    <string name="error_not_installed">Errore. Non installato.</string>
+    <string name="installed">Installato</string>
+    <string name="install_page_offline">Può essere installato solo quando si è online</string>
+    <string name="skip">Salta</string>
+    <string name="more">Altro</string>
+    <string name="install">Installa</string>
+    <string name="install_page_subtitle">Esamina le applicazioni aggiuntive. È possibile installarle anche in seguito.</string>
+</resources>

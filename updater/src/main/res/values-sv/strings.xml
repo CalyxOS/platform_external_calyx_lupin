@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="status_screen_check_button">Kolla nu</string>
+    <string name="status_screen_last_check">Senaste uppdateringskoll: %s</string>
+    <string name="notification_update_title">Uppdaterar appar</string>
+    <string name="channel_update_name">Uppdateringsavisering</string>
+    <string name="back">Tillbaka</string>
+    <string name="status_screen_title">Appuppdateringar</string>
+    <string name="channel_confirmation_name">Bekräfta uppdateringsavisering</string>
+    <string name="notification_confirmation_title">Bekräfta appuppdateringar</string>
+    <string name="cancel">Avbryt</string>
+    <string name="channel_confirmation_description">Visas bara om uppdateringar kräver användarens godkännande</string>
+    <string name="never">aldrig</string>
+    <string name="app_name">CalyxOS Appuppdaterare</string>
+    <string name="now">nu</string>
+    <string name="channel_update_description">Visas medan appar uppdateras</string>
+</resources>
