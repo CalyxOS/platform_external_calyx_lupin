@@ -13,7 +13,6 @@ import androidx.work.BackoffPolicy.EXPONENTIAL
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy.UPDATE
 import androidx.work.NetworkType.UNMETERED
-import androidx.work.OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkRequest.Companion.DEFAULT_BACKOFF_DELAY_MILLIS
@@ -47,7 +46,7 @@ class BootReceiver : BroadcastReceiver() {
                 .setRequiredNetworkType(UNMETERED)
                 .setRequiresBatteryNotLow(true)
                 .build()
-        ).setExpedited(RUN_AS_NON_EXPEDITED_WORK_REQUEST).build()
+        ).build()
 
         val workManager = WorkManager.getInstance(context)
         workManager.enqueueUniquePeriodicWork(WORK_NAME_PERIODIC, UPDATE, workRequest)
