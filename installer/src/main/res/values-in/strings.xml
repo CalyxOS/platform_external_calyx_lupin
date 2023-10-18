@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="install_page_title">Aplikasi tambahan</string>
+    <string name="install_notification_title">Memasang aplikasi…</string>
+    <string name="next">Berikutnya</string>
+    <string name="install_page_all">Semua aplikasi berikut</string>
+    <string name="error_not_installed">Galat. Tidak terinstal.</string>
+    <string name="installed">Terpasang</string>
+    <string name="install_page_offline">Hanya dapat dipasang saat daring</string>
+    <string name="skip">Lewati</string>
+    <string name="more">Lebih banyak</string>
+    <string name="app_name">Pemasang Aplikasi CalyxOS</string>
+    <string name="install">Pasang</string>
+    <string name="install_page_subtitle">Tinjau aplikasi-aplikasi tambahan. Anda juga dapat memasangnya nanti.</string>
+</resources>

@@ -9,4 +9,6 @@
     <string name="skip">Pomiń</string>
     <string name="next">Następny</string>
     <string name="error_not_installed">Błąd. Nie zainstalowano.</string>
+    <string name="install_page_offline">Instalacja dostępna jedynie z połączeniem do sieci</string>
+    <string name="app_name">Instalator Aplikacji CalyxOS</string>
 </resources>
