@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CalyxOS App Installation</string>
+    <string name="app_name">CalyxOS Appinstallerare</string>
     <string name="install_page_title">Ytterligare appar</string>
     <string name="install_page_subtitle">Granska ytterligare appar. De kan även installeras senare.</string>
     <string name="install_page_all">Alla dessa appar</string>

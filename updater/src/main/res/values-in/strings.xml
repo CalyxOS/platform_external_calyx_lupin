@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="status_screen_check_button">Cek sekarang</string>
+    <string name="notification_update_title">Memperbarui aplikasi</string>
+    <string name="channel_update_name">Notifikasi pembaruan</string>
+    <string name="back">Kembali</string>
+    <string name="status_screen_title">Pembaruan aplikasi</string>
+    <string name="channel_confirmation_name">Konfirmasi notifikasi pembaruan</string>
+    <string name="notification_confirmation_title">Konfirmasi pembaruan aplikasi</string>
+    <string name="cancel">Batal</string>
+    <string name="channel_confirmation_description">Hanya ditampilkan jika pemasangan pembaruan memerlukan konfirmasi pengguna</string>
+    <string name="never">tidak pernah</string>
+    <string name="app_name">Pembaru Aplikasi CalyxOS</string>
+    <string name="now">sekarang</string>
+    <string name="channel_update_description">Ditampilkan saat memperbarui aplikasi</string>
+</resources>

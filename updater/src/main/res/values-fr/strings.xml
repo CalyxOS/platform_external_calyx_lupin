@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="back">Retour</string>
+    <string name="never">Jamais</string>
+    <string name="app_name">Mise a jour CalyxOS App</string>
+    <string name="now">Maintenant</string>
+</resources>

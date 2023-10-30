@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="install_page_title">Дополнительные приложения</string>
+    <string name="install_notification_title">Установка приложений…</string>
+    <string name="next">Далее</string>
+    <string name="install_page_all">Все из следующих приложений</string>
+    <string name="error_not_installed">Ошибка. Не установлено.</string>
+    <string name="installed">Установлено</string>
+    <string name="install_page_offline">Может быть установлено лишь при подключении к интернету</string>
+    <string name="skip">Пропустить</string>
+    <string name="more">Больше</string>
+    <string name="app_name">Установщик приложений CalyxOS</string>
+    <string name="install">Установить</string>
+    <string name="install_page_subtitle">Ознакомьтесь с дополнительными приложениями. Вы можете установить их потом.</string>
+</resources>

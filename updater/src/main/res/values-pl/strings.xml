@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="status_screen_check_button">Zweryfikuj teraz</string>
+    <string name="status_screen_last_check">Ostatnia weryfikacja aktualizacji: %s</string>
+    <string name="notification_update_title">Aktualizacja aplikacji</string>
+    <string name="channel_update_name">Powiadomienie o aktualizacji</string>
+    <string name="back">Wstecz</string>
+    <string name="status_screen_title">Aktualizacje aplikacji</string>
+    <string name="channel_confirmation_name">Zatwierdź powiadomienie o aktualiacji</string>
+    <string name="notification_confirmation_title">Zatwierdź aktualizacje aplikacji</string>
+    <string name="cancel">Anuluj</string>
+    <string name="channel_confirmation_description">Pokazane tylko gdy instalacja aktualizacji wymaga zatwierdzenia przez użytkownika</string>
+    <string name="never">nigdy</string>
+    <string name="app_name">Aktualizacje Aplikacji CalyxOS</string>
+    <string name="now">teraz</string>
+</resources>
