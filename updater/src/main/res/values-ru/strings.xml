@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="status_screen_check_button">Проверить сейчас</string>
+    <string name="status_screen_last_check">Последняя проверка обновлений: %s</string>
+    <string name="notification_update_title">Обновление приложений</string>
+    <string name="channel_update_name">Оповещения об обновлениях</string>
+    <string name="back">Назад</string>
+    <string name="status_screen_title">Обновления приложений</string>
+    <string name="channel_confirmation_name">Подтвердите оповещения об обновлениях</string>
+    <string name="notification_confirmation_title">Подтвердите обновление приложений</string>
+    <string name="cancel">Отмена</string>
+    <string name="channel_confirmation_description">Показано только если установка обновлений требует подтверждения пользователем</string>
+    <string name="never">никогда</string>
+    <string name="app_name">Средство обновления приложений CalyxOS</string>
+    <string name="now">сейчас</string>
+    <string name="channel_update_description">Показано при обновлении приложений</string>
+</resources>

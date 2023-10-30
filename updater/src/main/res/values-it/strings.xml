@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="status_screen_check_button">Controlla ora</string>
+    <string name="status_screen_last_check">Ultimo controllo dell\'aggiornamento: %s</string>
+    <string name="notification_update_title">Applicazioni in aggiornamento</string>
+    <string name="channel_update_name">Aggiorna notifica</string>
+    <string name="back">Indietro</string>
+    <string name="status_screen_title">Aggiornamenti app</string>
+    <string name="channel_confirmation_name">Conferma notifica dell\'aggiornamento</string>
+    <string name="notification_confirmation_title">Conferma aggiornamenti applicazioni</string>
+    <string name="cancel">Annulla</string>
+    <string name="channel_confirmation_description">Mostra solo se gli aggiornamenti da installare necessitano di conferma dall\'utente</string>
+    <string name="never">mai</string>
+    <string name="app_name">Aggiornatore applicazioni CalyxOS</string>
+    <string name="now">ora</string>
+    <string name="channel_update_description">Mostrato durante l\'aggiornamento delle app</string>
+</resources>
