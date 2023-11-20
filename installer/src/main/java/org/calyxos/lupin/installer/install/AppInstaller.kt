@@ -30,7 +30,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 private const val TAG = "AppInstaller"
-private const val INSTALLER_PACKAGE_NAME = "org.fdroid.fdroid.privileged"
+private const val INSTALLER_PACKAGE_NAME = "org.fdroid.basic"
 
 @Singleton
 class AppInstaller @Inject constructor(
