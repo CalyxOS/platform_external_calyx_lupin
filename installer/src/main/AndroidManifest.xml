@@ -11,6 +11,10 @@
         android:name="android.permission.INSTALL_PACKAGES"
         tools:ignore="ProtectedPermissions" />
 
+    <queries>
+        <package android:name="org.fdroid.basic"/>
+    </queries>
+
     <application
         android:name=".LupinApp"
         android:icon="@mipmap/ic_launcher"
