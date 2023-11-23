@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a37ea1ae_a1176d02",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-11-23T18:01:38Z",
+      "side": 1,
+      "message": "This fails,\n\n```\n$ adb shell pm dump org.fdroid.basic | grep -i installerpac\n    installerPackageName\u003dnull\n```\n\nWe\u0027ll finally have to look into figuring out installerPackageName for everything",
+      "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
