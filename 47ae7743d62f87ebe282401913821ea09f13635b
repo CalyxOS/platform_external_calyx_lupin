@@ -16,6 +16,24 @@
       "message": "This fails,\n\n```\n$ adb shell pm dump org.fdroid.basic | grep -i installerpac\n    installerPackageName\u003dnull\n```\n\nWe\u0027ll finally have to look into figuring out installerPackageName for everything",
       "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac096b72_8a5754d3",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-11-27T21:36:25Z",
+      "side": 1,
+      "message": "Latest patchset fixes this for subsequent packages like com.aurora.store (see commit message). The command from your comment is to check whether F-Droid Basic is set as its own installer, which it can\u0027t be on the first go around, since it needs to be installed already for this to work.\n\nIf we need F-Droid Basic to be its own installer, we can either install it twice -- a bit annoying, but it\u0027s not like it would take very long -- or we may need to make a separate call to set the installer *afterwards*, but that may be where we run into permission / signature issues.\n\n(If you Skip through Lupin, and then reboot right after F-Droid Basic is installed, and go through or skip Lupin again, F-Droid Basic will be set as its own installer when it\u0027s installed the second time.)",
+      "parentUuid": "a37ea1ae_a1176d02",
+      "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
