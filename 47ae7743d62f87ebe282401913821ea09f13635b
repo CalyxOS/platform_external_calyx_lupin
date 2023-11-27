@@ -70,6 +70,24 @@
       "parentUuid": "f575f3b8_59299744",
       "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a8ed3b1_d862ae15",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-11-27T22:19:45Z",
+      "side": 1,
+      "message": "F-Droid Basic\u0027s own installerPackageName doesn\u0027t have to be a blocker",
+      "parentUuid": "ccb4e1f7_0c05da26",
+      "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
