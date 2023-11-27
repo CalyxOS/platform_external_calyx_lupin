@@ -52,6 +52,24 @@
       "parentUuid": "ac096b72_8a5754d3",
       "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccb4e1f7_0c05da26",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-11-27T22:08:12Z",
+      "side": 1,
+      "message": "Your patch works because of https://android.googlesource.com/platform/frameworks/base/+/android-14.0.0_r1/services/core/java/com/android/server/pm/PackageInstallerService.java#692",
+      "parentUuid": "f575f3b8_59299744",
+      "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
