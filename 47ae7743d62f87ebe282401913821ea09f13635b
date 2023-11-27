@@ -34,6 +34,24 @@
       "parentUuid": "a37ea1ae_a1176d02",
       "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f575f3b8_59299744",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-11-27T21:42:48Z",
+      "side": 1,
+      "message": "Good catch!\n\nGiven that we\u0027re a privileged app and hold `INSTALL_PACKAGES` here, we should able to set `installerPackageName` fine.\n\nWe need F-Droid Basic to be it\u0027s own installer so that it can update itself silently without additional privileges - that relies on `installerPackageName`. Same reason we need it to be the `installerPackageName` for these other apps which we\u0027re installing.",
+      "parentUuid": "ac096b72_8a5754d3",
+      "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
