@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d457199_eaa4c515",
+        "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-11-28T14:50:28Z",
+      "side": 1,
+      "message": "This is @hide, need reflection (or System API build setup)",
+      "revId": "a7b4f815e3607528655495ee436a1b6b53c67743",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
