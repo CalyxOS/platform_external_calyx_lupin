@@ -88,6 +88,24 @@
       "parentUuid": "ccb4e1f7_0c05da26",
       "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dff273f_121aa411",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000062
+      },
+      "writtenOn": "2023-11-28T14:45:58Z",
+      "side": 1,
+      "message": "From testing on a userdebug build, it appears it can update itself even if that is null. (Shouldn\u0027t be different on userdebug, but just in case.)",
+      "parentUuid": "8a8ed3b1_d862ae15",
+      "revId": "47ae7743d62f87ebe282401913821ea09f13635b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
