@@ -13,4 +13,5 @@
     <string name="never">nigdy</string>
     <string name="app_name">Aktualizacje Aplikacji CalyxOS</string>
     <string name="now">teraz</string>
+    <string name="channel_update_description">Wyświetlane podczas aktualizowania aplikacji</string>
 </resources>

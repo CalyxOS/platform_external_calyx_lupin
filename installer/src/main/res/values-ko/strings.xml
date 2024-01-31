@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="install_page_title">추가된 앱</string>
+    <string name="install_notification_title">앱 설치 중…</string>
+    <string name="next">다음</string>
+    <string name="install_page_all">아래의 모든 앱</string>
+    <string name="error_not_installed">오류. 설치되지 않았습니다.</string>
+    <string name="installed">설치됨</string>
+    <string name="install_page_offline">온라인 상태일 때만 설치할 수 있습니다.</string>
+    <string name="skip">건너뛰기</string>
+    <string name="more">더보기</string>
+    <string name="app_name">CalyxOS 앱 설치 프로그램</string>
+    <string name="install">설치</string>
+    <string name="install_page_subtitle">추가된 앱을 검토해보세요. 나중에도 설치할 수 있습니다.</string>
+</resources>
