@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS App Updater</string>
+    <string name="back">Terug</string>
+    <string name="now">nu</string>
+    <string name="never">nooit</string>
+    <string name="cancel">Annuleren</string>
+    <string name="status_screen_last_check">Laatste updatecheck: %s</string>
+    <string name="status_screen_check_button">Nu checken</string>
+    <string name="status_screen_title">Appupdates</string>
+    <string name="notification_update_title">Apps aan het updaten</string>
+    <string name="notification_confirmation_title">Bevestigen appupdates</string>
+    <string name="channel_update_description">Tonen tijdens updaten apps</string>
+    <string name="channel_confirmation_name">Bevestigen notificatieupdates</string>
+    <string name="channel_update_name">Updatenofiticatie</string>
+    <string name="channel_confirmation_description">Alleen tonen als installeren van updates gebruikersbevestiging vereist</string>
+</resources>

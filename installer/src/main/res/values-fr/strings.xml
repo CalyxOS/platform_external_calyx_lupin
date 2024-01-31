@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="install_page_title">Apps additionnels</string>
-    <string name="install_page_all">Toutes les Apps suivantes</string>
-    <string name="app_name">Installateur de L\'App CalyxOS</string>
+    <string name="install_page_title">Applications supplémentaires</string>
+    <string name="install_page_all">Toutes les applications suivantes</string>
+    <string name="app_name">Installateur d\'applications CalyxOS</string>
 </resources>
