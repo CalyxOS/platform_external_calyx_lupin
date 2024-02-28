@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f17ceed_4f90a034",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-02-28T17:55:54Z",
+      "side": 1,
+      "message": "Light theme background doesn\u0027t match, otherwise it\u0027s good",
+      "revId": "b0df815fef0b6ec60a2721fe790aba2f138c91cf",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
