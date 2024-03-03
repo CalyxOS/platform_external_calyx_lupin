@@ -9,7 +9,7 @@
     <string name="channel_update_name">Notificação de atualização</string>
     <string name="channel_update_description">Mostrado enquanto apps são atualizados</string>
     <string name="channel_confirmation_name">Notificação de confirmar atualizações</string>
-    <string name="channel_confirmation_description">Mostrado somente se instalar atualizações requere confirmação do usuário</string>
+    <string name="channel_confirmation_description">Mostrado somente se instalar atualizações requer confirmação do usuário</string>
     <string name="now">agora</string>
     <string name="never">nunca</string>
     <string name="status_screen_last_check">Última verificação por atualizações: %s</string>
