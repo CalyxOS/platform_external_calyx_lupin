@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff81e11_8c3ee456",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/theme/Theme.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-03-27T06:32:26Z",
+      "side": 1,
+      "message": "As dark theme was looking good already, kept it as dynamic.",
+      "revId": "2fb165ed7948dfd6a440523e2cf3134c314210b5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
