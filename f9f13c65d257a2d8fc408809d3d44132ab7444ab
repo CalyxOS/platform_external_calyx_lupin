@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b528e52e_84f7047d",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/theme/Theme.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-03-27T18:33:21Z",
+      "side": 1,
+      "message": "This is to adapt the theme colors for the light theme as the dark theme was already matching the new setup wizard colors as Michael mentioned above.",
+      "parentUuid": "7f49f219_f66c2f6c",
+      "revId": "f9f13c65d257a2d8fc408809d3d44132ab7444ab",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6a4827ce_0df04adc",
         "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/theme/Theme.kt",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-27T17:08:37Z",
       "side": 1,
       "message": "Dark theme doesn\u0027t need those primary color changes? Seems a bit weird to promote accent color to primary, but leave accent color as is and then only for light theme.",
+      "revId": "f9f13c65d257a2d8fc408809d3d44132ab7444ab",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a707b562_877c9d87",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/theme/Theme.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-03-27T18:33:21Z",
+      "side": 1,
+      "message": "It doesn\u0027t. I can rename the resources to match the parameters for the weird naming scheme of colors.",
+      "parentUuid": "6a4827ce_0df04adc",
       "revId": "f9f13c65d257a2d8fc408809d3d44132ab7444ab",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
