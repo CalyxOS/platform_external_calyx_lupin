@@ -87,6 +87,24 @@
       "parentUuid": "a707b562_877c9d87",
       "revId": "f9f13c65d257a2d8fc408809d3d44132ab7444ab",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aafd7528_50fc8362",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/theme/Theme.kt",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-03-28T08:58:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db2eb973_df281dde",
+      "revId": "f9f13c65d257a2d8fc408809d3d44132ab7444ab",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
