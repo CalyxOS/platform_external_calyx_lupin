@@ -63,6 +63,11 @@ class AppInstallerService : LifecycleService() {
         return super.onStartCommand(intent, flags, startId)
     }
 
+    override fun onDestroy() {
+        notificationManager.cancel(ONGOING_NOTIFICATION_ID)
+        super.onDestroy()
+    }
+
     private fun createNotificationChannel() {
         val name = "App Installer Channel"
         val channel = NotificationChannel(CHANNEL_ID, name, IMPORTANCE_LOW)
