@@ -18,6 +18,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Lupin"
-include ':installer'
-include ':updater'
-include ':shared'
+include(":installer")
+include(":updater")
+include(":shared")
