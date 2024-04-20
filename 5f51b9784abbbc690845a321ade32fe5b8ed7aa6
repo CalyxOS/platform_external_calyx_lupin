@@ -16,6 +16,24 @@
       "message": "Does this mean that the bug only happens when the app is launched manually, but not when launched as part of SUW?",
       "revId": "5f51b9784abbbc690845a321ade32fe5b8ed7aa6",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "438ef1bd_43d1c3a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-04-20T08:08:48Z",
+      "side": 1,
+      "message": "Yes, that is the case.",
+      "parentUuid": "4dbd5cb6_67eb9080",
+      "revId": "5f51b9784abbbc690845a321ade32fe5b8ed7aa6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
