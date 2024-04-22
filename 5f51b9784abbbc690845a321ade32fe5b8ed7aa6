@@ -34,6 +34,24 @@
       "parentUuid": "4dbd5cb6_67eb9080",
       "revId": "5f51b9784abbbc690845a321ade32fe5b8ed7aa6",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e98c5a0b_6dd74748",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-04-22T12:59:50Z",
+      "side": 1,
+      "message": "That\u0027s most peculiar. Do you know why it behaves differently? It may be key to understand why this bug is happening.",
+      "parentUuid": "438ef1bd_43d1c3a5",
+      "revId": "5f51b9784abbbc690845a321ade32fe5b8ed7aa6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
