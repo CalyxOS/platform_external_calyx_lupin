@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">କ୍ୟାଲିସ୍କ୍ ଓଏସ୍ ଉପଡେଟ୍ ବାଲା</string>
+    <string name="back">ପଛ୍-କେ</string>
+    <string name="now">ଇହାଦେ</string>
+    <string name="never">କେଭେନାଇ</string>
+    <string name="cancel">ଛାଡ</string>
+    <string name="status_screen_last_check">ଲାସ୍ ଥର୍ ଚେକ୍: %s</string>
+    <string name="status_screen_check_button">ଇହାଦେ ଚେକ୍ କରୁନ୍</string>
+    <string name="notification_update_title">ଆପ୍ ମାନେ ଉପଡେଟ୍ ହେଉଛନ୍</string>
+    <string name="notification_confirmation_title">ଏପ୍ ଉପଡେଟ୍ ମାନେ କନଫାର୍ମ କରୁନ୍</string>
+    <string name="channel_update_name">ଅପଡେଟ୍ ନୋଟିଫିକେସନ୍</string>
+    <string name="channel_update_description">ଏପ୍ ଅପଡେଟ୍ ବେଳେ ଦେଖାଦେବା</string>
+    <string name="channel_confirmation_name">ଅପଡେଟ୍ ନୋଟିଫିକେସନ୍ କନଫାର୍ମ କରୁନ୍</string>
+    <string name="status_screen_title">ଏପ୍ ଉପଡେଟ୍ ମାନେ</string>
+    <string name="channel_confirmation_description">ଯେତେବେଳେ ଅପଡେଟ୍ ଇନଷ୍ଟଲ୍ ଲାଗି ଫୁନ୍ ଚଳଉର୍ କନଫାର୍ମେସନ୍ ଲାଗବା ହେତେବେଳେ ଦେଖା ଦେବା</string>
+</resources>

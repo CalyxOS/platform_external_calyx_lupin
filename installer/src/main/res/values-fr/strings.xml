@@ -2,5 +2,14 @@
 <resources>
     <string name="install_page_title">Applications supplémentaires</string>
     <string name="install_page_all">Toutes les applications suivantes</string>
-    <string name="app_name">Installateur d\'applications CalyxOS</string>
+    <string name="app_name">Application d\'installation de CalyxOS</string>
+    <string name="install_page_subtitle">Examinez les applications supplémentaires. Vous pourrez les installer ultérieurement.</string>
+    <string name="install_page_offline">Ne peut être installé qu\'en étant connecté à internet</string>
+    <string name="install_notification_title">Installation des applications…</string>
+    <string name="skip">Passer</string>
+    <string name="install">Installer</string>
+    <string name="next">Suivant</string>
+    <string name="more">Plus</string>
+    <string name="installed">Installé</string>
+    <string name="error_not_installed">Erreur. Non installé.</string>
 </resources>

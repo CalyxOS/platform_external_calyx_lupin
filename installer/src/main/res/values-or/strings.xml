@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">କ୍ୟାଲିସ୍କ୍ ଓଏସ୍ ଆପ୍ ଇନ୍ଷ୍ଟଲର</string>
+    <string name="install_page_title">ଅତିରିକ୍ତ ଆପ୍ ଗୁଡ଼ିକ</string>
+    <string name="install_page_subtitle">ଅତିରିକ୍ତ ଆପ୍ ଗୁଡ଼ିକ ସମୀକ୍ଷା କରିଦିଅନ୍ତୁ। ସେଗୁଡ଼ାକ ପରେ ମଧ୍ୟ ଇନ୍ଷ୍ଟଲ କରି ହେବ।</string>
+    <string name="install_page_all">ନିମ୍ନଲିଖିତ ଆପ୍ ଗୁଡ଼ିକ</string>
+    <string name="skip">ଛାଡ଼ିଦିଅନ୍ତୁ</string>
+    <string name="install_page_offline">କେବଳ ଅନଲାଇନ୍ ସମୟରେ ଇନ୍ଷ୍ଟଲ ହେଇପାରିବ</string>
+    <string name="install_notification_title">ଆପ୍ ଗୁଡାକ ଇନ୍ଷ୍ଟଲ ହେଇଛନ୍ତି…</string>
+    <string name="install">ଇନ୍ଷ୍ଟଲ</string>
+    <string name="next">ଆଗକୁ</string>
+    <string name="more">ଅଧିକ</string>
+    <string name="installed">ଇନ୍ଷ୍ଟଲ ହେଲା</string>
+    <string name="error_not_installed">ତ୍ରୁଟି। ଇନ୍ଷ୍ଟଲ ହୋଇନାହିଁ।</string>
+</resources>
