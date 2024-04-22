@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Абнаўляльшчык праграм CalyxOS</string>
+    <string name="never">ніколі</string>
+    <string name="back">Назад</string>
+    <string name="cancel">Скасаваць</string>
+    <string name="now">зараз</string>
+    <string name="status_screen_check_button">Праверыць зараз</string>
+    <string name="status_screen_title">Абнаўлення праграмы</string>
+    <string name="status_screen_last_check">Апошняя праверка абнаўлення: %s</string>
+    <string name="channel_confirmation_name">Зацьвярджэнне абнаўлення</string>
+    <string name="channel_update_name">Паведамленне аб абнаўленні</string>
+    <string name="notification_update_title">Абнаўленне праграм</string>
+    <string name="notification_confirmation_title">Зацвердзіць абнаўленне праграм</string>
+    <string name="channel_update_description">Паказваецца падчас абнаўлення праграм</string>
+    <string name="channel_confirmation_description">Паказваецца толькі калі інсталяванне абнаўлення патрабуе зацвярджэння ад карыстальніка</string>
+</resources>

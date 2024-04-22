@@ -2,6 +2,16 @@
 <resources>
     <string name="back">Retour</string>
     <string name="never">Jamais</string>
-    <string name="app_name">Mise a jour CalyxOS App</string>
+    <string name="app_name">Application de mise a jour CalyxOS</string>
     <string name="now">Maintenant</string>
+    <string name="cancel">Annuler</string>
+    <string name="status_screen_last_check">Dernière vérification de mise à jour : %s</string>
+    <string name="status_screen_check_button">Vérifier maintenant</string>
+    <string name="status_screen_title">Mises à jour de l\'application</string>
+    <string name="notification_update_title">Mise à jour des applications</string>
+    <string name="notification_confirmation_title">Confirmer les mises à jour de l\'application</string>
+    <string name="channel_update_name">Notification de mise à jour</string>
+    <string name="channel_update_description">Afficher pendant la mise à jour des applications</string>
+    <string name="channel_confirmation_name">Confirmer la notification de mises à jour</string>
+    <string name="channel_confirmation_description">Afficher seulement si l\'installation de mises à jour requiert la confirmation de l\'utilisateur</string>
 </resources>
