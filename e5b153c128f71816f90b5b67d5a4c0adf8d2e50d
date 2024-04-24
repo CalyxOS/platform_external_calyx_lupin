@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fbfbf3f_bb5d2ee3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-04-24T16:02:11Z",
+      "side": 1,
+      "message": "This is also updating versions of libs at the same time, which makes it harder to review.\n\nThe migration should stick to the exact same version. Any upgrades should be done before or after.",
+      "revId": "e5b153c128f71816f90b5b67d5a4c0adf8d2e50d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
