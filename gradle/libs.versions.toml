@@ -1,9 +1,9 @@
 [versions]
-activityVersion = "1.8.2"
+activityVersion = "1.9.0"
 androidGradleVersion = "8.3.2"
 coilVersion = "2.6.0"
-composeBom = "2024.04.00"
-coreVersion = "1.12.0"
+composeBom = "2024.04.01"
+coreVersion = "1.13.0"
 coroutinesVersion = "1.8.0"
 fdroidVersion = "0.1.1"
 androidxHiltVersion = "1.2.0"
