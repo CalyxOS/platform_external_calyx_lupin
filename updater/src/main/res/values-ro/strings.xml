@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="back">Înapoi</string>
+    <string name="now">acum</string>
+    <string name="never">niciodată</string>
+    <string name="cancel">Renunţă</string>
+    <string name="status_screen_last_check">Ultima verificare pentru actualizări: %s</string>
+    <string name="status_screen_check_button">Verifică acum</string>
+    <string name="status_screen_title">Actualizări ale aplicației</string>
+    <string name="notification_update_title">Actualizarea aplicațiilor</string>
+    <string name="notification_confirmation_title">Confirmă actualizările aplicațiilor</string>
+    <string name="channel_update_name">Alerte de actualizare</string>
+    <string name="channel_update_description">Afișat în timpul actualizării aplicațiilor</string>
+    <string name="channel_confirmation_name">Confirmă notificarea despre actualizări</string>
+    <string name="channel_confirmation_description">Afișat numai dacă instalarea actualizărilor necesită confirmarea utilizatorului</string>
+</resources>
