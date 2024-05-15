@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="back">Retour</string>
-    <string name="never">Jamais</string>
+    <string name="never">jamais</string>
     <string name="app_name">Application de mise a jour CalyxOS</string>
-    <string name="now">Maintenant</string>
+    <string name="now">maintenant</string>
     <string name="cancel">Annuler</string>
     <string name="status_screen_last_check">Dernière vérification de mise à jour : %s</string>
     <string name="status_screen_check_button">Vérifier maintenant</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="install_page_title">Aplicatii aditionale</string>
+    <string name="install_page_title">Aplicații adiționale</string>
     <string name="install_notification_title">Instalare aplicatii…</string>
     <string name="next">Urmatorul</string>
     <string name="install_page_all">Toate aplicatiile urmatoare</string>
@@ -9,7 +9,7 @@
     <string name="install_page_offline">Pot fi instalate numai online</string>
     <string name="skip">Sari peste</string>
     <string name="more">Mai mult</string>
-    <string name="app_name">Instalator de aplicatii CalyxOS</string>
+    <string name="app_name">Instalator de aplicații CalyxOS</string>
     <string name="install">Instaleaza</string>
     <string name="install_page_subtitle">Examinează aplicații suplimentare. Le poți instala și mai târziu.</string>
 </resources>
