@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS ការីដំឡើងកម្មវិធី</string>
+    <string name="install_page_title">កម្មវិធីបន្ថែម</string>
+    <string name="install_page_all">កម្មវិធីខាងក្រោមទាំងអស់</string>
+    <string name="install_page_offline">អាចនឹងដំឡើងតែនៅពេលអនឡាញប៉ុណ្ណោះ</string>
+    <string name="skip">រំលង</string>
+    <string name="install">ដំឡើង</string>
+    <string name="next">បន្ទាប់</string>
+    <string name="more">ច្រើនទៀត</string>
+    <string name="installed">បានដំឡើង</string>
+    <string name="error_not_installed">ល្អៀង, មិនបានដំឡើង។</string>
+    <string name="install_page_subtitle">វាយតម្លៃកម្មវិធីបន្ថែម។ អ្នកអាចដំឡើងពួកគេនៅពេលក្រោក៏ល្អដែរ។</string>
+    <string name="install_notification_title">កំពុងដំឡើងកម្មវិធី…</string>
+</resources>

@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">ការីអាប់ដេតកម្មវិធីនៃ CalyxOS</string>
+    <string name="back">ថយក្រោយ</string>
+    <string name="now">ឥឡូវ</string>
+    <string name="never">មិនដែល</string>
+    <string name="cancel">បោះបង់</string>
+    <string name="status_screen_last_check">ពិនិត្យអាប់ដេតចុងក្រោយ៖ %s</string>
+    <string name="status_screen_check_button">ពិនិត្យឥឡូវ</string>
+    <string name="status_screen_title">អាប់ដេតកម្មវិធី</string>
+    <string name="notification_update_title">កំពុងអាប់ដេតកម្មវិធី</string>
+    <string name="notification_confirmation_title">អះអាងអាប់ដេតកម្មវិធី</string>
+    <string name="channel_update_name">ការផ្តល់ដំណឹងអាប់ដេត</string>
+    <string name="channel_confirmation_name">អះអាងការផ្តល់ដំណឹងអាប់ដេត</string>
+    <string name="channel_confirmation_description">បង្ហាញតែក្នុងករណីដែលការដំឡើងបច្ចុប្បន្នភាពទាមទារការបញ្ជាក់របស់អត្ថជនប៉ុណ្ណោះ</string>
+    <string name="channel_update_description">បង្ហាញខណៈពេលកំពុងអាប់ដេតកម្មវិធី</string>
+</resources>
