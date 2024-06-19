@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="channel_confirmation_description">Zobrazené iba, keď inštalácia aktualizácií vyžaduje potvrdenie od užívateľa</string>
+    <string name="app_name">Aktualizácia aplikácií CalyxOS</string>
+    <string name="back">Späť</string>
+    <string name="now">Teraz</string>
+    <string name="never">nikdy</string>
+    <string name="cancel">Zrušiť</string>
+    <string name="status_screen_last_check">Posledná kontrola aktualizácií: %s</string>
+    <string name="status_screen_check_button">Skontrolovať teraz</string>
+    <string name="status_screen_title">Aktualizácia aplikácií</string>
+    <string name="notification_update_title">Aktualizácia aplikácií</string>
+    <string name="notification_confirmation_title">Potvrdiť aktualizácie aplikácií</string>
+    <string name="channel_update_name">Oznámenie o aktualizáciách</string>
+    <string name="channel_update_description">Zobrazené pri aktualizácii aplikácií</string>
+    <string name="channel_confirmation_name">Oznámenie o potvrdení aktualizácií</string>
+</resources>

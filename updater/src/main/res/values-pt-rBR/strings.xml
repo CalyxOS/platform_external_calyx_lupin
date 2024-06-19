@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="back">Voltar</string>
-    <string name="app_name">Atualizador de aplicativos do CalyxOS</string>
+    <string name="app_name">Atualizador de apps do CalyxOS</string>
     <string name="cancel">Cancelar</string>
-    <string name="status_screen_title">Atualizações de aplicativos</string>
-    <string name="notification_update_title">Atualizando aplicativos</string>
-    <string name="notification_confirmation_title">Confirmar atualizações de aplicativos</string>
+    <string name="status_screen_title">Atualizações de apps</string>
+    <string name="notification_update_title">Atualizando apps</string>
+    <string name="notification_confirmation_title">Confirmar atualizações de apps</string>
     <string name="channel_update_name">Notificação de atualização</string>
-    <string name="channel_update_description">Mostrado enquanto aplicativos são atualizados</string>
+    <string name="channel_update_description">Mostrado enquanto apps são atualizados</string>
     <string name="channel_confirmation_name">Notificação de confirmar atualizações</string>
     <string name="channel_confirmation_description">Mostrado somente se instalar atualizações exige confirmação do usuário</string>
     <string name="now">agora</string>

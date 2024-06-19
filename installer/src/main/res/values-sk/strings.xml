@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="install_notification_title">Inštalácia aplikácií…</string>
+    <string name="install_page_title">Ďalšie aplikácie</string>
+    <string name="app_name">Inštalátor aplikácií CalyxOS</string>
+    <string name="install_page_subtitle">Prezrite si ďalšie aplikácie. Môžete ich nainštalovať aj neskôr.</string>
+    <string name="install_page_all">Všetky nasledujúce aplikácie</string>
+    <string name="install_page_offline">Možno inštalovať iba online</string>
+    <string name="skip">Preskočiť</string>
+    <string name="install">Inštalovať</string>
+    <string name="next">Ďalšie</string>
+    <string name="more">Viac</string>
+    <string name="installed">Nainštalované</string>
+    <string name="error_not_installed">Chyba. Nie je nainštalované.</string>
+</resources>
