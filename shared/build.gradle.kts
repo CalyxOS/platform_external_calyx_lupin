@@ -5,7 +5,8 @@
 
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.ktlint)
 }
 
@@ -32,9 +33,6 @@ android {
     }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = rootProject.extra["compose_compiler_version"] as String
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
