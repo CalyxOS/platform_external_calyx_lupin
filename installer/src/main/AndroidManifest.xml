@@ -10,6 +10,9 @@
     <uses-permission
         android:name="android.permission.INSTALL_PACKAGES"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="com.android.permission.INSTALL_EXISTING_PACKAGES"
+        tools:ignore="ProtectedPermissions" />
 
     <queries>
         <package android:name="org.fdroid.basic"/>

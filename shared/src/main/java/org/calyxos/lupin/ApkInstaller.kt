@@ -48,6 +48,8 @@ import kotlin.coroutines.resume
 
 private val TAG = PackageInstaller::class.java.simpleName
 private const val BROADCAST_ACTION = "com.android.packageinstaller.ACTION_INSTALL_COMMIT"
+private const val EXTRA_LEGACY_STATUS = "android.content.pm.extra.LEGACY_STATUS"
+private const val INSTALL_FAILED_VERSION_DOWNGRADE = -25
 
 @VisibleForTesting
 const val STATUS_WAITING_FOR_USER_ACTION = Int.MAX_VALUE - 1
@@ -193,6 +195,14 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
                 intent = intent
             )
             return if (userWasAsked) InstallResult(STATUS_WAITING_FOR_USER_ACTION, null) else result
+        } else if (i.getIntExtra(
+                EXTRA_LEGACY_STATUS,
+                Int.MIN_VALUE
+            ) == INSTALL_FAILED_VERSION_DOWNGRADE
+        ) {
+            installer.installExistingPackage(expectedPackageName,
+                PackageManager.INSTALL_REASON_UNKNOWN, null)
+            return InstallResult(STATUS_SUCCESS, result.msg)
         }
         return result
     }
