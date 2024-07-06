@@ -1,22 +1,22 @@
 [versions]
 activityVersion = "1.9.0"
-androidGradleVersion = "8.3.2"
+androidGradleVersion = "8.4.2"
 coilVersion = "2.6.0"
-composeBom = "2024.04.01"
-coreVersion = "1.13.0"
+composeBom = "2024.06.00"
+coreVersion = "1.13.1"
 coroutinesVersion = "1.8.0"
 fdroidVersion = "0.1.1"
 androidxHiltVersion = "1.2.0"
 googleHiltVersion = "2.51.1"
 junitJupiterVersion = "5.10.2"
-kotlinVersion = "1.9.23"
+kotlinVersion = "2.0.0"
 kotlinLoggingVersion = "3.0.5"
-kspVersion = "1.9.23-1.0.20"
+kspVersion = "2.0.0-1.0.21"
 ktlintVersion = "11.6.1"
-lifecycleVersion = "2.7.0"
+lifecycleVersion = "2.8.3"
 logbackClassicVersion = "1.5.6"
 mockkVersion = "1.13.10"
-runtimeLivedataVersion = "1.6.6"
+runtimeLivedataVersion = "1.6.8"
 workVersion = "2.9.0"
 
 [libraries]
@@ -49,6 +49,7 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockkVersion" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradleVersion" }
 android-library = { id = "com.android.library", version.ref = "androidGradleVersion" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinVersion" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintVersion" }
 googleKsp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
