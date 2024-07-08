@@ -39,6 +39,30 @@
       },
       "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1febb84a_79e5cc96",
+        "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-07-08T14:07:48Z",
+      "side": 1,
+      "message": "I don\u0027t it. What is the use-case here? The commit message doesn\u0027t really make it clear. Is this meant for Lupin updater or installer? We want to install a newer version of an existing package, right? Then we do this if a downgrade fails? If the package is newer, why would it be a downgrade?",
+      "parentUuid": "10b6168c_1e367d8b",
+      "range": {
+        "startLine": 204,
+        "startChar": 55,
+        "endLine": 204,
+        "endChar": 59
+      },
+      "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
