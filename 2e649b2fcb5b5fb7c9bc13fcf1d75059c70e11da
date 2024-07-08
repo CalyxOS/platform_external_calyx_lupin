@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b6168c_1e367d8b",
+        "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2024-07-08T13:03:14Z",
+      "side": 1,
+      "message": "Ideally we check the result of this callback to determine if the operation was truly successful before returning anything. But this doesn\u0027t combine well with the synchronous return of the result",
+      "range": {
+        "startLine": 204,
+        "startChar": 55,
+        "endLine": 204,
+        "endChar": 59
+      },
+      "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
