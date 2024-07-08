@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b32dadb2_a95ba408",
+        "filename": "installer/src/main/AndroidManifest.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-07-08T13:32:40Z",
+      "side": 1,
+      "message": "TODO: Add to privapp-perms when updating apk.",
+      "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10b6168c_1e367d8b",
         "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
         "patchSetId": 3
