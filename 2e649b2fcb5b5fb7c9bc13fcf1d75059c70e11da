@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d65c28b4_bc1eeaf5",
+        "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-07-08T14:45:21Z",
+      "side": 1,
+      "message": "This installer class is used for Lupin installer *and* updater, so we either need to think through the implications to add this code to the updater, or somehow ensure it is only called in an installer context, maybe even better a non-main user context.\n\nAlso, we really *need* code comments for this as the purpose really isn\u0027t obvious from reading the code. In 5 years we still need to be able to figure out what this is for.",
+      "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10b6168c_1e367d8b",
         "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
         "patchSetId": 3
@@ -79,6 +96,30 @@
       "side": 1,
       "message": "See issue linked in commit message, Work profiles and secondary user.\n\nThis is for installer.",
       "parentUuid": "1febb84a_79e5cc96",
+      "range": {
+        "startLine": 204,
+        "startChar": 55,
+        "endLine": 204,
+        "endChar": 59
+      },
+      "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "522b1969_3859bb78",
+        "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-07-08T14:45:21Z",
+      "side": 1,
+      "message": "ok thanks. This ticket talks about signature checking. How do we ensure the package installed in another user really is the one we want to add here? This broadcast receiver may not be the best place to start with that.",
+      "parentUuid": "126f7510_d0dda818",
       "range": {
         "startLine": 204,
         "startChar": 55,
