@@ -9,7 +9,7 @@
     <string name="install">Заінсталяваць</string>
     <string name="next">Далей</string>
     <string name="more">Болей</string>
-    <string name="installed">Заінсталяваныя</string>
+    <string name="installed">Заінсталявана</string>
     <string name="error_not_installed">Памылка. Не заінсталявалася.</string>
     <string name="install_page_subtitle">Азнаёмся з дадатковымі праграмамі. Можаш заінсталяваць іх пазней.</string>
 </resources>
