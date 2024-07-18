@@ -52,6 +52,24 @@
       "parentUuid": "438ef1bd_43d1c3a5",
       "revId": "5f51b9784abbbc690845a321ade32fe5b8ed7aa6",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fa06df6_6c6ff683",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2024-07-18T19:20:46Z",
+      "side": 1,
+      "message": "This happens randomly in SUW as well",
+      "parentUuid": "e98c5a0b_6dd74748",
+      "revId": "5f51b9784abbbc690845a321ade32fe5b8ed7aa6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
