@@ -70,6 +70,24 @@
       "parentUuid": "e98c5a0b_6dd74748",
       "revId": "5f51b9784abbbc690845a321ade32fe5b8ed7aa6",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74bf83d6_ab9050f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-07-19T05:29:11Z",
+      "side": 1,
+      "message": "Updated the commit message as the bug also happens in SUW. I assume it is fine to merge as it is considering it is not a big change?",
+      "parentUuid": "2fa06df6_6c6ff683",
+      "revId": "5f51b9784abbbc690845a321ade32fe5b8ed7aa6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
