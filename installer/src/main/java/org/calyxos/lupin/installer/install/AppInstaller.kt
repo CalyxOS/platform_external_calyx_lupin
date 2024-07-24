@@ -121,7 +121,7 @@ class AppInstaller @Inject constructor(
             )
             return false
         }
-        return packageInfo.signingInfo.getSigner() == item.signers
+        return packageInfo.signingInfo?.getSigner() == item.signers
     }
 
     /**
