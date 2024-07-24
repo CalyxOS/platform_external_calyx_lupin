@@ -5,7 +5,7 @@
 
 buildscript {
     extra.apply {
-        set("sdk", 34)
+        set("sdk", 35)
     }
 }
 
