@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenResumed
+import androidx.lifecycle.withResumed
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.calyxos.lupin.updater.InstallManager
@@ -36,7 +36,7 @@ class ConfirmationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
-            lifecycle.whenResumed {
+            lifecycle.withResumed {
                 installManager.onUserAttentionReceived(this@ConfirmationActivity)
             }
         }

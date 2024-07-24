@@ -17,6 +17,7 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.calyxos.lupin.installer.R
 import org.calyxos.lupin.installer.state.AppItemState
 import org.calyxos.lupin.installer.state.UiState
@@ -55,7 +56,7 @@ class AppInstallerService : LifecycleService() {
             FOREGROUND_SERVICE_TYPE_DATA_SYNC,
         )
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             repeatOnLifecycle(STARTED) {
                 appInstaller.uiState.collect(::onUiStateChanged)
             }

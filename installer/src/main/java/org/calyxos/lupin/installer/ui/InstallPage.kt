@@ -26,7 +26,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -116,7 +116,7 @@ fun LazyListScope.listHeader(state: UiState) {
                 animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
             )
             LinearProgressIndicator(
-                progress = progressAnimation,
+                progress = { progressAnimation },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = horizontalMargin)
@@ -132,7 +132,7 @@ fun LazyListScope.allCheckbox(
 ) {
     item {
         Column {
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier
                     .padding(horizontal = horizontalMargin)
                     .padding(top = 8.dp)
@@ -162,7 +162,7 @@ fun LazyListScope.allCheckbox(
                     )
                 }
             }
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier
                     .padding(horizontal = horizontalMargin)
                     .padding(bottom = 8.dp)
