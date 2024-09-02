@@ -7,8 +7,9 @@
     <string name="install">インストール</string>
     <string name="install_page_offline">オンラインに接続時のみにインストール可能です</string>
     <string name="install_notification_title">インストール中です…</string>
-    <string name="app_name">CalyxOS アプリ インストーラー</string>
+    <string name="app_name">CalyxOS アプリインストーラー</string>
     <string name="installed">インストール完了</string>
     <string name="error_not_installed">エラーのため、インストールされませんでした。</string>
     <string name="next">次へ</string>
+    <string name="more">詳細</string>
 </resources>

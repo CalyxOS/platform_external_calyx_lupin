@@ -10,7 +10,8 @@
     <string name="cancel">Batal</string>
     <string name="channel_confirmation_description">Hanya ditampilkan jika pemasangan pembaruan memerlukan konfirmasi pengguna</string>
     <string name="never">tidak pernah</string>
-    <string name="app_name">Pembaru Aplikasi CalyxOS</string>
+    <string name="app_name">Pembaruan Aplikasi CalyxOS</string>
     <string name="now">sekarang</string>
     <string name="channel_update_description">Ditampilkan saat memperbarui aplikasi</string>
+    <string name="status_screen_last_check">Memeriksa pembaruan terakhir: %s</string>
 </resources>
