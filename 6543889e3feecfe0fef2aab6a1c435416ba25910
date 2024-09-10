@@ -16,6 +16,57 @@
       "message": "Need to carefully check the verification logic!",
       "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12581bd3_f49217b0",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-10T15:11:34Z",
+      "side": 1,
+      "message": "Makes sense, from the link below\n\n\u003e  Packages which are signed by multiple signers cannot change their signing certificates and their Signature array should be checked to make sure that every entry matches the looked-for signing certificates.",
+      "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d973151_300c633f",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-10T15:11:34Z",
+      "side": 1,
+      "message": "Why not `\u003d\u003d 1`?",
+      "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f2a84cd_7de224ec",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-10T15:11:34Z",
+      "side": 1,
+      "message": "https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/intersect.html\n\nlooks ok.",
+      "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
