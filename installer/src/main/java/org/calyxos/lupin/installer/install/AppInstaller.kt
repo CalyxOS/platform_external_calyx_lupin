@@ -121,7 +121,7 @@ class AppInstaller @Inject constructor(
             )
             return false
         }
-        return packageInfo.signingInfo?.getSigner() == item.signers
+        return packageInfo.signingInfo?.getSigner().verify(item.signers)
     }
 
     /**
@@ -148,6 +148,24 @@ class AppInstaller @Inject constructor(
         } else {
             val method = javaClass.methods.find { it.name == "setInstallerPackageName" }
             method?.invoke(this, packageName)
+        }
+    }
+
+    /**
+     * Returns true, if the [other] signer is authorized
+     */
+    private fun SignerV2?.verify(other: SignerV2): Boolean {
+        if (this == null) return false
+        return if (hasMultipleSigners) {
+            sha256 == other.sha256
+        } else {
+            if (sha256.size == 1 && other.sha256.size == 1) {
+                sha256 == other.sha256
+            } else {
+                // if the signing history has signers in common, all is good
+                // see https://developer.android.com/reference/android/content/pm/SigningInfo#getSigningCertificateHistory()
+                sha256.toSet().intersect(other.sha256.toSet()).isNotEmpty()
+            }
         }
     }
 }
