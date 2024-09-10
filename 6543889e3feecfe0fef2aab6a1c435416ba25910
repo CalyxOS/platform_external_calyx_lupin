@@ -18,6 +18,23 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "580bdbd4_56822a31",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-10T16:26:43Z",
+      "side": 1,
+      "message": "```suggestion\n        if (other.sha256.isEmpty()) return false\n        if (sha256.isEmpty()) return false\n```",
+      "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "12581bd3_f49217b0",
@@ -66,6 +83,24 @@
       "side": 1,
       "message": "In case this.sha256 is empty.",
       "parentUuid": "8d973151_300c633f",
+      "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfb28af0_24ba3f6a",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-10T16:26:43Z",
+      "side": 1,
+      "message": "See suggestion above.\n\n```suggestion\n            if (sha256.size \u003d\u003d 1 \u0026\u0026 other.sha256.size \u003d\u003d 1) {\n```",
+      "parentUuid": "226f731d_abd05599",
       "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
