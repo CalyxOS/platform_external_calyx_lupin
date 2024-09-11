@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "504665d5_9e013528",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-11T20:24:06Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "580bdbd4_56822a31",
+      "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "12581bd3_f49217b0",
         "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
         "patchSetId": 2
@@ -101,6 +119,42 @@
       "side": 1,
       "message": "See suggestion above.\n\n```suggestion\n            if (sha256.size \u003d\u003d 1 \u0026\u0026 other.sha256.size \u003d\u003d 1) {\n```",
       "parentUuid": "226f731d_abd05599",
+      "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe0972c4_f5b0329e",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-11T20:24:06Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "bfb28af0_24ba3f6a",
+      "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11dee5f9_1d08f763",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/install/AppInstaller.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-11T20:24:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfb28af0_24ba3f6a",
       "revId": "6543889e3feecfe0fef2aab6a1c435416ba25910",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
