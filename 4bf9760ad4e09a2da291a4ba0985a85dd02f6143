@@ -16,6 +16,24 @@
       "message": "This drops the background color of the surface. Are there any issues with that? Did you test in light and dark theme and also the Android Studio previews?",
       "revId": "4bf9760ad4e09a2da291a4ba0985a85dd02f6143",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0491175a_47a4d477",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/InstallPage.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2024-10-09T12:06:29Z",
+      "side": 0,
+      "message": "Scaffold defaults to `MaterialTheme.colorScheme.background` as background color for the container. Looks fine in all 3 mentioned places.",
+      "parentUuid": "60c1b22a_ea6d14c8",
+      "revId": "4bf9760ad4e09a2da291a4ba0985a85dd02f6143",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
