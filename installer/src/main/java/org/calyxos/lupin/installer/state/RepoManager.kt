@@ -25,7 +25,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 internal const val REPO_INDEX = "index-v1.jar"
-internal const val REPO_PATH = "/product/fdroid/repo"
+internal const val REPO_PATH = "/product/app/fdroid/repo"
 internal const val REPO_URL = "https://fdroid-repo.calyxinstitute.org/non/existent/repo"
 internal const val CATEGORY_ALWAYS_INSTALL = "AlwaysInstall"
 internal const val CATEGORY_DEFAULT = "Default"
