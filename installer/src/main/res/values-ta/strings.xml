@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="install_page_title">கூடுதல் பயன்பாடுகள்</string>
+    <string name="install_page_subtitle">கூடுதல் பயன்பாடுகளை மதிப்பாய்வு செய்யவும். நீங்கள் அவற்றை பின்னர் நிறுவலாம்.</string>
+    <string name="install_page_all">பின்வரும் பயன்பாடுகள் அனைத்தும்</string>
+    <string name="install_page_offline">ஆன்லைனில் இருக்கும்போது மட்டுமே நிறுவ முடியும்</string>
+    <string name="install">நிறுவவும்</string>
+    <string name="more">மேலும்</string>
+    <string name="installed">நிறுவப்பட்டது</string>
+    <string name="error_not_installed">பிழை. நிறுவப்படவில்லை.</string>
+    <string name="app_name">கலிக்சோச் பயன்பாட்டு நிறுவி</string>
+    <string name="install_notification_title">பயன்பாடுகளை நிறுவுதல்…</string>
+    <string name="skip">தவிர்</string>
+    <string name="next">அடுத்தது</string>
+</resources>
