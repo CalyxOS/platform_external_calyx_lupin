@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS 應用程式安裝程式</string>
+    <string name="install_page_title">其他應用程式</string>
+    <string name="install_page_all">以下所有應用程式</string>
+    <string name="install_page_offline">只能在連線時安裝</string>
+    <string name="install_notification_title">安裝應用程式中…</string>
+    <string name="skip">跳過</string>
+    <string name="next">下一個</string>
+    <string name="more">更多</string>
+    <string name="installed">已安裝</string>
+    <string name="error_not_installed">錯誤。未安裝。</string>
+    <string name="install_page_subtitle">查看其他應用程式。您也可以稍後安裝它們。</string>
+    <string name="install">安裝</string>
+</resources>
