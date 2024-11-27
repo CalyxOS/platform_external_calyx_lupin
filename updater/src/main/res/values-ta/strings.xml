@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">கலிக்சோச் பயன்பாட்டு புதுப்பிப்பு</string>
+    <string name="back">பின்</string>
+    <string name="now">இப்போது</string>
+    <string name="never">ஒருபோதும்</string>
+    <string name="notification_update_title">பயன்பாடுகளைப் புதுப்பித்தல்</string>
+    <string name="notification_confirmation_title">பயன்பாட்டு புதுப்பிப்புகளை உறுதிப்படுத்தவும்</string>
+    <string name="cancel">ரத்துசெய்</string>
+    <string name="status_screen_last_check">கடைசி புதுப்பிப்பு சோதனை: %s</string>
+    <string name="status_screen_check_button">இப்போது சரிபார்க்க</string>
+    <string name="status_screen_title">பயன்பாட்டு புதுப்பிப்புகள்</string>
+    <string name="channel_update_name">அறிவிப்பைப் புதுப்பிக்கவும்</string>
+    <string name="channel_update_description">பயன்பாடுகளைப் புதுப்பிக்கும்போது காட்டப்பட்டுள்ளது</string>
+    <string name="channel_confirmation_name">புதுப்பிப்பு அறிவிப்பை உறுதிப்படுத்தவும்</string>
+    <string name="channel_confirmation_description">புதுப்பிப்புகளை நிறுவ பயனர் உறுதிப்படுத்தல் தேவைப்பட்டால் மட்டுமே காண்பிக்கப்படுகிறது</string>
+</resources>

@@ -7,4 +7,7 @@
     <string name="cancel">キャンセル</string>
     <string name="app_name">CalyxOS アプリ アップデーター</string>
     <string name="now">現在</string>
+    <string name="notification_confirmation_title">アプリのアップデートを確認する</string>
+    <string name="channel_update_name">通知の更新</string>
+    <string name="channel_confirmation_description">アップデートをインストールする際にユーザーによる確認が必要です</string>
 </resources>
