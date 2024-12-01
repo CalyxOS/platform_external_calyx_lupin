@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Інсталятар праграм CalyxOS</string>
+    <string name="app_name">Усталяванне праграм CalyxOS</string>
     <string name="install_page_title">Дадатковыя праграмы</string>
     <string name="install_page_all">Усе ніжэйшыя праграмы</string>
-    <string name="install_page_offline">Магчыма заінсталяваць толькі пры спалучэнні з сяцівай</string>
-    <string name="install_notification_title">Інсталяванне праграм…</string>
+    <string name="install_page_offline">Магчыма усталяваць толькі пры спалучэнні з сяцівай</string>
+    <string name="install_notification_title">Усталяванне…</string>
     <string name="skip">Прапусціць</string>
-    <string name="install">Заінсталяваць</string>
+    <string name="install">Усталяваць</string>
     <string name="next">Далей</string>
     <string name="more">Болей</string>
-    <string name="installed">Заінсталявана</string>
-    <string name="error_not_installed">Памылка. Не заінсталявалася.</string>
+    <string name="installed">Усталяваны</string>
+    <string name="error_not_installed">Памылка. Не усталявана.</string>
     <string name="install_page_subtitle">Азнаёмся з дадатковымі праграмамі. Можаш заінсталяваць іх пазней.</string>
 </resources>
