@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "967e205b_3e879532",
+        "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2024-12-02T22:22:11Z",
+      "side": 1,
+      "message": "What would the implications be if it is present in both? On first thought nothing negative immediately comes to mind",
+      "parentUuid": "d65c28b4_bc1eeaf5",
+      "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10b6168c_1e367d8b",
         "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
         "patchSetId": 3
@@ -144,6 +162,30 @@
       "side": 1,
       "message": "Good point, in theory it is possible that the user has a different app with the same package name.\n\nWould it be an issue in practice though? The user already has the app installed.",
       "parentUuid": "522b1969_3859bb78",
+      "range": {
+        "startLine": 204,
+        "startChar": 55,
+        "endLine": 204,
+        "endChar": 59
+      },
+      "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81741a7d_5e5d8b49",
+        "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2024-12-02T22:22:11Z",
+      "side": 1,
+      "message": "Right, if the user already has a package that goes by the same package name but has a different signature, the error code should reflect that rather than version downgrade. I don\u0027t see how that would be an issue in this case.\nPersonally, I think it makes sense to let Lupin try to install as normal and we react based on the result or error, meaning this would be the place for our handling.",
+      "parentUuid": "946c9000_2bd64847",
       "range": {
         "startLine": 204,
         "startChar": 55,
