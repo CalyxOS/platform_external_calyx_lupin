@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25d0d9ae_7a04d02e",
+        "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2024-12-06T22:58:34Z",
+      "side": 1,
+      "message": "How would we want to handle a downgrade scenario in the updater? I\u0027m guessing different result? The call to install existing package should result in a no-op. We could make the sending of a success result conditional on `installExistingPackage` working as expected",
+      "parentUuid": "068ce223_6a6add2e",
+      "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10b6168c_1e367d8b",
         "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
         "patchSetId": 3
@@ -228,6 +246,30 @@
       "side": 1,
       "message": "\u003e  the error code should reflect that rather than version downgrade. \n\nHave you / Can you verify that?",
       "parentUuid": "81741a7d_5e5d8b49",
+      "range": {
+        "startLine": 204,
+        "startChar": 55,
+        "endLine": 204,
+        "endChar": 59
+      },
+      "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36ac2edc_01ff1d80",
+        "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2024-12-06T22:58:34Z",
+      "side": 1,
+      "message": "Looks like it\u0027s not the case. Error for version downgrade is thrown before checking signature mismatch",
+      "parentUuid": "68dbf90b_b02657de",
       "range": {
         "startLine": 204,
         "startChar": 55,
