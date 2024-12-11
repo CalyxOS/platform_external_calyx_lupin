@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7dd2275c_4df61a91",
+        "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-12-11T12:37:17Z",
+      "side": 1,
+      "message": "I think if the updater encounters a downgrade, then it is an error we\u0027d at least want to log, but not proceed with an update as the only explanation is that the package got updated after the updater had checked for updates and applying it.\n\nMy preference is for not handling this when receiving the broadcast on the UiThread at all, but earlier. We could also open the ApkInstaller for extension, so the lupin installer could implement a hook as needed without influencing the updater at all.",
+      "parentUuid": "53d5bce8_c02cc119",
+      "revId": "2e649b2fcb5b5fb7c9bc13fcf1d75059c70e11da",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10b6168c_1e367d8b",
         "filename": "shared/src/main/java/org/calyxos/lupin/ApkInstaller.kt",
         "patchSetId": 3
