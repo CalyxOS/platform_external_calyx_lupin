@@ -6,7 +6,11 @@
 package org.calyxos.lupin.installer.install
 
 import android.content.Context
+import android.content.pm.PackageInfo
+import android.content.pm.PackageInstaller.STATUS_FAILURE_INVALID
+import android.content.pm.PackageInstaller.STATUS_SUCCESS
 import android.content.pm.PackageInstaller.SessionParams
+import android.content.pm.PackageManager
 import android.content.pm.PackageManager.GET_SIGNATURES
 import android.content.pm.PackageManager.GET_SIGNING_CERTIFICATES
 import android.content.pm.PackageManager.INSTALL_SCENARIO_BULK
@@ -26,6 +30,7 @@ import org.calyxos.lupin.installer.state.UiState
 import org.fdroid.index.IndexUtils.getPackageSigner
 import org.fdroid.index.v2.SignerV2
 import java.io.File
+import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -94,14 +99,42 @@ class AppInstaller @Inject constructor(
             return InstallResult(e)
         }
         return try {
-            if (!isValidSignature(file, item)) {
-                val e = SecurityException("Invalid signature for ${item.packageName}")
-                return InstallResult(e)
+            val packageInfo = verifyAndGetPackageInfo(file, item)
+
+            if (packageInfo == null) { // app is not installed
+                val result = apkInstaller.install(item.packageName, file) {
+                    setInstallScenario(INSTALL_SCENARIO_BULK)
+                    setInstallerPackageNameCompat(INSTALLER_PACKAGE_NAME)
+                }
+                // the app wasn't installed, so if we get a downgrade complaint,
+                // it must already be installed in another profile
+                return if (result.status == STATUS_FAILURE_INVALID &&
+                    result.msg?.contains("INSTALL_FAILED_VERSION_DOWNGRADE") == true
+                ) {
+                    // make app available in this profile
+                    apkInstaller.installExisting(item.packageName)
+                } else {
+                    result // no special complaint, so just return install result
+                }
+            } else if (packageInfo.signingInfo?.getSigner().verify(item.signers)) {
+                // app was already installed and signature of installed app just got verified
+                if (packageInfo.longVersionCode < item.versionCode) {
+                    // we have a newer version, so install upgrade (with same signature)
+                    apkInstaller.install(item.packageName, file) {
+                        setInstallScenario(INSTALL_SCENARIO_BULK)
+                        setInstallerPackageNameCompat(INSTALLER_PACKAGE_NAME)
+                    }
+                } else {
+                    // already installed with the right signature and equal or newer version
+                    InstallResult(STATUS_SUCCESS, null)
+                }
+            } else {
+                // app is already installed, but with a different signature
+                InstallResult(SecurityException("Invalid signature for ${item.packageName}"))
             }
-            apkInstaller.install(item.packageName, file) {
-                setInstallScenario(INSTALL_SCENARIO_BULK)
-                setInstallerPackageNameCompat(INSTALLER_PACKAGE_NAME)
-            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error installing APK: ", e)
+            return InstallResult(e)
         } finally {
             try {
                 file.delete()
@@ -110,18 +143,26 @@ class AppInstaller @Inject constructor(
         }
     }
 
-    private fun isValidSignature(file: File, item: AppItem): Boolean {
+    private fun verifyAndGetPackageInfo(file: File, item: AppItem): PackageInfo? {
+        @Suppress("DEPRECATION") // still needed last time we checked
         val flags = GET_SIGNING_CERTIFICATES or GET_SIGNATURES
-        val packageInfo =
-            context.packageManager.getPackageArchiveInfo(file.absolutePath, flags) ?: return false
+        val packageInfo = context.packageManager.getPackageArchiveInfo(file.absolutePath, flags)
+            ?: throw IOException("Could not get PackageArchiveInfo")
         if (item.packageName != packageInfo.packageName) {
             Log.e(
                 TAG,
                 "Package ${item.packageName} expected, but ${packageInfo.packageName} found."
             )
-            return false
+            throw IllegalStateException("Unexpected package name: ${packageInfo.packageName}")
         }
-        return packageInfo.signingInfo?.getSigner().verify(item.signers)
+        if (!packageInfo.signingInfo?.getSigner().verify(item.signers)) {
+            throw SecurityException("Invalid signature for ${item.packageName}")
+        }
+        return try {
+            context.packageManager.getPackageInfo(item.packageName, flags)
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
     }
 
     /**

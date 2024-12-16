@@ -9,6 +9,7 @@
 
 package org.calyxos.lupin
 
+import android.Manifest.permission.INSTALL_PACKAGES
 import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
 import android.app.PendingIntent.FLAG_MUTABLE
@@ -33,8 +34,10 @@ import android.content.pm.PackageInstaller.STATUS_SUCCESS
 import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageInstaller.SessionParams.MODE_FULL_INSTALL
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.INSTALL_REASON_USER
 import android.content.pm.PackageManager.PackageInfoFlags
 import android.util.Log
+import androidx.annotation.RequiresPermission
 import androidx.annotation.UiThread
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat.startActivity
@@ -55,7 +58,7 @@ const val STATUS_WAITING_FOR_USER_ACTION = Int.MAX_VALUE - 1
 data class InstallResult(
     val status: Int,
     val msg: String?,
-    val exception: Exception? = null
+    val exception: Exception? = null,
 ) {
     constructor(exception: Exception) : this(Int.MAX_VALUE, null, exception)
 
@@ -99,7 +102,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
         packageName: String,
         packageFile: File,
         userActionListener: UserActionRequiredListener = userActionRequiredListener,
-        sessionConfig: (SessionParams.() -> Unit)? = null
+        sessionConfig: (SessionParams.() -> Unit)? = null,
     ): InstallResult = suspendCancellableCoroutine { cont ->
         val broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, i: Intent) {
@@ -131,7 +134,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
     private fun performInstall(
         packageName: String,
         packageFile: File,
-        sessionConfig: (SessionParams.() -> Unit)?
+        sessionConfig: (SessionParams.() -> Unit)?,
     ) {
         if (!packageFile.isFile) throw IOException("Cannot read package file $packageFile")
 
@@ -157,6 +160,41 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
     }
 
     /**
+     * Use when the app is already installed in another profile and can not be installed normally,
+     * e.g. because the available version is older than what is installed.
+     */
+    @RequiresPermission(
+        allOf = [INSTALL_PACKAGES, "com.android.permission.INSTALL_EXISTING_PACKAGES"]
+    )
+    suspend fun installExisting(
+        packageName: String,
+    ): InstallResult = suspendCancellableCoroutine { cont ->
+        val broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, i: Intent) {
+                if (i.action != BROADCAST_ACTION) return
+                val result = onBroadcastReceived(i, packageName, userActionRequiredListener)
+                if (result != null) {
+                    context.unregisterReceiver(this)
+                    cont.resume(result)
+                }
+            }
+        }
+        context.registerReceiver(
+            broadcastReceiver,
+            IntentFilter(BROADCAST_ACTION),
+            RECEIVER_NOT_EXPORTED,
+        )
+        cont.invokeOnCancellation { context.unregisterReceiver(broadcastReceiver) }
+        try {
+            installer.installExistingPackage(packageName, INSTALL_REASON_USER, intentSender)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error installing $packageName", e)
+            context.unregisterReceiver(broadcastReceiver)
+            cont.resume(InstallResult(e))
+        }
+    }
+
+    /**
      * Call this when receiving the [STATUS_PENDING_USER_ACTION] intent
      * for the [PackageInstaller.Session].
      *
@@ -168,7 +206,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
     private fun onBroadcastReceived(
         i: Intent,
         expectedPackageName: String,
-        userActionListener: UserActionRequiredListener
+        userActionListener: UserActionRequiredListener,
     ): InstallResult? {
         val packageName = i.getStringExtra(EXTRA_PACKAGE_NAME)
         // packageName is not always set, e.g. for STATUS_PENDING_USER_ACTION
