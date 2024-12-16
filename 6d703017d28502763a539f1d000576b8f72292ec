@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b9bfd3b_54f2ad75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2024-12-16T20:54:09Z",
+      "side": 1,
+      "message": "My suggestion: https://review.calyxos.org/c/CalyxOS/platform_external_calyx_lupin/+/33358",
+      "revId": "6d703017d28502763a539f1d000576b8f72292ec",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
