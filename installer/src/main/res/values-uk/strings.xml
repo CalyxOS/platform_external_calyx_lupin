@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Встановлювач застосунків CalyxOS</string>
-    <string name="install_page_title">Додаткові застосунки</string>
-    <string name="install_page_subtitle">Ознайомтеся з додатковими застосунками. Ви можете встановити їх пізніше.</string>
-    <string name="install_page_all">Усі наступні застосунки</string>
-    <string name="install_notification_title">Встановлення застосунків…</string>
+    <string name="app_name">Встановлювач програм CalyxOS</string>
+    <string name="install_page_title">Додаткові програми</string>
+    <string name="install_page_subtitle">Ознайомтеся з додатковими програмами. Ви можете встановити їх пізніше.</string>
+    <string name="install_page_all">Усі наступні програми</string>
+    <string name="install_notification_title">Встановлення програм…</string>
     <string name="skip">Пропустити</string>
     <string name="install">Встановити</string>
     <string name="next">Далі</string>

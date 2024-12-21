@@ -5,4 +5,11 @@
     <string name="more">കൂടുതൽ</string>
     <string name="install_page_title">അധിക പ്രയോഗങ്ങൾ</string>
     <string name="install_page_all">ഇപ്പറയുന്ന എല്ലാ പ്രയോഗങ്ങളും</string>
+    <string name="install">സ്ഥാപിക്കുക</string>
+    <string name="install_notification_title">പ്രയോഗങ്ങൾ സ്ഥാപിക്കുന്നു…</string>
+    <string name="install_page_subtitle">അധിക പ്രയോഗങ്ങൾ അവലോകനം ചെയ്യുക. നിങ്ങൾക്ക് അവ പിന്നീട് സ്ഥാപിക്കാൻ കഴിയും.</string>
+    <string name="app_name">കാലിക്സ് ഒഎസ് പ്രയോഗ സ്ഥാപകൻ</string>
+    <string name="installed">സ്ഥാപിച്ചു</string>
+    <string name="error_not_installed">പിശക്. സ്ഥാപിച്ചിട്ടില്ല.</string>
+    <string name="install_page_offline">ഓൺലൈനിൽ ആയിരിക്കുമ്പോൾ മാത്രമേ സ്ഥാപിക്കാൻ കഴിയൂ</string>
 </resources>
