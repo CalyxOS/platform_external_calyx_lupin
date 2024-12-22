@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Instalacijski program za CalyxOS App</string>
-    <string name="install_notification_title">Instaliranje programa …</string>
+    <string name="app_name">CalyxOS App Installer</string>
+    <string name="install_notification_title">Instaliranje aplikacija …</string>
     <string name="skip">Preskoči</string>
     <string name="install">Instaliraj</string>
     <string name="next">Dalje</string>
     <string name="more">Više</string>
     <string name="installed">Instalirano</string>
     <string name="error_not_installed">Greška. Nije instalirano.</string>
-    <string name="install_page_title">Dodatni programi</string>
-    <string name="install_page_subtitle">Pregledaj dodatne programe. Možeš ih instalirati i kasnije.</string>
-    <string name="install_page_all">Sve sljedeće programe</string>
+    <string name="install_page_title">Dodatne aplikacije</string>
+    <string name="install_page_subtitle">Pregledaj dodatne aplikacije. Možeš ih instalirati i kasnije.</string>
+    <string name="install_page_all">Sve sljedeće aplikacije</string>
     <string name="install_page_offline">Može se instalirati samo kada postoji internetska veza</string>
 </resources>
