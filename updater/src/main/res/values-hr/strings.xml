@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS App Updater</string>
+    <string name="never">nikada</string>
+    <string name="cancel">Odustani</string>
+    <string name="back">Natrag</string>
+    <string name="now">sada</string>
+    <string name="status_screen_last_check">Zadnja provjera aktualiziranja: %s</string>
+    <string name="status_screen_check_button">Provjeri sada</string>
+    <string name="status_screen_title">Aktualiziranja aplikacija</string>
+    <string name="notification_update_title">Aktualiziranje aplikacija</string>
+    <string name="channel_update_description">Prikazuje se tijekom aktualiziranja aplikacija</string>
+    <string name="notification_confirmation_title">Potvrdi aktualiziranja aplikacija</string>
+    <string name="channel_update_name">Obavijest o aktualiziranju</string>
+    <string name="channel_confirmation_name">Potvrdi obavijesti o aktualiziranjima</string>
+    <string name="channel_confirmation_description">Prikazuje se samo ako instaliranje aktualiziranja zahtijeva potvrdu od korisnika</string>
+</resources>
