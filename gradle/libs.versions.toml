@@ -1,7 +1,7 @@
 [versions]
 activityVersion = "1.9.3"
 androidGradleVersion = "8.7.3"
-coilVersion = "2.7.0"
+coilVersion = "3.0.4"
 composeBom = "2024.12.01"
 coreVersion = "1.15.0"
 coroutinesVersion = "1.10.1"
@@ -34,7 +34,7 @@ androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lif
 androidx-lifecycle-service = { group = "androidx.lifecycle", name = "lifecycle-service", version.ref = "lifecycleVersion" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedataVersion" }
 androidx-work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workVersion" }
-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilVersion" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilVersion" }
 fdroid-download = { group = "org.fdroid", name = "download", version.ref = "fdroidVersion" }
 fdroid-index = { group = "org.fdroid", name = "index", version.ref = "fdroidVersion" }
 github-microutils-kotlin-logging = { group = "io.github.microutils", name = "kotlin-logging", version.ref = "kotlinLoggingVersion" }
