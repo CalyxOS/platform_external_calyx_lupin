@@ -244,7 +244,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
     private val userActionRequiredListener = UserActionRequiredListener { _, _, intent ->
         if (canStartActivity()) {
             intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-            startActivity(context, intent, null)
+            context.startActivity(intent)
             true
         } else {
             false

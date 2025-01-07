@@ -80,7 +80,7 @@ class InstallManager @Inject constructor(
         log.info { "User confirmation required for $packageName" }
         return if (apkInstaller.canStartActivity()) {
             intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
-            startActivity(context, intent, null)
+            context.startActivity(intent)
             true
         } else {
             val manualUpdate = ManualUpdate(packageName, update, sessionId, intent)
