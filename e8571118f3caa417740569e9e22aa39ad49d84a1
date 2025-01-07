@@ -16,6 +16,24 @@
       "message": "Need to upgrade to coil 3.x",
       "revId": "e8571118f3caa417740569e9e22aa39ad49d84a1",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52d633d2_2a7761e1",
+        "filename": "gradle/libs.versions.toml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2025-01-07T05:14:40Z",
+      "side": 1,
+      "message": "Done in I4a6e25d6b73ba8632664bbace415855c1ad0ac9a",
+      "parentUuid": "451f736a_dae058d7",
+      "revId": "e8571118f3caa417740569e9e22aa39ad49d84a1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
