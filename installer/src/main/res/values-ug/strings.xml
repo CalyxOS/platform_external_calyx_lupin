@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS ئەپ ئورناتقۇچ</string>
+    <string name="install_page_title">قوشۇمچە ئەپ</string>
+    <string name="install_page_subtitle">قوشۇمچە ئەپنى كۆرسىتىدۇ. كېيىنچە ئۇلارنى ئورنىتالايسىز.</string>
+    <string name="install_page_all">تۆۋەندىكى بارلىق ئەپ</string>
+    <string name="install_page_offline">توردىلا ئورناتقىلى بولىدۇ</string>
+    <string name="install_notification_title">ئەپ ئورنىتىۋاتىدۇ…</string>
+    <string name="skip">ئاتلا</string>
+    <string name="install">ئورنات</string>
+    <string name="next">كېيىنكى</string>
+    <string name="more">تېخىمۇ كۆپ</string>
+    <string name="installed">ئورنىتىلغان</string>
+    <string name="error_not_installed">خاتالىق. ئورنىتىلمىغان.</string>
+</resources>

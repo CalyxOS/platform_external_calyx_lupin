@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="notification_update_title">ئەپ يېڭىلاۋاتىدۇ</string>
+    <string name="notification_confirmation_title">ئەپ يېڭىلاشنى جەزملەيدۇ</string>
+    <string name="channel_update_name">يېڭىلاش ئۇقتۇرۇشى</string>
+    <string name="channel_update_description">ئەپ يېڭىلىغاندا كۆرسىتىدۇ</string>
+    <string name="channel_confirmation_name">يېڭىلاش ئۇقتۇرۇشىنى جەزملەيدۇ</string>
+    <string name="channel_confirmation_description">ئەگەر يېڭىلاشنى ئىشلەتكۈچى جەزملەش تەلەپ قىلىنغاندىلا كۆرسىتىدۇ</string>
+    <string name="app_name">CalyxOS ئەپ يېڭىلىغۇچ</string>
+    <string name="back">قايت</string>
+    <string name="now">ھازىر</string>
+    <string name="never">ھەرگىز</string>
+    <string name="cancel">ۋاز كەچ</string>
+    <string name="status_screen_last_check">ئاخىرقى يېڭىلاشنى تەكشۈرگەن ۋاقىت: %s</string>
+    <string name="status_screen_check_button">ھازىر تەكشۈر</string>
+    <string name="status_screen_title">ئەپ يېڭىلاش</string>
+</resources>
