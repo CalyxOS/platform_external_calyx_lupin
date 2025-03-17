@@ -33,6 +33,24 @@
       "message": "Abandon?",
       "revId": "06bb6bad1b5d840a4c181478bf45fad11e965d3f",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec2000ca_80bf07ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2025-03-17T11:46:05Z",
+      "side": 1,
+      "message": "I think lots of info from the readme is actually very up to date and informative still. I had forgotten about it and it would have helped me. So if not here, I think it is good this stuff is documented.",
+      "parentUuid": "ab545386_c28867d2",
+      "revId": "06bb6bad1b5d840a4c181478bf45fad11e965d3f",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
