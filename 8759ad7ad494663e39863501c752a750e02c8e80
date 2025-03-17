@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90cededa_a6bd1f2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2025-03-17T09:18:13Z",
+      "side": 1,
+      "message": "Considering this was buggy with f-droid, do we still want to do this?",
+      "revId": "8759ad7ad494663e39863501c752a750e02c8e80",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
