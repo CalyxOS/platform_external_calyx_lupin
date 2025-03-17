@@ -16,6 +16,24 @@
       "message": "Considering this was buggy with f-droid, do we still want to do this?",
       "revId": "8759ad7ad494663e39863501c752a750e02c8e80",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3240ba49_0e5baee8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2025-03-17T11:46:00Z",
+      "side": 1,
+      "message": "No, it is DO NOT MERGE for a reason ;)",
+      "parentUuid": "90cededa_a6bd1f2e",
+      "revId": "8759ad7ad494663e39863501c752a750e02c8e80",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
