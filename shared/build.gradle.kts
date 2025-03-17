@@ -10,6 +10,10 @@ plugins {
     alias(libs.plugins.ktlint)
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 android {
     namespace = "org.calyxos.lupin"
     compileSdk = rootProject.extra["sdk"] as Int
@@ -35,11 +39,11 @@ android {
         compose = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 
