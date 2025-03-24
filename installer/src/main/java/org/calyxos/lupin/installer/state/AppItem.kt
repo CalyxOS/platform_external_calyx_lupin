@@ -13,14 +13,14 @@ import org.fdroid.index.v2.SignerV2
 import java.io.File
 
 sealed class AppItemState {
-    object ShowOnly : AppItemState()
-    class Selectable(val selected: Boolean) : AppItemState() {
+    data object ShowOnly : AppItemState()
+    data class Selectable(val selected: Boolean) : AppItemState() {
         fun invert() = Selectable(!selected)
     }
 
-    object Progress : AppItemState()
-    object Success : AppItemState()
-    object Error : AppItemState()
+    data object Progress : AppItemState()
+    data object Success : AppItemState()
+    data object Error : AppItemState()
 }
 
 fun interface DownloadListener {
