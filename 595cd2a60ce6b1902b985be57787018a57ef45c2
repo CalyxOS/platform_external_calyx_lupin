@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f03b89c3_08d5095e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2025-03-24T14:11:17Z",
+      "side": 1,
+      "message": "looks good, but needs proper testing after such a dependency bump",
+      "revId": "595cd2a60ce6b1902b985be57787018a57ef45c2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
