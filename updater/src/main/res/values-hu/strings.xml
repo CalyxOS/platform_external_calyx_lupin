@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS App Frissítő</string>
+    <string name="status_screen_last_check">Utolsó frissítés ellenőrzés: %s</string>
+    <string name="status_screen_check_button">Ellenőrzés most</string>
+    <string name="status_screen_title">App frissítések</string>
+    <string name="notification_update_title">Appok frissítése</string>
+    <string name="notification_confirmation_title">Appok frissítésének megerősítése</string>
+    <string name="channel_confirmation_name">Frissítések jóváhagyásának értesítése</string>
+    <string name="cancel">Mégse</string>
+    <string name="back">Vissza</string>
+    <string name="now">most</string>
+    <string name="channel_update_name">Értesítés frissítése</string>
+    <string name="never">soha</string>
+    <string name="channel_update_description">Megjeleníti amíg frissíti az appokat</string>
+    <string name="channel_confirmation_description">Csak akkor jelenik meg, ha a telepítést a felhasználónak jóvá kell hagynia</string>
+</resources>

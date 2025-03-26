@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS rakenduste uuendaja</string>
+    <string name="back">Tagasi</string>
+    <string name="now">nüüd</string>
+    <string name="notification_update_title">Rakenduste uuendamine</string>
+    <string name="notification_confirmation_title">Kinnita rakenduste uuendused</string>
+    <string name="channel_confirmation_name">Kinnita uuenduste märguanne</string>
+    <string name="channel_confirmation_description">Kuvatakse ainult siis, kui uuenduste paigaldamine nõuab kasutaja kinnitust</string>
+    <string name="cancel">Tühista</string>
+    <string name="channel_update_name">Uuenduste märguanne</string>
+    <string name="status_screen_last_check">Viimane uuenduste kontroll: %s</string>
+    <string name="never">mitte kunagi</string>
+    <string name="status_screen_check_button">Otsi kohe</string>
+    <string name="channel_update_description">Kuvatakse rakenduste uuendamise ajal</string>
+    <string name="status_screen_title">Rakenduste uuendused</string>
+</resources>
