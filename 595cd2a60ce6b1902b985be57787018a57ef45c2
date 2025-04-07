@@ -16,6 +16,24 @@
       "message": "looks good, but needs proper testing after such a dependency bump",
       "revId": "595cd2a60ce6b1902b985be57787018a57ef45c2",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "271a226c_7edb17fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000065
+      },
+      "writtenOn": "2025-04-07T05:49:45Z",
+      "side": 1,
+      "message": "Seems to work fine",
+      "parentUuid": "f03b89c3_08d5095e",
+      "revId": "595cd2a60ce6b1902b985be57787018a57ef45c2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
