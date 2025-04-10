@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">CalyxOS App Telepítő</string>
+    <string name="install_page_title">További appok</string>
+    <string name="install_page_subtitle">További appok áttekintése. Később is telepítheti őket.</string>
+    <string name="install_page_all">Minden alábbi app</string>
+    <string name="install_page_offline">Csak akkor tud telepíteni, ha online</string>
+    <string name="install_notification_title">Appok telepítése…</string>
+    <string name="skip">Átugrás</string>
+    <string name="install">Telepítés</string>
+    <string name="next">Következő</string>
+    <string name="more">További</string>
+    <string name="installed">Telepített</string>
+    <string name="error_not_installed">Hiba. Nincs telepítve.</string>
+</resources>

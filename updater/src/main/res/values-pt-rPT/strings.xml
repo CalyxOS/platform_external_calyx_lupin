@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Atualizador de apps do CalyxOS</string>
+    <string name="back">Voltar</string>
+    <string name="never">nunca</string>
+    <string name="now">agora</string>
+    <string name="cancel">Cancelar</string>
+    <string name="status_screen_last_check">Última busca por atualizações: %s</string>
+    <string name="status_screen_check_button">Buscar agora</string>
+    <string name="status_screen_title">Atualizações de apps</string>
+    <string name="notification_update_title">A atualizar apps</string>
+    <string name="notification_confirmation_title">Confirmar atualizações de apps</string>
+    <string name="channel_update_name">Notificação de atualização</string>
+    <string name="channel_update_description">Mostrado enquanto apps são atualizados</string>
+    <string name="channel_confirmation_name">Notificação de confirmar atualizações</string>
+    <string name="channel_confirmation_description">Mostrado somente se instalar atualizações requer confirmação do utilizador</string>
+</resources>

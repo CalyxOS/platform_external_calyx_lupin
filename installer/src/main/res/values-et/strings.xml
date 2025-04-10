@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="install_page_title">Täiendavad rakendused</string>
+    <string name="install_page_offline">Saab paigaldada ainult võrguühendusega</string>
+    <string name="install_notification_title">Rakenduste paigaldamine…</string>
+    <string name="error_not_installed">Viga. Ei paigaldatud.</string>
+    <string name="next">Edasi</string>
+    <string name="installed">Paigaldatud</string>
+    <string name="app_name">CalyxOS rakenduste paigaldaja</string>
+    <string name="skip">Jäta vahele</string>
+    <string name="install_page_subtitle">Vaata üle täiendavad rakendused. Neid saab paigaldada ka hiljem.</string>
+    <string name="install_page_all">Kõik järgnevad rakendused</string>
+    <string name="install">Paigalda</string>
+    <string name="more">Rohkem</string>
+</resources>

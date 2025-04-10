@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">مثبت تطبيقات CalyxOS</string>
     <string name="install_page_title">تطبيقات إضافية</string>
+    <string name="install">تثبيت</string>
+    <string name="skip">تخطي</string>
+    <string name="next">التالي</string>
+    <string name="more">المزيد</string>
+    <string name="installed">مثبت</string>
 </resources>
