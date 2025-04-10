@@ -2,16 +2,16 @@
 <resources>
     <string name="status_screen_check_button">Jetzt überprüfen</string>
     <string name="back">Zurück</string>
-    <string name="app_name">CalyxOS App-Updater</string>
+    <string name="app_name">CalyxOS App-Aktualisierer</string>
     <string name="now">jetzt</string>
     <string name="never">nie</string>
     <string name="notification_update_title">Aktualisiere Apps</string>
     <string name="cancel">Abbrechen</string>
     <string name="status_screen_last_check">Letzte Aktualisierungsprüfung: %s</string>
-    <string name="notification_confirmation_title">App-Updates bestätigen</string>
+    <string name="notification_confirmation_title">App-Aktualisierungen bestätigen</string>
     <string name="channel_update_name">Benachrichtigung über Aktualisierung</string>
     <string name="channel_update_description">Wird beim Aktualisieren von Apps angezeigt</string>
     <string name="channel_confirmation_name">Benachrichtigung über Aktualisierungen bestätigen</string>
-    <string name="channel_confirmation_description">Wird nur angezeigt, wenn die Installation von Updates eine Bestätigung des Benutzers erfordert</string>
-    <string name="status_screen_title">App-Updates</string>
+    <string name="channel_confirmation_description">Nur angezeigt, wenn die Installation von Aktualisierungen eine Nutzerbestätigung erfordert</string>
+    <string name="status_screen_title">App-Aktualisierungen</string>
 </resources>
