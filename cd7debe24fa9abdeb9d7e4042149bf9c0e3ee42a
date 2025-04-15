@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "251eafc0_52532b98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2025-04-15T16:36:46Z",
+      "side": 1,
+      "message": "I think we should fix ktlint instead. trailing commas are a feature, not a bug. They reduce diff lines and thus visual noise when adding/removing parameters.",
+      "revId": "cd7debe24fa9abdeb9d7e4042149bf9c0e3ee42a",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
