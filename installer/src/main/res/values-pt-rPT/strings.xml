@@ -3,13 +3,13 @@
     <string name="skip">Pular</string>
     <string name="more">Mais</string>
     <string name="install_page_title">Apps adicionais</string>
-    <string name="install_page_subtitle">Revise as apps adicionais. Pode instalá-los depois também.</string>
+    <string name="install_page_subtitle">Revise as apps adicionais. Pode instalá-las depois também.</string>
     <string name="install">Instalar</string>
     <string name="install_page_all">Todas as apps a seguir</string>
-    <string name="install_page_offline">Só pode ser instalado enquanto online</string>
+    <string name="install_page_offline">Só pode ser instalada enquanto online</string>
     <string name="install_notification_title">A instalar apps…</string>
     <string name="app_name">Instalador de apps de CalyxOS</string>
-    <string name="error_not_installed">Erro. Não foi instalado.</string>
+    <string name="error_not_installed">Erro. Não foi instalada.</string>
     <string name="next">Próximo</string>
-    <string name="installed">Instalado</string>
+    <string name="installed">Instalada</string>
 </resources>

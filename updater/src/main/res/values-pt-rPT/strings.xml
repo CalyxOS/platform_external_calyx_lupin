@@ -11,7 +11,7 @@
     <string name="notification_update_title">A atualizar apps</string>
     <string name="notification_confirmation_title">Confirmar atualizações de apps</string>
     <string name="channel_update_name">Notificação de atualização</string>
-    <string name="channel_update_description">Mostrado enquanto apps são atualizados</string>
+    <string name="channel_update_description">Mostrado enquanto apps são atualizadas</string>
     <string name="channel_confirmation_name">Notificação de confirmar atualizações</string>
     <string name="channel_confirmation_description">Mostrado somente se instalar atualizações requer confirmação do utilizador</string>
 </resources>
