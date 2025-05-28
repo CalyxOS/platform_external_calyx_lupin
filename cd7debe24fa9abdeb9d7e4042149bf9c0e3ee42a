@@ -16,6 +16,24 @@
       "message": "I think we should fix ktlint instead. trailing commas are a feature, not a bug. They reduce diff lines and thus visual noise when adding/removing parameters.",
       "revId": "cd7debe24fa9abdeb9d7e4042149bf9c0e3ee42a",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2e64547_3ed77883",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2025-05-28T09:31:28Z",
+      "side": 1,
+      "message": "I\u0027ll let someone else figure that out, until then this app is not buildable with gradle (eg. when trying to test translations)",
+      "parentUuid": "251eafc0_52532b98",
+      "revId": "cd7debe24fa9abdeb9d7e4042149bf9c0e3ee42a",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
