@@ -34,6 +34,24 @@
       "parentUuid": "251eafc0_52532b98",
       "revId": "cd7debe24fa9abdeb9d7e4042149bf9c0e3ee42a",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d0c3207_54d52df3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-05-28T21:17:44Z",
+      "side": 1,
+      "message": "`gradle build` will fail, but `gradle assemble` will work.",
+      "parentUuid": "a2e64547_3ed77883",
+      "revId": "cd7debe24fa9abdeb9d7e4042149bf9c0e3ee42a",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ],
   "submitRequirementResults": [
