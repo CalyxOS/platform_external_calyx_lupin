@@ -12,6 +12,6 @@
     <string name="channel_update_name">Benachrichtigung über Aktualisierung</string>
     <string name="channel_update_description">Wird beim Aktualisieren von Apps angezeigt</string>
     <string name="channel_confirmation_name">Benachrichtigung über Aktualisierungen bestätigen</string>
-    <string name="channel_confirmation_description">Nur angezeigt, wenn die Installation von Aktualisierungen eine Nutzerbestätigung erfordert</string>
+    <string name="channel_confirmation_description">Nur anzeigen, wenn die Installation von Aktualisierungen eine Nutzerbestätigung erfordert</string>
     <string name="status_screen_title">App-Aktualisierungen</string>
 </resources>

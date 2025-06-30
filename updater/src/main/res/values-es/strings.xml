@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Actualizador de aplicaciones CalyxOS</string>
+    <string name="app_name">Actualizador de CalyxOS</string>
     <string name="back">Atrás</string>
     <string name="now">ahora</string>
     <string name="never">nunca</string>
