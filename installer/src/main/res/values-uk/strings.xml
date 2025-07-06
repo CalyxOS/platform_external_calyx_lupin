@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Встановлювач програм CalyxOS</string>
+    <string name="app_name">Інсталятор програм CalyxOS</string>
     <string name="install_page_title">Додаткові програми</string>
     <string name="install_page_subtitle">Ознайомтеся з додатковими програмами. Ви можете встановити їх пізніше.</string>
     <string name="install_page_all">Усі наступні програми</string>

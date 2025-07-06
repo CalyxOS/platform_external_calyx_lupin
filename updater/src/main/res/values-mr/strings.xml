@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CalyxOS ॲप अपडेटर</string>
+    <string name="back">परत</string>
+    <string name="now">आता</string>
+    <string name="never">कधीही नाही</string>
+    <string name="cancel">रद्द करा</string>
+    <string name="status_screen_last_check">शेवटची अपडेट तपासणी: %s</string>
+    <string name="status_screen_check_button">आता तपासा</string>
+    <string name="notification_update_title">ॲप्स अपडेट करत आहे</string>
+    <string name="channel_update_name">सूचना अपडेट करा</string>
+    <string name="channel_update_description">ॲप्स अपडेट करताना दाखवले</string>
+    <string name="channel_confirmation_name">अपडेट्स सूचनांची पुष्टी करा</string>
 </resources>
