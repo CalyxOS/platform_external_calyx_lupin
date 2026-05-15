@@ -14,6 +14,7 @@ kotlinLoggingVersion = "3.0.5"
 kspVersion = "2.3.7"
 ktlintVersion = "11.6.1"
 lifecycleVersion = "2.10.0"
+logbackAndroid = "3.0.0"
 logbackClassicVersion = "1.5.32"
 mockkVersion = "1.14.9"
 runtimeLivedataVersion = "1.11.1"
@@ -38,6 +39,8 @@ androidx-work-runtime = { group = "androidx.work", name = "work-runtime-ktx", ve
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilVersion" }
 fdroid-download = { group = "org.fdroid", name = "download", version.ref = "fdroidVersion" }
 fdroid-index = { group = "org.fdroid", name = "index", version.ref = "fdroidVersion" }
+
+logback-android = { module = "com.github.tony19:logback-android", version.ref = "logbackAndroid" }
 github-microutils-kotlin-logging = { group = "io.github.microutils", name = "kotlin-logging", version.ref = "kotlinLoggingVersion" }
 google-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "googleHiltVersion" }
 google-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "googleHiltVersion" }

@@ -59,6 +59,7 @@ dependencies {
     api(libs.androidx.lifecycle.runtime.compose)
     api(libs.androidx.lifecycle.livedata)
 
+    api(libs.logback.android)
     api(libs.github.microutils.kotlin.logging)
 
     ksp(libs.google.hilt.compiler)
