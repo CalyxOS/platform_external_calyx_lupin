@@ -114,11 +114,6 @@ object RepoHelper {
     }
 }
 
-fun interface TempFileProvider {
-    @Throws(IOException::class)
-    fun createTempFile(prefix: String, suffix: String): File
-}
-
 fun IndexFile.getRequest(url: String): DownloadRequest {
     return DownloadRequest(this, listOf(Mirror(url)))
 }

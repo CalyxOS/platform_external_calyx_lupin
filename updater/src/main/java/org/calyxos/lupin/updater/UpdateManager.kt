@@ -28,7 +28,6 @@ import org.fdroid.index.v2.Entry
 import org.fdroid.index.v2.IndexV2
 import org.fdroid.index.v2.PackageV2
 import org.fdroid.index.v2.PackageVersionV2
-import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
@@ -40,15 +39,13 @@ internal const val PACKAGE_NAME_TRICHROME_LIB = "org.chromium.trichromelibrary"
 
 @Singleton
 class UpdateManager(
-    private val context: Context,
+    context: Context,
     private val httpManager: HttpManager,
     private val updateChecker: UpdateChecker,
     private val installManager: InstallManager,
     private val notificationManager: NotificationManager,
     private val certificate: String = CERT,
-    private val tempFileProvider: TempFileProvider = TempFileProvider { prefix, suffix ->
-        File.createTempFile(prefix, suffix, context.cacheDir)
-    },
+    private val tempFileProvider: TempFileProvider,
     private val coroutineContext: CoroutineContext = Dispatchers.IO,
 ) {
 
@@ -62,12 +59,14 @@ class UpdateManager(
         httpManager: HttpManager,
         installManager: InstallManager,
         notificationManager: NotificationManager,
+        tempFileProvider: TempFileProvider,
     ) : this(
         context = context,
         httpManager = httpManager,
         updateChecker = UpdateChecker(CompatibilityCheckerImpl(context.packageManager)),
         notificationManager = notificationManager,
         installManager = installManager,
+        tempFileProvider = tempFileProvider,
     )
 
     suspend fun downloadEntry(): Entry? = withContext(coroutineContext) {

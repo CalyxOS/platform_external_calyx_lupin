@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 /*
  * SPDX-FileCopyrightText: 2023 The Calyx Institute
  * SPDX-License-Identifier: Apache-2.0
@@ -5,14 +7,13 @@
 
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.compose)
+    alias(libs.plugins.googleKsp)
+    alias(libs.plugins.googleHilt)
     alias(libs.plugins.ktlint)
 }
 
-kotlin {
-    jvmToolchain(21)
-}
+kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_21 } }
 
 android {
     namespace = "org.calyxos.lupin"
@@ -42,9 +43,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "21"
-    }
 }
 
 dependencies {
@@ -54,6 +52,7 @@ dependencies {
     api(libs.androidx.core)
     api(platform(libs.androidx.compose.bom))
     api(libs.androidx.compose.material3)
+    api(libs.androidx.compose.material.icons.extended)
     api(libs.androidx.compose.ui.tooling.preview)
     api(libs.androidx.activity.compose)
     api(libs.androidx.lifecycle.runtime.ktx)
@@ -62,6 +61,7 @@ dependencies {
 
     api(libs.github.microutils.kotlin.logging)
 
+    ksp(libs.google.hilt.compiler)
     implementation(libs.google.hilt.android)
 
     debugApi(libs.androidx.compose.ui.tooling)

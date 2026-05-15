@@ -1,28 +1,29 @@
 [versions]
-activityVersion = "1.10.1"
-androidGradleVersion = "8.9.1"
-coilVersion = "3.1.0"
-composeBom = "2025.04.00"
-coreVersion = "1.16.0"
-coroutinesVersion = "1.10.2"
-fdroidVersion = "0.1.1"
-androidxHiltVersion = "1.2.0"
-googleHiltVersion = "2.56.2"
-junitJupiterVersion = "5.12.2"
-kotlinVersion = "2.1.20"
+activityVersion = "1.13.0"
+androidGradleVersion = "9.2.1"
+coilVersion = "3.4.0"
+composeBom = "2026.05.00"
+coreVersion = "1.18.0"
+coroutinesVersion = "1.11.0"
+fdroidVersion = "0.2.0"
+androidxHiltVersion = "1.3.0"
+googleHiltVersion = "2.59.2"
+junitJupiterVersion = "6.0.3"
+kotlinVersion = "2.3.21"
 kotlinLoggingVersion = "3.0.5"
-kspVersion = "2.1.20-2.0.0"
+kspVersion = "2.3.7"
 ktlintVersion = "11.6.1"
-lifecycleVersion = "2.8.7"
-logbackClassicVersion = "1.5.18"
-mockkVersion = "1.14.0"
-runtimeLivedataVersion = "1.7.8"
-workVersion = "2.10.0"
+lifecycleVersion = "2.10.0"
+logbackClassicVersion = "1.5.32"
+mockkVersion = "1.14.9"
+runtimeLivedataVersion = "1.11.1"
+workVersion = "2.11.2"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityVersion" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "coreVersion" }
@@ -49,7 +50,6 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockkVersion" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradleVersion" }
 android-library = { id = "com.android.library", version.ref = "androidGradleVersion" }
-jetbrains-kotlin-android  = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
 jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinVersion" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintVersion" }
 googleKsp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
