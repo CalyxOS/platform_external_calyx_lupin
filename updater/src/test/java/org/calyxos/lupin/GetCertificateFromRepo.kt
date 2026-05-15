@@ -10,9 +10,9 @@ import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.EntryVerifier
 import org.fdroid.index.v2.FileV2
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.io.File
+import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class GetCertificateFromRepo {

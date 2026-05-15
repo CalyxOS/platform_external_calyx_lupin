@@ -3,18 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.googleKsp)
     alias(libs.plugins.googleHilt)
     alias(libs.plugins.ktlint)
 }
 
-kotlin {
-    jvmToolchain(21)
-}
+kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_21 } }
 
 android {
     namespace = "org.calyxos.lupin.installer"
@@ -60,9 +59,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
-    }
-    kotlinOptions {
-        jvmTarget = "21"
     }
     packaging {
         resources {

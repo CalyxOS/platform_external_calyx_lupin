@@ -3,18 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.googleKsp)
     alias(libs.plugins.googleHilt)
     alias(libs.plugins.ktlint)
 }
 
-kotlin {
-    jvmToolchain(21)
-}
+kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_21 } }
 
 android {
     namespace = "org.calyxos.lupin.updater"
@@ -61,9 +60,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "21"
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -96,7 +92,7 @@ dependencies {
     implementation(libs.androidx.work.runtime)
     implementation(libs.androidx.runtime.livedata)
 
-    testImplementation(libs.kotlin.test)
+    testImplementation(kotlin("test-junit5"))
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit.jupiter.params)
     testImplementation(libs.mockk)

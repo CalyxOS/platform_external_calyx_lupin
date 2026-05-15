@@ -18,7 +18,7 @@ import org.calyxos.lupin.TempFileProvider
 import org.calyxos.lupin.getRequest
 import org.calyxos.lupin.installer.BuildConfig.VERSION_NAME
 import org.calyxos.lupin.installer.R
-import org.fdroid.download.HttpDownloader
+import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.FileV2
 import org.fdroid.index.v2.IndexV2
@@ -42,10 +42,8 @@ data class RepoResult(
 
 @Singleton
 class RepoManager @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val tempFileProvider: TempFileProvider = TempFileProvider { prefix, suffix ->
-        File.createTempFile(prefix, suffix, context.cacheDir)
-    },
+    @param:ApplicationContext private val context: Context,
+    private val tempFileProvider: TempFileProvider,
 ) {
 
     private val httpManager = HttpManager("${context.getString(R.string.app_name)} $VERSION_NAME")
@@ -67,7 +65,7 @@ class RepoManager @Inject constructor(
         ) { apk, downloadListener ->
             val apkRequest = FileV2(apk).getRequest(REPO_URL)
             val apkFile = tempFileProvider.createTempFile("dl-", "")
-            HttpDownloader(httpManager, apkRequest, apkFile).apply {
+            HttpDownloaderV2(httpManager, apkRequest, apkFile).apply {
                 val coContext = currentCoroutineContext()
                 setListener { bytesRead, _ ->
                     // this is a bit of a hack to work around the messy progress reporting
