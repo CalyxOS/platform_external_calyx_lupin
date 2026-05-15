@@ -88,14 +88,17 @@ class UpdateManagerTest {
         val jarFile = File.createTempFile("test", null, tempDir)
 
         every { tempFileProvider.createTempFile("entry", ".jar") } returns jarFile
-        coEvery { httpManager.get(request, receiver = any()) }  answers {
+        coEvery { httpManager.get(request, receiver = any()) } answers {
             File("src/test/resources/entry.jar").copyTo(jarFile, overwrite = true)
         }
 
         val entryV2 = updateManager.downloadEntry() ?: fail("no entry")
         assertEquals(1686317269000, entryV2.timestamp)
         assertEquals(20002, entryV2.version)
-        assertEquals("c1707b6aa0764340c93ca0c54dddbb0a6638f5cb53247cbdab8dfbc409d02371", entryV2.index.sha256)
+        assertEquals(
+            "c1707b6aa0764340c93ca0c54dddbb0a6638f5cb53247cbdab8dfbc409d02371",
+            entryV2.index.sha256
+        )
         assertEquals(1, entryV2.diffs.size)
     }
 

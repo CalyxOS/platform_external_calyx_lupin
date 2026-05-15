@@ -39,7 +39,7 @@ private const val INSTALLER_PACKAGE_NAME = "org.fdroid.basic"
 
 @Singleton
 class AppInstaller @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val apkInstaller: ApkInstaller,
 ) {
 

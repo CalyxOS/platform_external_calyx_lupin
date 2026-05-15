@@ -26,7 +26,7 @@ private val TAG = StateManager::class.simpleName
 
 @Singleton
 class StateManager @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val repoManager: RepoManager,
     private val appInstaller: AppInstaller,
     private val scope: CoroutineScope,
