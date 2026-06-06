@@ -7,4 +7,9 @@
     <string name="next">التالي</string>
     <string name="more">المزيد</string>
     <string name="installed">مثبت</string>
+    <string name="install_page_subtitle">راجع التطبيقات الإضافية . يمكنك تثبيتهم لاحقًا أيضًا.</string>
+    <string name="install_page_all">كل التطبيقات التالية</string>
+    <string name="install_page_offline">يمكن فقط تثبيتهم أثناء الاتصال بالانترنت</string>
+    <string name="install_notification_title">تثبيت التطبيقات…</string>
+    <string name="error_not_installed">خطأ. لم يتم التثبيت.</string>
 </resources>

@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">محدث تطبيقات CalyxOS</string>
+    <string name="back">العودة</string>
+    <string name="now">الأن</string>
+    <string name="never">لا على الإطلاق</string>
+    <string name="cancel">إلغاء</string>
+    <string name="status_screen_last_check">آخر تحقق من التحديثات : %s</string>
+    <string name="status_screen_check_button">تحقق الأن</string>
+    <string name="status_screen_title">تحديثات التطبيقات</string>
+    <string name="notification_update_title">يتم تحديث التطبيقات</string>
+    <string name="notification_confirmation_title">تأكيد تحديث التطبيقات</string>
+    <string name="channel_update_name">إشعار التحديث</string>
+    <string name="channel_update_description">أظهر بينما يتم تحديث التطييقات</string>
+    <string name="channel_confirmation_name">تأكيد إشعار التحديثات</string>
+    <string name="channel_confirmation_description">أظهر فقط إذا كان تثبيت التحديثات يتطلب موافقة المستخدم</string>
+</resources>
