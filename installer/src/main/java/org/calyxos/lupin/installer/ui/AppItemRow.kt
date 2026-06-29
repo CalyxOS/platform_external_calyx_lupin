@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
@@ -67,7 +68,7 @@ fun AppItemRow(
             fallback = painterResource(R.drawable.ic_default),
             error = painterResource(R.drawable.ic_default),
             contentDescription = null,
-            modifier = Modifier.size(48.dp),
+            modifier = Modifier.size(48.dp).clip(MaterialTheme.shapes.medium),
             alignment = Center,
             alpha = if (canBeInstalled) DefaultAlpha else 0.38f,
             contentScale = ContentScale.Fit,
