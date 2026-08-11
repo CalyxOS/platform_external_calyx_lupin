@@ -33,9 +33,9 @@ import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
 internal const val REPO_URL = "https://calyxos.gitlab.io/calyx-fdroid-repo/fdroid/repo"
-internal const val PACKAGE_NAME_WEBVIEW = "com.android.webview"
-internal const val PACKAGE_NAME_CHROME = "org.chromium.chrome"
-internal const val PACKAGE_NAME_TRICHROME_LIB = "org.chromium.trichromelibrary"
+internal const val PACKAGE_NAME_WEBVIEW = "org.calyxos.webview"
+internal const val PACKAGE_NAME_CHROME = "org.calyxos.chromium"
+internal const val PACKAGE_NAME_TRICHROME_LIB = "org.calyxos.trichromelibrary"
 
 @Singleton
 class UpdateManager(
