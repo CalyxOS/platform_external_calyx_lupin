@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d64ff267_e36321b8",
+        "filename": "installer/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-08-11T18:42:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t imports go below the copyright header? Same in other build.gradle.kts files",
+      "revId": "23ad3dcf254ba58f47f75f104e557b4f32b41f78",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
