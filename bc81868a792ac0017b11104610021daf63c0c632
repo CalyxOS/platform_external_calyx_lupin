@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "374bea11_58307599",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-08-11T18:43:47Z",
+      "side": 1,
+      "message": "Not very familiar with what this does. Is it for studio or for production?",
+      "revId": "bc81868a792ac0017b11104610021daf63c0c632",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
