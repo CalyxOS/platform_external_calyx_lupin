@@ -85,6 +85,8 @@ class UpdateManager(
         try {
             log.info { "Downloading index from $REPO_URL" }
             val indexRequest = entry.index.getRequest(REPO_URL)
+            // TODO we could stream the index directly and not save it to disk at all
+            //  only need to ensure that we still verify the sha256 hash
             HttpDownloaderV2(httpManager, indexRequest, indexFile).download()
             RepoHelper.getIndex(indexFile)
         } catch (e: Exception) {
@@ -152,7 +154,8 @@ class UpdateManager(
         } else if (!hasOngoingSessions) {
             installManager.clearUpOldSession()
         }
-        retry
+        // return true to retry, even if we need confirmation as that may get denied
+        retry || needConfirmationNotification
     }
 
     private fun getUpdate(
@@ -164,11 +167,20 @@ class UpdateManager(
         @SuppressLint("PackageManagerGetSignatures")
         val packageInfo = try {
             packageManager.getPackageInfo(packageName, GET_SIGNATURES)
-        } catch (e: NameNotFoundException) {
+        } catch (_: NameNotFoundException) {
             // not installed, so nothing to update
+            log.info { "$packageName is not installed, skipping." }
             return null
         }
-        return updateChecker.getUpdate(packageVersions, packageInfo)
+        val update = updateChecker.getUpdate(packageVersions, packageInfo)
+        if (update == null) log.info {
+            val p = packageInfo
+            "No update found for $packageName, installed is ${p.versionName} (${p.longVersionCode})"
+        } else log.info {
+            val manifest = update.manifest
+            "Update found for $packageName: ${manifest.versionName} (${manifest.versionCode})"
+        }
+        return update
     }
 
     /**
@@ -198,6 +210,8 @@ class UpdateManager(
                 // tri chrome library has not been updated, yet, so must be updated first
                 log.info { "Installing trichrome update first" }
                 return installTriChromeLibrary(versionCode, triChromePackage)
+            } else {
+                log.info { "Trichrome library already has version code $triChromeVersionCode" }
             }
         }
         return InstallResult(STATUS_SUCCESS, null)

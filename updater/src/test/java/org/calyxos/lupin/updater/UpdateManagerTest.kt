@@ -167,7 +167,7 @@ class UpdateManagerTest {
         // user needs to become active, because an active session is still waiting for confirmation
         every { notificationManager.showUserConfirmationRequiredNotification() } just Runs
 
-        assertFalse(updateManager.updateApps(index))
+        assertTrue(updateManager.updateApps(index))
 
         verify {
             notificationManager.showUserConfirmationRequiredNotification()
@@ -248,8 +248,8 @@ class UpdateManagerTest {
         every { notificationManager.showUserConfirmationRequiredNotification() } just Runs
         every { installManager.clearUpOldSession() } just Runs
 
-        // no need to try again
-        assertFalse(updateManager.updateApps(index))
+        // try again to ensure the update gets applied even when confirmation still lacking
+        assertTrue(updateManager.updateApps(index))
 
         coVerify {
             installManager.installUpdate(packageName, packageVersion)

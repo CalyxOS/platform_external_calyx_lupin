@@ -16,6 +16,7 @@ import androidx.work.OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST
 import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import mu.KotlinLogging
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,11 +25,25 @@ class MainViewModel @Inject constructor(
     app: Application,
 ) : AndroidViewModel(app) {
 
+    private val log = KotlinLogging.logger {}
     private val workManager = WorkManager.getInstance(getApplication())
 
     val lastCheckedMillis = settingsManager.lastCheckedMillisState
     val checkLiveData = workManager.getWorkInfosForUniqueWorkLiveData(WORK_NAME_MANUAL).map {
         it.getOrNull(0)?.state?.isFinished ?: true
+    }
+
+    init {
+        viewModelScope.launch {
+            workManager.getWorkInfosForUniqueWorkFlow(WORK_NAME_MANUAL).collect {
+                val workInfo = it.getOrNull(0)
+                if (workInfo != null) {
+                    log.info { "Work info: ${workInfo.state}" }
+                } else {
+                    log.info { "No work info found" }
+                }
+            }
+        }
     }
 
     @UiThread
