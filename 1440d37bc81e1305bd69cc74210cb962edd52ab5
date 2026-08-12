@@ -70,6 +70,24 @@
       "parentUuid": "133c93b7_fdc8181b",
       "revId": "1440d37bc81e1305bd69cc74210cb962edd52ab5",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aeb823f_d05526fe",
+        "filename": "shared/src/main/java/org/calyxos/lupin/RepoHelper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-08-12T14:24:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "14a7864c_38263a8a",
+      "revId": "1440d37bc81e1305bd69cc74210cb962edd52ab5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
