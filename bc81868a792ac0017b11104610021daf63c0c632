@@ -16,6 +16,24 @@
       "message": "Not very familiar with what this does. Is it for studio or for production?",
       "revId": "bc81868a792ac0017b11104610021daf63c0c632",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "616a0b39_1dc20d18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-08-12T08:06:15Z",
+      "side": 1,
+      "message": "This is for production. Without this commit our code wouldn\u0027t log anything to logcat.",
+      "parentUuid": "374bea11_58307599",
+      "revId": "bc81868a792ac0017b11104610021daf63c0c632",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
