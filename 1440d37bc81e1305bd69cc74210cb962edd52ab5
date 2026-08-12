@@ -52,6 +52,24 @@
       "parentUuid": "25e4c29a_34dcdfda",
       "revId": "1440d37bc81e1305bd69cc74210cb962edd52ab5",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a7864c_38263a8a",
+        "filename": "shared/src/main/java/org/calyxos/lupin/RepoHelper.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-08-12T08:11:24Z",
+      "side": 1,
+      "message": "No, looks like https://review.calyxos.org/c/CalyxOS/platform_external_calyx_lupin/+/18158/3?usp\u003drelated-change is now streaming this directly while verifying the hash.\n\nHowever, we are still storing the index in a file which isn\u0027t an issue, but we could optimize this later. I\u0027ll add a TODO in the code.",
+      "parentUuid": "133c93b7_fdc8181b",
+      "revId": "1440d37bc81e1305bd69cc74210cb962edd52ab5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
