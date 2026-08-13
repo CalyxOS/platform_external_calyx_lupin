@@ -16,6 +16,24 @@
       "message": "Shouldn\u0027t imports go below the copyright header? Same in other build.gradle.kts files",
       "revId": "23ad3dcf254ba58f47f75f104e557b4f32b41f78",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a8eafbc_2e80f77b",
+        "filename": "installer/build.gradle.kts",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-08-13T19:52:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d64ff267_e36321b8",
+      "revId": "23ad3dcf254ba58f47f75f104e557b4f32b41f78",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
