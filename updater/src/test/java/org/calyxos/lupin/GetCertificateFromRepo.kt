@@ -5,7 +5,6 @@
 
 package org.calyxos.lupin
 
-import org.calyxos.lupin.updater.REPO_URL
 import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.EntryVerifier
@@ -20,7 +19,7 @@ class GetCertificateFromRepo {
     lateinit var tempDir: File
 
     // Change this to any URL you want to get the cert from
-    private val repoUrl = REPO_URL
+    private val repoUrl = "https://calyxos.gitlab.io/lupin-updater-repo-debug/fdroid/repo"
 
     @Test
     fun foo() {
