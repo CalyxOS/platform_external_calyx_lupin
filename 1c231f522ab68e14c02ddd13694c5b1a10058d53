@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a77fabc5_e1a1210b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-08-24T17:59:49Z",
+      "side": 1,
+      "message": "this uses the keys from https://review.calyxos.org/c/CalyxOS/lfs_prebuilts_calyx_lupin/+/48512 to sign the debug builds now",
+      "revId": "1c231f522ab68e14c02ddd13694c5b1a10058d53",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
