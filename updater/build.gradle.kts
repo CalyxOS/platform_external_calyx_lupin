@@ -29,12 +29,10 @@ android {
 
     signingConfigs {
         create("aosp") {
-            // Generated from the AOSP testkey:
-            // https://android.googlesource.com/platform/build/+/refs/tags/android-11.0.0_r29/target/product/security/testkey.pk8
-            keyAlias = "testkey"
-            keyPassword = "testkey"
-            storeFile = file("../shared/testkey.jks")
-            storePassword = "testkey"
+            keyAlias = "android"
+            keyPassword = "android"
+            storeFile = file("org.calyxos.lupin.updater.jks")
+            storePassword = "android"
         }
     }
 
