@@ -35,7 +35,7 @@ internal const val NOTIFICATION_CONFIRMATION_ID = 2
 
 @Singleton
 class NotificationManager @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
 ) {
     private val nm = NotificationManagerCompat.from(context)
 
