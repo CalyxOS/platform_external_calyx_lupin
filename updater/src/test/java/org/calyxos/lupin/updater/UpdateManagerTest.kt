@@ -57,6 +57,7 @@ class UpdateManagerTest {
     private val updateChecker: UpdateChecker = mockk()
     private val installManager: InstallManager = mockk()
     private val notificationManager: NotificationManager = mockk()
+    private val repoConfigGetter: RepoConfigGetter = mockk()
     private val tempFileProvider: TempFileProvider = mockk()
     private val updateManager: UpdateManager
 
@@ -66,15 +67,18 @@ class UpdateManagerTest {
     @field:TempDir
     lateinit var tempDir: File
     private val testDispatcher = Dispatchers.Unconfined
+    private val repoUrl = "https://calyxos.gitlab.io/tmp/lupin-updater-repo-debug/fdroid/repo"
 
     init {
         every { context.packageManager } returns packageManager
+        every { repoConfigGetter.repoUrl } returns repoUrl
         updateManager = UpdateManager(
             context = context,
             httpManager = httpManager,
             updateChecker = updateChecker,
             installManager = installManager,
             notificationManager = notificationManager,
+            repoConfigGetter = repoConfigGetter,
             certificate = CERT_TEST,
             tempFileProvider = tempFileProvider,
             coroutineContext = testDispatcher,
@@ -84,7 +88,7 @@ class UpdateManagerTest {
     @Test
     fun testDownloadEntry() = runTest {
         val indexFile = FileV2("entry.jar")
-        val request = indexFile.getRequest(REPO_URL)
+        val request = indexFile.getRequest(repoUrl)
         val jarFile = File.createTempFile("test", null, tempDir)
 
         every { tempFileProvider.createTempFile("entry", ".jar") } returns jarFile
@@ -114,7 +118,7 @@ class UpdateManagerTest {
                 numPackages = 13,
             ),
         )
-        val request = entry.index.getRequest(REPO_URL)
+        val request = entry.index.getRequest(repoUrl)
         val jsonFile = File.createTempFile("test", null, tempDir)
         // changing index data needs changing sha256 hash above
         val indexJson = """
