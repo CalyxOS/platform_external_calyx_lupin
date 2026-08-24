@@ -14,7 +14,6 @@ import android.content.pm.PackageInstaller.SessionInfo
 import android.content.pm.PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED
 import androidx.annotation.UiThread
 import androidx.annotation.WorkerThread
-import androidx.core.content.ContextCompat.startActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -35,16 +34,18 @@ private const val ACTION_CONFIRM_INSTALL = "android.content.pm.action.CONFIRM_IN
 
 @Singleton
 class InstallManager @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
     private val apkInstaller: ApkInstaller,
     private val httpManager: HttpManager,
     private val notificationManager: NotificationManager,
+    repoConfigGetter: RepoConfigGetter = RepoConfigGetter(context),
 ) {
 
     private val log = KotlinLogging.logger {}
 
     // @UiThread
     private val manualUpdates = HashMap<String, ManualUpdate>()
+    private val repoUrl = repoConfigGetter.repoUrl
 
     @WorkerThread
     internal suspend fun installUpdate(
@@ -52,7 +53,7 @@ class InstallManager @Inject constructor(
         update: PackageVersionV2,
     ): InstallResult {
         log.info { "Downloading ${update.file.name}" }
-        val request = update.file.getRequest(REPO_URL)
+        val request = update.file.getRequest(repoUrl)
         // FIXME it might make sense to download APKs to predictable location and resume downloads
         val apkFile = File.createTempFile("apk-", "", context.cacheDir)
         val userActionListener = UserActionRequiredListener { _, sessionId, intent ->
