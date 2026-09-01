@@ -6,6 +6,9 @@
 <resources>
     <string name="app_name">CalyxOS App Updater</string>
 
+    <string name="app_settings_title">App updater</string>
+    <string name="app_settings_summary">Updates CalyxOS system apps in the background</string>
+
     <string name="back">Back</string>
     <string name="now">now</string>
     <string name="never">never</string>
