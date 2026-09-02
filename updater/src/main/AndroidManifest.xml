@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   SPDX-FileCopyrightText: 2023 The Calyx Institute
   SPDX-License-Identifier: Apache-2.0
   -->
@@ -10,6 +9,12 @@
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
+    <uses-permission
+        android:name="android.permission.INSTALL_PACKAGE_UPDATES"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.INSTALL_SELF_UPDATES"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".UpdaterApp"
