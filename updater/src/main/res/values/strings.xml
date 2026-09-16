@@ -14,9 +14,12 @@
     <string name="never">never</string>
     <string name="cancel">Cancel</string>
 
+    <string name="status_screen_title">App updates</string>
+    <string name="status_screen_intro">The CalyxOS App Updater automates app updates in the background. You can see the time of the last update check or initiate a manual check here.</string>
+    <string name="status_screen_checking">Checking…</string>
+    <string name="status_screen_success">All apps are up to date 🎉</string>
     <string name="status_screen_last_check">Last update check: %s</string>
     <string name="status_screen_check_button">Check now</string>
-    <string name="status_screen_title">App updates</string>
 
     <string name="notification_update_title">Updating apps…</string>
     <string name="notification_confirmation_title">Confirm app updates</string>
