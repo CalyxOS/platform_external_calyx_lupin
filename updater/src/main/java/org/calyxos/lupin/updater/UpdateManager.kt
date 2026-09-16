@@ -123,14 +123,23 @@ class UpdateManager(
                 }
                 val triChromeResult = checkTriChrome(
                     packageName = packageName,
-                    versionCode = update.manifest.versionCode,
+                    versionCode = update.packageVersion.manifest.versionCode,
                     triChromePackage = index.packages[PACKAGE_NAME_TRICHROME_LIB],
                 )
                 if (triChromeResult.success) {
                     // install the actual update here (no issue with trichrome)
-                    val result = installManager.installUpdate(packageName, update)
+                    val result = installManager.installUpdate(packageName, update.packageVersion)
                     if (result.pendingUserAction) needConfirmationNotification = true
                     else if (result.isWaitingForUserAction) hasOngoingSessions = true
+                    else if (result.success) {
+                        log.info { "Update for $packageName installed successfully" }
+                        notificationManager.showUpdateSuccessNotification(
+                            packageName = packageName,
+                            name = update.appName,
+                            fromVersion = update.installedVersionName,
+                            toVersion = update.packageVersion.manifest.versionName,
+                        )
+                    }
                 } else if (triChromeResult.pendingUserAction) {
                     needConfirmationNotification = true
                     retry = true // retry to install packages that depend on trichrome lib
@@ -162,7 +171,7 @@ class UpdateManager(
     private fun getUpdate(
         packageName: String,
         packageVersions: List<PackageVersionV2>,
-    ): PackageVersionV2? {
+    ): Update? {
         if (packageVersions.isEmpty()) return null
         @Suppress("DEPRECATION")
         @SuppressLint("PackageManagerGetSignatures")
@@ -174,14 +183,24 @@ class UpdateManager(
             return null
         }
         val update = updateChecker.getUpdate(packageVersions, packageInfo)
-        if (update == null) log.info {
-            val p = packageInfo
-            "No update found for $packageName, installed is ${p.versionName} (${p.longVersionCode})"
-        } else log.info {
-            val manifest = update.manifest
-            "Update found for $packageName: ${manifest.versionName} (${manifest.versionCode})"
+        if (update == null) {
+            log.info {
+                val p = packageInfo
+                "No update found for $packageName, installed is ${p.versionName} (${p.longVersionCode})"
+            }
+            return null
+        } else {
+            log.info {
+                val manifest = update.manifest
+                "Update found for $packageName: ${manifest.versionName} (${manifest.versionCode})"
+            }
+            val label = packageInfo.applicationInfo?.loadLabel(packageManager)
+            return Update(
+                packageVersion = update,
+                appName = label?.toString() ?: "",
+                installedVersionName = packageInfo.versionName ?: ""
+            )
         }
-        return update
     }
 
     /**
@@ -240,5 +259,11 @@ class UpdateManager(
     }
 
 }
+
+internal data class Update(
+    val packageVersion: PackageVersionV2,
+    val appName: String,
+    val installedVersionName: String,
+)
 
 internal class TriChromeException(msg: String) : Exception(msg)
