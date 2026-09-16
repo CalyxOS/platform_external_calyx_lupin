@@ -20,9 +20,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import org.calyxos.lupin.updater.ui.theme.LupinTheme
 
@@ -58,11 +58,13 @@ class MainActivity : ComponentActivity() {
                         },
                     ) {
                         val lastCheckedMillis = viewModel.lastCheckedMillis.collectAsState()
-                        val enabled = viewModel.checkLiveData.observeAsState()
+                        val isCheckRunningFlow = viewModel.isCheckRunningFlow.collectAsStateWithLifecycle(false)
+                        val checkStateFlow = viewModel.checkStateFlow.collectAsStateWithLifecycle(null)
                         StatusScreen(
                             paddingValues = it,
                             lastCheckedMillis = lastCheckedMillis.value,
-                            checkButtonEnabled = enabled.value ?: true,
+                            isCheckRunning = isCheckRunningFlow.value,
+                            checkState = checkStateFlow.value,
                             onCheckButtonClicked = viewModel::onCheckButtonClicked,
                         )
                     }
