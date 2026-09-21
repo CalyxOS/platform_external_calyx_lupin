@@ -16,6 +16,24 @@
       "message": "We ideally get the final repo location here before merging this.",
       "revId": "829fc99cdcbad59065d3b378af08e7fd4116924a",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "794ad55c_6cfe6e0b",
+        "filename": "updater/src/main/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-09-21T19:53:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46bfea7e_8ba9f673",
+      "revId": "829fc99cdcbad59065d3b378af08e7fd4116924a",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
