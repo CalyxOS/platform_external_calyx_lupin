@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e99fef2a_c8853dd0",
+        "filename": "updater/src/test/java/org/calyxos/lupin/GetCertificateFromRepo.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-09-24T15:02:55Z",
+      "side": 1,
+      "message": "This is more like a test helper to get the cert from arbitrary repos. So I don\u0027t see an issue with having something hard-coded here. However, maybe we want to update it to something working.",
+      "parentUuid": "1e58d5ba_f1f7e2ef",
+      "revId": "0a31a8e385398646c39a3f79abd9f2438a900727",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc929438_414dfcd1",
         "filename": "updater/src/test/java/org/calyxos/lupin/updater/UpdateManagerTest.kt",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2026-09-24T14:33:16Z",
       "side": 1,
       "message": "This is also hardcoded",
+      "revId": "0a31a8e385398646c39a3f79abd9f2438a900727",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df857c1_fe31c056",
+        "filename": "updater/src/test/java/org/calyxos/lupin/updater/UpdateManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-09-24T15:02:55Z",
+      "side": 1,
+      "message": "this is just a unit test, there\u0027s no actual request going there/",
+      "parentUuid": "fc929438_414dfcd1",
       "revId": "0a31a8e385398646c39a3f79abd9f2438a900727",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
