@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2287c4eb_23d76b02",
+        "filename": "updater/src/test/java/org/calyxos/lupin/GetCertificateFromRepo.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-09-24T15:12:52Z",
+      "side": 1,
+      "message": "We can just update both links to the working debug repo",
+      "parentUuid": "e99fef2a_c8853dd0",
+      "revId": "0a31a8e385398646c39a3f79abd9f2438a900727",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc929438_414dfcd1",
         "filename": "updater/src/test/java/org/calyxos/lupin/updater/UpdateManagerTest.kt",
         "patchSetId": 5
