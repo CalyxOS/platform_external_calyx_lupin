@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e58d5ba_f1f7e2ef",
+        "filename": "updater/src/test/java/org/calyxos/lupin/GetCertificateFromRepo.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-09-24T14:33:16Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be hardcoded here",
+      "revId": "0a31a8e385398646c39a3f79abd9f2438a900727",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc929438_414dfcd1",
+        "filename": "updater/src/test/java/org/calyxos/lupin/updater/UpdateManagerTest.kt",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-09-24T14:33:16Z",
+      "side": 1,
+      "message": "This is also hardcoded",
+      "revId": "0a31a8e385398646c39a3f79abd9f2438a900727",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
