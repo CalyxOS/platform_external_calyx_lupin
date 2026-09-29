@@ -9,7 +9,7 @@ import android.app.Application
 import androidx.annotation.UiThread
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.work.ExistingWorkPolicy.KEEP
+import androidx.work.ExistingWorkPolicy.REPLACE
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST
 import androidx.work.WorkInfo
@@ -54,6 +54,11 @@ class MainViewModel @Inject constructor(
         val workRequest = OneTimeWorkRequestBuilder<UpdateWorker>()
             .setExpedited(RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .build()
-        workManager.enqueueUniqueWork(WORK_NAME_MANUAL, KEEP, workRequest)
+        val op = workManager.enqueueUniqueWork(WORK_NAME_MANUAL, REPLACE, workRequest)
+        try {
+            log.info { "Enqueue result: ${op.result.get()}" }
+        } catch (e: Exception) {
+            log.error(e) { "Failed to enqueue work" }
+        }
     }
 }

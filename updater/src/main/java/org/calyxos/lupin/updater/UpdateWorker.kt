@@ -29,6 +29,10 @@ class UpdateWorker @AssistedInject constructor(
 
     private val log = KotlinLogging.logger {}
 
+    init {
+        log.info { "Created" }
+    }
+
     override suspend fun doWork(): Result {
         try {
             setForeground(createForegroundInfo())
