@@ -2,7 +2,7 @@
 <resources>
     <string name="status_screen_check_button">立即检查</string>
     <string name="status_screen_last_check">上次更新检查：%s</string>
-    <string name="notification_update_title">更新应用中</string>
+    <string name="notification_update_title">更新应用中…</string>
     <string name="channel_update_name">更新通知</string>
     <string name="back">返回</string>
     <string name="status_screen_title">应用更新</string>
