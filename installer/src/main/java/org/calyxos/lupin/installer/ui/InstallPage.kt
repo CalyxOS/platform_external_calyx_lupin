@@ -29,9 +29,9 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -177,21 +177,25 @@ fun ButtonRow(
     skipClickListener: () -> Unit,
     nextClickListener: () -> Unit,
 ) {
-    Row(Modifier.padding(horizontal = horizontalMargin + 3.dp, vertical = 19.dp)) {
-        if (state.showSkipButton) TextButton(onClick = skipClickListener) {
-            Text(text = stringResource(R.string.skip))
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        val isEnd = snapshotFlow {
-            val lastIndex = listState.layoutInfo.totalItemsCount - 1
-            val lastVisibleIndex = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-            lastIndex == lastVisibleIndex
-        }.collectAsState(initial = false)
-        val coroutineScope = rememberCoroutineScope()
-        val showMoreButton = state is SelectingApps && !isEnd.value
+    val isEnd = snapshotFlow {
+        val lastIndex = listState.layoutInfo.totalItemsCount - 1
+        val lastVisibleIndex = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+        lastIndex == lastVisibleIndex
+    }.collectAsState(initial = false)
+    val coroutineScope = rememberCoroutineScope()
+    val showMoreButton = state is SelectingApps && !isEnd.value
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = horizontalMargin + 3.dp, vertical = 19.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp) // Space between the stacked buttons
+    ) {
         Button(
-            modifier = Modifier.heightIn(min = 44.dp),
-            shape = MaterialTheme.shapes.large,
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 52.dp),
+            shape = MaterialTheme.shapes.extraLarge,
             enabled = state.canTapNextButton,
             onClick = {
                 if (showMoreButton) coroutineScope.launch {
@@ -203,12 +207,25 @@ fun ButtonRow(
                     }
                     nextClickListener()
                 }
-            }) {
+            }
+        ) {
             val textRes = if (showMoreButton) R.string.more else {
                 val showInstall = (state as? SelectingApps)?.hasSelected ?: false
                 if (showInstall) R.string.install else R.string.next
             }
             Text(text = stringResource(textRes))
+        }
+
+        if (state.showSkipButton) {
+            OutlinedButton(
+                onClick = skipClickListener,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 52.dp),
+                shape = MaterialTheme.shapes.extraLarge,
+            ) {
+                Text(text = stringResource(R.string.skip))
+            }
         }
     }
 }
