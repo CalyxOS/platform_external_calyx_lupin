@@ -2,7 +2,7 @@
 <resources>
     <string name="status_screen_check_button">立即检查</string>
     <string name="status_screen_last_check">上次更新检查：%s</string>
-    <string name="notification_update_title">更新应用中</string>
+    <string name="notification_update_title">更新应用中…</string>
     <string name="channel_update_name">更新通知</string>
     <string name="back">返回</string>
     <string name="status_screen_title">应用更新</string>
@@ -14,4 +14,14 @@
     <string name="app_name">CalyxOS 应用更新器</string>
     <string name="now">立即</string>
     <string name="channel_update_description">更新应用时显示</string>
+    <string name="app_settings_title">应用更新器</string>
+    <string name="app_settings_summary">在后台更新 CalyxOS 系统应用</string>
+    <string name="status_screen_intro">CalyxOS 应用更新器在后台自动化应用更新。你可以在此处看到上次更新检查的时间或发起手动检查。</string>
+    <string name="status_screen_checking">检查中…</string>
+    <string name="status_screen_success">所有应用均为最新 🎉</string>
+    <string name="notification_success_title">成功更新了 %1$s</string>
+    <string name="notification_success_description">从 %1$s 到 %2$s</string>
+    <string name="notification_success_action">查看应用信息</string>
+    <string name="channel_success_name">更新了应用</string>
+    <string name="channel_success_description">成功更新应用时显示</string>
 </resources>
