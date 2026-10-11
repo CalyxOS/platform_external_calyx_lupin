@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.LinearProgressIndicator
@@ -88,7 +89,10 @@ fun StatusScreen(
         Button(
             onClick = onCheckButtonClicked,
             enabled = !isCheckRunning,
-            modifier = Modifier.align(End),
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 52.dp),
+            shape = MaterialTheme.shapes.extraLarge,
         ) {
             Text(
                 text = stringResource(R.string.status_screen_check_button),
