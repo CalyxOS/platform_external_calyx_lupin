@@ -18,6 +18,24 @@
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5a18257_ce11b587",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/AppItemRow.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2026-10-11T20:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0766059_2dc4f37b",
+      "revId": "9abdeca375744117d9547372f16c35d3e81d38e1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ec2db9a_2d8571ca",
@@ -31,6 +49,24 @@
       "writtenOn": "2026-10-11T20:35:42Z",
       "side": 1,
       "message": "Import is for previous commit",
+      "revId": "9abdeca375744117d9547372f16c35d3e81d38e1",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e49e686_30895b6a",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/InstallPage.kt",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2026-10-11T20:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ec2db9a_2d8571ca",
       "revId": "9abdeca375744117d9547372f16c35d3e81d38e1",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
