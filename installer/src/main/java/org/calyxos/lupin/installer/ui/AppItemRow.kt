@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -32,6 +33,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
@@ -52,52 +54,58 @@ fun AppItemRow(
     clickListener: ((AppItem) -> Unit)? = null,
 ) {
     val canBeInstalled = isOnline || !item.isOnlineOnly
-    Row(
-        verticalAlignment = CenterVertically,
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .run {
-                if (clickListener != null && canBeInstalled) {
-                    clickable { clickListener(item) }
-                } else this
-            }
             .then(modifier),
     ) {
-        AsyncImage(
-            model = item.icon,
-            fallback = painterResource(R.drawable.ic_default),
-            error = painterResource(R.drawable.ic_default),
-            contentDescription = null,
-            modifier = Modifier.size(48.dp).clip(MaterialTheme.shapes.medium),
-            alignment = Center,
-            alpha = if (canBeInstalled) DefaultAlpha else 0.38f,
-            contentScale = ContentScale.Fit,
-        )
-        Column(
-            Modifier
-                .weight(1f)
-                .padding(horizontal = 16.dp)
+        Row(
+            verticalAlignment = CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .run {
+                    if (clickListener != null && canBeInstalled) {
+                        clickable { clickListener(item) }
+                    } else this
+                }
+                .padding(horizontal = 16.dp),
         ) {
-            Text(
-                text = item.name,
-                style = MaterialTheme.typography.bodyLarge,
-                color = if (canBeInstalled) Color.Unspecified else {
-                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-                },
-                modifier = Modifier.padding(top = 8.dp),
+            AsyncImage(
+                model = item.icon,
+                fallback = painterResource(R.drawable.ic_default),
+                error = painterResource(R.drawable.ic_default),
+                contentDescription = null,
+                modifier = Modifier.size(48.dp).clip(MaterialTheme.shapes.medium),
+                alignment = Center,
+                alpha = if (canBeInstalled) DefaultAlpha else 0.38f,
+                contentScale = ContentScale.Fit,
             )
-            Text(
-                text = if (canBeInstalled) item.summary else {
-                    stringResource(R.string.install_page_offline)
-                },
-                style = MaterialTheme.typography.bodySmall,
-                color = if (canBeInstalled) Color.Unspecified else {
-                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-                },
-                modifier = Modifier.padding(bottom = 8.dp),
-            )
+            Column(
+                Modifier
+                    .weight(1f)
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    text = item.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = if (canBeInstalled) Color.Unspecified else {
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                    },
+                    modifier = Modifier.padding(top = 8.dp),
+                )
+                Text(
+                    text = if (canBeInstalled) item.summary else {
+                        stringResource(R.string.install_page_offline)
+                    },
+                    style = MaterialTheme.typography.bodySmall,
+                    color = if (canBeInstalled) Color.Unspecified else {
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                    },
+                    modifier = Modifier.padding(bottom = 8.dp),
+                )
+            }
+            ItemState(item.state, canBeInstalled)
         }
-        ItemState(item.state, canBeInstalled)
     }
 }
 
