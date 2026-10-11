@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -71,7 +70,10 @@ fun InstallPage(
                 .padding(paddingValues),
         ) {
             val listState = rememberLazyListState()
-            LazyColumn(Modifier.weight(1f), listState) {
+            LazyColumn(modifier = Modifier
+                .weight(1f)
+                .padding(bottom = 8.dp),
+                state = listState) {
                 listHeader(state)
                 if (state is SelectingApps) {
                     allCheckbox(
@@ -81,7 +83,9 @@ fun InstallPage(
                 }
                 items(state.items) { item ->
                     AppItemRow(
-                        modifier = Modifier.padding(horizontal = horizontalMargin),
+                        modifier = Modifier
+                            .padding(horizontal = horizontalMargin)
+                            .padding(vertical = 8.dp),
                         item = item,
                         isOnline = isOnline,
                         clickListener = if (state is SelectingApps) {
