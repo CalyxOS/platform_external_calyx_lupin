@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd11861_c2f5f632",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2026-10-12T21:05:40Z",
+      "side": 1,
+      "message": "Playing around with views",
+      "revId": "83e771af4441cd7e4ea3be9a0cb1fbc167cf4103",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
