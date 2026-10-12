@@ -25,6 +25,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
@@ -135,24 +136,25 @@ fun LazyListScope.allCheckbox(
     onCheckAllClicked: () -> Unit,
 ) {
     item {
-        Column {
-            HorizontalDivider(
-                modifier = Modifier
-                    .padding(horizontal = horizontalMargin)
-                    .padding(top = 8.dp)
-            )
+        Card(
+            modifier = Modifier
+                .padding(horizontal = horizontalMargin)
+                .padding(top = 8.dp)
+                .padding(bottom = 8.dp)
+                .clickable { onCheckAllClicked() },
+        ) {
             Row(
                 verticalAlignment = CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onCheckAllClicked() }
-                    .padding(horizontal = horizontalMargin)
+                    .padding(horizontal = 16.dp)
                     .padding(vertical = 8.dp),
             ) {
                 Text(
                     text = stringResource(id = R.string.install_page_all),
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1f)
+                        .padding(horizontal = 16.dp)
                 )
                 Box(
                     Modifier
@@ -166,11 +168,6 @@ fun LazyListScope.allCheckbox(
                     )
                 }
             }
-            HorizontalDivider(
-                modifier = Modifier
-                    .padding(horizontal = horizontalMargin)
-                    .padding(bottom = 8.dp)
-            )
         }
     }
 }
