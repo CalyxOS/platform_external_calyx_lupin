@@ -6,7 +6,7 @@
 package org.calyxos.lupin.installer.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -26,7 +26,7 @@ fun LupinTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable 
         )
     }
 
-    MaterialTheme(
+    MaterialExpressiveTheme(
         colorScheme = colors,
         typography = Typography,
         shapes = Shapes,
