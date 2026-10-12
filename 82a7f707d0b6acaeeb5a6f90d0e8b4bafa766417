@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f25a14c5_ffb6d4fe",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/AppItemRow.kt",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-10-12T20:51:01Z",
+      "side": 1,
+      "message": "Is that what the rest of SUW does now? is it only normal cards or more like this: https://m3.material.io/components/lists/overview",
+      "revId": "82a7f707d0b6acaeeb5a6f90d0e8b4bafa766417",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
