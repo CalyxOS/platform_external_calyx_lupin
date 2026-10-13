@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73c09053_e501deea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-10-13T12:16:20Z",
+      "side": 1,
+      "message": "I think you\u0027d use the `installer: ` prefix here, because everything in this repo is lupin, but good to clarify if for installer or updater.",
+      "revId": "ddb30745fceb45d5b03995290f92b4676f5f7b20",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
