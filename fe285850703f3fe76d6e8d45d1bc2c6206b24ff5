@@ -16,6 +16,24 @@
       "message": "I\u0027m unsure if this should be removed",
       "revId": "fe285850703f3fe76d6e8d45d1bc2c6206b24ff5",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c1b9bbf_52621708",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-10-13T12:20:34Z",
+      "side": 1,
+      "message": "Maybe post some screenshots in UX channel and we discuss it there.",
+      "parentUuid": "d767d44a_69e323c3",
+      "revId": "fe285850703f3fe76d6e8d45d1bc2c6206b24ff5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
