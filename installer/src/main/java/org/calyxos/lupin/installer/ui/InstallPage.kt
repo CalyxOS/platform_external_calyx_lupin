@@ -29,7 +29,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -37,6 +36,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -49,6 +49,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
@@ -87,8 +88,21 @@ fun InstallPage(
                 }
                 listHeader(state)
                 if (state is SelectingApps) {
+                    val selectableItems = state.items.filter { item ->
+                        item.state is Selectable
+                    }
+                    val allSelected = selectableItems.isNotEmpty() && selectableItems.all { item ->
+                        (item.state as Selectable).selected
+                    }
+                    val noneSelected = selectableItems.all { item ->
+                        !((item.state as Selectable).selected)
+                    }
                     allCheckbox(
-                        isChecked = state.items.all { it.state is Selectable && it.state.selected },
+                        checkedState = when {
+                            allSelected -> ToggleableState.On
+                            noneSelected -> ToggleableState.Off
+                            else -> ToggleableState.Indeterminate
+                        },
                         onCheckAllClicked = onCheckAllClicked,
                     )
                 }
@@ -137,7 +151,7 @@ fun LazyListScope.listHeader(state: UiState) {
 }
 
 fun LazyListScope.allCheckbox(
-    isChecked: Boolean,
+    checkedState: ToggleableState,
     onCheckAllClicked: () -> Unit,
 ) {
     item {
@@ -165,10 +179,10 @@ fun LazyListScope.allCheckbox(
                         .size(32.dp)
                         .align(CenterVertically)
                 ) {
-                    Checkbox(
+                    TriStateCheckbox(
                         modifier = Modifier.align(Alignment.Center),
-                        checked = isChecked,
-                        onCheckedChange = null,
+                        state = checkedState,
+                        onClick = null,
                     )
                 }
             }
