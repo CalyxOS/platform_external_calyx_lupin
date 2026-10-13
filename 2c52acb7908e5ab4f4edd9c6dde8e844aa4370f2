@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90f533f1_2292868c",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/AppItemRow.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-10-13T12:19:34Z",
+      "side": 1,
+      "message": "Why is it tri-state, if it only takes two states now? :)",
+      "revId": "2c52acb7908e5ab4f4edd9c6dde8e844aa4370f2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c82bf5b4_4c4418ba",
+        "filename": "installer/src/main/java/org/calyxos/lupin/installer/ui/InstallPage.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-10-13T12:19:34Z",
+      "side": 1,
+      "message": "As this is taking several lines now, I\u0027d prefer to move calculation into the viewmodel and expose it via `state: UiState`",
+      "revId": "2c52acb7908e5ab4f4edd9c6dde8e844aa4370f2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
