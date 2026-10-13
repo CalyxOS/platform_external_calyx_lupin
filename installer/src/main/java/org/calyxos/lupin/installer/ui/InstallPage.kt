@@ -28,7 +28,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
-import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -125,7 +125,7 @@ fun LazyListScope.listHeader(state: UiState) {
                 targetValue = progress,
                 animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
             )
-            LinearProgressIndicator(
+            LinearWavyProgressIndicator(
                 progress = { progressAnimation },
                 modifier = Modifier
                     .fillMaxWidth()
