@@ -28,7 +28,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Button
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -143,11 +142,6 @@ fun LazyListScope.allCheckbox(
 ) {
     item {
         Column {
-            HorizontalDivider(
-                modifier = Modifier
-                    .padding(horizontal = horizontalMargin)
-                    .padding(top = 8.dp)
-            )
             Row(
                 verticalAlignment = CenterVertically,
                 modifier = Modifier
@@ -178,11 +172,6 @@ fun LazyListScope.allCheckbox(
                     )
                 }
             }
-            HorizontalDivider(
-                modifier = Modifier
-                    .padding(horizontal = horizontalMargin)
-                    .padding(bottom = 8.dp)
-            )
         }
     }
 }
