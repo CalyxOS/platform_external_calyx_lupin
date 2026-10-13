@@ -14,4 +14,6 @@
     <string name="never">soha</string>
     <string name="channel_update_description">Megjeleníti amíg frissíti az appokat</string>
     <string name="channel_confirmation_description">Csak akkor jelenik meg, ha a telepítést a felhasználónak jóvá kell hagynia</string>
+    <string name="app_settings_title">App frissítő</string>
+    <string name="app_settings_summary">CalyxOS rendszer appok frissítése a háttérben</string>
 </resources>

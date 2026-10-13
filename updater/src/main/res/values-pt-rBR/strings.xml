@@ -4,7 +4,7 @@
     <string name="app_name">Atualizador de apps do CalyxOS</string>
     <string name="cancel">Cancelar</string>
     <string name="status_screen_title">Atualizações de apps</string>
-    <string name="notification_update_title">Atualizando apps</string>
+    <string name="notification_update_title">Atualizando apps…</string>
     <string name="notification_confirmation_title">Confirmar atualizações de apps</string>
     <string name="channel_update_name">Notificação de atualização</string>
     <string name="channel_update_description">Mostrado enquanto apps são atualizados</string>
@@ -14,4 +14,14 @@
     <string name="never">nunca</string>
     <string name="status_screen_last_check">Última busca por atualizações: %s</string>
     <string name="status_screen_check_button">Buscar agora</string>
+    <string name="app_settings_title">Atualizador de apps</string>
+    <string name="app_settings_summary">Atualiza apps do sistema do CalyxOS em segundo plano</string>
+    <string name="status_screen_intro">O Atualizador de Apps do CalyxOS automatiza as atualizações de apps em segundo plano. Você pode o último horário que foram buscadas atualizações, or realizar uma busca manual aqui.</string>
+    <string name="status_screen_checking">Buscando…</string>
+    <string name="status_screen_success">Todos os apps estão atualizados 🎉</string>
+    <string name="notification_success_title">%1$s foi atualizado com sucesso</string>
+    <string name="notification_success_description">%1$s para %2$s</string>
+    <string name="notification_success_action">Ver informações do app</string>
+    <string name="channel_success_name">App foi atualizado</string>
+    <string name="channel_success_description">Mostrado quando um app foi atualizado com sucesso</string>
 </resources>
