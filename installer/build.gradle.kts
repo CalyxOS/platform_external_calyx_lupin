@@ -80,5 +80,3 @@ dependencies {
     implementation(libs.google.hilt.android)
     implementation(libs.coil.compose)
 }
-
-apply("${rootProject.rootDir}/gradle/ktlint.gradle")

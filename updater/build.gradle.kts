@@ -96,5 +96,3 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.logback.classic)
 }
-
-apply("${rootProject.rootDir}/gradle/ktlint.gradle")

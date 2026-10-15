@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: 2022 The Calyx Institute
+# SPDX-License-Identifier: Apache-2.0
+
+root = true
+
+[*.{kt,kts}]
+# Enables Android code style
+ktlint_code_style = android
+
+# Disables the specified rules
+disabled_rules = wrapping, import-ordering, no-blank-line-before-rbrace
