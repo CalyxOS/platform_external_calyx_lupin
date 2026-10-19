@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8d87d02_2044c7c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-10-19T20:35:56Z",
+      "side": 1,
+      "message": "I did a `fastboot update -w image.img` and right after boot, I ran `adb shell dumpsys jobscheduler | grep -C 5 lupin` and now got the scheduled job:\n\n```\n  JOB androidx.work.systemjobscheduler:u0a126/0: aac1dd3 #UpdateWorker#@androidx.work.systemjobscheduler@org.calyxos.lupin.updater/androidx.work.impl.background.systemjob.SystemJobService\n    u0a126 tag\u003d*job*r/#UpdateWorker#@androidx.work.systemjobscheduler@org.calyxos.lupin.updater/androidx.work.impl.background.systemjob.SystemJobService\n    Source: uid\u003du0a126 user\u003d0 pkg\u003dorg.calyxos.lupin.updater\n    JobInfo:\n      Service: org.calyxos.lupin.updater/androidx.work.impl.background.systemjob.SystemJobService```",
+      "revId": "deb003699e117e20127e856345c1caa5b60aad3b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
