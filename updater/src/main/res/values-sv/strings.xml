@@ -2,7 +2,7 @@
 <resources>
     <string name="status_screen_check_button">Kolla nu</string>
     <string name="status_screen_last_check">Senaste uppdateringskoll: %s</string>
-    <string name="notification_update_title">Uppdaterar appar</string>
+    <string name="notification_update_title">Uppdaterar appar…</string>
     <string name="channel_update_name">Uppdateringsavisering</string>
     <string name="back">Tillbaka</string>
     <string name="status_screen_title">Appuppdateringar</string>
@@ -14,4 +14,14 @@
     <string name="app_name">CalyxOS Appuppdaterare</string>
     <string name="now">nu</string>
     <string name="channel_update_description">Visas medan appar uppdateras</string>
+    <string name="app_settings_title">Appuppdaterare</string>
+    <string name="app_settings_summary">Uppdaterar CalyxOS-systemappar i bakgrunden</string>
+    <string name="status_screen_intro">CalyxOS Appuppdaterare automatiserar appuppdateringar i bakgrunden. Här kan du se tidpunkten för den senaste uppdateringskontrollen eller starta en manuell kontroll.</string>
+    <string name="status_screen_checking">Kontrollerar…</string>
+    <string name="status_screen_success">Alla appar är uppdaterade 🎉</string>
+    <string name="notification_success_title">%1$s har uppdaterats</string>
+    <string name="notification_success_description">%1$s till %2$s</string>
+    <string name="notification_success_action">Visa app information</string>
+    <string name="channel_success_name">Appen uppdaterades</string>
+    <string name="channel_success_description">Visas när en app har uppdaterats framgångsrikt</string>
 </resources>

@@ -3,7 +3,7 @@
     <string name="app_name">Ενημέρωση εφαρμογών CalyxOS</string>
     <string name="status_screen_check_button">Ελέγξτε τώρα</string>
     <string name="status_screen_title">Ενημερώσεις εφαρμογών</string>
-    <string name="notification_update_title">Ενημέρωση εφαρμογών</string>
+    <string name="notification_update_title">Ενημέρωση εφαρμογών…</string>
     <string name="back">Πίσω</string>
     <string name="cancel">Ακύρωση</string>
     <string name="never">ποτέ</string>
@@ -14,4 +14,14 @@
     <string name="channel_update_description">Εμφανίζεται κατά την ενημέρωση εφαρμογών</string>
     <string name="channel_confirmation_description">Εμφανίζεται μόνο αν η εγκατάσταση ενημερώσεων απαιτεί επιβεβαίωση χρήστη</string>
     <string name="channel_confirmation_name">Ειδοποίηση επιβεβαίωσης ενημερώσεων</string>
+    <string name="app_settings_title">Ενημερώσεις εφαρμογών</string>
+    <string name="app_settings_summary">Ενημέρωση των εφαρμογών συστήματος CalyxOS στο παρασκήνιο</string>
+    <string name="status_screen_intro">Η ενημέρωση εφαρμογών CalyxOS αυτοματοποιεί τις ενημερώσεις εφαρμογών στο παρασκήνιο. Μπορείτε να δείτε την ώρα του τελευταίου ελέγχου ενημέρωσης ή να ξεκινήσετε ένα χειροκίνητο έλεγχο εδώ.</string>
+    <string name="status_screen_checking">Έλεγχος…</string>
+    <string name="status_screen_success">Όλες οι εφαρμογές είναι ενημερωμένες 🎉</string>
+    <string name="notification_success_title">Το %1$s ενημερώθηκε με επιτυχία</string>
+    <string name="notification_success_description">%1$s σε %2$s</string>
+    <string name="notification_success_action">Προβολή πληροφοριών εφαρμογής</string>
+    <string name="channel_success_name">Η εφαρμογή ενημερώθηκε</string>
+    <string name="channel_success_description">Εμφανίζεται όταν μια εφαρμογή ενημερώθηκε με επιτυχία</string>
 </resources>

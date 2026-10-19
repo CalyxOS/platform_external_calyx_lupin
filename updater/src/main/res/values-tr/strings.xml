@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CalyxOS Uygulama Güncelleyici</string>
-    <string name="notification_update_title">Uygulamalar güncelleniyor</string>
+    <string name="notification_update_title">Uygulamalar güncelleniyor…</string>
     <string name="notification_confirmation_title">Uygulama güncellemelerini onayla</string>
     <string name="channel_update_name">Güncelleme bildirimi</string>
     <string name="channel_update_description">Uygulamalar güncellenirken gösterilir</string>
@@ -14,4 +14,14 @@
     <string name="status_screen_last_check">Son güncelleme denetimi: %s</string>
     <string name="status_screen_check_button">Şimdi denetle</string>
     <string name="status_screen_title">Uygulama güncellemeleri</string>
+    <string name="app_settings_title">Uygulama güncelleyici</string>
+    <string name="app_settings_summary">CalyxOS sistem uygulamalarını arka planda günceller</string>
+    <string name="status_screen_intro">CalyxOS Uygulama Güncelleyici, uygulama güncellemelerini arka planda otomatik olarak gerçekleştirir. Burada son güncelleme denetiminin zamanını görebilir veya elle denetim başlatabilirsiniz.</string>
+    <string name="status_screen_checking">Denetleniyor…</string>
+    <string name="status_screen_success">Tüm uygulamalar güncel 🎉</string>
+    <string name="notification_success_title">%1$s başarıyla güncellendi</string>
+    <string name="notification_success_description">%1$s =&gt; %2$s</string>
+    <string name="notification_success_action">Uygulama Bilgilerini Görüntüle</string>
+    <string name="channel_success_name">Uygulama güncellendi</string>
+    <string name="channel_success_description">Bir uygulama başarıyla güncellendiğinde görüntülenir</string>
 </resources>

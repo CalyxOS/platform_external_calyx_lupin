@@ -4,7 +4,7 @@
     <string name="status_screen_last_check">Utolsó frissítés ellenőrzés: %s</string>
     <string name="status_screen_check_button">Ellenőrzés most</string>
     <string name="status_screen_title">App frissítések</string>
-    <string name="notification_update_title">Appok frissítése</string>
+    <string name="notification_update_title">Appok frissítése…</string>
     <string name="notification_confirmation_title">Appok frissítésének megerősítése</string>
     <string name="channel_confirmation_name">Frissítések jóváhagyásának értesítése</string>
     <string name="cancel">Mégse</string>
@@ -14,4 +14,13 @@
     <string name="never">soha</string>
     <string name="channel_update_description">Megjeleníti amíg frissíti az appokat</string>
     <string name="channel_confirmation_description">Csak akkor jelenik meg, ha a telepítést a felhasználónak jóvá kell hagynia</string>
+    <string name="app_settings_title">App frissítő</string>
+    <string name="app_settings_summary">CalyxOS rendszer appok frissítése a háttérben</string>
+    <string name="status_screen_intro">A CalyxOS App Frissítő automatizálja az alkalmazás frissítéseket a háttérben. Itt megtekintheti mikor volt az utolsó frissítés keresés, vagy kézzel is indíthat frissítés keresést ugyanitt.</string>
+    <string name="status_screen_checking">Keresés…</string>
+    <string name="status_screen_success">Minden app naprakész 🎉</string>
+    <string name="notification_success_title">%1$s sikeresen frissítve</string>
+    <string name="notification_success_action">App infó megtekintése</string>
+    <string name="channel_success_name">App frissítésre került</string>
+    <string name="channel_success_description">Akkor jelenik meg, ha egy app sikeresen frissül</string>
 </resources>

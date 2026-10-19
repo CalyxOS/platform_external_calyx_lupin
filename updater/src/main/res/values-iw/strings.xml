@@ -2,7 +2,7 @@
 <resources>
     <string name="status_screen_check_button">לבדוק כעת</string>
     <string name="status_screen_last_check">בדיקת העדכונים האחרונה: %s</string>
-    <string name="notification_update_title">עדכון יישומונים</string>
+    <string name="notification_update_title">היישומונים מתעדכנים…</string>
     <string name="channel_update_name">התראת עדכון</string>
     <string name="back">חזרה</string>
     <string name="status_screen_title">עדכוני יישומונים</string>
@@ -14,4 +14,14 @@
     <string name="app_name">מעדכן היישומונים של CalyxOS</string>
     <string name="now">עכשיו</string>
     <string name="channel_update_description">מופיעה במהלך עדכון היישומונים</string>
+    <string name="app_settings_title">מעדכן היישומונים</string>
+    <string name="app_settings_summary">עדכון יישומוני המערכת של CalyxOS ברקע</string>
+    <string name="status_screen_intro">מעדכן היישומונים של CalyxOS הופך את תהליך עדכון היישומונים ברקע לאוטומטי. אפשר לראות את מועד בדיקת העדכון האחרונה או הזנקת בדיקה ידנית מכאן.</string>
+    <string name="status_screen_checking">נבדק…</string>
+    <string name="status_screen_success">כל היישומונים עדכניים 🎉</string>
+    <string name="notification_success_title">%1$s עודכנו בהצלחה</string>
+    <string name="notification_success_description">%1$s ל־%2$s</string>
+    <string name="notification_success_action">הצגת פרטי היישומון</string>
+    <string name="channel_success_name">יישומון עודכן</string>
+    <string name="channel_success_description">מופיע כשיישומון עודכן בהצלחה</string>
 </resources>
