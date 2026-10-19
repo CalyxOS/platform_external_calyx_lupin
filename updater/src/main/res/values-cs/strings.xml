@@ -2,7 +2,7 @@
 <resources>
     <string name="status_screen_check_button">Zkontrolovat nyní</string>
     <string name="status_screen_last_check">Poslední kontrola aktualizací: %s</string>
-    <string name="notification_update_title">Aktualizace aplikací</string>
+    <string name="notification_update_title">Aktualizace aplikací…</string>
     <string name="channel_update_name">Oznámení o aktualizacích</string>
     <string name="back">Zpět</string>
     <string name="status_screen_title">Aktualizace aplikací</string>
@@ -14,4 +14,14 @@
     <string name="app_name">Aktualizace aplikací CalyxOS</string>
     <string name="now">nyní</string>
     <string name="channel_update_description">Zobrazeno při aktualizaci aplikací</string>
+    <string name="app_settings_title">Aktualizace aplikací</string>
+    <string name="app_settings_summary">Aktualizuje systémové aplikace CalyxOS na pozadí</string>
+    <string name="status_screen_intro">Aktualizátor aplikací CalyxOS automaticky aktualizuje aplikace na pozadí. Zde můžete vidět čas poslední aktualizace nebo provést ruční kontrolu.</string>
+    <string name="status_screen_checking">Kontrola…</string>
+    <string name="status_screen_success">Všechny aplikace jsou aktuální 🎉</string>
+    <string name="notification_success_title">Aplikace %1$s úspěšně aktualizována</string>
+    <string name="notification_success_description">Z %1$s na %2$s</string>
+    <string name="notification_success_action">Informace o aplikaci</string>
+    <string name="channel_success_name">Aplikace byla aktualizována</string>
+    <string name="channel_success_description">Zobrazuje se, když byla aplikace úspěšně aktualizována</string>
 </resources>
