@@ -16,6 +16,24 @@
       "message": "As dangerous as this claims to be, shipping 2x 50MB+ apks just for lupin is not sustainable. Most system apps are already minified and we should be heading that way IMO.",
       "revId": "7a517519caea40a0b6d60fcdbe1c46c63c3ae88e",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd2e41ff_e5f528ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-10-20T17:49:14Z",
+      "side": 1,
+      "message": "Yes, I\u0027d be more careful in a more complex app, but once we test upgrades one more time, this should be safe to merge. There isn\u0027t all that much this app does.",
+      "parentUuid": "3ab6c269_4e6103a4",
+      "revId": "7a517519caea40a0b6d60fcdbe1c46c63c3ae88e",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
