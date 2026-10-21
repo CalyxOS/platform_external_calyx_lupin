@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26ffe6b7_1c198640",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-10-21T20:44:58Z",
+      "side": 1,
+      "message": "Just got Chromium 156 with the minified Lupin. So this should be good to go.",
+      "revId": "7d33779f1da7dbc57f3095d4480ddef87058f179",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
