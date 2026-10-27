@@ -32,7 +32,7 @@ class AppInstallerService : LifecycleService() {
     companion object {
         fun start(context: Context) {
             val intent = Intent(context, AppInstallerService::class.java)
-            context.startForegroundService(intent)
+            context.startService(intent)
         }
 
         fun stop(context: Context) {
