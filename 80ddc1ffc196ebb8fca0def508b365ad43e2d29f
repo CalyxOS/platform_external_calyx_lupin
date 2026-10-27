@@ -34,6 +34,24 @@
       "parentUuid": "b8bedea5_7c97acc6",
       "revId": "80ddc1ffc196ebb8fca0def508b365ad43e2d29f",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d530469_7e3c3471",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-10-27T20:32:20Z",
+      "side": 1,
+      "message": "Not soon, likely in QPR2. We can move out unrelated changes from that chain though",
+      "parentUuid": "29e339d1_8e51174e",
+      "revId": "80ddc1ffc196ebb8fca0def508b365ad43e2d29f",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
