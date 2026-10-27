@@ -16,6 +16,24 @@
       "message": "Duplicate? https://review.calyxos.org/c/CalyxOS/platform_external_calyx_lupin/+/49638/",
       "revId": "80ddc1ffc196ebb8fca0def508b365ad43e2d29f",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29e339d1_8e51174e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-10-27T19:46:27Z",
+      "side": 1,
+      "message": "argh yes, are we gonna merge the SUW chain soon?",
+      "parentUuid": "b8bedea5_7c97acc6",
+      "revId": "80ddc1ffc196ebb8fca0def508b365ad43e2d29f",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
