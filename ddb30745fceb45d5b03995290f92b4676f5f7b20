@@ -16,6 +16,24 @@
       "message": "I think you\u0027d use the `installer: ` prefix here, because everything in this repo is lupin, but good to clarify if for installer or updater.",
       "revId": "ddb30745fceb45d5b03995290f92b4676f5f7b20",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7650e4_164cfbeb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-10-27T19:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73c09053_e501deea",
+      "revId": "ddb30745fceb45d5b03995290f92b4676f5f7b20",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
