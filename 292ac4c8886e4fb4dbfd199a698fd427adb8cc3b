@@ -16,6 +16,24 @@
       "message": "Did we miss this?",
       "revId": "292ac4c8886e4fb4dbfd199a698fd427adb8cc3b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ea4098a_c069deb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-10-27T12:55:47Z",
+      "side": 1,
+      "message": "Looks like it. I couldn\u0027t reproduce a rotating spinner with nothing happening, but this is a likely cause and in any case would help with debugging this further.",
+      "parentUuid": "673c2a62_ca4412ce",
+      "revId": "292ac4c8886e4fb4dbfd199a698fd427adb8cc3b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
