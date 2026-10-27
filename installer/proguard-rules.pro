@@ -24,3 +24,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Logging
+-keep class ch.qos.logback.classic.android.LogcatAppender
+-keepclassmembers class ch.qos.logback.** { *; }
+-keepclassmembers class org.slf4j.impl.** { *; }
