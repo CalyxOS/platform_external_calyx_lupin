@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId = "org.calyxos.lupin.updater"
-        minSdk = 33
+        minSdk = 34
         targetSdk = rootProject.extra["sdk"] as Int
         versionCode = 1
         versionName = "0.1"
