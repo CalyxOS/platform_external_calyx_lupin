@@ -64,6 +64,7 @@ class InstallManager @Inject constructor(
             log.info { "Installing $packageName" }
             apkInstaller.install(packageName, apkFile, userActionListener) {
                 setRequireUserAction(USER_ACTION_NOT_REQUIRED)
+                setApplicationEnabledSettingPersistent()
             }
             // not throwing exception on negative install result, so we don't re-try to install
         } finally {
