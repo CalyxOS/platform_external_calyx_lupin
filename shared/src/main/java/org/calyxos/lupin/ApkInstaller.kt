@@ -35,12 +35,10 @@ import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageInstaller.SessionParams.MODE_FULL_INSTALL
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.INSTALL_REASON_USER
-import android.content.pm.PackageManager.PackageInfoFlags
 import android.util.Log
 import androidx.annotation.RequiresPermission
 import androidx.annotation.UiThread
 import androidx.annotation.VisibleForTesting
-import androidx.core.content.ContextCompat.startActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.File
@@ -250,14 +248,4 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
             false
         }
     }
-}
-
-fun PackageManager.getSharedLibraryVersionCode(packageName: String): Long? {
-    return getSharedLibraries(PackageInfoFlags.of(0)).mapNotNull {
-        if (it.declaringPackage.packageName == packageName) {
-            it.longVersion
-        } else {
-            null
-        }
-    }.maxOrNull() // getting highest installed version code
 }
