@@ -1,0 +1,24 @@
+image: registry.gitlab.com/fdroid/fdroidserver:buildserver-trixie
+
+stages:
+  - test
+
+app assembleRelease test:
+  stage: test
+  script:
+    - ./gradlew assemble check
+  artifacts:
+    name: "${CI_PROJECT_PATH}_${CI_JOB_STAGE}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA}"
+    paths:
+      - installer/build/reports
+      - updater/build/reports
+      - installer/build/outputs/apk
+      - updater/build/outputs/apk
+      - installer/build/outputs/mapping
+      - updater/build/outputs/mapping
+    reports:
+      junit:
+        - installer/build/test-results/*/TEST-*.xml
+        - updater/build/test-results/*/TEST-*.xml
+    expire_in: 1 week
+    when: always
