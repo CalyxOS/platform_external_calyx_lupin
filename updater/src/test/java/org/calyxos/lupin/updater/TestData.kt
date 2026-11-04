@@ -26,18 +26,6 @@ val index = IndexV2(
     packages = mapOf(packageName to packageV2)
 )
 
-val pvWebview = getPackageVersionV2("webview")
-val pvTriChromeLib = getPackageVersionV2("trichromelib")
-val pvChrome = getPackageVersionV2("chrome")
-val triChromeIndex = IndexV2(
-    repo = repo,
-    packages = mapOf(
-        PACKAGE_NAME_WEBVIEW to getPackageV2(pvWebview),
-        PACKAGE_NAME_TRICHROME_LIB to getPackageV2(pvTriChromeLib),
-        PACKAGE_NAME_CHROME to getPackageV2(pvChrome),
-    )
-)
-
 fun getPackageV2(packageVersion: PackageVersionV2) = PackageV2(
     metadata = MetadataV2(
         added = Random.nextLong(),
