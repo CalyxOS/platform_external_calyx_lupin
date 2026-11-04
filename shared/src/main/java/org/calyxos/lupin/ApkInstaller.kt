@@ -10,6 +10,7 @@
 package org.calyxos.lupin
 
 import android.Manifest.permission.INSTALL_PACKAGES
+import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
 import android.app.PendingIntent.FLAG_MUTABLE
@@ -79,7 +80,7 @@ data class InstallResult(
  * Assumes that you get the [InstallResult] before starting a new installation.
  */
 @Singleton
-class ApkInstaller @Inject constructor(@ApplicationContext private val context: Context) {
+class ApkInstaller @Inject constructor(@param:ApplicationContext private val context: Context) {
 
     private val pm: PackageManager = context.packageManager
     private val installer: PackageInstaller = pm.packageInstaller
@@ -153,6 +154,7 @@ class ApkInstaller @Inject constructor(@ApplicationContext private val context: 
                     session.fsync(out)
                 }
             }
+            @SuppressLint("RequestInstallPackagesPolicy")
             session.commit(intentSender)
         }
     }
