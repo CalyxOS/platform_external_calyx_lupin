@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecf8056c_5021ac7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-11-04T16:00:22Z",
+      "side": 1,
+      "message": "Might want to hook this with the ci-templates for gerrit voting",
+      "revId": "738cc89ed7e6e3d49766b8f22b701707a4859c23",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
