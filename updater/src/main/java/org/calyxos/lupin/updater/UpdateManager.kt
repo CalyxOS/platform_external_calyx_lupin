@@ -123,6 +123,9 @@ class UpdateManager(
                         fromVersion = update.installedVersionName,
                         toVersion = update.packageVersion.manifest.versionName,
                     )
+                } else {
+                    // keep retrying when install failed
+                    retry = true
                 }
             } catch (e: Exception) {
                 if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.

@@ -227,8 +227,8 @@ class UpdateManagerTest {
         } returns InstallResult(Exception())
         every { installManager.clearUpOldSession() } just Runs
 
-        // no need to try again
-        assertFalse(updateManager.updateApps(index))
+        // we try again when updating fails
+        assertTrue(updateManager.updateApps(index))
 
         coVerify {
             installManager.installUpdate(packageName, packageVersion)
