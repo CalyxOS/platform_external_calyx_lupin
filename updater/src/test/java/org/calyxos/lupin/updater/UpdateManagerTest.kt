@@ -15,6 +15,7 @@ import android.content.pm.PackageManager.NameNotFoundException
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.coVerifyOrder
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -220,6 +221,7 @@ class UpdateManagerTest {
 
     @Test
     fun appFailsToInstallUpdate() = runTest {
+        every { context.packageName } returns "foo bar"
         expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
         coEvery { installManager.hasActiveSession(packageName) } returns false
         coEvery {
@@ -271,6 +273,7 @@ class UpdateManagerTest {
             packages = mapOf(packageName to packageV2, packageName2 to pv2)
         )
 
+        every { context.packageName } returns "foo bar"
         expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
         coEvery { installManager.hasActiveSession(packageName) } returns false
         expectSuccessfulInstall(packageName, packageVersion)
@@ -287,6 +290,32 @@ class UpdateManagerTest {
         coVerify {
             installManager.installUpdate(packageName, packageVersion)
             installManager.installUpdate(packageName2, pv)
+        }
+    }
+
+    @Test
+    fun ourAppIsUpdatedLast() = runTest {
+        val packageName2 = "net.example.app"
+        val pv = getPackageVersionV2("file2")
+        val index = IndexV2(
+            repo = repo,
+            packages = mapOf(packageName to packageV2, packageName2 to getPackageV2(pv))
+        )
+
+        every { context.packageName } returns packageName
+        expectGetUpdate(packageName, listOf(packageVersion), packageVersion)
+        coEvery { installManager.hasActiveSession(packageName) } returns false
+        expectSuccessfulInstall(packageName, packageVersion)
+        expectGetUpdate(packageName2, listOf(pv), pv)
+        coEvery { installManager.hasActiveSession(packageName2) } returns false
+        expectSuccessfulInstall(packageName2, pv)
+        every { installManager.clearUpOldSession() } just Runs
+
+        updateManager.updateApps(index)
+
+        coVerifyOrder {
+            installManager.installUpdate(packageName2, pv)
+            installManager.installUpdate(packageName, packageVersion)
         }
     }
 
