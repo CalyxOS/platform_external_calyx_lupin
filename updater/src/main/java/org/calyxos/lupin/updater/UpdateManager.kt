@@ -29,7 +29,7 @@ import kotlin.coroutines.CoroutineContext
 
 @Singleton
 class UpdateManager(
-    context: Context,
+    private val context: Context,
     private val httpManager: HttpManager,
     private val updateChecker: UpdateChecker,
     private val installManager: InstallManager,
@@ -100,7 +100,9 @@ class UpdateManager(
         var hasOngoingSessions = false
         var needConfirmationNotification = false
         var retry = false
-        index.packages.forEach { (packageName, packageV2) ->
+        // sort packages so that our own package is last, so we don't interrupt other updates
+        val packages = index.packages.entries.sortedBy { it.key == context.packageName }
+        packages.forEach { (packageName, packageV2) ->
             log.info { "Checking if $packageName has an update " }
             val packageVersions = packageV2.versions.values.toList()
             try {
