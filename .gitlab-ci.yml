@@ -16,6 +16,12 @@ test:
   extends: .gerrit_checkout
   script:
     - ./gradlew assemble check
+  cache:
+    # Use branch-scoped keys so caches are shared across commits on the same branch
+    key: "${CI_PROJECT_PATH}-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - .gradle/wrapper
+      - .gradle/caches
   artifacts:
     name: "${CI_PROJECT_PATH}_${CI_JOB_STAGE}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA}"
     paths:
