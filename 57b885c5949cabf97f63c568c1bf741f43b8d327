@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57762e64_3c3cd9e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-11-05T16:43:34Z",
+      "side": 1,
+      "message": "I used Briar\u0027s image that I can modify if needed for now until we had time to set up our own docker image.",
+      "revId": "57b885c5949cabf97f63c568c1bf741f43b8d327",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
