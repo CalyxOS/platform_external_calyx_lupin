@@ -21,47 +21,42 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.withResumed
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.calyxos.lupin.updater.InstallManager
 import org.calyxos.lupin.updater.R
 import org.calyxos.lupin.updater.ui.theme.LupinTheme
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ConfirmationActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var installManager: InstallManager
+  @Inject lateinit var installManager: InstallManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            lifecycle.withResumed {
-                installManager.onUserAttentionReceived(this@ConfirmationActivity)
-            }
-        }
-        // content not super important as we finish this usually before it becomes visible
-        setContent {
-            LupinTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    val settingsPadding = 24.dp // taken from system settings
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(settingsPadding),
-                        verticalArrangement = spacedBy(settingsPadding),
-                    ) {
-                        Text(
-                            modifier = Modifier.padding(vertical = settingsPadding),
-                            style = MaterialTheme.typography.displaySmall,
-                            text = stringResource(R.string.notification_confirmation_title),
-                        )
-                    }
-                }
-            }
-        }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    lifecycleScope.launch {
+      lifecycle.withResumed { installManager.onUserAttentionReceived(this@ConfirmationActivity) }
     }
+    // content not super important as we finish this usually before it becomes visible
+    setContent {
+      LupinTheme {
+        Surface(
+          modifier = Modifier.fillMaxSize(),
+          color = MaterialTheme.colorScheme.background,
+        ) {
+          val settingsPadding = 24.dp // taken from system settings
+          Column(
+            modifier = Modifier.fillMaxSize().padding(settingsPadding),
+            verticalArrangement = spacedBy(settingsPadding),
+          ) {
+            Text(
+              modifier = Modifier.padding(vertical = settingsPadding),
+              style = MaterialTheme.typography.displaySmall,
+              text = stringResource(R.string.notification_confirmation_title),
+            )
+          }
+        }
+      }
+    }
+  }
 }

@@ -20,65 +20,66 @@ import org.calyxos.lupin.installer.BuildConfig
 private const val TAG = "NetworkManager"
 
 fun interface OnlineStateChangedListener {
-    fun onOnlineStateChanged(online: Boolean)
+  fun onOnlineStateChanged(online: Boolean)
 }
 
 class NetworkManager(
-    context: Context,
-    private val listener: OnlineStateChangedListener,
+  context: Context,
+  private val listener: OnlineStateChangedListener,
 ) : ConnectivityManager.NetworkCallback() {
-    private val connectivityManager = context.getSystemService(ConnectivityManager::class.java)
+  private val connectivityManager = context.getSystemService(ConnectivityManager::class.java)
 
-    private val _onlineState = MutableStateFlow(isOnlineNotMetered())
-    val onlineState = _onlineState.asStateFlow()
+  private val _onlineState = MutableStateFlow(isOnlineNotMetered())
+  val onlineState = _onlineState.asStateFlow()
 
-    init {
-        // monitor connectivity changes
-        val networkRequest = NetworkRequest.Builder()
-            .addCapability(NET_CAPABILITY_INTERNET)
-            .addCapability(NET_CAPABILITY_NOT_METERED)
-            .build()
-        // this will call us right back with the current state
-        connectivityManager.requestNetwork(networkRequest, this)
-    }
+  init {
+    // monitor connectivity changes
+    val networkRequest =
+      NetworkRequest.Builder()
+        .addCapability(NET_CAPABILITY_INTERNET)
+        .addCapability(NET_CAPABILITY_NOT_METERED)
+        .build()
+    // this will call us right back with the current state
+    connectivityManager.requestNetwork(networkRequest, this)
+  }
 
-    override fun onAvailable(network: Network) {
-        val online = network.isOnline()
-        Log.i(TAG, "onAvailable: $online")
-        val wasSet = _onlineState.compareAndSet(!online, online)
-        if (wasSet) listener.onOnlineStateChanged(online)
-    }
+  override fun onAvailable(network: Network) {
+    val online = network.isOnline()
+    Log.i(TAG, "onAvailable: $online")
+    val wasSet = _onlineState.compareAndSet(!online, online)
+    if (wasSet) listener.onOnlineStateChanged(online)
+  }
 
-    override fun onLost(network: Network) {
-        val online = isOnlineNotMetered()
-        Log.i(TAG, "onLost: $online")
-        val wasSet = _onlineState.compareAndSet(!online, online)
-        if (wasSet) listener.onOnlineStateChanged(online)
-    }
+  override fun onLost(network: Network) {
+    val online = isOnlineNotMetered()
+    Log.i(TAG, "onLost: $online")
+    val wasSet = _onlineState.compareAndSet(!online, online)
+    if (wasSet) listener.onOnlineStateChanged(online)
+  }
 
-    override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) {
-        val online = caps.isOnline()
-        Log.i(TAG, "onCapabilitiesChanged: $online")
-        val wasSet = _onlineState.compareAndSet(!online, online)
-        if (wasSet) listener.onOnlineStateChanged(online)
-    }
+  override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) {
+    val online = caps.isOnline()
+    Log.i(TAG, "onCapabilitiesChanged: $online")
+    val wasSet = _onlineState.compareAndSet(!online, online)
+    if (wasSet) listener.onOnlineStateChanged(online)
+  }
 
-    fun stopObservingNetworkState() {
-        connectivityManager.unregisterNetworkCallback(this)
-    }
+  fun stopObservingNetworkState() {
+    connectivityManager.unregisterNetworkCallback(this)
+  }
 
-    private fun isOnlineNotMetered(): Boolean {
-        if (BuildConfig.DEBUG) return false
-        val currentNetwork = connectivityManager.activeNetwork
-        return currentNetwork?.isOnline() ?: false
-    }
+  private fun isOnlineNotMetered(): Boolean {
+    if (BuildConfig.DEBUG) return false
+    val currentNetwork = connectivityManager.activeNetwork
+    return currentNetwork?.isOnline() ?: false
+  }
 
-    private fun Network.isOnline(): Boolean {
-        val caps = connectivityManager.getNetworkCapabilities(this)
-        return caps?.isOnline() ?: false
-    }
+  private fun Network.isOnline(): Boolean {
+    val caps = connectivityManager.getNetworkCapabilities(this)
+    return caps?.isOnline() ?: false
+  }
 
-    private fun NetworkCapabilities.isOnline(): Boolean {
-        return hasCapability(NET_CAPABILITY_INTERNET) && hasCapability(NET_CAPABILITY_NOT_METERED)
-    }
+  private fun NetworkCapabilities.isOnline(): Boolean {
+    return hasCapability(NET_CAPABILITY_INTERNET) && hasCapability(NET_CAPABILITY_NOT_METERED)
+  }
 }

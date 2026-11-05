@@ -30,48 +30,46 @@ import org.calyxos.lupin.updater.ui.theme.LupinTheme
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+  private val viewModel: MainViewModel by viewModels()
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            LupinTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    Scaffold(
-                        topBar = {
-                            TopAppBar(
-                                navigationIcon = {
-                                    IconButton(
-                                        onClick = { onBackPressedDispatcher.onBackPressed() },
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                            contentDescription = stringResource(R.string.back),
-                                        )
-                                    }
-                                },
-                                title = { /* TODO to parallax effect like system settings */ },
-                            )
-                        },
-                    ) {
-                        val lastCheckedMillis = viewModel.lastCheckedMillis.collectAsState()
-                        val isCheckRunningFlow = viewModel.isCheckRunningFlow.collectAsStateWithLifecycle(false)
-                        val checkStateFlow = viewModel.checkStateFlow.collectAsStateWithLifecycle(null)
-                        StatusScreen(
-                            paddingValues = it,
-                            lastCheckedMillis = lastCheckedMillis.value,
-                            isCheckRunning = isCheckRunningFlow.value,
-                            checkState = checkStateFlow.value,
-                            onCheckButtonClicked = viewModel::onCheckButtonClicked,
-                        )
-                    }
-                }
+  @OptIn(ExperimentalMaterial3Api::class)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
+    setContent {
+      LupinTheme {
+        Surface(
+          modifier = Modifier.fillMaxSize(),
+          color = MaterialTheme.colorScheme.background,
+        ) {
+          Scaffold(
+            topBar = {
+              TopAppBar(
+                navigationIcon = {
+                  IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
+                    Icon(
+                      imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                      contentDescription = stringResource(R.string.back),
+                    )
+                  }
+                },
+                title = { /* TODO to parallax effect like system settings */ },
+              )
             }
+          ) {
+            val lastCheckedMillis = viewModel.lastCheckedMillis.collectAsState()
+            val isCheckRunningFlow = viewModel.isCheckRunningFlow.collectAsStateWithLifecycle(false)
+            val checkStateFlow = viewModel.checkStateFlow.collectAsStateWithLifecycle(null)
+            StatusScreen(
+              paddingValues = it,
+              lastCheckedMillis = lastCheckedMillis.value,
+              isCheckRunning = isCheckRunningFlow.value,
+              checkState = checkStateFlow.value,
+              onCheckButtonClicked = viewModel::onCheckButtonClicked,
+            )
+          }
         }
+      }
     }
+  }
 }

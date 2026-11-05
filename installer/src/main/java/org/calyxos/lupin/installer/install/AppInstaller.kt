@@ -18,6 +18,10 @@ import android.content.pm.SigningInfo
 import android.os.Build.VERSION.SDK_INT
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,186 +33,179 @@ import org.calyxos.lupin.installer.state.AppItemState
 import org.calyxos.lupin.installer.state.UiState
 import org.fdroid.index.IndexUtils.getPackageSigner
 import org.fdroid.index.v2.SignerV2
-import java.io.File
-import java.io.IOException
-import javax.inject.Inject
-import javax.inject.Singleton
 
 private const val TAG = "AppInstaller"
 private const val INSTALLER_PACKAGE_NAME = "org.fdroid.basic"
 
 @Singleton
-class AppInstaller @Inject constructor(
-    @param:ApplicationContext private val context: Context,
-    private val apkInstaller: ApkInstaller,
+class AppInstaller
+@Inject
+constructor(
+  @param:ApplicationContext private val context: Context,
+  private val apkInstaller: ApkInstaller,
 ) {
 
-    private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
+  private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
 
-    /**
-     * This provides updated [UiState] only after calling [installApps].
-     */
-    val uiState = _uiState.asStateFlow()
+  /** This provides updated [UiState] only after calling [installApps]. */
+  val uiState = _uiState.asStateFlow()
 
-    internal suspend fun installApps(items: MutableList<AppItem>) {
-        _uiState.value = UiState.SelectionComplete(items)
-        var done = 0L
-        val total = items.sumOf {
-            if (it.state is AppItemState.Selectable && it.state.selected) it.apkSize else 0L
-        }
-        _uiState.value = UiState.InstallingApps(items, done, total)
-        items.forEachIndexed { i, item ->
-            if (item.state is AppItemState.Selectable && item.state.selected) {
-                val progressItem = item.copy(state = AppItemState.Progress)
-                val s = UiState.InstallingApps(items.withReplaced(i, progressItem), done, total)
-                _uiState.value = s
-                // download and install APK, will emit updated state
-                val result = installApk(item, s)
-                val doneItem = if (result.success) {
-                    item.copy(state = AppItemState.Success)
-                } else {
-                    item.copy(state = AppItemState.Error)
-                }
-                done += item.apkSize
-                currentCoroutineContext().ensureActive()
-                _uiState.value =
-                    UiState.InstallingApps(items.withReplaced(i, doneItem), done, total)
-            } else {
-                currentCoroutineContext().ensureActive()
-                val showOnlyItem = item.copy(state = AppItemState.ShowOnly)
-                _uiState.value =
-                    UiState.InstallingApps(items.withReplaced(i, showOnlyItem), done, total)
-            }
-        }
-        _uiState.value = UiState.Done(items)
+  internal suspend fun installApps(items: MutableList<AppItem>) {
+    _uiState.value = UiState.SelectionComplete(items)
+    var done = 0L
+    val total = items.sumOf {
+      if (it.state is AppItemState.Selectable && it.state.selected) it.apkSize else 0L
     }
-
-    private suspend fun installApk(
-        item: AppItem,
-        state: UiState.InstallingApps,
-    ): InstallResult {
-        val file = try {
-            item.apkGetter { bytesRead ->
-                // emit updated state with download progress
-                val newState =
-                    UiState.InstallingApps(state.items, state.done + bytesRead, state.total)
-                _uiState.value = newState
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error getting APK: ", e)
-            return InstallResult(e)
-        }
-        return try {
-            val packageInfo = verifyAndGetPackageInfo(file, item)
-
-            if (packageInfo == null) { // app is not installed
-                val result = apkInstaller.install(item.packageName, file) {
-                    setInstallScenario(INSTALL_SCENARIO_BULK)
-                    setInstallerPackageNameCompat(INSTALLER_PACKAGE_NAME)
-                }
-                // the app wasn't installed, so if we get a downgrade complaint,
-                // it must already be installed in another profile
-                return if (result.status == STATUS_FAILURE_INVALID &&
-                    result.msg?.contains("INSTALL_FAILED_VERSION_DOWNGRADE") == true
-                ) {
-                    // make app available in this profile
-                    apkInstaller.installExisting(item.packageName)
-                } else {
-                    result // no special complaint, so just return install result
-                }
-            } else if (packageInfo.signingInfo?.getSigner().verify(item.signers)) {
-                // app was already installed and signature of installed app just got verified
-                if (packageInfo.longVersionCode < item.versionCode) {
-                    // we have a newer version, so install upgrade (with same signature)
-                    apkInstaller.install(item.packageName, file) {
-                        setInstallScenario(INSTALL_SCENARIO_BULK)
-                        setInstallerPackageNameCompat(INSTALLER_PACKAGE_NAME)
-                    }
-                } else {
-                    // already installed with the right signature and equal or newer version
-                    InstallResult(STATUS_SUCCESS, null)
-                }
-            } else {
-                // app is already installed, but with a different signature
-                InstallResult(SecurityException("Invalid signature for ${item.packageName}"))
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error installing APK: ", e)
-            return InstallResult(e)
-        } finally {
-            try {
-                file.delete()
-            } catch (ignored: Exception) {
-            }
-        }
+    _uiState.value = UiState.InstallingApps(items, done, total)
+    items.forEachIndexed { i, item ->
+      if (item.state is AppItemState.Selectable && item.state.selected) {
+        val progressItem = item.copy(state = AppItemState.Progress)
+        val s = UiState.InstallingApps(items.withReplaced(i, progressItem), done, total)
+        _uiState.value = s
+        // download and install APK, will emit updated state
+        val result = installApk(item, s)
+        val doneItem =
+          if (result.success) {
+            item.copy(state = AppItemState.Success)
+          } else {
+            item.copy(state = AppItemState.Error)
+          }
+        done += item.apkSize
+        currentCoroutineContext().ensureActive()
+        _uiState.value = UiState.InstallingApps(items.withReplaced(i, doneItem), done, total)
+      } else {
+        currentCoroutineContext().ensureActive()
+        val showOnlyItem = item.copy(state = AppItemState.ShowOnly)
+        _uiState.value = UiState.InstallingApps(items.withReplaced(i, showOnlyItem), done, total)
+      }
     }
+    _uiState.value = UiState.Done(items)
+  }
 
-    private fun verifyAndGetPackageInfo(file: File, item: AppItem): PackageInfo? {
-        @Suppress("DEPRECATION") // still needed last time we checked
-        val flags = GET_SIGNING_CERTIFICATES or GET_SIGNATURES
-        val packageInfo = context.packageManager.getPackageArchiveInfo(file.absolutePath, flags)
-            ?: throw IOException("Could not get PackageArchiveInfo")
-        if (item.packageName != packageInfo.packageName) {
-            Log.e(
-                TAG,
-                "Package ${item.packageName} expected, but ${packageInfo.packageName} found."
-            )
-            throw IllegalStateException("Unexpected package name: ${packageInfo.packageName}")
+  private suspend fun installApk(
+    item: AppItem,
+    state: UiState.InstallingApps,
+  ): InstallResult {
+    val file =
+      try {
+        item.apkGetter { bytesRead ->
+          // emit updated state with download progress
+          val newState = UiState.InstallingApps(state.items, state.done + bytesRead, state.total)
+          _uiState.value = newState
         }
-        if (!packageInfo.signingInfo?.getSigner().verify(item.signers)) {
-            throw SecurityException("Invalid signature for ${item.packageName}")
+      } catch (e: Exception) {
+        Log.e(TAG, "Error getting APK: ", e)
+        return InstallResult(e)
+      }
+    return try {
+      val packageInfo = verifyAndGetPackageInfo(file, item)
+
+      if (packageInfo == null) { // app is not installed
+        val result =
+          apkInstaller.install(item.packageName, file) {
+            setInstallScenario(INSTALL_SCENARIO_BULK)
+            setInstallerPackageNameCompat(INSTALLER_PACKAGE_NAME)
+          }
+        // the app wasn't installed, so if we get a downgrade complaint,
+        // it must already be installed in another profile
+        return if (
+          result.status == STATUS_FAILURE_INVALID &&
+            result.msg?.contains("INSTALL_FAILED_VERSION_DOWNGRADE") == true
+        ) {
+          // make app available in this profile
+          apkInstaller.installExisting(item.packageName)
+        } else {
+          result // no special complaint, so just return install result
         }
-        return try {
-            context.packageManager.getPackageInfo(item.packageName, flags)
-        } catch (e: PackageManager.NameNotFoundException) {
-            null
+      } else if (packageInfo.signingInfo?.getSigner().verify(item.signers)) {
+        // app was already installed and signature of installed app just got verified
+        if (packageInfo.longVersionCode < item.versionCode) {
+          // we have a newer version, so install upgrade (with same signature)
+          apkInstaller.install(item.packageName, file) {
+            setInstallScenario(INSTALL_SCENARIO_BULK)
+            setInstallerPackageNameCompat(INSTALLER_PACKAGE_NAME)
+          }
+        } else {
+          // already installed with the right signature and equal or newer version
+          InstallResult(STATUS_SUCCESS, null)
         }
+      } else {
+        // app is already installed, but with a different signature
+        InstallResult(SecurityException("Invalid signature for ${item.packageName}"))
+      }
+    } catch (e: Exception) {
+      Log.e(TAG, "Error installing APK: ", e)
+      return InstallResult(e)
+    } finally {
+      try {
+        file.delete()
+      } catch (ignored: Exception) {}
     }
+  }
 
-    /**
-     * Returns a list of hex-encoded SHA-256 signature hashes in [SignerV2].
-     */
-    private fun SigningInfo.getSigner(): SignerV2 = SignerV2(
-        hasMultipleSigners = hasMultipleSigners(),
-        sha256 = if (hasMultipleSigners()) apkContentsSigners.map { signature ->
-            getPackageSigner(signature.toByteArray())
-        } else signingCertificateHistory.map { signature ->
-            getPackageSigner(signature.toByteArray())
-        },
+  private fun verifyAndGetPackageInfo(file: File, item: AppItem): PackageInfo? {
+    @Suppress("DEPRECATION") // still needed last time we checked
+    val flags = GET_SIGNING_CERTIFICATES or GET_SIGNATURES
+    val packageInfo =
+      context.packageManager.getPackageArchiveInfo(file.absolutePath, flags)
+        ?: throw IOException("Could not get PackageArchiveInfo")
+    if (item.packageName != packageInfo.packageName) {
+      Log.e(
+        TAG,
+        "Package ${item.packageName} expected, but ${packageInfo.packageName} found.",
+      )
+      throw IllegalStateException("Unexpected package name: ${packageInfo.packageName}")
+    }
+    if (!packageInfo.signingInfo?.getSigner().verify(item.signers)) {
+      throw SecurityException("Invalid signature for ${item.packageName}")
+    }
+    return try {
+      context.packageManager.getPackageInfo(item.packageName, flags)
+    } catch (e: PackageManager.NameNotFoundException) {
+      null
+    }
+  }
+
+  /** Returns a list of hex-encoded SHA-256 signature hashes in [SignerV2]. */
+  private fun SigningInfo.getSigner(): SignerV2 =
+    SignerV2(
+      hasMultipleSigners = hasMultipleSigners(),
+      sha256 =
+        if (hasMultipleSigners())
+          apkContentsSigners.map { signature -> getPackageSigner(signature.toByteArray()) }
+        else
+          signingCertificateHistory.map { signature -> getPackageSigner(signature.toByteArray()) },
     )
 
-    private fun MutableList<AppItem>.withReplaced(index: Int, item: AppItem): MutableList<AppItem> {
-        return apply {
-            set(index, item)
-        }
-    }
+  private fun MutableList<AppItem>.withReplaced(index: Int, item: AppItem): MutableList<AppItem> {
+    return apply { set(index, item) }
+  }
 
-    private fun SessionParams.setInstallerPackageNameCompat(packageName: String) {
-        if (SDK_INT >= 34) {
-            setInstallerPackageName(packageName)
-        } else {
-            val method = javaClass.methods.find { it.name == "setInstallerPackageName" }
-            method?.invoke(this, packageName)
-        }
+  private fun SessionParams.setInstallerPackageNameCompat(packageName: String) {
+    if (SDK_INT >= 34) {
+      setInstallerPackageName(packageName)
+    } else {
+      val method = javaClass.methods.find { it.name == "setInstallerPackageName" }
+      method?.invoke(this, packageName)
     }
+  }
 
-    /**
-     * Returns true, if the [other] signer is authorized to sign the APK that has this [SignerV2].
-     */
-    private fun SignerV2?.verify(other: SignerV2): Boolean {
-        if (this == null) return false
-        if (other.sha256.isEmpty()) return false
-        if (sha256.isEmpty()) return false
-        return if (hasMultipleSigners) {
-            sha256 == other.sha256
-        } else {
-            if (sha256.size == 1 && other.sha256.size == 1) {
-                sha256 == other.sha256
-            } else {
-                // if the signing history has signers in common, all is good
-                // see https://developer.android.com/reference/android/content/pm/SigningInfo#getSigningCertificateHistory()
-                sha256.toSet().intersect(other.sha256.toSet()).isNotEmpty()
-            }
-        }
+  /** Returns true, if the [other] signer is authorized to sign the APK that has this [SignerV2]. */
+  private fun SignerV2?.verify(other: SignerV2): Boolean {
+    if (this == null) return false
+    if (other.sha256.isEmpty()) return false
+    if (sha256.isEmpty()) return false
+    return if (hasMultipleSigners) {
+      sha256 == other.sha256
+    } else {
+      if (sha256.size == 1 && other.sha256.size == 1) {
+        sha256 == other.sha256
+      } else {
+        // if the signing history has signers in common, all is good
+        // see
+        // https://developer.android.com/reference/android/content/pm/SigningInfo#getSigningCertificateHistory()
+        sha256.toSet().intersect(other.sha256.toSet()).isNotEmpty()
+      }
     }
+  }
 }

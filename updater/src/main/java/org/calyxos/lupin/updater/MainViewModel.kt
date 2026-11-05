@@ -15,50 +15,50 @@ import androidx.work.OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
-import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    settingsManager: SettingsManager,
-    app: Application,
+class MainViewModel
+@Inject
+constructor(
+  settingsManager: SettingsManager,
+  app: Application,
 ) : AndroidViewModel(app) {
 
-    private val log = KotlinLogging.logger {}
-    private val workManager = WorkManager.getInstance(getApplication())
+  private val log = KotlinLogging.logger {}
+  private val workManager = WorkManager.getInstance(getApplication())
 
-    val lastCheckedMillis = settingsManager.lastCheckedMillisState
-    val checkStateFlow = workManager.getWorkInfosForUniqueWorkFlow(WORK_NAME_MANUAL).map {
-        it.getOrNull(0)?.state
-    }
-    val isCheckRunningFlow = checkStateFlow.map {
-        it == WorkInfo.State.RUNNING
-    }
+  val lastCheckedMillis = settingsManager.lastCheckedMillisState
+  val checkStateFlow =
+    workManager.getWorkInfosForUniqueWorkFlow(WORK_NAME_MANUAL).map { it.getOrNull(0)?.state }
+  val isCheckRunningFlow = checkStateFlow.map { it == WorkInfo.State.RUNNING }
 
-    init {
-        viewModelScope.launch {
-            checkStateFlow.collect {
-                if (it != null) {
-                    log.info { "Work info: $it" }
-                } else {
-                    log.info { "No work info found" }
-                }
-            }
+  init {
+    viewModelScope.launch {
+      checkStateFlow.collect {
+        if (it != null) {
+          log.info { "Work info: $it" }
+        } else {
+          log.info { "No work info found" }
         }
+      }
     }
+  }
 
-    @UiThread
-    fun onCheckButtonClicked() = viewModelScope.launch {
-        val workRequest = OneTimeWorkRequestBuilder<UpdateWorker>()
-            .setExpedited(RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-            .build()
-        val op = workManager.enqueueUniqueWork(WORK_NAME_MANUAL, REPLACE, workRequest)
-        try {
-            log.info { "Enqueue result: ${op.result.get()}" }
-        } catch (e: Exception) {
-            log.error(e) { "Failed to enqueue work" }
-        }
+  @UiThread
+  fun onCheckButtonClicked() = viewModelScope.launch {
+    val workRequest =
+      OneTimeWorkRequestBuilder<UpdateWorker>()
+        .setExpedited(RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+        .build()
+    val op = workManager.enqueueUniqueWork(WORK_NAME_MANUAL, REPLACE, workRequest)
+    try {
+      log.info { "Enqueue result: ${op.result.get()}" }
+    } catch (e: Exception) {
+      log.error(e) { "Failed to enqueue work" }
     }
+  }
 }

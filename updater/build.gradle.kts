@@ -6,96 +6,88 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.compose)
-    alias(libs.plugins.googleKsp)
-    alias(libs.plugins.googleHilt)
-    alias(libs.plugins.ktlint)
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.jetbrains.kotlin.compose)
+  alias(libs.plugins.googleKsp)
+  alias(libs.plugins.googleHilt)
+  alias(libs.plugins.ktfmt)
 }
 
 kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_21 } }
 
 android {
-    namespace = "org.calyxos.lupin.updater"
-    compileSdk = rootProject.extra["sdk"] as Int
+  namespace = "org.calyxos.lupin.updater"
+  compileSdk = rootProject.extra["sdk"] as Int
 
-    defaultConfig {
-        applicationId = "org.calyxos.lupin.updater"
-        minSdk = 34
-        targetSdk = rootProject.extra["sdk"] as Int
-        versionCode = 2
-        versionName = "0.2"
-    }
+  defaultConfig {
+    applicationId = "org.calyxos.lupin.updater"
+    minSdk = 34
+    targetSdk = rootProject.extra["sdk"] as Int
+    versionCode = 2
+    versionName = "0.2"
+  }
 
-    signingConfigs {
-        create("aosp") {
-            keyAlias = "android"
-            keyPassword = "android"
-            storeFile = file("org.calyxos.lupin.updater.jks")
-            storePassword = "android"
-        }
+  signingConfigs {
+    create("aosp") {
+      keyAlias = "android"
+      keyPassword = "android"
+      storeFile = file("org.calyxos.lupin.updater.jks")
+      storePassword = "android"
     }
+  }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            signingConfig = signingConfigs.getByName("aosp")
-        }
-        debug {
-            isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("aosp")
-        }
+  buildTypes {
+    release {
+      isMinifyEnabled = true
+      isShrinkResources = true
+      proguardFiles(
+        getDefaultProguardFile("proguard-android-optimize.txt"),
+        "proguard-rules.pro",
+      )
+      signingConfig = signingConfigs.getByName("aosp")
     }
-    buildFeatures {
-        buildConfig = true
-        compose = true
+    debug {
+      isMinifyEnabled = false
+      signingConfig = signingConfigs.getByName("aosp")
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+  }
+  buildFeatures {
+    buildConfig = true
+    compose = true
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+  }
+  packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
+  lint { lintConfig = file("../shared/lint.xml") }
+  testOptions {
+    unitTests {
+      all {
+        it.useJUnitPlatform()
+        it.testLogging { events("skipped", "failed") }
+      }
+      isReturnDefaultValues = true
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    lint {
-        lintConfig = file("../shared/lint.xml")
-    }
-    testOptions {
-        unitTests {
-            all {
-                it.useJUnitPlatform()
-                it.testLogging {
-                    events("skipped", "failed")
-                }
-            }
-            isReturnDefaultValues = true
-        }
-    }
+  }
 }
 
 dependencies {
-    implementation(project(":shared"))
+  implementation(project(":shared"))
 
-    implementation(libs.google.hilt.android)
-    ksp(libs.google.hilt.compiler)
-    ksp(libs.androidx.hilt.compiler)
+  implementation(libs.google.hilt.android)
+  ksp(libs.google.hilt.compiler)
+  ksp(libs.androidx.hilt.compiler)
 
-    implementation(libs.androidx.hilt.work)
-    implementation(libs.androidx.work.runtime)
-    implementation(libs.androidx.runtime.livedata)
+  implementation(libs.androidx.hilt.work)
+  implementation(libs.androidx.work.runtime)
+  implementation(libs.androidx.runtime.livedata)
 
-    testImplementation(kotlin("test-junit5"))
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.junit.jupiter.params)
-    testImplementation(libs.mockk)
-    testImplementation(libs.logback.classic)
+  testImplementation(kotlin("test-junit5"))
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.junit.jupiter.params)
+  testImplementation(libs.mockk)
+  testImplementation(libs.logback.classic)
 }
 
-apply("${rootProject.rootDir}/gradle/ktlint.gradle")
+ktfmt { googleStyle() }

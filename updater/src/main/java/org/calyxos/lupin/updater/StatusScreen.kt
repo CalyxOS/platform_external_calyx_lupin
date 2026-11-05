@@ -31,115 +31,110 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.work.WorkInfo.State
-import org.calyxos.lupin.updater.ui.theme.LupinTheme
 import kotlin.random.Random
+import org.calyxos.lupin.updater.ui.theme.LupinTheme
 
 @Composable
 fun StatusScreen(
-    paddingValues: PaddingValues,
-    lastCheckedMillis: Long,
-    isCheckRunning: Boolean,
-    checkState: State?,
-    showSuccess: Boolean? = null,
-    onCheckButtonClicked: () -> Unit,
+  paddingValues: PaddingValues,
+  lastCheckedMillis: Long,
+  isCheckRunning: Boolean,
+  checkState: State?,
+  showSuccess: Boolean? = null,
+  onCheckButtonClicked: () -> Unit,
 ) {
-    val settingsPadding = 24.dp // taken from system settings
-    var showSuccess by remember { mutableStateOf(showSuccess) }
-    LaunchedEffect(checkState) {
-        // checkState also shows past successes, so only show success after worker ran while open
-        if (checkState == State.RUNNING) showSuccess = false
-        if (checkState == State.SUCCEEDED && showSuccess == false) showSuccess = true
+  val settingsPadding = 24.dp // taken from system settings
+  var showSuccess by remember { mutableStateOf(showSuccess) }
+  LaunchedEffect(checkState) {
+    // checkState also shows past successes, so only show success after worker ran while open
+    if (checkState == State.RUNNING) showSuccess = false
+    if (checkState == State.SUCCEEDED && showSuccess == false) showSuccess = true
+  }
+  Column(
+    modifier = Modifier.fillMaxSize().padding(settingsPadding).padding(paddingValues),
+    verticalArrangement = spacedBy(settingsPadding),
+  ) {
+    Text(
+      modifier = Modifier.padding(vertical = settingsPadding), // extra padding for heading
+      style = MaterialTheme.typography.displaySmall,
+      text = stringResource(R.string.status_screen_title),
+    )
+    Text(
+      style = MaterialTheme.typography.bodyLarge,
+      text = stringResource(R.string.status_screen_intro),
+    )
+    if (isCheckRunning) {
+      Text(stringResource(R.string.status_screen_checking))
+      LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+    } else if (showSuccess == true && checkState == State.SUCCEEDED) {
+      Text(
+        text = stringResource(R.string.status_screen_success),
+        style = MaterialTheme.typography.titleMedium,
+      )
     }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(settingsPadding)
-            .padding(paddingValues),
-        verticalArrangement = spacedBy(settingsPadding),
+    if (!isCheckRunning) {
+      val lastChecked = formatDate(LocalContext.current, lastCheckedMillis)
+      Text(
+        style = MaterialTheme.typography.bodyLarge,
+        text = stringResource(R.string.status_screen_last_check, lastChecked),
+      )
+    }
+    Spacer(modifier = Modifier.weight(1f))
+    Button(
+      onClick = onCheckButtonClicked,
+      enabled = !isCheckRunning,
+      modifier = Modifier.align(End),
     ) {
-        Text(
-            modifier = Modifier.padding(vertical = settingsPadding), // extra padding for heading
-            style = MaterialTheme.typography.displaySmall,
-            text = stringResource(R.string.status_screen_title),
-        )
-        Text(
-            style = MaterialTheme.typography.bodyLarge,
-            text = stringResource(R.string.status_screen_intro),
-        )
-        if (isCheckRunning) {
-            Text(stringResource(R.string.status_screen_checking))
-            LinearProgressIndicator(
-                modifier = Modifier.fillMaxWidth(),
-            )
-        } else if (showSuccess == true && checkState == State.SUCCEEDED) {
-            Text(
-                text = stringResource(R.string.status_screen_success),
-                style = MaterialTheme.typography.titleMedium
-            )
-        }
-        if (!isCheckRunning) {
-            val lastChecked = formatDate(LocalContext.current, lastCheckedMillis)
-            Text(
-                style = MaterialTheme.typography.bodyLarge,
-                text = stringResource(R.string.status_screen_last_check, lastChecked),
-            )
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Button(
-            onClick = onCheckButtonClicked,
-            enabled = !isCheckRunning,
-            modifier = Modifier.align(End),
-        ) {
-            Text(
-                text = stringResource(R.string.status_screen_check_button),
-                style = MaterialTheme.typography.titleMedium,
-            )
-        }
+      Text(
+        text = stringResource(R.string.status_screen_check_button),
+        style = MaterialTheme.typography.titleMedium,
+      )
     }
+  }
 }
 
 @Composable
 @Preview(showBackground = true)
 fun Preview() {
-    LupinTheme {
-        Surface {
-            StatusScreen(
-                PaddingValues(0.dp),
-                System.currentTimeMillis() - Random.nextLong(),
-                false,
-                checkState = State.SUCCEEDED,
-            ) {}
-        }
+  LupinTheme {
+    Surface {
+      StatusScreen(
+        PaddingValues(0.dp),
+        System.currentTimeMillis() - Random.nextLong(),
+        false,
+        checkState = State.SUCCEEDED,
+      ) {}
     }
+  }
 }
 
 @Composable
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 private fun DarkRunningPreview() {
-    LupinTheme {
-        Surface {
-            StatusScreen(
-                PaddingValues(0.dp),
-                System.currentTimeMillis() - Random.nextLong(),
-                true,
-                checkState = State.RUNNING,
-            ) {}
-        }
+  LupinTheme {
+    Surface {
+      StatusScreen(
+        PaddingValues(0.dp),
+        System.currentTimeMillis() - Random.nextLong(),
+        true,
+        checkState = State.RUNNING,
+      ) {}
     }
+  }
 }
 
 @Composable
 @Preview(showBackground = true)
 fun PreviewSuccess() {
-    LupinTheme {
-        Surface {
-            StatusScreen(
-                PaddingValues(0.dp),
-                System.currentTimeMillis() - Random.nextLong(),
-                false,
-                checkState = State.SUCCEEDED,
-                showSuccess = true,
-            ) {}
-        }
+  LupinTheme {
+    Surface {
+      StatusScreen(
+        PaddingValues(0.dp),
+        System.currentTimeMillis() - Random.nextLong(),
+        false,
+        checkState = State.SUCCEEDED,
+        showSuccess = true,
+      ) {}
     }
+  }
 }

@@ -13,7 +13,6 @@ import javax.inject.Singleton
 @Singleton
 class RepoConfigGetter @Inject constructor(@ApplicationContext context: Context) {
 
-    val repoUrl = context.getString(R.string.repo_url)
-    val repoCert = context.getString(R.string.repo_cert)
-
+  val repoUrl = context.getString(R.string.repo_url)
+  val repoCert = context.getString(R.string.repo_cert)
 }

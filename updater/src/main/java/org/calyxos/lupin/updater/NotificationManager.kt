@@ -25,10 +25,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.WorkManager
 import dagger.hilt.android.qualifiers.ApplicationContext
-import org.calyxos.lupin.updater.ui.ConfirmationActivity
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
+import org.calyxos.lupin.updater.ui.ConfirmationActivity
 
 private const val CHANNEL_UPDATE_ID = "updateNotification"
 private const val CHANNEL_CONFIRMATION_ID = "confirmationNotification"
@@ -38,118 +38,130 @@ internal const val NOTIFICATION_CONFIRMATION_ID = 2
 internal const val NOTIFICATION_SUCCESS_ID = 3
 
 @Singleton
-class NotificationManager @Inject constructor(
-    @param:ApplicationContext private val context: Context,
-) {
-    private val nm = NotificationManagerCompat.from(context)
+class NotificationManager
+@Inject
+constructor(@param:ApplicationContext private val context: Context) {
+  private val nm = NotificationManagerCompat.from(context)
 
-    init {
-        createNotificationChannels()
-    }
+  init {
+    createNotificationChannels()
+  }
 
-    private fun createNotificationChannels() {
-        val updateChannel = NotificationChannel(
-            CHANNEL_UPDATE_ID,
-            context.getString(R.string.channel_update_name),
-            IMPORTANCE_LOW,
-        ).apply {
-            description = context.getString(R.string.channel_update_description)
-        }
-        nm.createNotificationChannel(updateChannel)
-
-        val confirmationChannel = NotificationChannel(
-            CHANNEL_CONFIRMATION_ID,
-            context.getString(R.string.channel_confirmation_name),
-            IMPORTANCE_DEFAULT,
-        ).apply {
-            description = context.getString(R.string.channel_confirmation_description)
-        }
-        nm.createNotificationChannel(confirmationChannel)
-
-        val successChannel = NotificationChannel(
-            CHANNEL_SUCCESS_ID,
-            context.getString(R.string.channel_success_name),
-            IMPORTANCE_LOW,
-        ).apply {
-            description = context.getString(R.string.channel_success_description)
-        }
-        nm.createNotificationChannel(successChannel)
-    }
-
-    fun getUpdateNotification(workerId: UUID): Notification {
-        val title = context.getString(R.string.notification_update_title)
-        val cancel = context.getString(R.string.cancel)
-        // This PendingIntent can be used to cancel the worker
-        val intent = WorkManager.getInstance(context)
-            .createCancelPendingIntent(workerId)
-        return NotificationCompat.Builder(context, CHANNEL_UPDATE_ID)
-            .setContentTitle(title)
-            .setTicker(title)
-            .setProgress(0, 0, true)
-            .setSmallIcon(R.drawable.update)
-            .setOngoing(true)
-            .addAction(android.R.drawable.ic_delete, cancel, intent)
-            .build()
-    }
-
-    fun showUserConfirmationRequiredNotification() {
-        val title = context.getString(R.string.notification_confirmation_title)
-        val intent = Intent(context, ConfirmationActivity::class.java).apply {
-            flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val pendingIntent = PendingIntent.getActivity(
-            context, 0, intent, FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
+  private fun createNotificationChannels() {
+    val updateChannel =
+      NotificationChannel(
+          CHANNEL_UPDATE_ID,
+          context.getString(R.string.channel_update_name),
+          IMPORTANCE_LOW,
         )
+        .apply { description = context.getString(R.string.channel_update_description) }
+    nm.createNotificationChannel(updateChannel)
 
-        val notification = NotificationCompat.Builder(context, CHANNEL_CONFIRMATION_ID)
-            .setContentTitle(title)
-            .setTicker(title)
-            .setSmallIcon(R.drawable.security_update_warning)
-            .setOngoing(true)
-            .setContentIntent(pendingIntent)
-            .build()
-        if (checkSelfPermission(context, POST_NOTIFICATIONS) == PERMISSION_GRANTED) {
-            nm.notify(NOTIFICATION_CONFIRMATION_ID, notification)
-        }
-    }
-
-    fun cancelUserConfirmationRequiredNotification() {
-        nm.cancel(NOTIFICATION_CONFIRMATION_ID)
-    }
-
-    fun showUpdateSuccessNotification(
-        packageName: String,
-        name: String,
-        fromVersion: String,
-        toVersion: String,
-    ) {
-        val title = context.getString(R.string.notification_success_title, name)
-        val description =
-            context.getString(R.string.notification_success_description, fromVersion, toVersion)
-        val intent = Intent(ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-            data = Uri.fromParts("package", packageName, null)
-            addFlags(FLAG_ACTIVITY_NEW_TASK)
-        }
-        val pendingIntent = PendingIntent.getActivity(
-            context, 0, intent, FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
+    val confirmationChannel =
+      NotificationChannel(
+          CHANNEL_CONFIRMATION_ID,
+          context.getString(R.string.channel_confirmation_name),
+          IMPORTANCE_DEFAULT,
         )
-        val action = NotificationCompat.Action.Builder(
-            0,
-            context.getString(R.string.notification_success_action),
-            pendingIntent
-        ).build()
+        .apply { description = context.getString(R.string.channel_confirmation_description) }
+    nm.createNotificationChannel(confirmationChannel)
 
-        val notification = NotificationCompat.Builder(context, CHANNEL_SUCCESS_ID)
-            .setContentTitle(title)
-            .setContentText(description)
-            .setAutoCancel(true)
-            .setSmallIcon(R.drawable.ic_system_security_update_good)
-            .setContentIntent(pendingIntent)
-            .addAction(action)
-            .build()
-        if (checkSelfPermission(context, POST_NOTIFICATIONS) == PERMISSION_GRANTED) {
-            nm.notify(packageName, NOTIFICATION_SUCCESS_ID, notification)
-        }
+    val successChannel =
+      NotificationChannel(
+          CHANNEL_SUCCESS_ID,
+          context.getString(R.string.channel_success_name),
+          IMPORTANCE_LOW,
+        )
+        .apply { description = context.getString(R.string.channel_success_description) }
+    nm.createNotificationChannel(successChannel)
+  }
+
+  fun getUpdateNotification(workerId: UUID): Notification {
+    val title = context.getString(R.string.notification_update_title)
+    val cancel = context.getString(R.string.cancel)
+    // This PendingIntent can be used to cancel the worker
+    val intent = WorkManager.getInstance(context).createCancelPendingIntent(workerId)
+    return NotificationCompat.Builder(context, CHANNEL_UPDATE_ID)
+      .setContentTitle(title)
+      .setTicker(title)
+      .setProgress(0, 0, true)
+      .setSmallIcon(R.drawable.update)
+      .setOngoing(true)
+      .addAction(android.R.drawable.ic_delete, cancel, intent)
+      .build()
+  }
+
+  fun showUserConfirmationRequiredNotification() {
+    val title = context.getString(R.string.notification_confirmation_title)
+    val intent =
+      Intent(context, ConfirmationActivity::class.java).apply {
+        flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+      }
+    val pendingIntent =
+      PendingIntent.getActivity(
+        context,
+        0,
+        intent,
+        FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE,
+      )
+
+    val notification =
+      NotificationCompat.Builder(context, CHANNEL_CONFIRMATION_ID)
+        .setContentTitle(title)
+        .setTicker(title)
+        .setSmallIcon(R.drawable.security_update_warning)
+        .setOngoing(true)
+        .setContentIntent(pendingIntent)
+        .build()
+    if (checkSelfPermission(context, POST_NOTIFICATIONS) == PERMISSION_GRANTED) {
+      nm.notify(NOTIFICATION_CONFIRMATION_ID, notification)
     }
+  }
 
+  fun cancelUserConfirmationRequiredNotification() {
+    nm.cancel(NOTIFICATION_CONFIRMATION_ID)
+  }
+
+  fun showUpdateSuccessNotification(
+    packageName: String,
+    name: String,
+    fromVersion: String,
+    toVersion: String,
+  ) {
+    val title = context.getString(R.string.notification_success_title, name)
+    val description =
+      context.getString(R.string.notification_success_description, fromVersion, toVersion)
+    val intent =
+      Intent(ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+        data = Uri.fromParts("package", packageName, null)
+        addFlags(FLAG_ACTIVITY_NEW_TASK)
+      }
+    val pendingIntent =
+      PendingIntent.getActivity(
+        context,
+        0,
+        intent,
+        FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE,
+      )
+    val action =
+      NotificationCompat.Action.Builder(
+          0,
+          context.getString(R.string.notification_success_action),
+          pendingIntent,
+        )
+        .build()
+
+    val notification =
+      NotificationCompat.Builder(context, CHANNEL_SUCCESS_ID)
+        .setContentTitle(title)
+        .setContentText(description)
+        .setAutoCancel(true)
+        .setSmallIcon(R.drawable.ic_system_security_update_good)
+        .setContentIntent(pendingIntent)
+        .addAction(action)
+        .build()
+    if (checkSelfPermission(context, POST_NOTIFICATIONS) == PERMISSION_GRANTED) {
+      nm.notify(packageName, NOTIFICATION_SUCCESS_ID, notification)
+    }
+  }
 }

@@ -32,125 +32,127 @@ import org.calyxos.lupin.installer.R
 import org.calyxos.lupin.installer.ui.theme.LupinTheme
 
 val horizontalMargin = 40.dp
-fun Modifier.suwPageModifier() = padding(
+
+fun Modifier.suwPageModifier() =
+  padding(
     top = 26.dp,
     start = horizontalMargin,
     end = horizontalMargin,
-)
+  )
 
 const val RESULT_SKIP = RESULT_FIRST_USER
 const val RESULT_NEXT = RESULT_OK
 
 @Composable
 fun SuwPage(
-    @DrawableRes icon: Int,
-    title: String,
-    modifier: Modifier = Modifier,
-    subtitle: String? = null,
-    content: @Composable ColumnScope.() -> Unit,
+  @DrawableRes icon: Int,
+  title: String,
+  modifier: Modifier = Modifier,
+  subtitle: String? = null,
+  content: @Composable ColumnScope.() -> Unit,
 ) {
-    SuwPage(
-        modifier = modifier,
-        header = {
-            SuwHeader(
-                icon = icon,
-                title = title,
-                subtitle = subtitle,
-            )
-        },
-        content = content,
-    )
+  SuwPage(
+    modifier = modifier,
+    header = {
+      SuwHeader(
+        icon = icon,
+        title = title,
+        subtitle = subtitle,
+      )
+    },
+    content = content,
+  )
 }
 
 @Composable
 fun SuwPage(
-    header: (@Composable ColumnScope.() -> Unit),
-    modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit,
+  header: (@Composable ColumnScope.() -> Unit),
+  modifier: Modifier = Modifier,
+  content: @Composable ColumnScope.() -> Unit,
 ) {
-    Surface(
-        modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
-    ) {
-        Column(modifier = modifier.suwPageModifier()) {
-            header()
-            content()
-        }
+  Surface(
+    modifier = modifier.fillMaxSize(),
+    color = MaterialTheme.colorScheme.background,
+  ) {
+    Column(modifier = modifier.suwPageModifier()) {
+      header()
+      content()
     }
+  }
 }
 
 @Composable
 fun SuwHeader(
-    @DrawableRes icon: Int,
-    title: String,
-    modifier: Modifier = Modifier,
-    subtitle: String? = null,
+  @DrawableRes icon: Int,
+  title: String,
+  modifier: Modifier = Modifier,
+  subtitle: String? = null,
 ) {
-    SuwHeader(
-        modifier = modifier,
-        icon = {
-            Image(
-                painter = painterResource(id = icon),
-                contentDescription = null,
-                modifier = Modifier.size(64.dp),
-                alignment = Alignment.BottomStart,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                contentScale = ContentScale.Fit,
-            )
-        },
-        title = title,
-        subtitle = subtitle,
+  SuwHeader(
+    modifier = modifier,
+    icon = {
+      Image(
+        painter = painterResource(id = icon),
+        contentDescription = null,
+        modifier = Modifier.size(64.dp),
+        alignment = Alignment.BottomStart,
+        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+        contentScale = ContentScale.Fit,
+      )
+    },
+    title = title,
+    subtitle = subtitle,
+  )
+}
+
+@Composable
+fun SuwHeader(
+  icon: (@Composable ColumnScope.() -> Unit)?,
+  title: String,
+  modifier: Modifier = Modifier,
+  subtitle: String? = null,
+) {
+  Column(modifier) {
+    if (icon != null) icon()
+    Text(
+      text = title,
+      fontSize = 34.sp,
+      modifier = Modifier.padding(top = 16.dp),
     )
-}
-
-@Composable
-fun SuwHeader(
-    icon: (@Composable ColumnScope.() -> Unit)?,
-    title: String,
-    modifier: Modifier = Modifier,
-    subtitle: String? = null,
-) {
-    Column(modifier) {
-        if (icon != null) icon()
-        Text(
-            text = title,
-            fontSize = 34.sp,
-            modifier = Modifier.padding(top = 16.dp),
-        )
-        if (subtitle != null) {
-            Text(
-                text = subtitle,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
-            )
-        }
+    if (subtitle != null) {
+      Text(
+        text = subtitle,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+      )
     }
+  }
 }
 
 @Composable
 @Preview(showBackground = true)
 fun SuwPagePreview() {
-    LupinTheme {
-        SuwPage(
-            icon = R.drawable.fdroid_logo,
-            title = LoremIpsum(3).values.first(),
-            subtitle = LoremIpsum(12).values.first(),
-        ) {
-            Text(LoremIpsum(128).values.first())
-        }
+  LupinTheme {
+    SuwPage(
+      icon = R.drawable.fdroid_logo,
+      title = LoremIpsum(3).values.first(),
+      subtitle = LoremIpsum(12).values.first(),
+    ) {
+      Text(LoremIpsum(128).values.first())
     }
+  }
 }
 
 @Composable
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 fun SuwPagePreviewNight() {
-    LupinTheme {
-        SuwPage(
-            icon = R.drawable.fdroid_logo,
-            title = LoremIpsum(3).values.first(),
-            subtitle = LoremIpsum(12).values.first(),
-        ) {
-            Text(LoremIpsum(128).values.first())
-        }
+  LupinTheme {
+    SuwPage(
+      icon = R.drawable.fdroid_logo,
+      title = LoremIpsum(3).values.first(),
+      subtitle = LoremIpsum(12).values.first(),
+    ) {
+      Text(LoremIpsum(128).values.first())
     }
+  }
 }

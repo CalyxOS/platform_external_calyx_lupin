@@ -7,133 +7,130 @@ package org.calyxos.lupin.installer.state
 
 import android.util.Log
 import androidx.core.os.LocaleListCompat
+import java.io.File
 import org.fdroid.LocaleChooser.getBestLocale
 import org.fdroid.index.v2.PackageV2
 import org.fdroid.index.v2.SignerV2
-import java.io.File
 
 sealed class AppItemState {
-    data object ShowOnly : AppItemState()
-    data class Selectable(val selected: Boolean) : AppItemState() {
-        fun invert() = Selectable(!selected)
-    }
+  data object ShowOnly : AppItemState()
 
-    data object Progress : AppItemState()
-    data object Success : AppItemState()
-    data object Error : AppItemState()
+  data class Selectable(val selected: Boolean) : AppItemState() {
+    fun invert() = Selectable(!selected)
+  }
+
+  data object Progress : AppItemState()
+
+  data object Success : AppItemState()
+
+  data object Error : AppItemState()
 }
 
 fun interface DownloadListener {
-    suspend fun bytesRead(numBytes: Long)
+  suspend fun bytesRead(numBytes: Long)
 }
 
 data class AppItem(
-    val packageName: String,
-    val versionCode: Long,
-    val icon: Any?,
-    val name: String,
-    val summary: String,
-    val apkGetter: suspend (DownloadListener) -> File,
-    val apkSize: Long,
-    val signers: SignerV2,
-    val isAlwaysInstall: Boolean,
-    val isHidden: Boolean,
-    val isOnlineOnly: Boolean,
-    val state: AppItemState,
+  val packageName: String,
+  val versionCode: Long,
+  val icon: Any?,
+  val name: String,
+  val summary: String,
+  val apkGetter: suspend (DownloadListener) -> File,
+  val apkSize: Long,
+  val signers: SignerV2,
+  val isAlwaysInstall: Boolean,
+  val isHidden: Boolean,
+  val isOnlineOnly: Boolean,
+  val state: AppItemState,
 ) {
-    /**
-     * Creates a new selectable item that is pre-selected.
-     */
-    constructor(
-        packageName: String,
-        result: RepoResult,
-        packageV2: PackageV2,
-        locales: LocaleListCompat,
-    ) : this(
-        packageName = packageName,
-        versionCode = packageV2.getVersionCode(),
-        icon = result.iconGetter(packageV2.metadata.icon.getBestLocale(locales)?.name),
-        name = packageV2.getName(locales),
-        summary = packageV2.getSummary(locales),
-        apkGetter = { downloadListener ->
-            result.apkGetter(packageV2.versions.values.first().file.name, downloadListener)
-        },
-        apkSize = packageV2.getApkSize(),
-        signers = packageV2.getSigner() ?: error("No signer"),
-        isAlwaysInstall = packageV2.isAlwaysInstall(),
-        isHidden = packageV2.isHidden(),
-        isOnlineOnly = packageV2.isOnlineOnly(),
-        state = AppItemState.Selectable(packageV2.isAlwaysInstall() || packageV2.isDefault()),
-    )
+  /** Creates a new selectable item that is pre-selected. */
+  constructor(
+    packageName: String,
+    result: RepoResult,
+    packageV2: PackageV2,
+    locales: LocaleListCompat,
+  ) : this(
+    packageName = packageName,
+    versionCode = packageV2.getVersionCode(),
+    icon = result.iconGetter(packageV2.metadata.icon.getBestLocale(locales)?.name),
+    name = packageV2.getName(locales),
+    summary = packageV2.getSummary(locales),
+    apkGetter = { downloadListener ->
+      result.apkGetter(packageV2.versions.values.first().file.name, downloadListener)
+    },
+    apkSize = packageV2.getApkSize(),
+    signers = packageV2.getSigner() ?: error("No signer"),
+    isAlwaysInstall = packageV2.isAlwaysInstall(),
+    isHidden = packageV2.isHidden(),
+    isOnlineOnly = packageV2.isOnlineOnly(),
+    state = AppItemState.Selectable(packageV2.isAlwaysInstall() || packageV2.isDefault()),
+  )
 
-    /**
-     * Copies the given [item], retaining its [packageName], [icon], [signers] and [state].
-     */
-    constructor(
-        item: AppItem,
-        result: RepoResult,
-        packageV2: PackageV2,
-        locales: LocaleListCompat,
-    ) : this(
-        packageName = item.packageName,
-        versionCode = packageV2.getVersionCode(),
-        icon = item.icon,
-        name = packageV2.getName(locales),
-        summary = packageV2.getSummary(locales),
-        apkGetter = { downloadListener ->
-            result.apkGetter(packageV2.versions.values.first().file.name, downloadListener)
-        },
-        apkSize = packageV2.getApkSize(),
-        signers = item.signers,
-        isAlwaysInstall = packageV2.isAlwaysInstall(),
-        isHidden = packageV2.isHidden(),
-        isOnlineOnly = packageV2.isOnlineOnly(),
-        state = item.state,
-    )
+  /** Copies the given [item], retaining its [packageName], [icon], [signers] and [state]. */
+  constructor(
+    item: AppItem,
+    result: RepoResult,
+    packageV2: PackageV2,
+    locales: LocaleListCompat,
+  ) : this(
+    packageName = item.packageName,
+    versionCode = packageV2.getVersionCode(),
+    icon = item.icon,
+    name = packageV2.getName(locales),
+    summary = packageV2.getSummary(locales),
+    apkGetter = { downloadListener ->
+      result.apkGetter(packageV2.versions.values.first().file.name, downloadListener)
+    },
+    apkSize = packageV2.getApkSize(),
+    signers = item.signers,
+    isAlwaysInstall = packageV2.isAlwaysInstall(),
+    isHidden = packageV2.isHidden(),
+    isOnlineOnly = packageV2.isOnlineOnly(),
+    state = item.state,
+  )
 
-    /**
-     * Returns true if the given [packageV2] is a valid update for the current item.
-     */
-    fun isValidUpdate(packageV2: PackageV2): Boolean {
-        if (signers != packageV2.getSigner()) {
-            Log.w("AppItem", "Received unexpected signer for: $packageName")
-        }
-        return isOnlineOnly || packageV2.getVersionCode() > versionCode
+  /** Returns true if the given [packageV2] is a valid update for the current item. */
+  fun isValidUpdate(packageV2: PackageV2): Boolean {
+    if (signers != packageV2.getSigner()) {
+      Log.w("AppItem", "Received unexpected signer for: $packageName")
     }
+    return isOnlineOnly || packageV2.getVersionCode() > versionCode
+  }
 }
 
 private fun PackageV2.getVersionCode(): Long {
-    return versions.values.first().versionCode
+  return versions.values.first().versionCode
 }
 
 private fun PackageV2.getName(locales: LocaleListCompat): String {
-    return metadata.name.getBestLocale(locales) ?: "Unknown"
+  return metadata.name.getBestLocale(locales) ?: "Unknown"
 }
 
 private fun PackageV2.getSummary(locales: LocaleListCompat): String {
-    return metadata.summary.getBestLocale(locales) ?: ""
+  return metadata.summary.getBestLocale(locales) ?: ""
 }
 
 private fun PackageV2.getApkSize(): Long {
-    return versions.values.first().file.size ?: 0
+  return versions.values.first().file.size ?: 0
 }
 
 fun PackageV2.getSigner(): SignerV2? {
-    return versions.values.first().signer
+  return versions.values.first().signer
 }
 
 private fun PackageV2.isDefault(): Boolean {
-    return metadata.categories.contains(CATEGORY_DEFAULT)
+  return metadata.categories.contains(CATEGORY_DEFAULT)
 }
 
 private fun PackageV2.isAlwaysInstall(): Boolean {
-    return metadata.categories.contains(CATEGORY_ALWAYS_INSTALL)
+  return metadata.categories.contains(CATEGORY_ALWAYS_INSTALL)
 }
 
 private fun PackageV2.isHidden(): Boolean {
-    return metadata.categories.contains(CATEGORY_HIDDEN)
+  return metadata.categories.contains(CATEGORY_HIDDEN)
 }
 
 private fun PackageV2.isOnlineOnly(): Boolean {
-    return metadata.categories.contains(CATEGORY_ONLINE_ONLY)
+  return metadata.categories.contains(CATEGORY_ONLINE_ONLY)
 }

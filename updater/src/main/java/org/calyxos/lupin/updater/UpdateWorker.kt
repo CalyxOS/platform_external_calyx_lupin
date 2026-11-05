@@ -19,49 +19,51 @@ const val WORK_NAME_MANUAL = "manual"
 const val WORK_NAME_PERIODIC = "periodic"
 
 @HiltWorker
-class UpdateWorker @AssistedInject constructor(
-    @Assisted context: Context,
-    @Assisted workerParams: WorkerParameters,
-    private val settingsManager: SettingsManager,
-    private val updateManager: UpdateManager,
-    private val notificationManager: NotificationManager,
+class UpdateWorker
+@AssistedInject
+constructor(
+  @Assisted context: Context,
+  @Assisted workerParams: WorkerParameters,
+  private val settingsManager: SettingsManager,
+  private val updateManager: UpdateManager,
+  private val notificationManager: NotificationManager,
 ) : CoroutineWorker(context, workerParams) {
 
-    private val log = KotlinLogging.logger {}
+  private val log = KotlinLogging.logger {}
 
-    init {
-        log.info { "Created" }
+  init {
+    log.info { "Created" }
+  }
+
+  override suspend fun doWork(): Result {
+    try {
+      setForeground(createForegroundInfo())
+    } catch (e: Exception) {
+      log.error(e) { "Error while running setForeground" }
     }
+    // download entry
+    // TODO pass isStopped() in lambda to cancel work when system stops us
+    val entry = updateManager.downloadEntry() ?: return Result.retry()
 
-    override suspend fun doWork(): Result {
-        try {
-            setForeground(createForegroundInfo())
-        } catch (e: Exception) {
-            log.error(e) { "Error while running setForeground" }
-        }
-        // download entry
-        // TODO pass isStopped() in lambda to cancel work when system stops us
-        val entry = updateManager.downloadEntry() ?: return Result.retry()
+    // update last checked
+    settingsManager.lastCheckedMillis = System.currentTimeMillis()
 
-        // update last checked
-        settingsManager.lastCheckedMillis = System.currentTimeMillis()
-
-        // update apps from repo, if index is new
-        if (entry.timestamp > settingsManager.lastRepoTimestamp) {
-            // TODO pass isStopped() in lambda to cancel work when system stops us
-            val index = updateManager.downloadIndex(entry) ?: return Result.retry()
-            val updateResult = updateManager.updateApps(index)
-            if (!updateResult) settingsManager.lastRepoTimestamp = entry.timestamp
-        } else {
-            log.info { "Repo was not updated" }
-        }
-        return Result.success()
+    // update apps from repo, if index is new
+    if (entry.timestamp > settingsManager.lastRepoTimestamp) {
+      // TODO pass isStopped() in lambda to cancel work when system stops us
+      val index = updateManager.downloadIndex(entry) ?: return Result.retry()
+      val updateResult = updateManager.updateApps(index)
+      if (!updateResult) settingsManager.lastRepoTimestamp = entry.timestamp
+    } else {
+      log.info { "Repo was not updated" }
     }
+    return Result.success()
+  }
 
-    private fun createForegroundInfo() = ForegroundInfo(
-        NOTIFICATION_UPDATE_ID,
-        notificationManager.getUpdateNotification(id),
-        FOREGROUND_SERVICE_TYPE_DATA_SYNC,
+  private fun createForegroundInfo() =
+    ForegroundInfo(
+      NOTIFICATION_UPDATE_ID,
+      notificationManager.getUpdateNotification(id),
+      FOREGROUND_SERVICE_TYPE_DATA_SYNC,
     )
-
 }

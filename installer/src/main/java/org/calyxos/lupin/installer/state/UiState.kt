@@ -6,21 +6,20 @@
 package org.calyxos.lupin.installer.state
 
 sealed class UiState(
-    val items: List<AppItem>,
-    val showSkipButton: Boolean = false,
-    val canTapNextButton: Boolean = false,
+  val items: List<AppItem>,
+  val showSkipButton: Boolean = false,
+  val canTapNextButton: Boolean = false,
 ) {
 
-    object Loading : UiState(emptyList())
+  object Loading : UiState(emptyList())
 
-    class SelectingApps(items: List<AppItem>, val hasSelected: Boolean) :
-        UiState(items, showSkipButton = true, canTapNextButton = true)
+  class SelectingApps(items: List<AppItem>, val hasSelected: Boolean) :
+    UiState(items, showSkipButton = true, canTapNextButton = true)
 
-    class SelectionComplete(items: List<AppItem>) : UiState(items, canTapNextButton = true)
+  class SelectionComplete(items: List<AppItem>) : UiState(items, canTapNextButton = true)
 
-    class InstallingApps(items: List<AppItem>, val done: Long, val total: Long) :
-        UiState(items, canTapNextButton = true)
+  class InstallingApps(items: List<AppItem>, val done: Long, val total: Long) :
+    UiState(items, canTapNextButton = true)
 
-    class Done(items: List<AppItem>) : UiState(items, canTapNextButton = true)
-
+  class Done(items: List<AppItem>) : UiState(items, canTapNextButton = true)
 }

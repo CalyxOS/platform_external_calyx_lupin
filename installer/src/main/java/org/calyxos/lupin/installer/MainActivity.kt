@@ -19,41 +19,41 @@ import org.calyxos.lupin.installer.ui.theme.LupinTheme
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+  private val viewModel: MainViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            LupinTheme {
-                InstallPage(
-                    state = viewModel.state.collectAsStateWithLifecycle().value,
-                    isOnline = viewModel.onlineState.collectAsStateWithLifecycle().value,
-                    onCheckAllClicked = viewModel::onCheckAllClicked,
-                    skipClickListener = this::onSkipClicked,
-                    nextClickListener = this::onNextClicked,
-                    itemClickListener = viewModel::onItemClicked,
-                )
-            }
-        }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      LupinTheme {
+        InstallPage(
+          state = viewModel.state.collectAsStateWithLifecycle().value,
+          isOnline = viewModel.onlineState.collectAsStateWithLifecycle().value,
+          onCheckAllClicked = viewModel::onCheckAllClicked,
+          skipClickListener = this::onSkipClicked,
+          nextClickListener = this::onNextClicked,
+          itemClickListener = viewModel::onItemClicked,
+        )
+      }
     }
+  }
 
-    private fun onSkipClicked() {
-        viewModel.onSkipClicked()
-        setResult(RESULT_SKIP)
+  private fun onSkipClicked() {
+    viewModel.onSkipClicked()
+    setResult(RESULT_SKIP)
+    finishAfterTransition()
+  }
+
+  private fun onNextClicked() {
+    if (viewModel.state.value.showSkipButton) {
+      // if there's nothing to install, it is the same as skip
+      if (!viewModel.onNextClicked()) {
+        setResult(RESULT_NEXT)
         finishAfterTransition()
+      }
+    } else {
+      // when skipping isn't possible anymore, next was already clicked, so we finish here
+      setResult(RESULT_NEXT)
+      finishAfterTransition()
     }
-
-    private fun onNextClicked() {
-        if (viewModel.state.value.showSkipButton) {
-            // if there's nothing to install, it is the same as skip
-            if (!viewModel.onNextClicked()) {
-                setResult(RESULT_NEXT)
-                finishAfterTransition()
-            }
-        } else {
-            // when skipping isn't possible anymore, next was already clicked, so we finish here
-            setResult(RESULT_NEXT)
-            finishAfterTransition()
-        }
-    }
+  }
 }

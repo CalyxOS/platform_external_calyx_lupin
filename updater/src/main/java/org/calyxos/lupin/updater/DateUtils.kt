@@ -17,15 +17,15 @@ import android.text.format.DateUtils.getRelativeDateTimeString
 import android.text.format.DateUtils.getRelativeTimeSpanString
 
 fun formatDate(ctx: Context, time: Long): String {
-    if (time < 0) return ctx.getString(R.string.never)
-    val now = System.currentTimeMillis()
-    val diff = now - time
-    if (diff < MINUTE_IN_MILLIS) return ctx.getString(R.string.now)
+  if (time < 0) return ctx.getString(R.string.never)
+  val now = System.currentTimeMillis()
+  val diff = now - time
+  if (diff < MINUTE_IN_MILLIS) return ctx.getString(R.string.now)
 
-    val flags =
-        FORMAT_ABBREV_RELATIVE or FORMAT_SHOW_DATE or FORMAT_ABBREV_TIME or FORMAT_ABBREV_MONTH
-    return if (diff in DAY_IN_MILLIS until WEEK_IN_MILLIS) {
-        // also show time when older than a day, but newer than a week
-        getRelativeDateTimeString(ctx, time, MINUTE_IN_MILLIS, WEEK_IN_MILLIS, flags).toString()
-    } else getRelativeTimeSpanString(time, now, MINUTE_IN_MILLIS, flags).toString()
+  val flags =
+    FORMAT_ABBREV_RELATIVE or FORMAT_SHOW_DATE or FORMAT_ABBREV_TIME or FORMAT_ABBREV_MONTH
+  return if (diff in DAY_IN_MILLIS until WEEK_IN_MILLIS) {
+    // also show time when older than a day, but newer than a week
+    getRelativeDateTimeString(ctx, time, MINUTE_IN_MILLIS, WEEK_IN_MILLIS, flags).toString()
+  } else getRelativeTimeSpanString(time, now, MINUTE_IN_MILLIS, flags).toString()
 }

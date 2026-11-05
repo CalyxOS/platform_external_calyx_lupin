@@ -36,170 +36,171 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import java.io.File
+import kotlin.random.Random
 import org.calyxos.lupin.installer.R
 import org.calyxos.lupin.installer.state.AppItem
 import org.calyxos.lupin.installer.state.AppItemState
 import org.calyxos.lupin.installer.ui.theme.LupinTheme
 import org.fdroid.index.v2.SignerV2
-import java.io.File
-import kotlin.random.Random
 
 @Composable
 fun AppItemRow(
-    item: AppItem,
-    isOnline: Boolean,
-    modifier: Modifier = Modifier,
-    clickListener: ((AppItem) -> Unit)? = null,
+  item: AppItem,
+  isOnline: Boolean,
+  modifier: Modifier = Modifier,
+  clickListener: ((AppItem) -> Unit)? = null,
 ) {
-    val canBeInstalled = isOnline || !item.isOnlineOnly
-    Row(
-        verticalAlignment = CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .run {
-                if (clickListener != null && canBeInstalled) {
-                    clickable { clickListener(item) }
-                } else this
-            }
-            .then(modifier),
-    ) {
-        AsyncImage(
-            model = item.icon,
-            fallback = painterResource(R.drawable.ic_default),
-            error = painterResource(R.drawable.ic_default),
-            contentDescription = null,
-            modifier = Modifier.size(48.dp).clip(MaterialTheme.shapes.medium),
-            alignment = Center,
-            alpha = if (canBeInstalled) DefaultAlpha else 0.38f,
-            contentScale = ContentScale.Fit,
-        )
-        Column(
-            Modifier
-                .weight(1f)
-                .padding(horizontal = 16.dp)
-        ) {
-            Text(
-                text = item.name,
-                style = MaterialTheme.typography.bodyLarge,
-                color = if (canBeInstalled) Color.Unspecified else {
-                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-                },
-                modifier = Modifier.padding(top = 8.dp),
-            )
-            Text(
-                text = if (canBeInstalled) item.summary else {
-                    stringResource(R.string.install_page_offline)
-                },
-                style = MaterialTheme.typography.bodySmall,
-                color = if (canBeInstalled) Color.Unspecified else {
-                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-                },
-                modifier = Modifier.padding(bottom = 8.dp),
-            )
+  val canBeInstalled = isOnline || !item.isOnlineOnly
+  Row(
+    verticalAlignment = CenterVertically,
+    modifier =
+      Modifier.fillMaxWidth()
+        .run {
+          if (clickListener != null && canBeInstalled) {
+            clickable { clickListener(item) }
+          } else this
         }
-        ItemState(item.state, canBeInstalled)
+        .then(modifier),
+  ) {
+    AsyncImage(
+      model = item.icon,
+      fallback = painterResource(R.drawable.ic_default),
+      error = painterResource(R.drawable.ic_default),
+      contentDescription = null,
+      modifier = Modifier.size(48.dp).clip(MaterialTheme.shapes.medium),
+      alignment = Center,
+      alpha = if (canBeInstalled) DefaultAlpha else 0.38f,
+      contentScale = ContentScale.Fit,
+    )
+    Column(Modifier.weight(1f).padding(horizontal = 16.dp)) {
+      Text(
+        text = item.name,
+        style = MaterialTheme.typography.bodyLarge,
+        color =
+          if (canBeInstalled) Color.Unspecified
+          else {
+            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+          },
+        modifier = Modifier.padding(top = 8.dp),
+      )
+      Text(
+        text =
+          if (canBeInstalled) item.summary
+          else {
+            stringResource(R.string.install_page_offline)
+          },
+        style = MaterialTheme.typography.bodySmall,
+        color =
+          if (canBeInstalled) Color.Unspecified
+          else {
+            MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+          },
+        modifier = Modifier.padding(bottom = 8.dp),
+      )
     }
+    ItemState(item.state, canBeInstalled)
+  }
 }
 
 @Composable
 fun RowScope.ItemState(state: AppItemState, canBeSelected: Boolean = true) {
-    Box(
-        Modifier
-            .size(32.dp)
-            .align(CenterVertically)
-    ) {
-        when (state) {
-            is AppItemState.Selectable -> {
-                Checkbox(
-                    modifier = Modifier.align(Center),
-                    checked = canBeSelected && state.selected,
-                    enabled = canBeSelected,
-                    onCheckedChange = null,
-                )
-            }
+  Box(Modifier.size(32.dp).align(CenterVertically)) {
+    when (state) {
+      is AppItemState.Selectable -> {
+        Checkbox(
+          modifier = Modifier.align(Center),
+          checked = canBeSelected && state.selected,
+          enabled = canBeSelected,
+          onCheckedChange = null,
+        )
+      }
 
-            is AppItemState.Progress -> {
-                CircularProgressIndicator(modifier = Modifier.size(24.dp))
-            }
+      is AppItemState.Progress -> {
+        CircularProgressIndicator(modifier = Modifier.size(24.dp))
+      }
 
-            is AppItemState.Success -> {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_check),
-                    contentDescription = stringResource(id = R.string.installed),
-                    tint = MaterialTheme.colorScheme.primary,
-                )
-            }
+      is AppItemState.Success -> {
+        Icon(
+          painter = painterResource(id = R.drawable.ic_check),
+          contentDescription = stringResource(id = R.string.installed),
+          tint = MaterialTheme.colorScheme.primary,
+        )
+      }
 
-            is AppItemState.Error -> {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_error),
-                    contentDescription = stringResource(id = R.string.error_not_installed),
-                    tint = MaterialTheme.colorScheme.primary,
-                )
-            }
+      is AppItemState.Error -> {
+        Icon(
+          painter = painterResource(id = R.drawable.ic_error),
+          contentDescription = stringResource(id = R.string.error_not_installed),
+          tint = MaterialTheme.colorScheme.primary,
+        )
+      }
 
-            is AppItemState.ShowOnly -> {}
-        }
+      is AppItemState.ShowOnly -> {}
     }
+  }
 }
 
 @Composable
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 fun AppItemRowPreviewNight() {
-    LupinTheme {
-        Surface {
-            AppItemRow(
-                item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Progress),
-                isOnline = true,
-            )
-        }
+  LupinTheme {
+    Surface {
+      AppItemRow(
+        item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Progress),
+        isOnline = true,
+      )
     }
+  }
 }
 
 @Composable
 @Preview(showBackground = true)
 fun AppItemRowPreview() {
-    AppItemRow(
-        item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.ShowOnly),
-        isOnline = true,
-    )
+  AppItemRow(
+    item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.ShowOnly),
+    isOnline = true,
+  )
 }
 
 @Composable
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 fun AppItemRowPreviewOffline() {
-    LupinTheme {
-        Surface {
-            AppItemRow(
-                item = getRandomAppItem(LocalContext.current).copy(
-                    isOnlineOnly = true,
-                    state = AppItemState.Selectable(false)
-                ),
-                isOnline = false,
-            )
-        }
+  LupinTheme {
+    Surface {
+      AppItemRow(
+        item =
+          getRandomAppItem(LocalContext.current)
+            .copy(
+              isOnlineOnly = true,
+              state = AppItemState.Selectable(false),
+            ),
+        isOnline = false,
+      )
     }
+  }
 }
 
 @Composable
 @Preview(showBackground = true)
 fun AppItemRowPreviewSuccess() {
-    AppItemRow(
-        item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Success),
-        isOnline = true,
-    )
+  AppItemRow(
+    item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Success),
+    isOnline = true,
+  )
 }
 
 @Composable
 @Preview(showBackground = true)
 fun AppItemRowPreviewError() {
-    AppItemRow(
-        item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Error),
-        isOnline = true,
-    )
+  AppItemRow(
+    item = getRandomAppItem(LocalContext.current).copy(state = AppItemState.Error),
+    isOnline = true,
+  )
 }
 
-internal fun getRandomAppItem(context: Context) = AppItem(
+internal fun getRandomAppItem(context: Context) =
+  AppItem(
     packageName = "org.example",
     versionCode = 42L,
     icon = context.getDrawable(R.drawable.ic_launcher_foreground)!!,
@@ -211,9 +212,10 @@ internal fun getRandomAppItem(context: Context) = AppItem(
     isAlwaysInstall = Random.nextBoolean(),
     isHidden = Random.nextBoolean(),
     isOnlineOnly = Random.nextBoolean(),
-    state = when {
+    state =
+      when {
         Random.nextBoolean() -> AppItemState.Selectable(Random.nextBoolean())
         Random.nextBoolean() -> AppItemState.Progress
         else -> AppItemState.Success
-    },
-)
+      },
+  )
