@@ -10,6 +10,9 @@ import android.content.Context
 import android.content.pm.PackageManager.GET_SIGNATURES
 import android.content.pm.PackageManager.NameNotFoundException
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
@@ -23,9 +26,6 @@ import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.Entry
 import org.fdroid.index.v2.IndexV2
 import org.fdroid.index.v2.PackageVersionV2
-import javax.inject.Inject
-import javax.inject.Singleton
-import kotlin.coroutines.CoroutineContext
 
 @Singleton
 class UpdateManager(
@@ -61,89 +61,92 @@ class UpdateManager(
         tempFileProvider = tempFileProvider,
     )
 
-    suspend fun downloadEntry(): Entry? = withContext(coroutineContext) {
-        try {
-            log.info { "Downloading entry from $repoUrl" }
-            RepoHelper.downloadEntry(tempFileProvider, repoUrl, certificate, httpManager)
-        } catch (e: Exception) {
-            if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
-            log.error(e) { "Error downloading index:" }
-            null
+    suspend fun downloadEntry(): Entry? =
+        withContext(coroutineContext) {
+            try {
+                log.info { "Downloading entry from $repoUrl" }
+                RepoHelper.downloadEntry(tempFileProvider, repoUrl, certificate, httpManager)
+            } catch (e: Exception) {
+                if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
+                log.error(e) { "Error downloading index:" }
+                null
+            }
         }
-    }
 
-    suspend fun downloadIndex(entry: Entry): IndexV2? = withContext(coroutineContext) {
-        val indexFile = tempFileProvider.createTempFile("index-v2-", ".json")
-        try {
-            log.info { "Downloading index from $repoUrl" }
-            val indexRequest = entry.index.getRequest(repoUrl)
-            // TODO we could stream the index directly and not save it to disk at all
-            //  only need to ensure that we still verify the sha256 hash
-            HttpDownloaderV2(httpManager, indexRequest, indexFile).download()
-            RepoHelper.getIndex(indexFile)
-        } catch (e: Exception) {
-            if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
-            log.error(e) { "Error downloading index:" }
-            null
-        } finally {
-            indexFile.delete()
+    suspend fun downloadIndex(entry: Entry): IndexV2? =
+        withContext(coroutineContext) {
+            val indexFile = tempFileProvider.createTempFile("index-v2-", ".json")
+            try {
+                log.info { "Downloading index from $repoUrl" }
+                val indexRequest = entry.index.getRequest(repoUrl)
+                // TODO we could stream the index directly and not save it to disk at all
+                //  only need to ensure that we still verify the sha256 hash
+                HttpDownloaderV2(httpManager, indexRequest, indexFile).download()
+                RepoHelper.getIndex(indexFile)
+            } catch (e: Exception) {
+                if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
+                log.error(e) { "Error downloading index:" }
+                null
+            } finally {
+                indexFile.delete()
+            }
         }
-    }
 
     /**
      * Install all available updates in the given [index].
      *
      * @return true if we should retry updating soon, usually because there was an intermittent
-     * error while updating.
+     *   error while updating.
      */
-    suspend fun updateApps(index: IndexV2): Boolean = withContext(coroutineContext) {
-        var hasOngoingSessions = false
-        var needConfirmationNotification = false
-        var retry = false
-        // sort packages so that our own package is last, so we don't interrupt other updates
-        val packages = index.packages.entries.sortedBy { it.key == context.packageName }
-        packages.forEach { (packageName, packageV2) ->
-            log.info { "Checking if $packageName has an update " }
-            val packageVersions = packageV2.versions.values.toList()
-            try {
-                val update = getUpdate(packageName, packageVersions) ?: return@forEach
-                if (installManager.hasActiveSession(packageName)) {
-                    log.info { "Active session for $packageName found, skipping." }
-                    // FIXME Even if user checks manually, this will cause a notification.
-                    //  Might be best to wait for Android 14 pre-auth to fix this.
-                    needConfirmationNotification = true
-                    return@forEach
-                }
-                val result = installManager.installUpdate(packageName, update.packageVersion)
-                if (result.pendingUserAction) needConfirmationNotification = true
-                else if (result.isWaitingForUserAction) hasOngoingSessions = true
-                else if (result.success) {
-                    log.info { "Update for $packageName installed successfully" }
-                    notificationManager.showUpdateSuccessNotification(
-                        packageName = packageName,
-                        name = update.appName,
-                        fromVersion = update.installedVersionName,
-                        toVersion = update.packageVersion.manifest.versionName,
-                    )
-                } else {
-                    // keep retrying when install failed
+    suspend fun updateApps(index: IndexV2): Boolean =
+        withContext(coroutineContext) {
+            var hasOngoingSessions = false
+            var needConfirmationNotification = false
+            var retry = false
+            // sort packages so that our own package is last, so we don't interrupt other updates
+            val packages = index.packages.entries.sortedBy { it.key == context.packageName }
+            packages.forEach { (packageName, packageV2) ->
+                log.info { "Checking if $packageName has an update " }
+                val packageVersions = packageV2.versions.values.toList()
+                try {
+                    val update = getUpdate(packageName, packageVersions) ?: return@forEach
+                    if (installManager.hasActiveSession(packageName)) {
+                        log.info { "Active session for $packageName found, skipping." }
+                        // FIXME Even if user checks manually, this will cause a notification.
+                        //  Might be best to wait for Android 14 pre-auth to fix this.
+                        needConfirmationNotification = true
+                        return@forEach
+                    }
+                    val result = installManager.installUpdate(packageName, update.packageVersion)
+                    if (result.pendingUserAction) needConfirmationNotification = true
+                    else if (result.isWaitingForUserAction) hasOngoingSessions = true
+                    else if (result.success) {
+                        log.info { "Update for $packageName installed successfully" }
+                        notificationManager.showUpdateSuccessNotification(
+                            packageName = packageName,
+                            name = update.appName,
+                            fromVersion = update.installedVersionName,
+                            toVersion = update.packageVersion.manifest.versionName,
+                        )
+                    } else {
+                        // keep retrying when install failed
+                        retry = true
+                    }
+                } catch (e: Exception) {
+                    if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
+                    log.error(e) { "Error installing update: " }
                     retry = true
                 }
-            } catch (e: Exception) {
-                if (e::class.simpleName == "MockKException") throw e // don't swallow test ex.
-                log.error(e) { "Error installing update: " }
-                retry = true
             }
+            // we keep active sessions in case user is confirming right now or will be later
+            if (needConfirmationNotification) {
+                notificationManager.showUserConfirmationRequiredNotification()
+            } else if (!hasOngoingSessions) {
+                installManager.clearUpOldSession()
+            }
+            // return true to retry, even if we need confirmation as that may get denied
+            retry || needConfirmationNotification
         }
-        // we keep active sessions in case user is confirming right now or will be later
-        if (needConfirmationNotification) {
-            notificationManager.showUserConfirmationRequiredNotification()
-        } else if (!hasOngoingSessions) {
-            installManager.clearUpOldSession()
-        }
-        // return true to retry, even if we need confirmation as that may get denied
-        retry || needConfirmationNotification
-    }
 
     private fun getUpdate(
         packageName: String,
@@ -152,13 +155,14 @@ class UpdateManager(
         if (packageVersions.isEmpty()) return null
         @Suppress("DEPRECATION")
         @SuppressLint("PackageManagerGetSignatures")
-        val packageInfo = try {
-            packageManager.getPackageInfo(packageName, GET_SIGNATURES)
-        } catch (_: NameNotFoundException) {
-            // not installed, so nothing to update
-            log.info { "$packageName is not installed, skipping." }
-            return null
-        }
+        val packageInfo =
+            try {
+                packageManager.getPackageInfo(packageName, GET_SIGNATURES)
+            } catch (_: NameNotFoundException) {
+                // not installed, so nothing to update
+                log.info { "$packageName is not installed, skipping." }
+                return null
+            }
         val update = updateChecker.getUpdate(packageVersions, packageInfo)
         if (update == null) {
             log.info {
@@ -175,7 +179,7 @@ class UpdateManager(
             return Update(
                 packageVersion = update,
                 appName = label?.toString() ?: "",
-                installedVersionName = packageInfo.versionName ?: ""
+                installedVersionName = packageInfo.versionName ?: "",
             )
         }
     }

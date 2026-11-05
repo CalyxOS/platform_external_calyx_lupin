@@ -7,10 +7,10 @@ package org.calyxos.lupin.updater
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 private const val PREF_NAME = "updater"
 private const val PREF_LAST_CHECKED = "lastCheckedMillis"
@@ -25,9 +25,8 @@ class SettingsManager @Inject constructor(@ApplicationContext private val contex
     val lastCheckedMillisState = _lastCheckedMillisState.asStateFlow()
 
     /**
-     * The timestamp when we last checked for updates.
-     * Warning: Setting this value happens asynchronously
-     * and is not immediately reflected by the getter.
+     * The timestamp when we last checked for updates. Warning: Setting this value happens
+     * asynchronously and is not immediately reflected by the getter.
      */
     var lastCheckedMillis: Long
         get() {
@@ -39,9 +38,8 @@ class SettingsManager @Inject constructor(@ApplicationContext private val contex
         }
 
     /**
-     * The repo timestamp of the last downloaded repo index.
-     * Warning: Setting this value happens asynchronously
-     * and is not immediately reflected by the getter.
+     * The repo timestamp of the last downloaded repo index. Warning: Setting this value happens
+     * asynchronously and is not immediately reflected by the getter.
      */
     var lastRepoTimestamp: Long
         get() {
@@ -50,5 +48,4 @@ class SettingsManager @Inject constructor(@ApplicationContext private val contex
         set(value) {
             sharedPref.edit().putLong(PREF_LAST_REPO_TIMESTAMP, value).apply()
         }
-
 }

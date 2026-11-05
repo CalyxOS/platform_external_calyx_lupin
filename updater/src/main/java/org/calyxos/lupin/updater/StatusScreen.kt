@@ -31,8 +31,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.work.WorkInfo.State
-import org.calyxos.lupin.updater.ui.theme.LupinTheme
 import kotlin.random.Random
+import org.calyxos.lupin.updater.ui.theme.LupinTheme
 
 @Composable
 fun StatusScreen(
@@ -51,10 +51,7 @@ fun StatusScreen(
         if (checkState == State.SUCCEEDED && showSuccess == false) showSuccess = true
     }
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(settingsPadding)
-            .padding(paddingValues),
+        modifier = Modifier.fillMaxSize().padding(settingsPadding).padding(paddingValues),
         verticalArrangement = spacedBy(settingsPadding),
     ) {
         Text(
@@ -68,13 +65,11 @@ fun StatusScreen(
         )
         if (isCheckRunning) {
             Text(stringResource(R.string.status_screen_checking))
-            LinearProgressIndicator(
-                modifier = Modifier.fillMaxWidth(),
-            )
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         } else if (showSuccess == true && checkState == State.SUCCEEDED) {
             Text(
                 text = stringResource(R.string.status_screen_success),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
         }
         if (!isCheckRunning) {

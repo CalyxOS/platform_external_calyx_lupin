@@ -5,18 +5,17 @@
 
 package org.calyxos.lupin
 
+import java.io.File
+import kotlin.test.Test
+import kotlin.test.assertTrue
 import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.EntryVerifier
 import org.fdroid.index.v2.FileV2
 import org.junit.jupiter.api.io.TempDir
-import java.io.File
-import kotlin.test.Test
-import kotlin.test.assertTrue
 
 class GetCertificateFromRepo {
-    @field:TempDir
-    lateinit var tempDir: File
+    @field:TempDir lateinit var tempDir: File
 
     // Change this to any URL you want to get the cert from
     private val repoUrl = "https://calyxos.gitlab.io/lupin-updater-repo-debug/fdroid/repo"
@@ -31,9 +30,7 @@ class GetCertificateFromRepo {
         val httpManager = HttpManager("Lupin test")
         HttpDownloaderV2(httpManager, request, file).download()
         val verifier = EntryVerifier(file, null, null)
-        val (cert, _) = verifier.getStreamAndVerify { inputStream ->
-            inputStream.readBytes()
-        }
+        val (cert, _) = verifier.getStreamAndVerify { inputStream -> inputStream.readBytes() }
         assertTrue(cert.isNotEmpty())
         println("CERT:")
         println(cert)

@@ -21,17 +21,16 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.withResumed
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.calyxos.lupin.updater.InstallManager
 import org.calyxos.lupin.updater.R
 import org.calyxos.lupin.updater.ui.theme.LupinTheme
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ConfirmationActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var installManager: InstallManager
+    @Inject lateinit var installManager: InstallManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +48,7 @@ class ConfirmationActivity : ComponentActivity() {
                 ) {
                     val settingsPadding = 24.dp // taken from system settings
                     Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(settingsPadding),
+                        modifier = Modifier.fillMaxSize().padding(settingsPadding),
                         verticalArrangement = spacedBy(settingsPadding),
                     ) {
                         Text(

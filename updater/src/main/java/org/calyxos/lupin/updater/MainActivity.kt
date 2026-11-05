@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                             TopAppBar(
                                 navigationIcon = {
                                     IconButton(
-                                        onClick = { onBackPressedDispatcher.onBackPressed() },
+                                        onClick = { onBackPressedDispatcher.onBackPressed() }
                                     ) {
                                         Icon(
                                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -57,11 +57,13 @@ class MainActivity : ComponentActivity() {
                                 },
                                 title = { /* TODO to parallax effect like system settings */ },
                             )
-                        },
+                        }
                     ) {
                         val lastCheckedMillis = viewModel.lastCheckedMillis.collectAsState()
-                        val isCheckRunningFlow = viewModel.isCheckRunningFlow.collectAsStateWithLifecycle(false)
-                        val checkStateFlow = viewModel.checkStateFlow.collectAsStateWithLifecycle(null)
+                        val isCheckRunningFlow =
+                            viewModel.isCheckRunningFlow.collectAsStateWithLifecycle(false)
+                        val checkStateFlow =
+                            viewModel.checkStateFlow.collectAsStateWithLifecycle(null)
                         StatusScreen(
                             paddingValues = it,
                             lastCheckedMillis = lastCheckedMillis.value,

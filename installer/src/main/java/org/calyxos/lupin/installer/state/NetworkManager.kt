@@ -34,10 +34,11 @@ class NetworkManager(
 
     init {
         // monitor connectivity changes
-        val networkRequest = NetworkRequest.Builder()
-            .addCapability(NET_CAPABILITY_INTERNET)
-            .addCapability(NET_CAPABILITY_NOT_METERED)
-            .build()
+        val networkRequest =
+            NetworkRequest.Builder()
+                .addCapability(NET_CAPABILITY_INTERNET)
+                .addCapability(NET_CAPABILITY_NOT_METERED)
+                .build()
         // this will call us right back with the current state
         connectivityManager.requestNetwork(networkRequest, this)
     }

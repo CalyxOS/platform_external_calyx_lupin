@@ -15,13 +15,15 @@ import androidx.work.OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
-import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel
+@Inject
+constructor(
     settingsManager: SettingsManager,
     app: Application,
 ) : AndroidViewModel(app) {
@@ -30,12 +32,9 @@ class MainViewModel @Inject constructor(
     private val workManager = WorkManager.getInstance(getApplication())
 
     val lastCheckedMillis = settingsManager.lastCheckedMillisState
-    val checkStateFlow = workManager.getWorkInfosForUniqueWorkFlow(WORK_NAME_MANUAL).map {
-        it.getOrNull(0)?.state
-    }
-    val isCheckRunningFlow = checkStateFlow.map {
-        it == WorkInfo.State.RUNNING
-    }
+    val checkStateFlow =
+        workManager.getWorkInfosForUniqueWorkFlow(WORK_NAME_MANUAL).map { it.getOrNull(0)?.state }
+    val isCheckRunningFlow = checkStateFlow.map { it == WorkInfo.State.RUNNING }
 
     init {
         viewModelScope.launch {
@@ -51,9 +50,10 @@ class MainViewModel @Inject constructor(
 
     @UiThread
     fun onCheckButtonClicked() = viewModelScope.launch {
-        val workRequest = OneTimeWorkRequestBuilder<UpdateWorker>()
-            .setExpedited(RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-            .build()
+        val workRequest =
+            OneTimeWorkRequestBuilder<UpdateWorker>()
+                .setExpedited(RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                .build()
         val op = workManager.enqueueUniqueWork(WORK_NAME_MANUAL, REPLACE, workRequest)
         try {
             log.info { "Enqueue result: ${op.result.get()}" }

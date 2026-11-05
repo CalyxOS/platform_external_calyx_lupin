@@ -15,17 +15,14 @@ import java.io.File
 import java.io.IOException
 
 fun interface TempFileProvider {
-    @Throws(IOException::class)
-    fun createTempFile(prefix: String, suffix: String): File
+    @Throws(IOException::class) fun createTempFile(prefix: String, suffix: String): File
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
 object TempFileProviderModule {
     @Provides
-    fun provideTempFileProvider(
-        @ApplicationContext context: Context,
-    ): TempFileProvider {
+    fun provideTempFileProvider(@ApplicationContext context: Context): TempFileProvider {
         return TempFileProvider { prefix, suffix ->
             File.createTempFile(prefix, suffix, context.cacheDir)
         }

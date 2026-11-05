@@ -18,9 +18,7 @@ import org.fdroid.download.HttpManager
 @InstallIn(SingletonComponent::class)
 object AppModule {
     @Provides
-    fun provideHttpManager(
-        @ApplicationContext context: Context,
-    ): HttpManager {
+    fun provideHttpManager(@ApplicationContext context: Context): HttpManager {
         return HttpManager("${context.getString(R.string.app_name)} $VERSION_NAME")
     }
 }

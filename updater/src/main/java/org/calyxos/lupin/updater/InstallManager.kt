@@ -15,6 +15,9 @@ import android.content.pm.PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRE
 import androidx.annotation.UiThread
 import androidx.annotation.WorkerThread
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
@@ -25,15 +28,14 @@ import org.calyxos.lupin.getRequest
 import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.PackageVersionV2
-import java.io.File
-import javax.inject.Inject
-import javax.inject.Singleton
 
 // @hide in PackageInstaller.ACTION_CONFIRM_INSTALL
 private const val ACTION_CONFIRM_INSTALL = "android.content.pm.action.CONFIRM_INSTALL"
 
 @Singleton
-class InstallManager @Inject constructor(
+class InstallManager
+@Inject
+constructor(
     @param:ApplicationContext private val context: Context,
     private val apkInstaller: ApkInstaller,
     private val httpManager: HttpManager,
@@ -125,14 +127,15 @@ class InstallManager @Inject constructor(
     }
 
     /**
-     * Returns true if the given [packageName] has a usable installer session
-     * and handles this session once [onUserAttentionReceived] gets called.
+     * Returns true if the given [packageName] has a usable installer session and handles this
+     * session once [onUserAttentionReceived] gets called.
      */
     suspend fun hasActiveSession(packageName: String): Boolean {
         val packageInstaller = context.packageManager.packageInstaller
-        val sessionInfo = packageInstaller.mySessions.find { sessionInfo ->
-            sessionInfo.appPackageName == packageName && sessionInfo.isOkToUse()
-        } ?: return false
+        val sessionInfo =
+            packageInstaller.mySessions.find { sessionInfo ->
+                sessionInfo.appPackageName == packageName && sessionInfo.isOkToUse()
+            } ?: return false
         withContext(Dispatchers.Main) {
             manualUpdates[packageName] = sessionInfo.toManualUpdate(packageName)
         }
@@ -148,26 +151,29 @@ class InstallManager @Inject constructor(
         }
     }
 
-    private fun recreateConfirmIntent(sessionId: Int) = Intent(ACTION_CONFIRM_INSTALL).apply {
-        // TODO need to setPackage(getPackageInstallerPackageName()) as well
-        //  or can there be only one installer?
-        putExtra(EXTRA_SESSION_ID, sessionId)
-    }
+    private fun recreateConfirmIntent(sessionId: Int) =
+        Intent(ACTION_CONFIRM_INSTALL).apply {
+            // TODO need to setPackage(getPackageInstallerPackageName()) as well
+            //  or can there be only one installer?
+            putExtra(EXTRA_SESSION_ID, sessionId)
+        }
 
     private fun SessionInfo.isOkToUse(): Boolean {
         return isCommitted && isSealed && appPackageName != null
     }
 
     private fun SessionInfo.toManualUpdate(
-        packageName: String = appPackageName ?: error("sessionInfo no packageName"),
-    ) = ManualUpdate(
-        packageName = packageName.also {
-            check(appPackageName == packageName) { "package names do not match" }
-        },
-        packageVersion = null,
-        sessionId = sessionId,
-        intent = recreateConfirmIntent(sessionId),
-    )
+        packageName: String = appPackageName ?: error("sessionInfo no packageName")
+    ) =
+        ManualUpdate(
+            packageName =
+                packageName.also {
+                    check(appPackageName == packageName) { "package names do not match" }
+                },
+            packageVersion = null,
+            sessionId = sessionId,
+            intent = recreateConfirmIntent(sessionId),
+        )
 
     private fun SessionInfo.log() {
         log.info { "session for $appPackageName" }
@@ -176,7 +182,6 @@ class InstallManager @Inject constructor(
         log.info { "  isSealed: $isSealed" }
         log.info { "  requireUserAction: $requireUserAction" }
     }
-
 }
 
 internal data class ManualUpdate(

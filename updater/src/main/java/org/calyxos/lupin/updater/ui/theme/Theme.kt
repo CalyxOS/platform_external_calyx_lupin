@@ -14,16 +14,17 @@ import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun LupinTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        dynamicDarkColorScheme(LocalContext.current)
-    } else {
-        dynamicLightColorScheme(LocalContext.current)
-    }
+    val colors =
+        if (darkTheme) {
+            dynamicDarkColorScheme(LocalContext.current)
+        } else {
+            dynamicLightColorScheme(LocalContext.current)
+        }
 
     MaterialTheme(
         colorScheme = colors,
         typography = Typography,
         shapes = Shapes,
-        content = content
+        content = content,
     )
 }

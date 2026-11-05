@@ -9,9 +9,7 @@ import java.io.FilterInputStream
 import java.io.InputStream
 import java.security.MessageDigest
 
-/**
- * A [FilterInputStream] that updated the given [messageDigest] while reading from the stream.
- */
+/** A [FilterInputStream] that updated the given [messageDigest] while reading from the stream. */
 internal class DigestInputStream(
     inputStream: InputStream,
     private val messageDigest: MessageDigest,
@@ -35,8 +33,7 @@ internal class DigestInputStream(
         return false
     }
 
-    override fun mark(readlimit: Int) {
-    }
+    override fun mark(readlimit: Int) {}
 
     override fun reset() {
         throw NotImplementedError()
