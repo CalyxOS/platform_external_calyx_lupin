@@ -34,6 +34,24 @@
       "parentUuid": "abcad1b8_3d439269",
       "revId": "ec36c72443d2b1080cd19280b5ed6bb12102bb3d",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "679226a0_6cfe8766",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-11-05T17:05:54Z",
+      "side": 1,
+      "message": "AOSP style matches ktfmt --kotlinlang-style iirc",
+      "parentUuid": "41526bbe_edfa561a",
+      "revId": "ec36c72443d2b1080cd19280b5ed6bb12102bb3d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
