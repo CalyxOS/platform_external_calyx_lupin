@@ -16,6 +16,24 @@
       "message": "I don\u0027t necessarily agree with the reformatting, you can use ktlint and still follow the AOSP indentation which is 4 spaces instead of 2, like the other apps",
       "revId": "ec36c72443d2b1080cd19280b5ed6bb12102bb3d",
       "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41526bbe_edfa561a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-11-05T16:49:12Z",
+      "side": 1,
+      "message": "Is the number of spaces the only concern? I found working with ktfmt much much more pleasant than ktlint. Normally, ktfmt can\u0027t be configured to have the same style everywhere and this is using the `googleStyle()`. However, due to popular demand, they added a config option for the indentation, so I could change that: https://github.com/Kotlin/ktfmt#from-the-command-line",
+      "parentUuid": "abcad1b8_3d439269",
+      "revId": "ec36c72443d2b1080cd19280b5ed6bb12102bb3d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
     }
   ]
 }
