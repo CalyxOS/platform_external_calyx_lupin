@@ -5,7 +5,7 @@ include:
   - project: 'CalyxOS/ci-templates'
     file: '/.gerrit-ci-template.yml'
 
-image: registry.gitlab.com/fdroid/fdroidserver:buildserver-trixie
+image: briar/ci-image-android:trixie
 
 stages:
   - test
