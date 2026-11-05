@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1b5b053_0eba4c4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2026-11-05T16:46:13Z",
+      "side": 1,
+      "message": "I had tested this by adding same config to a debug build and ran that. No crashes.",
+      "revId": "5e181b79505272c7b92554236751430c1971cd7c",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
