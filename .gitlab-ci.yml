@@ -15,8 +15,7 @@ test:
   stage: test
   extends: .gerrit_checkout
   script:
-    # TODO add `check` once ktlint errors are fixed
-    - ./gradlew assemble
+    - ./gradlew assemble check
   artifacts:
     name: "${CI_PROJECT_PATH}_${CI_JOB_STAGE}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHA}"
     paths:
