@@ -17,19 +17,20 @@ import org.calyxos.lupin.installer.R
 @Composable
 fun LupinTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     // Matches SUW colors
-    val colors = if (darkTheme) {
-        dynamicDarkColorScheme(LocalContext.current)
-    } else {
-        lightColorScheme(
-            primary = colorResource(id = R.color.primary),
-            background = colorResource(id = R.color.background)
-        )
-    }
+    val colors =
+        if (darkTheme) {
+            dynamicDarkColorScheme(LocalContext.current)
+        } else {
+            lightColorScheme(
+                primary = colorResource(id = R.color.primary),
+                background = colorResource(id = R.color.background),
+            )
+        }
 
     MaterialTheme(
         colorScheme = colors,
         typography = Typography,
         shapes = Shapes,
-        content = content
+        content = content,
     )
 }

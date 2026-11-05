@@ -12,7 +12,7 @@ junitJupiterVersion = "6.0.3"
 kotlinVersion = "2.3.21"
 kotlinLoggingVersion = "3.0.5"
 kspVersion = "2.3.7"
-ktlintVersion = "11.6.1"
+ktfmtVersion = "0.27.0"
 lifecycleVersion = "2.10.0"
 logbackAndroid = "3.0.0"
 logbackClassicVersion = "1.5.32"
@@ -54,6 +54,6 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockkVersion" }
 android-application = { id = "com.android.application", version.ref = "androidGradleVersion" }
 android-library = { id = "com.android.library", version.ref = "androidGradleVersion" }
 jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinVersion" }
-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintVersion" }
+ktfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmtVersion" }
 googleKsp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 googleHilt = { id = "com.google.dagger.hilt.android", version.ref = "googleHiltVersion" }

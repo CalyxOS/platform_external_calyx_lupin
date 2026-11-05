@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.googleKsp)
     alias(libs.plugins.googleHilt)
-    alias(libs.plugins.ktlint)
+    alias(libs.plugins.ktfmt)
 }
 
 kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_21 } }
@@ -29,16 +29,12 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
-        debug {
-            isMinifyEnabled = false
-        }
+        debug { isMinifyEnabled = false }
     }
-    buildFeatures {
-        compose = true
-    }
+    buildFeatures { compose = true }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
@@ -67,3 +63,5 @@ dependencies {
 
     debugApi(libs.androidx.compose.ui.tooling)
 }
+
+ktfmt { kotlinLangStyle() }

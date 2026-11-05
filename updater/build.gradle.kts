@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.compose)
     alias(libs.plugins.googleKsp)
     alias(libs.plugins.googleHilt)
-    alias(libs.plugins.ktlint)
+    alias(libs.plugins.ktfmt)
 }
 
 kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_21 } }
@@ -42,7 +42,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
             signingConfig = signingConfigs.getByName("aosp")
         }
@@ -59,21 +59,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    lint {
-        lintConfig = file("../shared/lint.xml")
-    }
+    packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
+    lint { lintConfig = file("../shared/lint.xml") }
     testOptions {
         unitTests {
             all {
                 it.useJUnitPlatform()
-                it.testLogging {
-                    events("skipped", "failed")
-                }
+                it.testLogging { events("skipped", "failed") }
             }
             isReturnDefaultValues = true
         }
@@ -98,4 +90,4 @@ dependencies {
     testImplementation(libs.logback.classic)
 }
 
-apply("${rootProject.rootDir}/gradle/ktlint.gradle")
+ktfmt { kotlinLangStyle() }

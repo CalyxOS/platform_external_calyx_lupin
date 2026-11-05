@@ -19,7 +19,9 @@ const val WORK_NAME_MANUAL = "manual"
 const val WORK_NAME_PERIODIC = "periodic"
 
 @HiltWorker
-class UpdateWorker @AssistedInject constructor(
+class UpdateWorker
+@AssistedInject
+constructor(
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters,
     private val settingsManager: SettingsManager,
@@ -58,10 +60,10 @@ class UpdateWorker @AssistedInject constructor(
         return Result.success()
     }
 
-    private fun createForegroundInfo() = ForegroundInfo(
-        NOTIFICATION_UPDATE_ID,
-        notificationManager.getUpdateNotification(id),
-        FOREGROUND_SERVICE_TYPE_DATA_SYNC,
-    )
-
+    private fun createForegroundInfo() =
+        ForegroundInfo(
+            NOTIFICATION_UPDATE_ID,
+            notificationManager.getUpdateNotification(id),
+            FOREGROUND_SERVICE_TYPE_DATA_SYNC,
+        )
 }

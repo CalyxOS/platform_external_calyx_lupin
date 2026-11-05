@@ -3,11 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-buildscript {
-    extra.apply {
-        set("sdk", 37)
-    }
-}
+buildscript { extra.apply { set("sdk", 37) } }
 
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -15,5 +11,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.compose) apply false
     alias(libs.plugins.googleKsp) apply false
     alias(libs.plugins.googleHilt) apply false
-    alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.ktfmt) apply true
 }
+
+ktfmt { kotlinLangStyle() }

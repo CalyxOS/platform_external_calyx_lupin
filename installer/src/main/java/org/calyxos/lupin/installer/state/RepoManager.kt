@@ -7,6 +7,9 @@ package org.calyxos.lupin.installer.state
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.launch
@@ -22,9 +25,6 @@ import org.fdroid.download.HttpDownloaderV2
 import org.fdroid.download.HttpManager
 import org.fdroid.index.v2.FileV2
 import org.fdroid.index.v2.IndexV2
-import java.io.File
-import javax.inject.Inject
-import javax.inject.Singleton
 
 internal const val REPO_INDEX = "entry.jar"
 internal const val REPO_PATH = "/product/fdroid/repo"
@@ -41,43 +41,45 @@ data class RepoResult(
 )
 
 @Singleton
-class RepoManager @Inject constructor(
+class RepoManager
+@Inject
+constructor(
     @param:ApplicationContext private val context: Context,
     private val tempFileProvider: TempFileProvider,
 ) {
 
     private val httpManager = HttpManager("${context.getString(R.string.app_name)} $VERSION_NAME")
 
-    suspend fun getLocalIndex(): RepoResult = withContext(Dispatchers.IO) {
-        val entry = getEntry(File(REPO_PATH, REPO_INDEX), CERT)
-        RepoResult(
-            index = getIndex(File(REPO_PATH, entry.index.name), entry.index),
-            iconGetter = { icon -> if (icon == null) null else "$REPO_PATH/$icon" },
-            apkGetter = { apk, _ -> File(REPO_PATH, apk) },
-        )
-    }
-
-    suspend fun getOnlineIndex(): RepoResult = withContext(Dispatchers.IO) {
-        val index = downloadIndex(tempFileProvider, REPO_URL, CERT_ONLINE, httpManager)
-        RepoResult(
-            index = index,
-            iconGetter = { icon -> if (icon == null) null else "$REPO_URL/$icon" },
-        ) { apk, downloadListener ->
-            val apkRequest = FileV2(apk).getRequest(REPO_URL)
-            val apkFile = tempFileProvider.createTempFile("dl-", "")
-            HttpDownloaderV2(httpManager, apkRequest, apkFile).apply {
-                val coContext = currentCoroutineContext()
-                setListener { bytesRead, _ ->
-                    // this is a bit of a hack to work around the messy progress reporting
-                    launch(coContext) {
-                        downloadListener.bytesRead(bytesRead)
-                    }
-                }
-                download()
-            }
-            apkFile
+    suspend fun getLocalIndex(): RepoResult =
+        withContext(Dispatchers.IO) {
+            val entry = getEntry(File(REPO_PATH, REPO_INDEX), CERT)
+            RepoResult(
+                index = getIndex(File(REPO_PATH, entry.index.name), entry.index),
+                iconGetter = { icon -> if (icon == null) null else "$REPO_PATH/$icon" },
+                apkGetter = { apk, _ -> File(REPO_PATH, apk) },
+            )
         }
-    }
+
+    suspend fun getOnlineIndex(): RepoResult =
+        withContext(Dispatchers.IO) {
+            val index = downloadIndex(tempFileProvider, REPO_URL, CERT_ONLINE, httpManager)
+            RepoResult(
+                index = index,
+                iconGetter = { icon -> if (icon == null) null else "$REPO_URL/$icon" },
+            ) { apk, downloadListener ->
+                val apkRequest = FileV2(apk).getRequest(REPO_URL)
+                val apkFile = tempFileProvider.createTempFile("dl-", "")
+                HttpDownloaderV2(httpManager, apkRequest, apkFile).apply {
+                    val coContext = currentCoroutineContext()
+                    setListener { bytesRead, _ ->
+                        // this is a bit of a hack to work around the messy progress reporting
+                        launch(coContext) { downloadListener.bytesRead(bytesRead) }
+                    }
+                    download()
+                }
+                apkFile
+            }
+        }
 }
 
 private const val CERT =

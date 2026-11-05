@@ -32,11 +32,13 @@ import org.calyxos.lupin.installer.R
 import org.calyxos.lupin.installer.ui.theme.LupinTheme
 
 val horizontalMargin = 40.dp
-fun Modifier.suwPageModifier() = padding(
-    top = 26.dp,
-    start = horizontalMargin,
-    end = horizontalMargin,
-)
+
+fun Modifier.suwPageModifier() =
+    padding(
+        top = 26.dp,
+        start = horizontalMargin,
+        end = horizontalMargin,
+    )
 
 const val RESULT_SKIP = RESULT_FIRST_USER
 const val RESULT_NEXT = RESULT_OK
