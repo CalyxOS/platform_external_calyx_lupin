@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abcad1b8_3d439269",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2026-11-05T16:45:55Z",
+      "side": 1,
+      "message": "I don\u0027t necessarily agree with the reformatting, you can use ktlint and still follow the AOSP indentation which is 4 spaces instead of 2, like the other apps",
+      "revId": "ec36c72443d2b1080cd19280b5ed6bb12102bb3d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
