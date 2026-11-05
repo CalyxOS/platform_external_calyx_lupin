@@ -6,6 +6,7 @@
 package org.calyxos.lupin.updater
 
 import android.content.Context
+import androidx.core.content.edit
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,7 +18,7 @@ private const val PREF_LAST_CHECKED = "lastCheckedMillis"
 private const val PREF_LAST_REPO_TIMESTAMP = "lastRepoTimestamp"
 
 @Singleton
-class SettingsManager @Inject constructor(@ApplicationContext private val context: Context) {
+class SettingsManager @Inject constructor(@param:ApplicationContext private val context: Context) {
 
     private val sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
@@ -34,7 +35,7 @@ class SettingsManager @Inject constructor(@ApplicationContext private val contex
         }
         set(value) {
             _lastCheckedMillisState.value = value
-            sharedPref.edit().putLong(PREF_LAST_CHECKED, value).apply()
+            sharedPref.edit { putLong(PREF_LAST_CHECKED, value) }
         }
 
     /**
@@ -46,6 +47,6 @@ class SettingsManager @Inject constructor(@ApplicationContext private val contex
             return sharedPref.getLong(PREF_LAST_REPO_TIMESTAMP, -1)
         }
         set(value) {
-            sharedPref.edit().putLong(PREF_LAST_REPO_TIMESTAMP, value).apply()
+            sharedPref.edit { putLong(PREF_LAST_REPO_TIMESTAMP, value) }
         }
 }
