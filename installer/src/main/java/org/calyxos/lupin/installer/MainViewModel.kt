@@ -8,12 +8,14 @@ package org.calyxos.lupin.installer
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import org.calyxos.lupin.installer.state.AppItem
 import org.calyxos.lupin.installer.state.StateManager
-import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel
+@Inject
+constructor(
     app: Application,
     private val stateManager: StateManager,
 ) : AndroidViewModel(app) {
@@ -22,11 +24,10 @@ class MainViewModel @Inject constructor(
     val onlineState = stateManager.networkManager.onlineState
 
     fun onItemClicked(item: AppItem) = stateManager.onItemClicked(item)
+
     fun onCheckAllClicked() = stateManager.onCheckAllClicked()
 
-    /**
-     * @return true, if we should stay on this page and false, if we can close it.
-     */
+    /** @return true, if we should stay on this page and false, if we can close it. */
     fun onNextClicked(): Boolean = stateManager.onNextClicked()
 
     fun onSkipClicked() = stateManager.onSkipClicked()

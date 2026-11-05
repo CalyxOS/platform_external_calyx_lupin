@@ -7,19 +7,22 @@ package org.calyxos.lupin.installer.state
 
 import android.util.Log
 import androidx.core.os.LocaleListCompat
+import java.io.File
 import org.fdroid.LocaleChooser.getBestLocale
 import org.fdroid.index.v2.PackageV2
 import org.fdroid.index.v2.SignerV2
-import java.io.File
 
 sealed class AppItemState {
     data object ShowOnly : AppItemState()
+
     data class Selectable(val selected: Boolean) : AppItemState() {
         fun invert() = Selectable(!selected)
     }
 
     data object Progress : AppItemState()
+
     data object Success : AppItemState()
+
     data object Error : AppItemState()
 }
 
@@ -41,9 +44,7 @@ data class AppItem(
     val isOnlineOnly: Boolean,
     val state: AppItemState,
 ) {
-    /**
-     * Creates a new selectable item that is pre-selected.
-     */
+    /** Creates a new selectable item that is pre-selected. */
     constructor(
         packageName: String,
         result: RepoResult,
@@ -66,9 +67,7 @@ data class AppItem(
         state = AppItemState.Selectable(packageV2.isAlwaysInstall() || packageV2.isDefault()),
     )
 
-    /**
-     * Copies the given [item], retaining its [packageName], [icon], [signers] and [state].
-     */
+    /** Copies the given [item], retaining its [packageName], [icon], [signers] and [state]. */
     constructor(
         item: AppItem,
         result: RepoResult,
@@ -91,9 +90,7 @@ data class AppItem(
         state = item.state,
     )
 
-    /**
-     * Returns true if the given [packageV2] is a valid update for the current item.
-     */
+    /** Returns true if the given [packageV2] is a valid update for the current item. */
     fun isValidUpdate(packageV2: PackageV2): Boolean {
         if (signers != packageV2.getSigner()) {
             Log.w("AppItem", "Received unexpected signer for: $packageName")

@@ -22,5 +22,4 @@ sealed class UiState(
         UiState(items, canTapNextButton = true)
 
     class Done(items: List<AppItem>) : UiState(items, canTapNextButton = true)
-
 }

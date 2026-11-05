@@ -64,11 +64,7 @@ fun InstallPage(
     itemClickListener: ((AppItem) -> Unit)? = null,
 ) {
     Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-        ) {
+        Column(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
             val listState = rememberLazyListState()
             LazyColumn(Modifier.weight(1f), listState) {
                 listHeader(state)
@@ -83,9 +79,10 @@ fun InstallPage(
                         modifier = Modifier.padding(horizontal = horizontalMargin),
                         item = item,
                         isOnline = isOnline,
-                        clickListener = if (state is SelectingApps) {
-                            itemClickListener
-                        } else null,
+                        clickListener =
+                            if (state is SelectingApps) {
+                                itemClickListener
+                            } else null,
                     )
                 }
             }
@@ -100,26 +97,26 @@ fun LazyListScope.listHeader(state: UiState) {
             icon = R.drawable.fdroid_logo,
             title = stringResource(R.string.install_page_title),
             subtitle = stringResource(R.string.install_page_subtitle),
-            modifier = Modifier
-                .suwPageModifier()
-                .padding(bottom = 8.dp)
+            modifier = Modifier.suwPageModifier().padding(bottom = 8.dp),
         )
     }
     if (state is UiState.InstallingApps || state is UiState.Done) {
-        val progress = if (state is UiState.InstallingApps) {
-            state.done.toFloat() / state.total
-        } else 1f
+        val progress =
+            if (state is UiState.InstallingApps) {
+                state.done.toFloat() / state.total
+            } else 1f
         item {
-            val progressAnimation by animateFloatAsState(
-                targetValue = progress,
-                animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
-            )
+            val progressAnimation by
+                animateFloatAsState(
+                    targetValue = progress,
+                    animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing),
+                )
             LinearProgressIndicator(
                 progress = { progressAnimation },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = horizontalMargin)
-                    .padding(bottom = 8.dp),
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .padding(horizontal = horizontalMargin)
+                        .padding(bottom = 8.dp),
             )
         }
     }
@@ -132,28 +129,22 @@ fun LazyListScope.allCheckbox(
     item {
         Column {
             HorizontalDivider(
-                modifier = Modifier
-                    .padding(horizontal = horizontalMargin)
-                    .padding(top = 8.dp)
+                modifier = Modifier.padding(horizontal = horizontalMargin).padding(top = 8.dp)
             )
             Row(
                 verticalAlignment = CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onCheckAllClicked() }
-                    .padding(horizontal = horizontalMargin)
-                    .padding(vertical = 8.dp),
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .clickable { onCheckAllClicked() }
+                        .padding(horizontal = horizontalMargin)
+                        .padding(vertical = 8.dp),
             ) {
                 Text(
                     text = stringResource(id = R.string.install_page_all),
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.weight(1f),
                 )
-                Box(
-                    Modifier
-                        .size(32.dp)
-                        .align(CenterVertically)
-                ) {
+                Box(Modifier.size(32.dp).align(CenterVertically)) {
                     Checkbox(
                         modifier = Modifier.align(Alignment.Center),
                         checked = isChecked,
@@ -162,9 +153,7 @@ fun LazyListScope.allCheckbox(
                 }
             }
             HorizontalDivider(
-                modifier = Modifier
-                    .padding(horizontal = horizontalMargin)
-                    .padding(bottom = 8.dp)
+                modifier = Modifier.padding(horizontal = horizontalMargin).padding(bottom = 8.dp)
             )
         }
     }
@@ -178,15 +167,15 @@ fun ButtonRow(
     nextClickListener: () -> Unit,
 ) {
     Row(Modifier.padding(horizontal = horizontalMargin + 3.dp, vertical = 19.dp)) {
-        if (state.showSkipButton) TextButton(onClick = skipClickListener) {
-            Text(text = stringResource(R.string.skip))
-        }
+        if (state.showSkipButton)
+            TextButton(onClick = skipClickListener) { Text(text = stringResource(R.string.skip)) }
         Spacer(modifier = Modifier.weight(1f))
         val isEnd = snapshotFlow {
             val lastIndex = listState.layoutInfo.totalItemsCount - 1
             val lastVisibleIndex = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
             lastIndex == lastVisibleIndex
-        }.collectAsState(initial = false)
+        }
+            .collectAsState(initial = false)
         val coroutineScope = rememberCoroutineScope()
         val showMoreButton = state is SelectingApps && !isEnd.value
         Button(
@@ -194,20 +183,23 @@ fun ButtonRow(
             shape = MaterialTheme.shapes.large,
             enabled = state.canTapNextButton,
             onClick = {
-                if (showMoreButton) coroutineScope.launch {
-                    val lastVisible = listState.layoutInfo.visibleItemsInfo.last()
-                    listState.animateScrollToItem(lastVisible.index)
-                } else {
+                if (showMoreButton)
                     coroutineScope.launch {
-                        listState.animateScrollToItem(0)
+                        val lastVisible = listState.layoutInfo.visibleItemsInfo.last()
+                        listState.animateScrollToItem(lastVisible.index)
                     }
+                else {
+                    coroutineScope.launch { listState.animateScrollToItem(0) }
                     nextClickListener()
                 }
-            }) {
-            val textRes = if (showMoreButton) R.string.more else {
-                val showInstall = (state as? SelectingApps)?.hasSelected ?: false
-                if (showInstall) R.string.install else R.string.next
-            }
+            },
+        ) {
+            val textRes =
+                if (showMoreButton) R.string.more
+                else {
+                    val showInstall = (state as? SelectingApps)?.hasSelected ?: false
+                    if (showInstall) R.string.install else R.string.next
+                }
             Text(text = stringResource(textRes))
         }
     }
@@ -224,8 +216,10 @@ fun InstallPagePreview() {
                     listOf(
                         getRandomAppItem(context),
                         getRandomAppItem(context),
-                        getRandomAppItem(context)
-                    ), 1, 3
+                        getRandomAppItem(context),
+                    ),
+                    1,
+                    3,
                 )
             )
         }

@@ -17,11 +17,11 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import org.calyxos.lupin.installer.R
 import org.calyxos.lupin.installer.state.AppItemState
 import org.calyxos.lupin.installer.state.UiState
-import javax.inject.Inject
 
 private const val CHANNEL_ID = "SetupWizard"
 private const val ONGOING_NOTIFICATION_ID = 1
@@ -41,10 +41,11 @@ class AppInstallerService : LifecycleService() {
         }
     }
 
-    @Inject
-    lateinit var appInstaller: AppInstaller
+    @Inject lateinit var appInstaller: AppInstaller
 
-    private val notificationManager get() = getSystemService(NotificationManager::class.java)
+    private val notificationManager
+        get() = getSystemService(NotificationManager::class.java)
+
     private val notification: Notification
         get() = Notification.Builder(applicationContext, CHANNEL_ID).build()
 
@@ -57,9 +58,7 @@ class AppInstallerService : LifecycleService() {
         )
 
         lifecycleScope.launch {
-            repeatOnLifecycle(STARTED) {
-                appInstaller.uiState.collect(::onUiStateChanged)
-            }
+            repeatOnLifecycle(STARTED) { appInstaller.uiState.collect(::onUiStateChanged) }
         }
         return super.onStartCommand(intent, flags, startId)
     }
@@ -79,15 +78,15 @@ class AppInstallerService : LifecycleService() {
         if (uiState is UiState.InstallingApps) {
             val max = (uiState.total / 1024).toInt()
             val progress = (uiState.done / 1024).toInt()
-            val notification = Notification.Builder(applicationContext, CHANNEL_ID)
-                .setOngoing(true)
-                .setContentTitle(getString(R.string.install_notification_title))
-                .setContentText(uiState.items.find { it.state == AppItemState.Progress }?.name)
-                .setSmallIcon(R.drawable.fdroid_logo)
-                .setProgress(max, progress, false)
-                .build()
+            val notification =
+                Notification.Builder(applicationContext, CHANNEL_ID)
+                    .setOngoing(true)
+                    .setContentTitle(getString(R.string.install_notification_title))
+                    .setContentText(uiState.items.find { it.state == AppItemState.Progress }?.name)
+                    .setSmallIcon(R.drawable.fdroid_logo)
+                    .setProgress(max, progress, false)
+                    .build()
             notificationManager.notify(ONGOING_NOTIFICATION_ID, notification)
         }
     }
-
 }
